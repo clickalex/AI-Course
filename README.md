@@ -1,6 +1,6 @@
 # Zero to Hero AI Course Book
 
-An illustrated, interactive course book from **Class 1 to PhD**: school intuition, undergraduate CS-AI, **data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone)**, machine learning, deep learning, LLMs, **AI Agents**, **Agentic AI**, research theory, alignment, and production practice.
+An illustrated, interactive course book from **Class 1 to PhD**: school intuition, undergraduate CS-AI, **data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared)**, machine learning, deep learning, LLMs, **AI Agents**, **Agentic AI**, research theory, alignment, and production practice.
 
 Open `index.html` in a browser, or serve the folder:
 
@@ -13,11 +13,11 @@ Then visit the local URL shown by the server.
 ## What’s inside
 
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
-- **School chapter** plus **37 numbered chapters** (38 teaching units with school)
+- **School chapter** plus **38 numbered chapters** (39 teaching units with school)
 - **Short notes** and **point notes** in every lesson
 - **190+ MCQs** with instant check and chapter scoring
 - **70+ practice questions** with model answers and self-marking
-- **Final exam (38 questions: 30 core AI + 8 data skills)** with percentage, grade name, and result breakdown
+- **Final exam (39 questions: 30 core AI + 9 data skills)** with percentage, grade name, and result breakdown
 - Progress is saved in the browser (`localStorage`)
 
 ## Chapter map
@@ -37,6 +37,8 @@ Then visit the local URL shown by the server.
 | **ch35** | **Statistics for analysis (CIs, tests, A/B)** | **Data** |
 | **ch36** | **Power BI & dashboards (model, DAX, publish)** | **Data** |
 | **ch37** | **Capstone: end-to-end data project** | **Data** |
+| **ch38** | **BI tools compared (Power BI vs Tableau vs Looker)** | **Data** |
+| glossary | Hindi quick-glossary for data skills (56 terms) | Revise |
 | ch17–18 | Search, games, logic, planning | UG classical |
 | ch7–9 | ML fundamentals, supervised, unsupervised | UG |
 | ch19–20 | Bayesian & causal AI; recsys, IR, knowledge graphs | UG / applied |
@@ -50,7 +52,7 @@ Then visit the local URL shown by the server.
 | ch26 | GNNs, time series, AutoML, evolutionary, robotics | Survey |
 | ch27–29 | Learning theory; XAI / alignment / privacy; systems & research methods | PhD |
 | ch16 | Ethics, MLOps & career | Practice |
-| notes / exam / results | Revision sheet, 38-Q exam, grades | Test |
+| notes / exam / results | Revision sheet, glossary, 39-Q exam, grades | Test |
 
 ## How scoring works
 
