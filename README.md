@@ -13,13 +13,13 @@ Then visit the local URL shown by the server.
 ## What’s inside
 
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
-- **School chapter** plus **38 numbered chapters** (39 teaching units with school)
+- **School chapter** plus **44 numbered chapters** (45 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **190+ MCQs** with instant check and chapter scoring
+- **230+ MCQs** with instant check and chapter scoring
 - **70+ practice questions** with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
-- **Final exam (39 questions: 30 core AI + 9 data skills)** with percentage, grade name, and result breakdown
+- **Final exam (45 questions: 30 core AI + 9 data skills + 6 engineering & production)** with percentage, grade name, and result breakdown
 - Progress is saved in the browser (`localStorage`)
 
 ## Chapter map
@@ -40,7 +40,10 @@ Then visit the local URL shown by the server.
 | **ch36** | **Power BI & dashboards (model, DAX, publish)** | **Data** |
 | **ch37** | **Capstone: end-to-end data project** | **Data** |
 | **ch38** | **BI tools compared (Power BI vs Tableau vs Looker)** | **Data** |
-| glossary | Hindi quick-glossary for data skills (56 terms) | Revise |
+| **ch39** | **Data engineering & big data (Spark, Airflow, dbt)** | **Data** |
+| **ch40** | **APIs & web scraping (REST, pagination, ethics)** | **Data** |
+| **ch41** | **Git & collaboration (branches, PRs, DVC)** | **Data** |
+| glossary | Hindi quick-glossary for data & applied (72 terms) | Revise |
 | cheats | Cheat-sheet cards, one per data chapter (printable) | Revise |
 | playground | Datasets playground: 13 checked challenges | Practice |
 | ch17–18 | Search, games, logic, planning | UG classical |
@@ -52,11 +55,14 @@ Then visit the local URL shown by the server.
 | ch22 | Fine-tuning, PEFT, evals | Industry |
 | **ch23** | **AI Agents** | **Agents** |
 | **ch24** | **Agentic AI systems** | **Agents** |
+| **ch42** | **Prompt engineering, RAG & LLM evals** | **Applied** |
+| **ch44** | **Cloud, Docker & GPUs** | **Applied** |
+| **ch43** | **MLOps in production (drift, canary, retrain)** | **Applied** |
 | ch15, ch25 | RL; advanced RL / MARL / world models | Decisions |
 | ch26 | GNNs, time series, AutoML, evolutionary, robotics | Survey |
 | ch27–29 | Learning theory; XAI / alignment / privacy; systems & research methods | PhD |
 | ch16 | Ethics, MLOps & career | Practice |
-| notes / exam / results | Revision sheet, glossary, 39-Q exam, grades | Test |
+| notes / exam / results | Revision sheet, glossary, 45-Q exam, grades | Test |
 
 ## How scoring works
 
