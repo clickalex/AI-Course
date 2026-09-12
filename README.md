@@ -13,9 +13,9 @@ Then visit the local URL shown by the server.
 ## What’s inside
 
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
-- **School chapter** plus **44 numbered chapters** (45 teaching units with school)
+- **School chapter** plus **46 numbered chapters** (47 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **230+ MCQs** with instant check and chapter scoring
+- **240+ MCQs** with instant check and chapter scoring
 - **70+ practice questions** with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
@@ -43,9 +43,11 @@ Then visit the local URL shown by the server.
 | **ch39** | **Data engineering & big data (Spark, Airflow, dbt)** | **Data** |
 | **ch40** | **APIs & web scraping (REST, pagination, ethics)** | **Data** |
 | **ch41** | **Git & collaboration (branches, PRs, DVC)** | **Data** |
+| **ch45** | **Time series & forecasting (ARIMA, Prophet, backtests)** | **Data** |
 | glossary | Hindi quick-glossary for data & applied (72 terms) | Revise |
 | cheats | Cheat-sheet cards, one per data chapter (printable) | Revise |
 | playground | Datasets playground: 13 checked challenges | Practice |
+| interview | Interview Q&A bank: 24 questions + model answers | Careers |
 | ch17–18 | Search, games, logic, planning | UG classical |
 | ch7–9 | ML fundamentals, supervised, unsupervised | UG |
 | ch19–20 | Bayesian & causal AI; recsys, IR, knowledge graphs | UG / applied |
@@ -58,6 +60,7 @@ Then visit the local URL shown by the server.
 | **ch42** | **Prompt engineering, RAG & LLM evals** | **Applied** |
 | **ch44** | **Cloud, Docker & GPUs** | **Applied** |
 | **ch43** | **MLOps in production (drift, canary, retrain)** | **Applied** |
+| **ch46** | **Transformers lab (tokenizers, LoRA, vLLM serving)** | **Applied** |
 | ch15, ch25 | RL; advanced RL / MARL / world models | Decisions |
 | ch26 | GNNs, time series, AutoML, evolutionary, robotics | Survey |
 | ch27–29 | Learning theory; XAI / alignment / privacy; systems & research methods | PhD |
