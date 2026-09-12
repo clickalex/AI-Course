@@ -3,7 +3,7 @@
 const PAGES = [
   "cover","how","paths","syllabus","sch1",
   "ch1","ch2","ch3","ch4","ch5","ch6",
-  "ch30","ch31","ch32","ch33","ch34","ch35",
+  "ch30","ch31","ch32","ch33","ch34","ch35","ch36","ch37",
   "ch17","ch18",
   "ch7","ch8","ch9",
   "ch19","ch20",
@@ -56,6 +56,8 @@ const TITLES = {
   ch33: "SQL for data & AI",
   ch34: "Visualization & story",
   ch35: "Statistics for analysis",
+  ch36: "Power BI & dashboards",
+  ch37: "Capstone data project",
   notes: "Revision short notes",
   exam: "Final exam",
   results: "Your results"
@@ -201,8 +203,8 @@ function gradeExam() {
   let grade, blurb;
   if (pct >= 90) { grade = "AI Hero"; blurb = "Outstanding. You connect school-level intuition to data skills, agents, theory, and production — a full-stack picture of AI."; }
   else if (pct >= 75) { grade = "Advanced Practitioner"; blurb = "Very solid. Review missed items (often agents, theory, SQL/stats, or classical search), then you are ready for projects and papers."; }
-  else if (pct >= 60) { grade = "AI Practitioner"; blurb = "Good working knowledge. Revisit the short notes for weaker levels (esp. data skills Ch 30–35) and retry the exam."; }
-  else if (pct >= 40) { grade = "Apprentice"; blurb = "Foundations are forming. Focus on Ch 4, 7, 10, 13, 23–24 plus data skills Ch 30–35, then take the exam again."; }
+  else if (pct >= 60) { grade = "AI Practitioner"; blurb = "Good working knowledge. Revisit the short notes for weaker levels (esp. data skills Ch 30–37) and retry the exam."; }
+  else if (pct >= 40) { grade = "Apprentice"; blurb = "Foundations are forming. Focus on Ch 4, 7, 10, 13, 23–24 plus data skills Ch 30–37, then take the exam again."; }
   else { grade = "Keep going"; blurb = "This field rewards repetition. Read the point notes, redo chapter MCQs, then return to the final exam."; }
 
   const st = storage.get();
