@@ -723,3 +723,51 @@ pre code { background: none; color: inherit; padding: 0; }
   pre { white-space: pre-wrap; }
   a { color: #000; text-decoration: none; }
 }
+
+/* Playground + cheat cards + listen buttons */
+.code-input {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  margin: 8px 0;
+  resize: vertical;
+}
+.challenge-actions {
+  display: flex; gap: 10px; align-items: center;
+  margin: 4px 0 8px;
+}
+.challenge-hint {
+  font-size: 14px; color: var(--muted);
+  margin: 0 0 10px; min-height: 1.2em;
+}
+.listen-btn { margin: 6px 0 10px; font-size: 13px; }
+
+.cheat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0 22px;
+}
+.cheat-card {
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: #fff;
+}
+.cheat-card h4 { margin: 0 0 8px; color: var(--navy); font-size: 16px; }
+.cheat-card ul { margin: 0 0 0 18px; font-size: 14px; }
+.cheat-card li { margin: 0 0 4px; }
+
+@media (max-width: 920px) { .cheat-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .cheat-grid { grid-template-columns: 1fr; } }
+
+@media print {
+  .cheat-grid { grid-template-columns: 1fr 1fr; }
+  .cheat-card { border-style: dashed; break-inside: avoid; }
+  .code-input, .challenge-actions, .challenge-hint { display: none !important; }
+}

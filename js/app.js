@@ -12,7 +12,7 @@ const PAGES = [
   "ch23","ch24",
   "ch15","ch25","ch26",
   "ch27","ch28","ch29","ch16",
-  "notes","glossary","exam","results"
+  "notes","glossary","cheats","playground","exam","results"
 ];
 
 const TITLES = {
@@ -60,6 +60,8 @@ const TITLES = {
   ch37: "Capstone data project",
   ch38: "BI tools compared",
   glossary: "Hindi glossary (data skills)",
+  cheats: "Cheat-sheet cards",
+  playground: "Datasets playground",
   notes: "Revision short notes",
   exam: "Final exam",
   results: "Your results"
@@ -78,6 +80,7 @@ function isLesson(id) {
 }
 
 function go(id) {
+  if ("speechSynthesis" in window) { try { speechSynthesis.cancel(); } catch (e) {} resetListenButtons(); }
   if (!PAGES.includes(id)) id = "cover";
   document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === id));
   document.querySelectorAll(".toc-item").forEach(b => b.classList.toggle("active", b.dataset.go === id));
@@ -288,3 +291,40 @@ window.addEventListener("afterprint", () => {
     delete d.dataset.wasClosed;
   });
 });
+
+/* 🔊 Listen buttons on every Short-notes box (browser TTS, offline-safe, static-safe) */
+let listenCurrent = null;
+function resetListenButtons() {
+  document.querySelectorAll(".listen-btn").forEach(b => { b.textContent = "🔊 Listen"; });
+  listenCurrent = null;
+}
+function toggleSpeak(btn, scopeEl) {
+  const synth = window.speechSynthesis;
+  const wasCurrent = listenCurrent === btn;
+  synth.cancel();
+  resetListenButtons();
+  if (wasCurrent) return;
+  const text = [...scopeEl.querySelectorAll("p")].map(p => p.innerText).join(" ");
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 1;
+  u.onend = resetListenButtons;
+  u.onerror = resetListenButtons;
+  listenCurrent = btn;
+  btn.textContent = "⏹ Stop";
+  synth.speak(u);
+}
+function initListenButtons() {
+  if (!("speechSynthesis" in window)) return;
+  document.querySelectorAll(".page .note").forEach(n => {
+    const h = n.querySelector("h4");
+    if (!h || !/short notes/i.test(h.textContent)) return;
+    if (n.querySelector(".listen-btn")) return;
+    const b = document.createElement("button");
+    b.className = "btn listen-btn";
+    b.textContent = "🔊 Listen";
+    b.title = "Read these short notes aloud";
+    b.addEventListener("click", () => toggleSpeak(b, n));
+    h.after(b);
+  });
+}
+window.addEventListener("DOMContentLoaded", initListenButtons);
