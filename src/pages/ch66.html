@@ -1,0 +1,98 @@
+<article class="page" id="ch66">
+        <div class="chapter-head"><div class="kicker">Chapter 66 · Frontier · F20</div>
+          <h2>Training-data engineering</h2>
+          <p class="lede">Models are what they eat. Behind every frontier model is a data refinery: crawling, filtering, deduping, and licensing trillions of tokens. Learn the pipeline, the quality math, and why provenance is now a board-level asset.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Curation</span><span class="tag">Dedup</span><span class="tag">Licensing</span><span class="tag">Provenance</span></div>
+          <div class="figure"><img src="images/training-data.jpg" alt="Pipeline filtering messy web content into a clean data lake" /></div>
+          <p class="caption">Figure 66.1 — Trillions in, billions kept. The refinery rejects 90%+ — quality is a subtraction game.</p>
+          <h3>1. The refinery (crawl → keep)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <g font-family="Source Sans 3" font-size="11" text-anchor="middle">
+                <rect x="8" y="35" width="95" height="50" rx="8" fill="#0c1b2e"/><text x="55" y="55" fill="#fff">CRAWL</text><text x="55" y="70" fill="#5eead4">web+code+books</text>
+                <rect x="115" y="35" width="95" height="50" rx="8" fill="#0f766e"/><text x="162" y="55" fill="#fff">EXTRACT</text><text x="162" y="70" fill="#fff">boilerplate out</text>
+                <rect x="222" y="35" width="95" height="50" rx="8" fill="#0ea5e9"/><text x="269" y="55" fill="#fff">FILTER</text><text x="269" y="70" fill="#fff">quality+lang</text>
+                <rect x="329" y="35" width="95" height="50" rx="8" fill="#b45309"/><text x="376" y="55" fill="#fff">DEDUP</text><text x="376" y="70" fill="#fff">exact+fuzzy</text>
+                <rect x="436" y="35" width="95" height="50" rx="8" fill="#7c2d12"/><text x="483" y="55" fill="#fff">DECONTAM.</text><text x="483" y="70" fill="#fff">evals out</text>
+                <rect x="543" y="35" width="89" height="50" rx="8" fill="#166534"/><text x="587" y="55" fill="#fff">MIX</text><text x="587" y="70" fill="#fff">weights</text>
+                <g fill="#0c1b2e" font-size="13"><text x="109" y="63">→</text><text x="217" y="63">→</text><text x="324" y="63">→</text><text x="431" y="63">→</text><text x="537" y="63">→</text></g>
+                <text x="320" y="108" fill="#64748b">Every stage logs provenance: source URL, licence, filter scores, keep/drop reason</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 66.1 — Six stages, one rule: any row you can’t explain is a row you shouldn’t train on.</div>
+          </div>
+          <ul>
+            <li><strong>Extraction beats collection:</strong> boilerplate, nav bars, and SEO spam poison more than scarcity does. Text extraction quality is step zero.</li>
+            <li><strong>Filters stack:</strong> language ID, perplexity/quality classifiers, toxicity/PII screens, length and repetition heuristics — each tuned per domain.</li>
+            <li><strong>Mix weights are hyperparameters:</strong> code, books, web, and synthetic each get a share; ablate on downstream evals, not vibes (Ch 64).</li>
+          </ul>
+          <h3>2. Dedup &amp; decontamination (the unglamorous 80%)</h3>
+          <table><thead><tr><th>Technique</th><th>Catches</th><th>Why it matters</th></tr></thead><tbody>
+            <tr><td><strong>Exact dedup (hashing)</strong></td><td>Byte-identical copies</td><td>Memorisation + wasted compute</td></tr>
+            <tr><td><strong>Fuzzy dedup (MinHash/LSH)</strong></td><td>Near-copies, boilerplate, spun text</td><td>Diversity; the tail survives</td></tr>
+            <tr><td><strong>Eval decontamination</strong></td><td>Benchmark items (even paraphrased) in training</td><td>Without it, leaderboards are fiction</td></tr>
+            <tr><td><strong>Canaries</strong></td><td>Planted strings proving whether data was used</td><td>Auditability + leak detection (Ch 59)</td></tr>
+          </tbody></table>
+          <h3>3. Rights &amp; provenance (the new moat)</h3>
+          <ol>
+            <li><strong>Licence per row:</strong> public ≠ usable. Track licence/ToS at the document level; robots.txt and opt-outs are the floor, not the ceiling.</li>
+            <li><strong>Consent &amp; compensation:</strong> publishers, artists, and communities are negotiating data deals — budget for licensed data like you budget GPUs.</li>
+            <li><strong>Datasheets:</strong> who collected it, when, from whom, with what filters, known gaps. Future-you (and regulators) will ask.</li>
+            <li><strong>Deletion readiness:</strong> if a source must be removed, can you find every derived row and retrain? Design for unlearning requests.</li>
+          </ol>
+          <div class="warn"><h4>Contamination ruins science</h4><p>One leaked benchmark in training invalidates every comparison you publish. Quarantine all eval material (and paraphrases) BEFORE the first training run, re-scan on every data refresh, and treat third-party “clean” mixes as guilty until proven innocent. A leaderboard built on contamination is marketing, not measurement.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Refinery: crawl → extract → filter → dedup → decontaminate → mix, with provenance logged at every stage. Dedup exact + fuzzy; decontaminate evals (paraphrases too); plant canaries. Rights: licence per row, pay for data, write datasheets, stay deletion-ready. Quality is subtraction; mix weights are hyperparameters.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Extraction quality is step zero.</li><li>Fuzzy dedup saves the tail.</li><li>Quarantine evals first.</li><li>Licence per row.</li><li>Datasheets or it didn’t happen.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="a"><p class="q">1. Why dedup against EVAL sets specifically?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Leaked benchmarks invalidate every comparison — leaderboards become fiction</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Evals take disk space</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GPUs dislike evals</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It makes loss prettier</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Contamination is marketing, not measurement.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Fuzzy dedup (MinHash/LSH) catches what exact hashing misses:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Nothing, exact is enough</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only images</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Near-copies, boilerplate, spun text — protecting diversity</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. GPU errors</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The tail survives fuzzy dedup.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">3. “Mix weights are hyperparameters” means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Mix randomly and pray</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Code/books/web/synthetic shares must be ablated against downstream evals</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 50/50 always</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Weights don’t matter</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Ablate the mix, don’t vibe it.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. A planted canary string in training data lets you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Attract birds</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Mine crypto</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Skip filtering</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Prove whether that data was used (auditability + leak detection)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Tripwires for datasets.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">5. “Public ≠ usable” for training data because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Licences/ToS/opt-outs still apply — track rights per row</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Public data is always low quality</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The internet is too big</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Models prefer secrets</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Licence per row; budget for data.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch66')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c66p1"><p class="q">P1. Audit a 100GB web crawl for a Hindi-first model: stages, gates, and kill criteria.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Stages: extract (boilerplate removal, keep main content) → language ID (keep hi + en-mixed, drop mislabelled) → quality filters (perplexity, repetition, length) → exact + fuzzy dedup → PII/toxicity screens → eval decontamination. Gates: ≥60% Hindi-token share retained, dup rate &lt;15% post-filter, zero eval n-gram hits above threshold. Kill criteria: &gt;40% boilerplate, eval leakage unfixable, or licence status unknown for &gt;20% of rows.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c66p2"><p class="q">P2. A publisher demands removal of their articles from your training mix — after you’ve trained. What breaks, and what would you have done differently?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Breaks: you must locate every derived row (raw + paraphrases + synthetic children), remove, retrain or unlearn, and re-eval — weeks of work without provenance tooling. Differently: per-row licence + source tracking from day one, licensed-data budget, robots/opt-out honoring, deletion-ready pipeline (shard training so single-shard removal is cheap), datasheets documenting every source.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c66p3"><p class="q">P3. Your ablation shows +2% code share improves reasoning evals but hurts Hindi chat. Decide the mix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>No free lunch: pick by product priority with guardrail metrics (no language may regress &gt;1pt). Options: keep code bump but upweight Hindi chat slice to compensate; or stage it (code-heavy mid-training, Hindi-heavy anneal). Document the trade-off in the datasheet, re-check on native-authored Hindi tests (not translated), and ship the Pareto mix — not the reasoning-max one.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch65">← Indic languages</button>
+            <button data-go="ch15">Reinforcement learning →</button>
+          </div>
+        </div>
+      </article>

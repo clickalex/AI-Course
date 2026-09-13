@@ -111,6 +111,10 @@
       <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
       <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
       <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
 
       <div class="toc-group">Decisions & autonomy</div>
       <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
@@ -132,7 +136,7 @@
       <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
       <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
       <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
-      <button class="toc-item active" data-go="exam"><span class="toc-num">E</span> Final exam (61 Q)</button>
+      <button class="toc-item active" data-go="exam"><span class="toc-num">E</span> Final exam (65 Q)</button>
       <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
 
       <div class="sidebar-foot">
@@ -145,13 +149,13 @@
 <article class="page active" id="exam">
         <div class="chapter-head">
           <div class="kicker">Assessment</div>
-          <h2>Final exam · 61 questions</h2>
+          <h2>Final exam · 65 questions</h2>
           <p class="lede">Mixed MCQs from the whole book — core AI, data skills (Python → Git), agents, applied production (RAG, cloud, MLOps), and frontier GenAI. Answer all, then submit for a percentage, grade name, and chapter-quiz breakdown.</p>
         </div>
         <div class="content">
           <div class="warn">
             <h4>Scoring</h4>
-            <p>Each question is 1 point (61 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–61 frontier). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
+            <p>Each question is 1 point (65 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–65 frontier). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
           </div>
 
           <div class="mcq" data-answer="b">
@@ -836,6 +840,51 @@
             </div>
             <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
             <div class="explain">Then notify, post-mortem, and add the scenario to the suite.</div>
+          </div>
+
+          <div class="mcq" data-answer="b">
+            <p class="q">62. A coding agent's task is verifiably done when:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It writes a long summary</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Fail-to-pass tests pass with no regressions</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The diff exceeds 1000 lines</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It says "trust me"</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Tests are the spec.</div>
+          </div>
+          <div class="mcq" data-answer="a">
+            <p class="q">63. Training each generation purely on the previous generation's synthetic outputs causes:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Model collapse — tails vanish, outputs converge to the bland mean</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Infinite intelligence growth</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Free GPUs</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing at all</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Keep real data in every mix.</div>
+          </div>
+          <div class="mcq" data-answer="d">
+            <p class="q">64. High tokenizer fertility for a language directly increases:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Model kindness</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Font size</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Test accuracy automatically</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Cost, latency, and effective-context pressure per word</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Tokenization is an uneven tax.</div>
+          </div>
+          <div class="mcq" data-answer="c">
+            <p class="q">65. Eval decontamination (removing benchmark items from training) matters because:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Benchmarks are heavy</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. GPUs overheat on evals</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Leaked evals make leaderboards fiction instead of measurement</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Evals are copyrighted by exams</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Quarantine evals before the first run.</div>
           </div>
           <p style="margin-top:22px">You can check questions one-by-one for study, or submit the whole exam for an official grade.</p>
           <button class="btn gold" onclick="gradeExam()">Submit final exam &amp; see results</button>

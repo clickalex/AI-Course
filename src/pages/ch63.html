@@ -1,0 +1,97 @@
+<article class="page" id="ch63">
+        <div class="chapter-head"><div class="kicker">Chapter 63 · Frontier · F17</div>
+          <h2>Coding agents &amp; repo-level AI</h2>
+          <p class="lede">Autocomplete was just the warm-up. Coding agents read whole repositories, run tests, and open PRs. Learn the loop that makes them work, how to benchmark them honestly, and the guardrails that keep them from deleting production.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">SWE-bench</span><span class="tag">Repo context</span><span class="tag">Spec-driven</span><span class="tag">Review bots</span></div>
+          <div class="figure"><img src="images/coding-agents.jpg" alt="Robot pair-programming with a human, code diff on screen" /></div>
+          <p class="caption">Figure 63.1 — The agent is the junior dev who never sleeps. You are still the reviewer who signs the merge.</p>
+          <h3>1. The agent loop (beyond autocomplete)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="10" y="35" width="110" height="50" rx="8" fill="#0c1b2e"/><text x="65" y="55" fill="#fff">SPEC</text><text x="65" y="71" fill="#5eead4">issue + tests</text>
+                <rect x="140" y="35" width="110" height="50" rx="8" fill="#0f766e"/><text x="195" y="55" fill="#fff">READ</text><text x="195" y="71" fill="#fff">repo context</text>
+                <rect x="270" y="35" width="110" height="50" rx="8" fill="#0ea5e9"/><text x="325" y="55" fill="#fff">EDIT</text><text x="325" y="71" fill="#fff">patch + run</text>
+                <rect x="400" y="35" width="110" height="50" rx="8" fill="#b45309"/><text x="455" y="55" fill="#fff">VERIFY</text><text x="455" y="71" fill="#fff">tests pass?</text>
+                <rect x="520" y="35" width="110" height="50" rx="8" fill="#166534"/><text x="575" y="55" fill="#fff">PR</text><text x="575" y="71" fill="#fff">human signs</text>
+                <g fill="#0c1b2e" font-size="14"><text x="130" y="65">→</text><text x="260" y="65">→</text><text x="390" y="65">→</text><text x="515" y="65">→</text></g>
+                <text x="325" y="110" fill="#64748b">Fail at VERIFY → loop back to READ (max N turns, then escalate to human)</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 63.1 — Spec → read → edit → verify → PR. Verification, not generation, is the scarce resource.</div>
+          </div>
+          <ul>
+            <li><strong>Repo context wins:</strong> the agent must find the right files (retrieval over code + symbols), not just the open tab. Index the repo; give it grep, tests, and git history as tools (Ch 23, Ch 48).</li>
+            <li><strong>Tests are the spec:</strong> fail-to-pass tests define “done”. No tests → the agent optimises vibes. Write the test first, then prompt.</li>
+            <li><strong>Small patches:</strong> cap diff size per turn; huge rewrites fail review and hide bugs. Iterate like a careful junior.</li>
+          </ul>
+          <h3>2. Benchmarks &amp; honest measurement</h3>
+          <table><thead><tr><th>Benchmark</th><th>What it tests</th><th>Honest-reading tip</th></tr></thead><tbody>
+            <tr><td><strong>SWE-bench</strong></td><td>Real GitHub issues → patch passes hidden tests</td><td>% resolved; watch for overfitting to the repo set</td></tr>
+            <tr><td><strong>SWE-bench Multimodal / Multilingual</strong></td><td>Same idea beyond Python-only, text-only</td><td>Mind the language you actually ship</td></tr>
+            <tr><td><strong>Repo-level tasks</strong></td><td>Multi-file refactors, migrations</td><td>Closer to your job than single-function puzzles</td></tr>
+            <tr><td><strong>Your own suite</strong></td><td>10–20 recent tickets, replayed monthly</td><td>The only leaderboard that matters (Ch 61)</td></tr>
+          </tbody></table>
+          <h3>3. Guardrails (agents have root; act like it)</h3>
+          <ol>
+            <li><strong>Sandbox execution:</strong> containers with no prod creds, no network except allowlist, kill switch (Ch 62).</li>
+            <li><strong>Human-gated side effects:</strong> agent proposes, human approves deploys, migrations, and external sends (Ch 24).</li>
+            <li><strong>Secret hygiene:</strong> .env and keys never enter prompts; scan diffs for leaked credentials (Ch 59).</li>
+            <li><strong>Review the reasoning, not just the diff:</strong> keep tool-call traces on the PR; a green test with a nonsense trace is a red flag.</li>
+          </ol>
+          <div class="warn"><h4>Autonomy ceiling</h4><p>Top agents resolve a large share of benchmark issues — and still fail boringly on yours: wrong file, plausible-but-wrong fix, deleted edge case. Never auto-merge agent PRs to main; require human review plus the full CI suite. Speed without verification is just faster incidents.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Loop: spec (+tests) → repo context → small edits → verify → human-signed PR. Retrieval over code beats long prompts; fail-to-pass tests define done. Benchmark on SWE-bench plus your own replayed tickets. Sandbox everything, gate side effects on humans, keep traces on PRs, never auto-merge to main.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Tests are the spec.</li><li>Repo context beats tab context.</li><li>Small patches, full CI.</li><li>Sandbox + human gates.</li><li>Traces are the review.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. What defines “done” for a coding-agent task?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The agent says it is done</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Fail-to-pass tests pass (plus no regressions)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The diff looks elegant</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The response is long</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Tests are the spec; vibes are not.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">2. SWE-bench measures:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Typing speed</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. LeetCode stars</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Lines of code written</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Share of real GitHub issues resolved (hidden tests pass)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Real repos, real issues, hidden verification.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Why cap patch size per turn?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Huge rewrites fail review and hide bugs; small diffs verify cleanly</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Git charges per line</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Models dislike big files aesthetically</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Tests run slower on small diffs</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Reviewability is a feature.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">4. The single most important guardrail for an agent with shell access:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A polite system prompt</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Faster GPU</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Sandboxed execution (no prod creds/network) + human-gated side effects</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Dark mode</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Prompts don’t contain shells; sandboxes do.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. A green test suite with a nonsense tool-call trace means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Ship it immediately</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Red flag — review the reasoning; the fix may be accidental or gamed</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete the tests</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Promote the agent</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Traces are the review, not decoration.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch63')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c63p1"><p class="q">P1. Set up a coding agent on your repo: list the tools, context index, and first 3 guardrails you’d configure.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Tools: read/grep over indexed repo, run focused tests, git diff/log, no raw shell to prod. Context: symbol + embedding index refreshed on commit; feed issue text + linked files first. Guardrails: (1) container sandbox, secrets mounted read-only-outside, (2) max ~200 changed lines per turn + full CI required, (3) human approval for migrations/deploys/external calls; traces attached to every PR.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c63p2"><p class="q">P2. Your agent “fixes” a bug but the fail-to-pass test still fails on turn 5. Walk through your next 3 debugging steps.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Read the trace: which files did it actually touch vs the stack trace’s files — usually wrong-file retrieval. (2) Check the test itself: is it flaky, environment-dependent, or testing behaviour the issue never specified? (3) Shrink scope: reset, point it at one file + one failing assertion, forbid unrelated refactors. If still stuck after N turns, take over manually — escalation is a feature.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c63p3"><p class="q">P3. Build a 10-ticket replay suite for your team. What do you record, and how do you score fairly across model upgrades?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Record: issue text, repo snapshot, fail-to-pass + pass-to-pass tests, time-to-fix by a human baseline. Score: % resolved unaided, median turns, regression count, and human review-accept rate. Pin snapshots and model versions per run; re-run monthly; never let the suite leak into training/fine-tune data (contamination invalidates the leaderboard).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch62">← Agent red-teaming</button>
+            <button data-go="ch64">Synthetic data →</button>
+          </div>
+        </div>
+      </article>

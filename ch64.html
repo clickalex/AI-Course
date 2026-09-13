@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Video generation · Zero to Hero AI</title>
+  <title>Synthetic data · Zero to Hero AI</title>
   <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
   <meta name="theme-color" content="#0c1b2e" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Video generation · Zero to Hero AI" />
+  <meta property="og:title" content="Synthetic data · Zero to Hero AI" />
   <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -101,7 +101,7 @@
       <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
       <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
       <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
-      <button class="toc-item active" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
       <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
       <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
       <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
@@ -112,7 +112,7 @@
       <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
       <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
       <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
-      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item active" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
       <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
       <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
 
@@ -146,101 +146,102 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="ch53">
-        <div class="chapter-head"><div class="kicker">Chapter 53 · Frontier · F7</div>
-          <h2>Video generation &amp; world simulators</h2>
-          <p class="lede">From text to moving pictures: how diffusion + transformers learned video, what “world simulator” claims really mean, and how to eval (and watermark) synthetic video responsibly.</p></div>
+<article class="page active" id="ch64">
+        <div class="chapter-head"><div class="kicker">Chapter 64 · Frontier · F18</div>
+          <h2>Synthetic data &amp; distillation</h2>
+          <p class="lede">Human data is finite; model appetite is not. Synthetic data and distillation stretch every real example into thousands — but garbage in, gospel out. Learn the flywheel, the verification ladder, and how to spot model collapse before it eats your pipeline.</p></div>
         <div class="content">
-          <div class="tag-row"><span class="tag">Diffusion</span><span class="tag">Sora-style</span><span class="tag">Eval</span><span class="tag">Watermarks</span></div>
-          <div class="figure"><img src="images/video-gen.jpg" alt="Film frames resolving from noise into ocean waves" /></div>
-          <p class="caption">Figure 53.1 — Video = images + time + physics-ish priors. Coherence across frames is the whole battle.</p>
-          <h3>1. How text becomes video</h3>
+          <div class="tag-row"><span class="tag">Distillation</span><span class="tag">Self-instruct</span><span class="tag">Verification</span><span class="tag">Collapse</span></div>
+          <div class="figure"><img src="images/synthetic-data.jpg" alt="Factory refining rough documents into glowing verified dataset cubes" /></div>
+          <p class="caption">Figure 64.1 — Synthetic data is a refinery, not a photocopier: most output gets rejected, and that’s the point.</p>
+          <h3>1. The flywheel (generate → verify → train)</h3>
           <div class="diagram">
-            <svg viewBox="0 0 640 150" width="640" height="150">
+            <svg viewBox="0 0 640 130" width="640" height="130">
               <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
-                <rect x="15" y="50" width="110" height="55" rx="10" fill="#0f766e"/><text x="70" y="73" fill="#fff">Text prompt</text><text x="70" y="89" fill="#d1fae5" font-size="10">+ image ref?</text>
-                <rect x="150" y="50" width="130" height="55" rx="10" fill="#0c1b2e"/><text x="215" y="73" fill="#fff">Latent video</text><text x="215" y="89" fill="#94a3b8" font-size="10">space-time patches</text>
-                <rect x="305" y="50" width="130" height="55" rx="10" fill="#0ea5e9"/><text x="370" y="73" fill="#fff">Diffusion Tx</text><text x="370" y="89" fill="#e0f2fe" font-size="10">denoise steps</text>
-                <rect x="460" y="50" width="165" height="55" rx="10" fill="#b45309"/><text x="542" y="73" fill="#fff">Decode + upscale</text><text x="542" y="89" fill="#fef3c7" font-size="10">fps, interpolate</text>
-                <text x="330" y="130" fill="#57534e" font-size="11">Minutes of GPU per seconds of video · consistency &gt; resolution</text>
+                <rect x="200" y="5" width="240" height="30" rx="8" fill="#0c1b2e"/><text x="320" y="25" fill="#fff">SEED: small, human-verified set</text>
+                <rect x="40" y="50" width="160" height="30" rx="8" fill="#0f766e"/><text x="120" y="70" fill="#fff">GENERATE (big model)</text>
+                <rect x="240" y="50" width="160" height="30" rx="8" fill="#b45309"/><text x="320" y="70" fill="#fff">VERIFY (rules + judges)</text>
+                <rect x="440" y="50" width="160" height="30" rx="8" fill="#0ea5e9"/><text x="520" y="70" fill="#fff">TRAIN (small model)</text>
+                <rect x="200" y="95" width="240" height="30" rx="8" fill="#166534"/><text x="320" y="115" fill="#fff">EVAL on held-out REAL data</text>
+                <g fill="#0c1b2e" font-size="14"><text x="220" y="72">→</text><text x="420" y="72">→</text><text x="320" y="47">↑</text><text x="120" y="105">⤴</text></g>
+                <text x="120" y="118" fill="#64748b">rejects →</text>
               </g>
             </svg>
-            <div class="diagram-title">Diagram 53.1 — Patchify space-time, diffuse in latent space, decode. Longer + coherent beats sharper + flickery.</div>
+            <div class="diagram-title">Diagram 64.1 — Seeds anchor truth; generation scales it; verification protects it; real-data evals judge it. Break any link and the wheel wobbles.</div>
           </div>
           <ul>
-            <li><strong>Latent diffusion + transformers:</strong> compress video to latents (VAE), denoise space-time patches conditioned on text — image diffusion (Ch 14) extended along t.</li>
-            <li><strong>Controls:</strong> image-to-video (first frame), inpainting, camera moves, pose/depth conditioning. Professional use = control, not vibes.</li>
-            <li><strong>Cost:</strong> seconds of 720p can take minutes on H100s — batch overnight, cache, and storyboard with images first.</li>
+            <li><strong>Distillation:</strong> a big teacher labels/answers at scale; a small student trains on it — cheaper inference, same task shape (Ch 50).</li>
+            <li><strong>Self-instruct / evol-instruct:</strong> seed prompts → model writes harder variants → filter → repeat. Breadth comes from the seed pool, not the loop.</li>
+            <li><strong>Verification ladder:</strong> deterministic checks (code runs, math matches, schema valid) first; model-judges second; human spot audits last (Ch 61).</li>
           </ul>
-          <h3>2. “World simulators”? Calibrate the claim</h3>
-          <ul>
-            <li>Models learn <strong>visual correlations</strong> (glasses fall, water splashes) — impressive, but <strong>not physics engines</strong>: object permanence, counting, and causality still break.</li>
-            <li>Real uses today: previz, ads, game assets, synthetic training data (with domain-gap checks), robotics sim bootstraps.</li>
-            <li>Test “understanding” with counterfactual prompts (reverse gravity, impossible reflections) — failures reveal pattern-matching vs modelling.</li>
-          </ul>
-          <h3>3. Eval + responsibility</h3>
-          <table><thead><tr><th>Axis</th><th>Check</th></tr></thead><tbody>
-            <tr><td>Prompt fidelity</td><td>Objects, actions, counts, camera — did it follow direction?</td></tr>
-            <tr><td>Temporal consistency</td><td>No flicker, morphing faces, teleporting props</td></tr>
-            <tr><td>Physics plausibility</td><td>Shadows, reflections, collisions roughly right</td></tr>
-            <tr><td>Safety</td><td>Watermark/provenance (C2PA), face/voice consent, deepfake policies</td></tr>
+          <h3>2. Failure modes (the wall of “more data!”)</h3>
+          <table><thead><tr><th>Failure</th><th>Symptom</th><th>Fix</th></tr></thead><tbody>
+            <tr><td><strong>Model collapse</strong></td><td>Tails vanish; outputs converge to the bland mean over generations</td><td>Keep real data in every mix; cap synthetic share; reseed</td></tr>
+            <tr><td><strong>Error amplification</strong></td><td>Teacher’s blind spots become student’s gospel</td><td>Verify with independent checks, not the same teacher</td></tr>
+            <tr><td><strong>Style over substance</strong></td><td>Fluent, confident, wrong — judges reward polish</td><td>Ground evals in execution/outcomes, not vibes</td></tr>
+            <tr><td><strong>Leakage</strong></td><td>Eval examples (or paraphrases) slip into training</td><td>Dedup against evals; quarantine benchmarks (Ch 66)</td></tr>
           </tbody></table>
-          <div class="warn"><h4>Deepfake duty</h4><p>Same model, two uses: a product demo or election disinformation. Ship watermarking + provenance metadata, refuse real-person synthesis without consent, log generations, and build detection alongside generation. Capability without provenance is a liability.</p></div>
-          <div class="note"><h4>Short notes</h4><p>Video = latent diffusion over space-time patches + controls (image/camera/pose). Impressive correlations, not physics engines — probe with counterfactuals. Eval fidelity + consistency + plausibility + provenance. Watermark everything; consent for real faces; detection ships with generation.</p></div>
-          <div class="points"><h4>Point notes</h4><ul><li>Patches + denoise + decode.</li><li>Control beats vibes.</li><li>Correlations ≠ physics.</li><li>Consistency &gt; resolution.</li><li>Watermark + C2PA always.</li></ul></div>
+          <h3>3. Licensing &amp; honesty (read this twice)</h3>
+          <ol>
+            <li><strong>Teacher terms matter:</strong> many model licences restrict using outputs to train competitors. Read the terms; log provenance per row.</li>
+            <li><strong>Disclose synthetic share:</strong> evals, papers, and buyers deserve the real-data/synthetic split. Hidden mixes rot trust and science.</li>
+            <li><strong>Consent chains:</strong> synthetic paraphrases of private data are still derived from private data — same obligations (Ch 54, Ch 66).</li>
+          </ol>
+          <div class="warn"><h4>Collapse watch</h4><p>Training generation N+1 purely on generation N’s outputs narrows the distribution: rare words, rare cases, and minority patterns die first. If your diversity metrics (distinct n-grams, tail-case accuracy) drift down while average loss looks fine, stop the flywheel and reseed with real data.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Flywheel: human seeds → big-model generation → verification ladder (deterministic, judges, audits) → small-model training → eval on held-out real data. Distillation buys cheap inference. Dangers: collapse, error amplification, style-bias, leakage. Respect teacher licences, disclose synthetic share, track provenance.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Seeds anchor, verify everything.</li><li>Execution beats judge vibes.</li><li>Real data in every mix.</li><li>Dedup against evals.</li><li>Log provenance + licences.</li></ul></div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
-            <div class="mcq" data-answer="b"><p class="q">1. Modern text-to-video models mostly work by:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Filming tiny actors</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Diffusion over latent space-time patches conditioned on text, then decode/upscale</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GIF search</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Pure GANs from 2016</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Image diffusion extended along the time axis.</div></div>
-            <div class="mcq" data-answer="c"><p class="q">2. Strongest test that a model “understands” physics vs pattern-matching:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Higher resolution</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. More frames</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Counterfactual prompts (reverse gravity, impossible reflections) + causality probes</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Louder audio</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Novel violations expose memorised correlations.</div></div>
-            <div class="mcq" data-answer="a"><p class="q">3. For professional use, what matters more than raw quality?</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Control: first-frame, camera, pose/depth conditioning, editability</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Randomness</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Watermark removal</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Slower renders</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Directability is what studios pay for.</div></div>
-            <div class="mcq" data-answer="d"><p class="q">4. C2PA provenance + watermarking exist to:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Make videos prettier</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Compress files</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Add background music</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Mark synthetic content so viewers/platforms can verify origin</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Provenance is the seatbelt of generative media.</div></div>
-            <div class="mcq" data-answer="b"><p class="q">5. Using generated video as robot-training data requires checking:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The popcorn supply</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Domain gap: does sim-trained skill transfer to real physics/sensors?</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The director’s mood</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing — sim is reality</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Sim-to-real transfer must be measured, not assumed.</div></div>
-            <button class="btn gold" onclick="checkChapter('ch53')">Grade this chapter</button><div class="chapter-score"></div></div>
+            <div class="mcq" data-answer="c"><p class="q">1. Knowledge distillation trains a small model on:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Pure random noise</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only human labels, never teacher outputs</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A big teacher’s outputs/labels at scale — cheaper inference, same task shape</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Hardware manuals</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Teacher scale → student efficiency.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. First rung of the verification ladder should be:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deterministic checks (code runs, math matches, schema valid)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Vibes</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The same teacher grading itself</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Deleting the eval set</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Execution first, judges second, humans last.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">3. Model collapse means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Servers falling over</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Loss going to zero (good)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Models getting shorter</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Successive synthetic-trained generations lose tails and converge to the bland mean</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Rare patterns die first.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">4. Using the SAME teacher as verifier and generator risks:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Nothing, it’s ideal</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Error amplification — blind spots become gospel</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Faster GPUs</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Too much diversity</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Verify independently.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">5. Before training on another model’s outputs, you must check:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The teacher’s licence terms (many restrict training competitors)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The weather</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Your horoscope</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing — outputs are always free</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Log provenance; read the terms.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch64')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><h3>Practice questions</h3>
-            <div class="practice" data-pid="c53p1"><p class="q">P1. An ad agency wants a 30 s product spot from one photo. Pipeline + cost controls?</p>
+            <div class="practice" data-pid="c64p1"><p class="q">P1. Design a synthetic pipeline for Hindi customer-support answers: seeds, generation, verification, eval.</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
-              <div class="answer"><p>Storyboard with image gens first (cheap iteration) → image-to-video per 5 s shot with camera control → pick best takes → upscale + grade. Cost: draft at low res/steps, final render once; cache takes; human edit for hands/logos/text (models garble all three). Deliver with C2PA metadata; disclose AI use to client.</p></div>
+              <div class="answer"><p>Seeds: 500 human-verified Q-A pairs covering top intents + edge cases. Generation: teacher writes paraphrases + harder follow-ups (evol-instruct), 20× volume. Verification: (1) deterministic — answer cites a real help-article span (else reject), (2) judge panel scores groundedness, (3) 2% human audit weekly. Eval: held-out real tickets scored by resolution rate + human preference; track tail-intent accuracy for collapse.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
-            <div class="practice" data-pid="c53p2"><p class="q">P2. Your “world simulator” demo fails when a ball rolls behind a box. Explain + fix direction.</p>
+            <div class="practice" data-pid="c64p2"><p class="q">P2. Your distilled student matches the teacher on the leaderboard but fails real users. Diagnose.</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
-              <div class="answer"><p>Object permanence failure: the model renders plausible pixels, not a persistent scene state — occlusion breaks the correlation. Directions: explicit 3D/scene representations, object-centric slots, physics-informed losses, or hybrid sim (game engine geometry + diffusion rendering). Until then: don’t claim “simulator” for safety-critical planning.</p></div>
+              <div class="answer"><p>Likely leakage (eval paraphrases in the synthetic mix) + style-over-substance (judge rewarded fluency). Check: dedup train vs eval with fuzzy matching; re-eval on fresh real data with outcome metrics (task success, not preference); inspect tail slices. Fix: quarantine evals, add execution-grounded checks, reseed with real user queries.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
-            <div class="practice" data-pid="c53p3"><p class="q">P3. Write the launch checklist for a public video-gen API (safety side).</p>
+            <div class="practice" data-pid="c64p3"><p class="q">P3. Diversity metrics are drifting down across flywheel generations while loss looks fine. What do you do?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
-              <div class="answer"><p>Refuse real-person/child synthesis without verified consent; face-blocklist; watermark + C2PA on every output; prompt + output classifiers (violence, CSAM → block + report); rate limits; generation logging; abuse team + takedown flow; red-team quarterly; published policy + researcher API for detection. Ship detection with generation.</p></div>
+              <div class="answer"><p>Classic early collapse. Pause the loop; raise the real-data share (or freeze synthetic ratio below a cap, e.g. ≤50%); reseed tails explicitly (rare intents, dialects, long inputs); add diversity gates (distinct n-grams, tail accuracy must not regress) alongside loss before any release. Document the synthetic share honestly.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
           </div>
           <div class="nav-row">
-            <button class="ghost" data-go="ch52">← Voice agents</button>
-            <button data-go="ch54">Federated learning →</button>
+            <button class="ghost" data-go="ch63">← Coding agents</button>
+            <button data-go="ch65">Indic languages →</button>
           </div>
         </div>
       </article>
-
 </main>
   </div>
   <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>

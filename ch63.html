@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Video generation · Zero to Hero AI</title>
+  <title>Coding agents · Zero to Hero AI</title>
   <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
   <meta name="theme-color" content="#0c1b2e" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Video generation · Zero to Hero AI" />
+  <meta property="og:title" content="Coding agents · Zero to Hero AI" />
   <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -101,7 +101,7 @@
       <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
       <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
       <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
-      <button class="toc-item active" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
       <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
       <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
       <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
@@ -111,7 +111,7 @@
       <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
       <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
       <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
-      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item active" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
       <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
       <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
       <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
@@ -146,101 +146,103 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="ch53">
-        <div class="chapter-head"><div class="kicker">Chapter 53 · Frontier · F7</div>
-          <h2>Video generation &amp; world simulators</h2>
-          <p class="lede">From text to moving pictures: how diffusion + transformers learned video, what “world simulator” claims really mean, and how to eval (and watermark) synthetic video responsibly.</p></div>
+<article class="page active" id="ch63">
+        <div class="chapter-head"><div class="kicker">Chapter 63 · Frontier · F17</div>
+          <h2>Coding agents &amp; repo-level AI</h2>
+          <p class="lede">Autocomplete was just the warm-up. Coding agents read whole repositories, run tests, and open PRs. Learn the loop that makes them work, how to benchmark them honestly, and the guardrails that keep them from deleting production.</p></div>
         <div class="content">
-          <div class="tag-row"><span class="tag">Diffusion</span><span class="tag">Sora-style</span><span class="tag">Eval</span><span class="tag">Watermarks</span></div>
-          <div class="figure"><img src="images/video-gen.jpg" alt="Film frames resolving from noise into ocean waves" /></div>
-          <p class="caption">Figure 53.1 — Video = images + time + physics-ish priors. Coherence across frames is the whole battle.</p>
-          <h3>1. How text becomes video</h3>
+          <div class="tag-row"><span class="tag">SWE-bench</span><span class="tag">Repo context</span><span class="tag">Spec-driven</span><span class="tag">Review bots</span></div>
+          <div class="figure"><img src="images/coding-agents.jpg" alt="Robot pair-programming with a human, code diff on screen" /></div>
+          <p class="caption">Figure 63.1 — The agent is the junior dev who never sleeps. You are still the reviewer who signs the merge.</p>
+          <h3>1. The agent loop (beyond autocomplete)</h3>
           <div class="diagram">
-            <svg viewBox="0 0 640 150" width="640" height="150">
+            <svg viewBox="0 0 640 120" width="640" height="120">
               <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
-                <rect x="15" y="50" width="110" height="55" rx="10" fill="#0f766e"/><text x="70" y="73" fill="#fff">Text prompt</text><text x="70" y="89" fill="#d1fae5" font-size="10">+ image ref?</text>
-                <rect x="150" y="50" width="130" height="55" rx="10" fill="#0c1b2e"/><text x="215" y="73" fill="#fff">Latent video</text><text x="215" y="89" fill="#94a3b8" font-size="10">space-time patches</text>
-                <rect x="305" y="50" width="130" height="55" rx="10" fill="#0ea5e9"/><text x="370" y="73" fill="#fff">Diffusion Tx</text><text x="370" y="89" fill="#e0f2fe" font-size="10">denoise steps</text>
-                <rect x="460" y="50" width="165" height="55" rx="10" fill="#b45309"/><text x="542" y="73" fill="#fff">Decode + upscale</text><text x="542" y="89" fill="#fef3c7" font-size="10">fps, interpolate</text>
-                <text x="330" y="130" fill="#57534e" font-size="11">Minutes of GPU per seconds of video · consistency &gt; resolution</text>
+                <rect x="10" y="35" width="110" height="50" rx="8" fill="#0c1b2e"/><text x="65" y="55" fill="#fff">SPEC</text><text x="65" y="71" fill="#5eead4">issue + tests</text>
+                <rect x="140" y="35" width="110" height="50" rx="8" fill="#0f766e"/><text x="195" y="55" fill="#fff">READ</text><text x="195" y="71" fill="#fff">repo context</text>
+                <rect x="270" y="35" width="110" height="50" rx="8" fill="#0ea5e9"/><text x="325" y="55" fill="#fff">EDIT</text><text x="325" y="71" fill="#fff">patch + run</text>
+                <rect x="400" y="35" width="110" height="50" rx="8" fill="#b45309"/><text x="455" y="55" fill="#fff">VERIFY</text><text x="455" y="71" fill="#fff">tests pass?</text>
+                <rect x="520" y="35" width="110" height="50" rx="8" fill="#166534"/><text x="575" y="55" fill="#fff">PR</text><text x="575" y="71" fill="#fff">human signs</text>
+                <g fill="#0c1b2e" font-size="14"><text x="130" y="65">→</text><text x="260" y="65">→</text><text x="390" y="65">→</text><text x="515" y="65">→</text></g>
+                <text x="325" y="110" fill="#64748b">Fail at VERIFY → loop back to READ (max N turns, then escalate to human)</text>
               </g>
             </svg>
-            <div class="diagram-title">Diagram 53.1 — Patchify space-time, diffuse in latent space, decode. Longer + coherent beats sharper + flickery.</div>
+            <div class="diagram-title">Diagram 63.1 — Spec → read → edit → verify → PR. Verification, not generation, is the scarce resource.</div>
           </div>
           <ul>
-            <li><strong>Latent diffusion + transformers:</strong> compress video to latents (VAE), denoise space-time patches conditioned on text — image diffusion (Ch 14) extended along t.</li>
-            <li><strong>Controls:</strong> image-to-video (first frame), inpainting, camera moves, pose/depth conditioning. Professional use = control, not vibes.</li>
-            <li><strong>Cost:</strong> seconds of 720p can take minutes on H100s — batch overnight, cache, and storyboard with images first.</li>
+            <li><strong>Repo context wins:</strong> the agent must find the right files (retrieval over code + symbols), not just the open tab. Index the repo; give it grep, tests, and git history as tools (Ch 23, Ch 48).</li>
+            <li><strong>Tests are the spec:</strong> fail-to-pass tests define “done”. No tests → the agent optimises vibes. Write the test first, then prompt.</li>
+            <li><strong>Small patches:</strong> cap diff size per turn; huge rewrites fail review and hide bugs. Iterate like a careful junior.</li>
           </ul>
-          <h3>2. “World simulators”? Calibrate the claim</h3>
-          <ul>
-            <li>Models learn <strong>visual correlations</strong> (glasses fall, water splashes) — impressive, but <strong>not physics engines</strong>: object permanence, counting, and causality still break.</li>
-            <li>Real uses today: previz, ads, game assets, synthetic training data (with domain-gap checks), robotics sim bootstraps.</li>
-            <li>Test “understanding” with counterfactual prompts (reverse gravity, impossible reflections) — failures reveal pattern-matching vs modelling.</li>
-          </ul>
-          <h3>3. Eval + responsibility</h3>
-          <table><thead><tr><th>Axis</th><th>Check</th></tr></thead><tbody>
-            <tr><td>Prompt fidelity</td><td>Objects, actions, counts, camera — did it follow direction?</td></tr>
-            <tr><td>Temporal consistency</td><td>No flicker, morphing faces, teleporting props</td></tr>
-            <tr><td>Physics plausibility</td><td>Shadows, reflections, collisions roughly right</td></tr>
-            <tr><td>Safety</td><td>Watermark/provenance (C2PA), face/voice consent, deepfake policies</td></tr>
+          <h3>2. Benchmarks &amp; honest measurement</h3>
+          <table><thead><tr><th>Benchmark</th><th>What it tests</th><th>Honest-reading tip</th></tr></thead><tbody>
+            <tr><td><strong>SWE-bench</strong></td><td>Real GitHub issues → patch passes hidden tests</td><td>% resolved; watch for overfitting to the repo set</td></tr>
+            <tr><td><strong>SWE-bench Multimodal / Multilingual</strong></td><td>Same idea beyond Python-only, text-only</td><td>Mind the language you actually ship</td></tr>
+            <tr><td><strong>Repo-level tasks</strong></td><td>Multi-file refactors, migrations</td><td>Closer to your job than single-function puzzles</td></tr>
+            <tr><td><strong>Your own suite</strong></td><td>10–20 recent tickets, replayed monthly</td><td>The only leaderboard that matters (Ch 61)</td></tr>
           </tbody></table>
-          <div class="warn"><h4>Deepfake duty</h4><p>Same model, two uses: a product demo or election disinformation. Ship watermarking + provenance metadata, refuse real-person synthesis without consent, log generations, and build detection alongside generation. Capability without provenance is a liability.</p></div>
-          <div class="note"><h4>Short notes</h4><p>Video = latent diffusion over space-time patches + controls (image/camera/pose). Impressive correlations, not physics engines — probe with counterfactuals. Eval fidelity + consistency + plausibility + provenance. Watermark everything; consent for real faces; detection ships with generation.</p></div>
-          <div class="points"><h4>Point notes</h4><ul><li>Patches + denoise + decode.</li><li>Control beats vibes.</li><li>Correlations ≠ physics.</li><li>Consistency &gt; resolution.</li><li>Watermark + C2PA always.</li></ul></div>
+          <h3>3. Guardrails (agents have root; act like it)</h3>
+          <ol>
+            <li><strong>Sandbox execution:</strong> containers with no prod creds, no network except allowlist, kill switch (Ch 62).</li>
+            <li><strong>Human-gated side effects:</strong> agent proposes, human approves deploys, migrations, and external sends (Ch 24).</li>
+            <li><strong>Secret hygiene:</strong> .env and keys never enter prompts; scan diffs for leaked credentials (Ch 59).</li>
+            <li><strong>Review the reasoning, not just the diff:</strong> keep tool-call traces on the PR; a green test with a nonsense trace is a red flag.</li>
+          </ol>
+          <div class="warn"><h4>Autonomy ceiling</h4><p>Top agents resolve a large share of benchmark issues — and still fail boringly on yours: wrong file, plausible-but-wrong fix, deleted edge case. Never auto-merge agent PRs to main; require human review plus the full CI suite. Speed without verification is just faster incidents.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Loop: spec (+tests) → repo context → small edits → verify → human-signed PR. Retrieval over code beats long prompts; fail-to-pass tests define done. Benchmark on SWE-bench plus your own replayed tickets. Sandbox everything, gate side effects on humans, keep traces on PRs, never auto-merge to main.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Tests are the spec.</li><li>Repo context beats tab context.</li><li>Small patches, full CI.</li><li>Sandbox + human gates.</li><li>Traces are the review.</li></ul></div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
-            <div class="mcq" data-answer="b"><p class="q">1. Modern text-to-video models mostly work by:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Filming tiny actors</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Diffusion over latent space-time patches conditioned on text, then decode/upscale</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GIF search</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Pure GANs from 2016</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Image diffusion extended along the time axis.</div></div>
-            <div class="mcq" data-answer="c"><p class="q">2. Strongest test that a model “understands” physics vs pattern-matching:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Higher resolution</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. More frames</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Counterfactual prompts (reverse gravity, impossible reflections) + causality probes</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Louder audio</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Novel violations expose memorised correlations.</div></div>
-            <div class="mcq" data-answer="a"><p class="q">3. For professional use, what matters more than raw quality?</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Control: first-frame, camera, pose/depth conditioning, editability</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Randomness</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Watermark removal</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Slower renders</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Directability is what studios pay for.</div></div>
-            <div class="mcq" data-answer="d"><p class="q">4. C2PA provenance + watermarking exist to:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Make videos prettier</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Compress files</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Add background music</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Mark synthetic content so viewers/platforms can verify origin</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Provenance is the seatbelt of generative media.</div></div>
-            <div class="mcq" data-answer="b"><p class="q">5. Using generated video as robot-training data requires checking:</p><div class="opts">
-              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The popcorn supply</button>
-              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Domain gap: does sim-trained skill transfer to real physics/sensors?</button>
-              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The director’s mood</button>
-              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing — sim is reality</button>
-            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Sim-to-real transfer must be measured, not assumed.</div></div>
-            <button class="btn gold" onclick="checkChapter('ch53')">Grade this chapter</button><div class="chapter-score"></div></div>
+            <div class="mcq" data-answer="b"><p class="q">1. What defines “done” for a coding-agent task?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The agent says it is done</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Fail-to-pass tests pass (plus no regressions)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The diff looks elegant</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The response is long</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Tests are the spec; vibes are not.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">2. SWE-bench measures:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Typing speed</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. LeetCode stars</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Lines of code written</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Share of real GitHub issues resolved (hidden tests pass)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Real repos, real issues, hidden verification.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Why cap patch size per turn?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Huge rewrites fail review and hide bugs; small diffs verify cleanly</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Git charges per line</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Models dislike big files aesthetically</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Tests run slower on small diffs</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Reviewability is a feature.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">4. The single most important guardrail for an agent with shell access:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A polite system prompt</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Faster GPU</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Sandboxed execution (no prod creds/network) + human-gated side effects</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Dark mode</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Prompts don’t contain shells; sandboxes do.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. A green test suite with a nonsense tool-call trace means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Ship it immediately</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Red flag — review the reasoning; the fix may be accidental or gamed</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete the tests</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Promote the agent</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Traces are the review, not decoration.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch63')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><h3>Practice questions</h3>
-            <div class="practice" data-pid="c53p1"><p class="q">P1. An ad agency wants a 30 s product spot from one photo. Pipeline + cost controls?</p>
+            <div class="practice" data-pid="c63p1"><p class="q">P1. Set up a coding agent on your repo: list the tools, context index, and first 3 guardrails you’d configure.</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
-              <div class="answer"><p>Storyboard with image gens first (cheap iteration) → image-to-video per 5 s shot with camera control → pick best takes → upscale + grade. Cost: draft at low res/steps, final render once; cache takes; human edit for hands/logos/text (models garble all three). Deliver with C2PA metadata; disclose AI use to client.</p></div>
+              <div class="answer"><p>Tools: read/grep over indexed repo, run focused tests, git diff/log, no raw shell to prod. Context: symbol + embedding index refreshed on commit; feed issue text + linked files first. Guardrails: (1) container sandbox, secrets mounted read-only-outside, (2) max ~200 changed lines per turn + full CI required, (3) human approval for migrations/deploys/external calls; traces attached to every PR.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
-            <div class="practice" data-pid="c53p2"><p class="q">P2. Your “world simulator” demo fails when a ball rolls behind a box. Explain + fix direction.</p>
+            <div class="practice" data-pid="c63p2"><p class="q">P2. Your agent “fixes” a bug but the fail-to-pass test still fails on turn 5. Walk through your next 3 debugging steps.</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
-              <div class="answer"><p>Object permanence failure: the model renders plausible pixels, not a persistent scene state — occlusion breaks the correlation. Directions: explicit 3D/scene representations, object-centric slots, physics-informed losses, or hybrid sim (game engine geometry + diffusion rendering). Until then: don’t claim “simulator” for safety-critical planning.</p></div>
+              <div class="answer"><p>(1) Read the trace: which files did it actually touch vs the stack trace’s files — usually wrong-file retrieval. (2) Check the test itself: is it flaky, environment-dependent, or testing behaviour the issue never specified? (3) Shrink scope: reset, point it at one file + one failing assertion, forbid unrelated refactors. If still stuck after N turns, take over manually — escalation is a feature.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
-            <div class="practice" data-pid="c53p3"><p class="q">P3. Write the launch checklist for a public video-gen API (safety side).</p>
+            <div class="practice" data-pid="c63p3"><p class="q">P3. Build a 10-ticket replay suite for your team. What do you record, and how do you score fairly across model upgrades?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
-              <div class="answer"><p>Refuse real-person/child synthesis without verified consent; face-blocklist; watermark + C2PA on every output; prompt + output classifiers (violence, CSAM → block + report); rate limits; generation logging; abuse team + takedown flow; red-team quarterly; published policy + researcher API for detection. Ship detection with generation.</p></div>
+              <div class="answer"><p>Record: issue text, repo snapshot, fail-to-pass + pass-to-pass tests, time-to-fix by a human baseline. Score: % resolved unaided, median turns, regression count, and human review-accept rate. Pin snapshots and model versions per run; re-run monthly; never let the suite leak into training/fine-tune data (contamination invalidates the leaderboard).</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
           </div>
           <div class="nav-row">
-            <button class="ghost" data-go="ch52">← Voice agents</button>
-            <button data-go="ch54">Federated learning →</button>
+            <button class="ghost" data-go="ch62">← Agent red-teaming</button>
+            <button data-go="ch64">Synthetic data →</button>
           </div>
         </div>
       </article>
-
 </main>
   </div>
   <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
