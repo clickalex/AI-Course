@@ -1,0 +1,167 @@
+<article class="page" id="playground">
+        <div class="chapter-head">
+          <div class="kicker">Practice · No setup needed</div>
+          <h2>Playground — tiny datasets, real reps</h2>
+          <p class="lede">Three built-in tables live in this page (no server, works offline on GitHub Pages). Type SQL, pandas, or Excel answers, get instant checks, then compare with model answers.</p>
+        </div>
+        <div class="content">
+          <h3>The datasets (memorise the grains)</h3>
+          <p><strong>sales</strong>: 1 row per order · <strong>customers</strong>: 1 row per customer · <strong>employees</strong>: 1 row per staffer.</p>
+          <div id="ds-sales"></div>
+          <div id="ds-customers"></div>
+          <div id="ds-employees"></div>
+
+          <div class="practice-block"><h3>SQL challenges (6)</h3>
+            <div class="practice" data-pid="pg-sql1" data-need="select|order_id|amount|where|west|1000" data-hint="You need SELECT … WHERE region='West' AND amount>1000.">
+              <p class="q">SQL 1. List <code>order_id</code> and <code>amount</code> for West orders over 1000. <em>Expected: 2 rows (o2/1800, o6/2200).</em></p>
+              <textarea class="code-input" rows="3" spellcheck="false" placeholder="SELECT …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>SELECT order_id, amount FROM sales
+WHERE region = 'West' AND amount > 1000;</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-sql2" data-need="group by|region|sum|case|refunded" data-hint="Aggregate with SUM(CASE WHEN status='refunded' THEN 0 ELSE amount END), grouped by region.">
+              <p class="q">SQL 2. Total net sales per region (refunds count as 0). <em>Expected: West 4700, North 3700, South 1500, East 900.</em></p>
+              <textarea class="code-input" rows="4" spellcheck="false" placeholder="SELECT region, …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>SELECT region,
+  SUM(CASE WHEN status='refunded' THEN 0 ELSE amount END) AS net
+FROM sales GROUP BY region ORDER BY net DESC;</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-sql3" data-need="left join|is null" data-hint="LEFT JOIN customers → orders, then keep rows where the order side IS NULL.">
+              <p class="q">SQL 3. Customers who never ordered. <em>Expected: 1 row — c7 Vera.</em></p>
+              <textarea class="code-input" rows="3" spellcheck="false" placeholder="SELECT … LEFT JOIN …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>SELECT c.customer_id, c.name FROM customers c
+LEFT JOIN sales s USING (customer_id)
+WHERE s.order_id IS NULL;</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-sql4" data-need="with|group by|sum|over|order by" data-hint="CTE for monthly totals, then SUM(revenue) OVER (ORDER BY month) for the running total.">
+              <p class="q">SQL 4. Monthly net revenue with running total. <em>Expected: Jan 3900 (run 3900), Feb 6900 (run 10800).</em></p>
+              <textarea class="code-input" rows="5" spellcheck="false" placeholder="WITH m AS (…) …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>WITH m AS (
+  SELECT DATE_TRUNC('month', date) AS ym,
+    SUM(CASE WHEN status='refunded' THEN 0 ELSE amount END) AS revenue
+  FROM sales GROUP BY 1
+)
+SELECT ym, revenue, SUM(revenue) OVER (ORDER BY ym) AS running
+FROM m ORDER BY ym;</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-sql5" data-need="row_number|partition by|customer_id|order by" data-hint="ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY date DESC), then filter rn = 1.">
+              <p class="q">SQL 5. Latest order per customer. <em>Expected: 6 rows — o4, o5, o8, o9, o7, o10.</em></p>
+              <textarea class="code-input" rows="4" spellcheck="false" placeholder="SELECT … ROW_NUMBER() OVER (…) …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>SELECT * FROM (
+  SELECT s.*, ROW_NUMBER() OVER (
+    PARTITION BY customer_id ORDER BY date DESC) AS rn
+  FROM sales s
+) t WHERE rn = 1;</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-sql6" data-need="group by|status|avg|having|count" data-hint="GROUP BY status, AVG(amount), HAVING COUNT(*) >= 2.">
+              <p class="q">SQL 6. Average amount by status, only statuses with 2+ orders. <em>Expected: delivered 1400 (7), refunded 600 (3).</em></p>
+              <textarea class="code-input" rows="3" spellcheck="false" placeholder="SELECT status, …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>SELECT status, AVG(amount) AS avg_amt, COUNT(*) AS n
+FROM sales GROUP BY status HAVING COUNT(*) >= 2;</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+
+          <div class="practice-block"><h3>Pandas challenges (4)</h3>
+            <div class="practice" data-pid="pg-pd1" data-need="2025|refunded" data-hint="Filter year == 2025 and status != 'refunded' — query() or a boolean mask both work.">
+              <p class="q">PD 1. Keep 2025 non-refunded rows. <em>Expected: 7 rows.</em></p>
+              <textarea class="code-input" rows="2" spellcheck="false" placeholder="df.query(…) or df.loc[…]"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>df.query("year==2025 and status!='refunded'")
+# or: df.loc[(df.year==2025) & (df.status!='refunded')]</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-pd2" data-need="groupby|sum|sort_values" data-hint="groupby('region')['amount'].sum() then sort_values(ascending=False).">
+              <p class="q">PD 2. Total per region, highest first. <em>Expected: West 4700 … East 900.</em></p>
+              <textarea class="code-input" rows="3" spellcheck="false" placeholder="df.groupby(…)…"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>(df.groupby("region", as_index=False)["amount"].sum()
+   .sort_values("amount", ascending=False))</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-pd3" data-need="replace|to_numeric" data-hint="Strip ₹ and commas with .str.replace, then pd.to_numeric(errors='coerce').">
+              <p class="q">PD 3. Convert “₹1,200” strings to numbers. <em>Expected: 1200.0, dirty values → NaN.</em></p>
+              <textarea class="code-input" rows="2" spellcheck="false" placeholder="df['amount'] = …"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>df["amount"] = pd.to_numeric(
+  df["amount"].astype(str).str.replace(r"[₹,]", "", regex=True),
+  errors="coerce")</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-pd4" data-need="resample|sum" data-hint="Set a datetime index, sort it, then .resample('ME').sum().">
+              <p class="q">PD 4. Monthly sum of amount. <em>Expected: Jan 4300, Feb 8300.</em></p>
+              <textarea class="code-input" rows="2" spellcheck="false" placeholder="df.set_index(…)…"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>(df.set_index("date").sort_index()["amount"]
+   .resample("ME").sum())</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+
+          <div class="practice-block"><h3>Excel challenges (3)</h3>
+            <div class="practice" data-pid="pg-xl1" data-need="xlookup|products" data-hint="XLOOKUP(lookup, Products[PID], Products[Price], 'Not found').">
+              <p class="q">XL 1. Price for the PID in A2 from the Products table. <em>Expected: price or “Not found”.</em></p>
+              <textarea class="code-input" rows="2" spellcheck="false" placeholder="=XLOOKUP(…)"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>=XLOOKUP(A2, Products[PID], Products[Price], "Not found")</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-xl2" data-need="sumifs|west|2025" data-hint="SUMIFS(sum_range, region_range, 'West', year_range, 2025).">
+              <p class="q">XL 2. West 2025 sales total. <em>Expected: 5100.</em></p>
+              <textarea class="code-input" rows="2" spellcheck="false" placeholder="=SUMIFS(…)"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>=SUMIFS(Sales[Amount], Sales[Region], "West", Sales[Year], 2025)</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="pg-xl3" data-need="text|yyyy-mm" data-hint='TEXT(date_cell, "yyyy-mm") makes a sortable month key.'>
+              <p class="q">XL 3. Month key (2025-02) from the date in A2. <em>Expected: text like 2025-02.</em></p>
+              <textarea class="code-input" rows="2" spellcheck="false" placeholder="=TEXT(…)"></textarea>
+              <div class="challenge-actions"><button class="btn" onclick="checkChallenge(this)">Check my answer</button><span class="score-chip"></span></div>
+              <div class="challenge-hint"></div>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>=TEXT(A2, "yyyy-mm")</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+
+          <div class="note"><h4>Short notes</h4><p>13 reps on 3 tiny tables: filter → aggregate → join → window in SQL; mask → groupby → clean → resample in pandas; lookup → conditional sum → text keys in Excel. If you can do all 13 without peeking, Ch 31–33 are yours.</p></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="cheats">← Cheat sheets</button>
+            <button data-go="interview">Interview Q&A →</button>
+          </div>
+        </div>
+      </article>

@@ -1,0 +1,128 @@
+<article class="page" id="ch39">
+        <div class="chapter-head"><div class="kicker">Chapter 39 · Data skills · Engineering</div>
+          <h2>Data engineering &amp; big data</h2>
+          <p class="lede">Analysts query tables; engineers build the pipes that fill them. Learn batch vs streaming, warehouses vs lakehouses, Spark, Airflow, and the quality tests that keep it all honest.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Pipelines</span><span class="tag">Spark</span><span class="tag">Airflow</span><span class="tag">Lakehouse</span></div>
+          <div class="figure"><img src="images/data-engineering.jpg" alt="Glowing pipelines feeding a data warehouse" /></div>
+          <p class="caption">Figure 39.1 — Sources → ingest → store → transform → serve. Every analytics dashboard sits on top of this stack.</p>
+          <h3>1. Batch vs streaming, ETL vs ELT</h3>
+          <table><thead><tr><th>Pattern</th><th>Meaning</th><th>Use when</th></tr></thead><tbody>
+            <tr><td><strong>Batch</strong></td><td>Move data on a schedule (hourly, daily)</td><td>Reports, training tables, finance close</td></tr>
+            <tr><td><strong>Streaming</strong></td><td>Move each event in seconds (Kafka, Kinesis)</td><td>Fraud alerts, live dashboards, recommendations</td></tr>
+            <tr><td><strong>ETL</strong></td><td>Transform <em>before</em> loading</td><td>Strict schemas, legacy warehouses</td></tr>
+            <tr><td><strong>ELT</strong></td><td>Load raw first, transform inside the warehouse</td><td>Modern default — raw is preserved, dbt transforms</td></tr>
+          </tbody></table>
+          <h3>2. Where data lives: warehouse, lake, lakehouse</h3>
+          <table><thead><tr><th>Store</th><th>Idea</th><th>Examples</th></tr></thead><tbody>
+            <tr><td><strong>Warehouse</strong></td><td>Structured, fast SQL, governed</td><td>Snowflake, BigQuery, Redshift</td></tr>
+            <tr><td><strong>Lake</strong></td><td>Cheap object storage for anything</td><td>S3, ADLS, GCS (+ Parquet files)</td></tr>
+            <tr><td><strong>Lakehouse</strong></td><td>Lake storage + warehouse management (ACID, time travel)</td><td>Databricks, Delta Lake, Iceberg</td></tr>
+          </tbody></table>
+          <p><strong>File formats matter:</strong> CSV is universal but slow; <strong>Parquet/ORC</strong> are columnar — analytics reads 3 of 200 columns without touching the rest (predicate pushdown), with far better compression.</p>
+          <h3>3. Spark in one mental model</h3>
+          <p>Spark spreads a DataFrame across machines in <strong>partitions</strong>. <strong>Transformations</strong> (filter, join) are <em>lazy</em> — nothing runs until an <strong>action</strong> (count, write). The expensive moment is the <strong>shuffle</strong>: re-partitioning data across the network for a groupby/join.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 640 130" width="640" height="130">
+              <rect width="640" height="130" rx="12" fill="#f8fafc"/>
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="20" y="40" width="150" height="50" rx="10" fill="#0f766e"/><text x="95" y="69" fill="#fff">Partitions</text>
+                <rect x="200" y="40" width="150" height="50" rx="10" fill="#be123c"/><text x="275" y="69" fill="#fff">Shuffle ⚠</text>
+                <rect x="380" y="40" width="120" height="50" rx="10" fill="#0c1b2e"/><text x="440" y="69" fill="#fff">Combine</text>
+                <rect x="520" y="40" width="100" height="50" rx="10" fill="#b45309"/><text x="570" y="69" fill="#fff">Action</text>
+                <text x="275" y="112" fill="#57534e" font-size="11">groupby / join moves data over the network</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 39.1 — Spark is pandas split–apply–combine across machines. Minimise shuffles, coalesce small files.</div>
+          </div>
+<pre><code># PySpark looks like pandas — until the shuffle
+(df.filter("status != 'refunded'")
+   .groupBy("region").agg({"amount": "sum"})
+   .write.mode("overwrite").parquet("s3://lake/marts/sales_by_region/"))</code></pre>
+          <h3>4. Orchestration: Airflow DAGs + dbt</h3>
+          <ul>
+            <li><strong>Airflow:</strong> a <strong>DAG</strong> (directed acyclic graph) of tasks with schedules, retries, and alerts. Task = “run extract”, edge = “then”. No cycles — hence <em>acyclic</em>.</li>
+            <li><strong>dbt:</strong> transforms as versioned SQL <strong>models</strong> with <strong>tests</strong> (<code>unique</code>, <code>not_null</code>, relationships) and auto-docs. The analytics engineer’s home.</li>
+          </ul>
+<pre><code>-- dbt model + tests (schema.yml sketch)
+models: [{name: fct_orders,
+  tests: [unique: [order_id]],
+  columns: [{name: amount, tests: [not_null]}]}]</code></pre>
+          <h3>5. Quality gates (steal this checklist)</h3>
+          <ol>
+            <li><strong>Freshness:</strong> did today’s partition land? Alert if &gt; SLA.</li>
+            <li><strong>Volume:</strong> row count within ±20% of trailing median?</li>
+            <li><strong>Schema:</strong> no dropped/renamed columns (contract tests).</li>
+            <li><strong>Keys:</strong> unique + not null on grains; no fanout after joins.</li>
+            <li><strong>Values:</strong> rates in [0,1], dates sane, enums known.</li>
+          </ol>
+          <div class="warn"><h4>Classic pipeline failures</h4><p>Silent schema drift breaking downstream joins · timezone-naive timestamps duplicating a day · backfills that double-count · a “temporary” CSV becoming the production feed for 3 years.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Batch for reports, streaming for seconds. ELT + lakehouse is the modern default; Parquet beats CSV for analytics. Spark = lazy partitions; shuffles cost. Airflow schedules DAGs; dbt versions SQL with tests. Gate every pipeline on freshness, volume, schema, keys, and values.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>ELT keeps raw; transform in-warehouse.</li><li>Parquet = columnar + compressed.</li><li>Lazy transforms, eager actions.</li><li>DAG: tasks + schedule + retries.</li><li>dbt tests: unique, not_null, relationships.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 224" role="img" aria-label="nightly_elt — 04:12"><rect x="10" y="10" width="620" height="204" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">nightly_elt — 04:12</text>
+              <rect x="30" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="96" y="94" text-anchor="middle" font-size="26">📥</text><text x="96" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">extract</text>
+              <text x="169" y="108" text-anchor="middle" font-size="16" fill="#5eead4">→</text>
+              <rect x="175" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="241" y="94" text-anchor="middle" font-size="26">🔧</text><text x="241" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">dbt</text>
+              <text x="314" y="108" text-anchor="middle" font-size="16" fill="#5eead4">→</text>
+              <rect x="320" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="386" y="94" text-anchor="middle" font-size="26">✅</text><text x="386" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">quality</text>
+              <text x="459" y="108" text-anchor="middle" font-size="16" fill="#5eead4">→</text>
+              <rect x="465" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="531" y="94" text-anchor="middle" font-size="26">🚀</text><text x="531" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">serve</text>
+              <text x="34" y="168" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">all green ✓ </tspan><tspan fill="#e2e8f0">raw → modeled → tested → served</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 39.1 — nightly ELT: extract, model, test, serve — all green.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Parquet beats CSV for analytics mainly because it is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Human-readable in Notepad</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Columnar and compressed, so queries skip untouched columns</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A streaming engine</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A dashboard tool</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Predicate pushdown + compression = 10–100× scans.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A Spark shuffle is expensive because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deletes partitions</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Requires a GPU</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Moves data across the network to re-partition for groupby/join</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Converts Parquet to CSV</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Network + disk sort dominate big-job time.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. An Airflow DAG is a:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Cycle-free graph of scheduled tasks with retries and alerts</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Type of neural network</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Dashboard colour theme</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. SQL join type</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Directed, acyclic — tasks flow one way.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. ELT differs from ETL in that it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Never stores raw data</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only works on laptops</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Bans SQL</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Loads raw first, then transforms inside the warehouse (dbt-style)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Raw preserved → re-transformable history.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. A freshness SLA breach means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The dashboard looks ugly</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Expected data didn’t land on time — page someone, don’t silently show stale numbers</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Parquet files are too small</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The GPU overheated</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Stale-but-confident dashboards cause real decisions on old data.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch39')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c39p1"><p class="q">P1. Sketch a batch pipeline for daily Shopify orders into a sales dashboard (sources → store → transform → serve + tests).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Airflow DAG 2am: extract Shopify API → raw JSONL in S3 (partitioned by date) → dbt staging (types, dedupe by order_id) → <code>fct_orders</code> + <code>dim_customers</code> in warehouse → dashboard dataset refresh. Tests: freshness &lt; 6am, volume ±20%, unique order_id, rates in [0,1]. Alert to Slack + pause dashboard refresh on failure.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c39p2"><p class="q">P2. Your Spark job is slow on a 500 GB join. Name 3 things to check before buying a bigger cluster.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Skew: a few hot keys? Salt or broadcast the small side. (2) File count: 50k tiny files? Coalesce/repartition. (3) Unnecessary shuffle: filter early, select only needed columns (projection pushdown), cache reused frames. Bigger clusters rent impatience by the hour.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c39p3"><p class="q">P3. Warehouse vs lakehouse for a 5-person startup on Postgres + S3?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Start: Postgres for app + S3 raw (JSONL/Parquet) + dbt on Postgres or DuckDB. Graduate to Snowflake/BigQuery when queries slow or concurrency grows; lakehouse (Iceberg/Delta) when you need time-travel, huge scale, or Spark/ML on the same files. Don’t buy distributed systems before distribution hurts.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch38">← BI tools compared</button>
+            <button data-go="ch40">APIs &amp; scraping →</button>
+          </div>
+        </div>
+      </article>

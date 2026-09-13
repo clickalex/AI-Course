@@ -1,0 +1,107 @@
+<article class="page" id="ch50">
+        <div class="chapter-head"><div class="kicker">Chapter 50 · Frontier · F4</div>
+          <h2>Small models &amp; edge AI</h2>
+          <p class="lede">Not every query needs a datacenter. Small language models on phones, laptops, and browsers now handle most everyday tasks — privately, offline, and nearly free. Learn the shrink toolkit and the cascade that routes smart.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">SLMs</span><span class="tag">Quantization</span><span class="tag">Distillation</span><span class="tag">On-device</span></div>
+          <div class="figure"><img src="images/edge-ai.jpg" alt="A tiny chip-brain in a phone, cloud cut off behind" /></div>
+          <p class="caption">Figure 50.1 — Intelligence is moving to the edge: private by architecture, fast by proximity, cheap by physics.</p>
+          <h3>1. Why small wins most queries</h3>
+          <table><thead><tr><th>Edge advantage</th><th>What it buys</th></tr></thead><tbody>
+            <tr><td><strong>Privacy</strong></td><td>Data never leaves the device — the strongest guarantee there is</td></tr>
+            <tr><td><strong>Latency</strong></td><td>No round-trip; 20–50 tok/s on modern phones/laptops</td></tr>
+            <tr><td><strong>Cost</strong></td><td>~$0 marginal per query vs fractions of a cent in the cloud</td></tr>
+            <tr><td><strong>Offline</strong></td><td>Works on planes, in factories, in low-connectivity regions</td></tr>
+          </tbody></table>
+          <p>Reality check: a 3–8B well-trained SLM matches older 70B models on common tasks (summarise, classify, extract, draft). The frontier still wins hard reasoning — hence the cascade.</p>
+          <h3>2. The shrink toolkit</h3>
+          <ul>
+            <li><strong>Quantization:</strong> FP16 → INT8 → INT4 (GPTQ/AWQ/GGUF). A 7B model drops from ~14 GB to ~4 GB with small quality loss. <em>Always</em> re-eval after quantising (Ch 46 golden set).</li>
+            <li><strong>Distillation:</strong> big teacher labels data / traces; small student trains on them (Ch 49 reasoning traces are premium fuel).</li>
+            <li><strong>Pruning + architecture:</strong> remove dead weights/heads; use efficient designs (grouped-query attention, sliding windows) for long context on weak chips.</li>
+            <li><strong>Runtimes:</strong> llama.cpp / Ollama (laptop), MLX (Apple silicon), ONNX / ExecuTorch (mobile), WebGPU + WASM (browser — no install).</li>
+          </ul>
+<pre><code># llama.cpp: serve a quantised 8B model on a laptop
+llama-server -m qwen2.5-7b-instruct-q4_k_m.gguf --port 8080 -c 4096
+curl localhost:8080/v1/chat/completions -d '{"messages":[{"role":"user","content":"Summarise this thread."}]}'</code></pre>
+          <h3>3. The cascade: small first, big when needed</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="20" y="50" width="130" height="55" rx="10" fill="#0f766e"/><text x="85" y="73" fill="#fff">On-device SLM</text><text x="85" y="89" fill="#d1fae5">answers + confidence</text>
+                <rect x="180" y="50" width="120" height="55" rx="10" fill="#0c1b2e"/><text x="240" y="73" fill="#fff">Confident?</text><text x="240" y="89" fill="#94a3b8">router / verifier</text>
+                <rect x="330" y="50" width="130" height="55" rx="10" fill="#b45309"/><text x="395" y="73" fill="#fff">Cloud LLM</text><text x="395" y="89" fill="#fef3c7">hard queries only</text>
+                <rect x="490" y="50" width="130" height="55" rx="10" fill="#be123c"/><text x="555" y="73" fill="#fff">Reasoner</text><text x="555" y="89" fill="#ffe4e6">verifiable-hard</text>
+                <text x="330" y="130" fill="#57534e" font-size="11">Typical split: 70–90% served on-device · 10–25% cloud · &lt;5% reasoner</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 50.1 — Cascades buy 10× cost cuts: cheap models answer what they can, escalation handles the rest. Log every escalation to improve the router.</div>
+          </div>
+          <div class="warn"><h4>Edge gotchas</h4><p>Quantisation silently breaking one capability (re-eval every slice) · models memorising on-device personal data (fine-tune carefully) · version sprawl across devices (pin + staged rollout) · assuming offline means unattackable (prompt injection works on-device too).</p></div>
+          <div class="note"><h4>Short notes</h4><p>SLMs (3–8B) handle most everyday tasks on-device: private, fast, ~free, offline. Shrink via quantisation (GGUF/INT4), distillation, efficient archs; serve with llama.cpp/Ollama/MLX/WebGPU. Cascade: on-device → cloud → reasoner by confidence; re-eval every slice after quantising.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Edge = private, fast, free, offline.</li><li>INT4 GGUF: 7B in ~4 GB.</li><li>Distil teacher traces into students.</li><li>Cascade by confidence.</li><li>Re-eval after every shrink.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 168" role="img" aria-label="cloud vs edge"><rect x="10" y="10" width="620" height="148" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">cloud vs edge</text>
+              <text x="34" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">where&#160;&#160;lat&#160;&#160;&#160;&#160;cost</text>
+              <line x1="34" y1="78" x2="606" y2="78" stroke="#64748b"/>
+              <text x="34" y="100" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">cloud&#160;&#160;380ms&#160;&#160;₹₹</text>
+              <rect x="26" y="109" width="588" height="21" rx="4" fill="#1e293b"/>
+              <text x="34" y="124" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">edge&#160;&#160;&#160;24ms&#160;&#160;&#160;₹ ✓</text>
+              <text x="34" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">24ms wins realtime ✓</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 50.1 — cloud 380 ms vs edge 24 ms: realtime wins.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Strongest privacy argument for on-device inference:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Phones have pretty cases</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Sensitive data never leaves the device — no transit, no server logs</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Clouds are always breached</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. On-device models can’t be wrong</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Architecture beats policy for privacy.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. INT4 quantization of a 7B model roughly:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Makes it 10× smarter</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Deletes the tokenizer</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Shrinks ~14 GB → ~4 GB with small quality loss (re-eval required)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Requires retraining from scratch</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Post-training quantization; verify every slice.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A cascade (SLM → cloud → reasoner) primarily buys:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. 10× cost/latency cuts by serving easy queries cheaply, escalating hard ones</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. More GPUs to manage</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Freedom from evals</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Infinite context</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Right-size every query; log escalations.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Distillation uses a big teacher to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Grade students’ homework</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Run the school timetable</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Buy more servers</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Produce labels/traces a small student trains on</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Reasoning traces are premium distillation fuel.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. After quantising, the mandatory step is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Ship immediately</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Re-run golden + slice evals — quantization can silently break capabilities</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete the eval set</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Increase temperature to 2.0</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Shrink, then prove nothing broke.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch50')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c50p1"><p class="q">P1. Design on-device meeting summarisation for a phone (privacy-first).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>On-device ASR → 3–8B SLM (INT4, ~3 GB) summarises locally; audio + transcripts never upload. Cascade: low-confidence segments re-checked on-device with a second pass (no cloud — privacy promise). Eval: summary faithfulness slice + battery/latency budget. Update models via staged app rollout with pinned versions.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c50p2"><p class="q">P2. Cloud LLM bill is $80k/month, mostly easy queries. Your cascade plan?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Distil top intents into an 8B SLM (teacher traces + golden evals); deploy on cheap GPU/CPU with vLLM; router escalates on low confidence + hard-intent list. Target 80% on SLM. Log escalations weekly to retrain router + grow SLM coverage. Prove parity on the golden set before shifting traffic; canary the cutover.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c50p3"><p class="q">P3. Quantised model passes overall eval but fails Hindi code-mixed queries. Diagnose + fix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Slice failure hidden by the aggregate — quantisation hurt under-represented token paths. Fix: add code-mixed slice to the golden set (blocking), try higher-precision quant for embeddings (mixed precision), or keep a slightly larger SLM for that slice via router. Lesson: slice evals are mandatory, not optional.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch49">← Reasoning models</button>
+            <button data-go="ch51">Vision-language →</button>
+          </div>
+        </div>
+      </article>

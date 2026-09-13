@@ -1,0 +1,181 @@
+<article class="page" id="ch10">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 10 · Deep learning</div>
+          <h2>Neural networks</h2>
+          <p class="lede">A neural net is a stack of linear maps and nonlinearities. Training is gradient descent on a loss, with gradients flowing backward.</p>
+        </div>
+        <div class="content">
+          <div class="figure">
+            <img src="images/neural-network.jpg" alt="A multilayer neural network of glowing nodes" />
+          </div>
+          <p class="caption">Figure 10.1 — Input layer, hidden layers, output layer. Each edge is a weight.</p>
+
+          <h3>Perceptron to MLP</h3>
+          <p>A single neuron computes ŷ = φ(w·x + b). φ is an <strong>activation</strong>. One neuron with a step activation is the perceptron — it only separates linearly. A <strong>multilayer perceptron (MLP)</strong> stacks neurons so the whole net can approximate very wild functions (universal approximation, in theory, with enough width).</p>
+
+          <h3>Activations</h3>
+          <table>
+            <thead><tr><th>Name</th><th>Shape</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Sigmoid</td><td>S-curve to (0,1)</td><td>Saturates; vanishing gradients in deep stacks. Still used as a binary output.</td></tr>
+              <tr><td>Tanh</td><td>S-curve to (−1,1)</td><td>Zero-centred; still saturates.</td></tr>
+              <tr><td>ReLU</td><td>max(0, z)</td><td>Default hidden activation. “Dead ReLU” if a unit never turns on.</td></tr>
+              <tr><td>GELU / SiLU</td><td>Smooth ReLU-like</td><td>Common in Transformers.</td></tr>
+              <tr><td>Softmax</td><td>Vector → probabilities</td><td>Output of multi-class models.</td></tr>
+            </tbody>
+          </table>
+          <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+              <rect width="640" height="160" rx="12" fill="#f8fafc"/>
+              <!-- relu -->
+              <text x="90" y="24" text-anchor="middle" font-size="12" font-family="Source Sans 3">ReLU</text>
+              <line x1="20" y1="100" x2="160" y2="100" stroke="#cbd5e1"/>
+              <line x1="90" y1="40" x2="90" y2="140" stroke="#cbd5e1"/>
+              <path d="M30 100 L90 100 L150 50" fill="none" stroke="#0f766e" stroke-width="3"/>
+              <!-- sigmoid -->
+              <text x="320" y="24" text-anchor="middle" font-size="12" font-family="Source Sans 3">Sigmoid</text>
+              <line x1="250" y1="100" x2="390" y2="100" stroke="#cbd5e1"/>
+              <path d="M250 130 C 290 130 300 40 390 40" fill="none" stroke="#b45309" stroke-width="3"/>
+              <!-- softmax note -->
+              <text x="520" y="70" text-anchor="middle" font-size="12" font-family="Source Sans 3">Softmax</text>
+              <text x="520" y="92" text-anchor="middle" font-size="11" fill="#57534e" font-family="Source Sans 3">e^{z_i} / Σ e^{z_j}</text>
+              <text x="520" y="112" text-anchor="middle" font-size="11" fill="#57534e" font-family="Source Sans 3">sums to 1</text>
+            </svg>
+            <div class="diagram-title">Diagram 10.1 — Nonlinearities let stacked linear layers become a nonlinear function.</div>
+          </div>
+
+          <h3>Forward pass, loss, backward pass</h3>
+          <ol>
+            <li><strong>Forward</strong> — compute predictions for a batch.</li>
+            <li><strong>Loss</strong> — compare to labels (e.g. cross-entropy).</li>
+            <li><strong>Backward</strong> — chain rule: each layer gets ∂L/∂w from the next layer’s error signal.</li>
+            <li><strong>Update</strong> — Adam, SGD+momentum, etc.</li>
+          </ol>
+          <p><strong>Minibatch SGD</strong> estimates the true gradient from 32–1024 examples. Noise from small batches can help escape sharp minima. <strong>Epoch</strong> = one pass through the training set.</p>
+
+          <h3>What makes nets trainable</h3>
+          <ul>
+            <li>Initialisation (too large → exploding activations).</li>
+            <li>Normalisation (batch/layer norm) to keep activations well scaled.</li>
+            <li>Residual connections (Chapter 11) so gradients have a highway.</li>
+            <li>Learning-rate warmup and decay.</li>
+          </ul>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Neuron = linear score + activation. Depth composes features. Train with backprop + SGD/Adam. ReLU is the default hidden activation; softmax at the end for classes. The “learning” is only the weight update. Architecture + data + optimisation must all work or you get a brick.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>ŷ = φ(Wx + b), stacked.</li>
+              <li>Backprop = chain rule on a computation graph.</li>
+              <li>ReLU hidden, softmax out (classification).</li>
+              <li>Batch, epoch, learning rate, optimiser.</li>
+              <li>Vanishing/exploding gradients are optimisation failures.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 240" width="640" height="240">
+<rect x="10" y="10" width="620" height="220" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">training log — loss must fall</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="34" y="58" width="572" height="26" fill="#1e293b"/>
+              <text x="34" y="76" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">epoch  loss   acc</tspan></text>
+              <line x1="34" y1="118" x2="606" y2="118" stroke="#1e293b"/>
+              <text x="48" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">1      0.69   0.51</tspan></text>
+              <line x1="34" y1="142" x2="606" y2="142" stroke="#1e293b"/>
+              <text x="48" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">5      0.31   0.88</tspan></text>
+              <line x1="34" y1="166" x2="606" y2="166" stroke="#1e293b"/>
+              <text x="48" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">10     0.12   0.96</tspan></text>
+              <text x="34" y="190" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">learning ✓ </tspan><tspan fill="#64748b">loss ↓, accuracy ↑ — the only graph that matters</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 10.1 — Ten epochs: from coin-flip to 96%. Loss falling is learning.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="c">
+              <p class="q">1. Without nonlinear activations, a deep stack of linear layers is equivalent to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A random forest</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. k-means</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. One linear layer (a single matrix)</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A convolutional net</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Composition of linear maps is linear. Activations are the whole point of depth.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">2. Backpropagation computes:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Gradients of the loss w.r.t. each parameter via the chain rule</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The test-set accuracy</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Cluster centroids</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The Bayes posterior of the architecture</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Autograd implements this on a graph of tensor ops.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">3. Softmax is typically used:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. To split tabular data</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. As the k-means assignment step</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. To scale images to 224 px</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. To turn class scores into a probability distribution</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Outputs are positive and sum to one.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">4. A “dead ReLU” unit:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Always outputs 1</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Outputs 0 for essentially all inputs, so its gradient stays 0</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Is required for softmax</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Means training has finished successfully</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">If z&lt;0 always, ReLU and its local gradient are 0. Leaky ReLU / GELU mitigate this.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">5. An epoch is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. One full pass over the training set</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A single weight</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The test set</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A type of activation</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Steps per epoch ≈ N / batch_size.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch10')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c10p1">
+              <p class="q">P1. A hidden layer maps R³ → R² with ReLU. Write the output for x=[1, 0, −1], W = [[1,2,0],[0,−1,1]], b=[0, 1].</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Wx = [1·1 + 2·0 + 0·(−1),  0·1 + (−1)·0 + 1·(−1)] = [1, −1]. Add b: [1, 0]. ReLU: <strong>[1, 0]</strong>.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c10p2">
+              <p class="q">P2. Training loss is NaN after a few steps. List four things you would inspect.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Learning rate too high; unnormalised inputs; log(0) from softmax/cross-entropy on extreme logits; exploding weights/gradients (check grad norm); bad labels (log of negative); mixed precision overflow. Try lowering η, gradient clipping, input normalisation, label smoothing.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c10p3">
+              <p class="q">P3. Explain, to a non-mathematician, what backprop “sends backward”.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>After a wrong answer, each weight receives a blame signal: “if you had been a bit smaller/larger, the error would have changed by this much.” Early layers get their blame through later layers. Then every weight takes a tiny step to reduce that error. That is all “learning” is in a standard net.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch20">← Recsys & KG</button>
+            <button data-go="ch11">Chapter 11 →</button>
+          </div>
+        </div>
+      </article>

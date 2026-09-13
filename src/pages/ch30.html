@@ -1,0 +1,222 @@
+<article class="page" id="ch30">
+        <div class="chapter-head"><div class="kicker">Chapter 30 · Data skills · Python</div>
+          <h2>Python in depth</h2>
+          <p class="lede">Chapter 5 showed the AI libraries. This chapter makes you fluent in the language itself — types, functions, classes, files, errors, and the habits that keep data projects from collapsing.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Beginner → Intermediate</span><span class="tag">Syntax</span><span class="tag">OOP</span><span class="tag">Files &amp; errors</span></div>
+          <div class="figure"><img src="images/python-depth.jpg" alt="Python code, a cube-built snake, and gears around a laptop" /></div>
+          <p class="caption">Figure 30.1 — Python fluency (types, functions, classes, files, errors) is the rail every data project runs on.</p>
+          <h3>1. Setup that professionals actually use</h3>
+          <ul>
+            <li><strong>Python 3.10+</strong> — check with <code>python --version</code>. One version per project via <code>venv</code>.</li>
+            <li><strong>Virtual env:</strong> <code>python -m venv .venv</code> then activate. Install with <code>pip install -r requirements.txt</code>. Never <code>pip install</code> random packages globally.</li>
+            <li><strong>Notebooks vs scripts:</strong> Jupyter for exploration, <code>.py</code> files for anything you will rerun. A notebook that only runs top-to-bottom-by-luck is a bug factory — <em>Restart &amp; Run All</em> before you share.</li>
+            <li><strong>Editor:</strong> VS Code + Python extension, or PyCharm. Learn: run file, debugger breakpoint, rename symbol, format on save (Black/Ruff).</li>
+          </ul>
+<pre><code># requirements.txt (pin what matters)
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+matplotlib==3.8.4</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 216" width="640" height="216">
+<rect x="10" y="10" width="620" height="196" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">user@laptop: ~/thali — setup</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">python -m venv .venv &amp;&amp; source .venv/bin/activate</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">pip install -r requirements.txt</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">✓ </tspan><tspan fill="#e2e8f0">numpy pandas scikit-learn matplotlib (4 pinned)</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">jupyter nbconvert --execute analysis.ipynb --to notebook</tspan></text>
+              <text x="34" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">All 18 cells ran top-to-bottom ✓</tspan><tspan fill="#64748b">  (no luck-based ordering)</tspan></text>
+              <text x="34" y="170" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b"># system python untouched — one project, one world</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 30.1 — Professional setup in four commands: isolated venv, pinned deps, and a notebook proven to run top-to-bottom.</div>
+          </div>
+          <h3>2. Variables, types, and truthiness</h3>
+          <table><thead><tr><th>Type</th><th>Example</th><th>Notes for data work</th></tr></thead><tbody>
+            <tr><td><code>int / float</code></td><td><code>42, 3.14</code></td><td><code>/</code> is float division; <code>//</code> floors. Watch <code>0.1+0.2 != 0.3</code> (binary float).</td></tr>
+            <tr><td><code>str</code></td><td><code>"delhi"</code></td><td>Immutable. Use f-strings: <code>f"acc={acc:.2f}"</code>.</td></tr>
+            <tr><td><code>bool</code></td><td><code>True</code></td><td><code>and/or/not</code>. Empty containers, <code>0</code>, <code>None</code> are falsy.</td></tr>
+            <tr><td><code>list</code></td><td><code>[1,2,3]</code></td><td>Ordered, mutable. <code>append</code>, slicing <code>a[1:3]</code>.</td></tr>
+            <tr><td><code>tuple</code></td><td><code>(1,2)</code></td><td>Ordered, immutable. Good for fixed records, dict keys.</td></tr>
+            <tr><td><code>dict</code></td><td><code>{"a":1}</code></td><td>Key → value. <code>d.get(k, default)</code> avoids KeyError.</td></tr>
+            <tr><td><code>set</code></td><td><code>{1,2}</code></td><td>Unique, unordered. Fast membership, dedupe.</td></tr>
+            <tr><td><code>None</code></td><td><code>None</code></td><td>“No value”. Test with <code>is None</code>, not <code>==</code>.</td></tr>
+          </tbody></table>
+<pre><code>name, age = "Asha", 21
+scores = [88, 92, 79]
+print(f"{name} scored {sum(scores)/len(scores):.1f}")
+
+# dict counting pattern you will use forever
+counts = {}
+for s in ["spam","ham","spam"]:
+    counts[s] = counts.get(s, 0) + 1   # {'spam':2,'ham':1}</code></pre>
+          <h3>3. Control flow and comprehensions</h3>
+<pre><code>for i, city in enumerate(["Delhi","Mumbai","Goa"]):
+    if city == "Goa":
+        print(i, "holiday")
+    elif len(city) &gt; 5:
+        print(i, "long name")
+    else:
+        print(i, city)
+
+# list / dict comprehensions (prefer over manual loops)
+squares = [x*x for x in range(10) if x % 2 == 0]
+lookup  = {c.lower(): c for c in ["Delhi","Mumbai"]}</code></pre>
+          <p><strong>Rule:</strong> if the loop body is “build a list”, write a comprehension. If it is “decide + side effects”, write an explicit loop.</p>
+          <h3>4. Functions — the unit of reuse</h3>
+<pre><code>def train_test_split_safe(n, test_frac=0.2, seed=42):
+    """Return (n_train, n_test). Pure function: no prints, no globals."""
+    import random
+    random.seed(seed)
+    idx = list(range(n))
+    random.shuffle(idx)
+    k = int(n * test_frac)
+    return idx[k:], idx[:k]
+
+# *args / **kwargs for flexible wrappers
+def log_call(fn, *args, **kwargs):
+    print(f"calling {fn.__name__}")
+    return fn(*args, **kwargs)</code></pre>
+          <ul>
+            <li>One function = one job. If you describe it with “and”, split it.</li>
+            <li><strong>Type hints</strong> catch bugs in AI code: <code>def accuracy(y_true: list[int], y_pred: list[int]) -&gt; float:</code></li>
+            <li><strong>Docstring</strong> first line = what it returns, not how it loops.</li>
+            <li>Default args must be immutable (<code>None</code>, not <code>[]</code>).</li>
+          </ul>
+          <h3>5. Objects and classes (just enough OOP)</h3>
+          <p>You don’t need design-pattern bingo. You need: bundle data + behaviour, and read sklearn/PyTorch classes. A <strong>dataclass</strong> is a struct with free <code>__init__</code>/<code>__repr__</code>.</p>
+<pre><code>from dataclasses import dataclass
+
+@dataclass
+class DatasetInfo:
+    name: str
+    n_rows: int
+    n_cols: int
+    def shape(self):
+        return (self.n_rows, self.n_cols)
+
+class Standardizer:
+    def __init__(self):
+        self.mean_ = None; self.std_ = None
+    def fit(self, X):
+        self.mean_ = sum(X)/len(X)
+        var = sum((x-self.mean_)**2 for x in X)/len(X)
+        self.std_ = var**0.5 or 1.0
+        return self
+    def transform(self, X):
+        return [(x-self.mean_)/self.std_ for x in X]
+
+info = DatasetInfo("housing", 10000, 12)
+print(info, info.shape())</code></pre>
+          <h3>6. Files, paths, CSV and JSON</h3>
+<pre><code>from pathlib import Path
+import csv, json
+
+p = Path("data/raw/customers.csv")
+print(p.exists(), p.parent)
+
+# text + csv + json (the three you will meet weekly)
+Path("outputs").mkdir(exist_ok=True)
+with open("outputs/notes.txt", "w") as f:
+    f.write("split=80/20, seed=42\n")
+
+with open("data/raw/customers.csv") as f:
+    rows = list(csv.DictReader(f))       # list of dicts
+
+config = json.loads(Path("config.json").read_text()) if Path("config.json").exists() else {"lr": 0.01}</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <rect x="10" y="30" width="140" height="50" rx="10" fill="#0f766e"/><text x="80" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">raw/ (never edit)</text>
+              <rect x="170" y="30" width="140" height="50" rx="10" fill="#0c1b2e"/><text x="240" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">clean .py script</text>
+              <rect x="330" y="30" width="140" height="50" rx="10" fill="#0ea5e9"/><text x="400" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">processed/</text>
+              <rect x="490" y="30" width="140" height="50" rx="10" fill="#b45309"/><text x="560" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">outputs/</text>
+            </svg>
+            <div class="diagram-title">Diagram 30.1 — Folder discipline. Raw is read-only; scripts turn it into processed + outputs.</div>
+          </div>
+          <h3>7. Errors, logging, and debugging</h3>
+<pre><code>import logging
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+
+def safe_div(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        logging.warning("division by zero, returning None")
+        return None
+    except TypeError as e:
+        raise ValueError(f"need numbers, got {type(a)},{type(b)}") from e</code></pre>
+          <ul>
+            <li>Read tracebacks <strong>bottom-up</strong>: last line = error type, frames above = where.</li>
+            <li><code>print()</code> for a minute, <code>logging</code> for a project. Logs have levels and timestamps.</li>
+            <li>Validate early: <code>assert len(y)==len(X)</code>, or <code>if not rows: raise ValueError("empty CSV")</code>.</li>
+          </ul>
+          <h3>8. Modules, packages, and style</h3>
+          <ul>
+            <li>A <strong>module</strong> is a <code>.py</code> file; a <strong>package</strong> is a folder with <code>__init__.py</code>. Import with <code>from utils.metrics import f1</code>.</li>
+            <li>Style: <code>snake_case</code> for functions, <code>PascalCase</code> for classes, 88-char lines (Black). Run <code>ruff check .</code> before you commit.</li>
+            <li>Randomness: set seeds (<code>random</code>, <code>numpy</code>, <code>torch</code>) and log them — but remember GPU ops are not bit-perfect.</li>
+          </ul>
+          <div class="example"><h4>Worked mini-project — clean a CSV without pandas</h4>
+<pre><code>import csv
+with open("data/raw/scores.csv") as f:
+    rows = [r for r in csv.DictReader(f) if r["score"].strip() != ""]
+scores = [float(r["score"]) for r in rows]
+print(f"n={len(scores)} mean={sum(scores)/len(scores):.2f} max={max(scores)}")</code></pre>
+          <p>Three lines of “boring” Python replace 20 minutes of manual Excel fixes — and they rerun.</p></div>
+          <div class="warn"><h4>Common pitfalls</h4><p>Mutating a list while looping over it · <code>datetime</code> as string (“01/02/03” — Jan 2 or Feb 1?) · paths with <code>\</code> on Windows (use <code>pathlib</code>) · notebooks with hidden out-of-order state.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Python fluency = types + control flow + functions + classes + files + errors. Use venvs, pathlib, f-strings, dataclasses, logging, and type hints. Notebooks explore; scripts reproduce. Raw data is read-only; code builds processed data and outputs.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>venv per project; pin requirements.</li><li>Comprehensions build lists; loops do actions.</li><li><code>d.get(k,0)</code> counting pattern.</li><li>Dataclass for records; class with fit/transform for state.</li><li>Read tracebacks bottom-up; log, don’t only print.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Why use a virtual environment per project?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It makes Python run 10× faster</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It isolates package versions so projects don’t break each other</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It replaces the need for code</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It deletes raw data safely</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Different projects need different numpy/pandas versions.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. <code>{"a":1}.get("b", 0)</code> returns:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. KeyError</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. None and crashes</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 0</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. "b"</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">.get with a default avoids the exception.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A safe default argument is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. <code>def f(x=None)</code> then create inside</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. <code>def f(x=[])</code> and mutate it</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. <code>def f(x={})</code> shared dict</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No defaults ever</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Mutable defaults are shared across calls — a classic bug.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. You should read a traceback:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Top-down only</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. By deleting the last line</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. By ignoring file names</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Bottom-up: error type first, then frames</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Last line names the error; frames show the call path.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. <code>pathlib.Path("outputs").mkdir(exist_ok=True)</code> is preferred because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Trains a model</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Works across OS path separators and won’t crash if the folder exists</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Deletes the folder</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Requires Excel</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Portable paths beat hardcoded "C:\\..." strings.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch30')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c30p1"><p class="q">P1. Write a function <code>mean(xs)</code> that raises <code>ValueError</code> on an empty list and ignores <code>None</code> values.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>def mean(xs):
+    vals = [x for x in xs if x is not None]
+    if not vals:
+        raise ValueError("no values to average")
+    return sum(vals) / len(vals)</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c30p2"><p class="q">P2. Convert this loop to a comprehension: collect squares of even numbers 0–19.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p><code>[x*x for x in range(20) if x % 2 == 0]</code> — filter inside the comprehension, expression on the left.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c30p3"><p class="q">P3. Your notebook gives different results after “Run All”. Name two likely causes and the fix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Cells ran out of order — hidden state. Fix: Restart &amp; Run All, then refactor stable steps into a <code>.py</code> script. (2) Unseeded randomness or a variable overwritten in a later cell. Fix: set seeds at top, avoid reusing names like <code>df</code> for different frames.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch6">← Data &amp; features</button>
+            <button data-go="ch31">Excel &amp; Sheets →</button>
+          </div>
+        </div>
+      </article>

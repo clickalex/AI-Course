@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced RAG · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Advanced RAG · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item active" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch48">
+        <div class="chapter-head"><div class="kicker">Chapter 48 · Frontier · F2</div>
+          <h2>Advanced RAG: agentic, graph &amp; multimodal</h2>
+          <p class="lede">Basic RAG retrieves once and hopes. Advanced RAG plans, rewrites, traverses graphs, reads images and tables — and grades itself. This is the chapter that turns Ch 42 demos into production systems.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Agentic RAG</span><span class="tag">GraphRAG</span><span class="tag">Multimodal</span><span class="tag">RAGAS</span></div>
+          <div class="figure"><img src="../images/advanced-rag.jpg" alt="Agents traversing a glowing knowledge graph into an answer" /></div>
+          <p class="caption">Figure 48.1 — Retrieval is no longer one lookup; it’s an investigation across chunks, graphs, tables, and images.</p>
+          <h3>1. Agentic RAG: retrieve in a loop</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="20" y="50" width="120" height="55" rx="10" fill="#0f766e"/><text x="80" y="73" fill="#fff">Plan +</text><text x="80" y="89" fill="#d1fae5">rewrite query</text>
+                <rect x="170" y="50" width="120" height="55" rx="10" fill="#0c1b2e"/><text x="230" y="73" fill="#fff">Retrieve</text><text x="230" y="89" fill="#94a3b8">multi-source</text>
+                <rect x="320" y="50" width="110" height="55" rx="10" fill="#0ea5e9"/><text x="375" y="73" fill="#fff">Grade</text><text x="375" y="89" fill="#e0f2fe">enough?</text>
+                <rect x="460" y="50" width="160" height="55" rx="10" fill="#b45309"/><text x="540" y="73" fill="#fff">Answer + cite</text><text x="540" y="89" fill="#fef3c7">or loop again</text>
+                <path d="M375 110 C 300 135, 150 135, 80 110" fill="none" stroke="#57534e" stroke-width="2" stroke-dasharray="6 4"/>
+                <text x="230" y="132" fill="#57534e" font-size="11">no → refine &amp; re-retrieve (budget: 3–5 hops)</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 48.1 — Self-RAG / CRAG pattern: retrieve → grade → (rewrite and retry) → generate. Cap the hops; log every hop.</div>
+          </div>
+          <ul>
+            <li><strong>Query rewriting:</strong> expand (“refund” → policy + exceptions), HyDE (draft a hypothetical answer, then retrieve by it), multi-query fan-out.</li>
+            <li><strong>Routing:</strong> small classifier sends factual → RAG, chitchat → direct, code → docs+repo, tables → Text-to-SQL. Wrong route = wrong tool.</li>
+            <li><strong>Corrective RAG:</strong> grade retrieved chunks; if thin, rewrite and re-retrieve or fall back to web search — never generate from nothing.</li>
+          </ul>
+          <h3>2. GraphRAG &amp; structure-aware retrieval</h3>
+          <ul>
+            <li><strong>When chunks fail:</strong> “How do refunds connect to fraud flags across regions?” needs <em>relationships</em>, not passages. Build a <strong>knowledge graph</strong> (entities + relations) from docs.</li>
+            <li><strong>GraphRAG recipe:</strong> extract entities/relations → community detection → summarise communities → retrieve subgraphs + summaries → generate. Great for “connect the dots” questions.</li>
+            <li><strong>Tables &amp; Text-to-SQL:</strong> keep tables whole (Ch 46); for exact numbers, generate SQL over the source DB instead of quoting chunks — no rounding hallucinations.</li>
+          </ul>
+          <h3>3. Multimodal RAG &amp; long-context tension</h3>
+          <ul>
+            <li><strong>Multimodal:</strong> embed images/charts with CLIP-style models; retrieve figures alongside text; cite page + figure. Parse diagrams into text when precision matters.</li>
+            <li><strong>Long context vs RAG:</strong> 1M-token windows tempt “stuff everything in.” Reality: retrieval still wins on cost, freshness, and focus — <strong>lost-in-the-middle</strong> degrades giant prompts. Hybrid: retrieve well, then fill remaining context wisely.</li>
+          </ul>
+          <h3>4. Grade it: RAGAS-style evals</h3>
+          <table><thead><tr><th>Metric</th><th>Question it answers</th></tr></thead><tbody>
+            <tr><td><strong>Context precision/recall</strong></td><td>Were the right chunks retrieved (and ranked first)?</td></tr>
+            <tr><td><strong>Faithfulness</strong></td><td>Is every claim supported by the context?</td></tr>
+            <tr><td><strong>Answer relevance</strong></td><td>Did it actually answer what was asked?</td></tr>
+          </tbody></table>
+          <div class="warn"><h4>Advanced failure modes</h4><p>Hop explosion (10 retrievals for a factoid — budget hops) · graph extraction errors compounding · router sending everything to the LLM · evals grading fluency instead of faithfulness · stale graph + fresh chunks disagreeing.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Agentic RAG loops plan → retrieve → grade → rewrite (cap hops). Route by query type; GraphRAG for relationship questions; Text-to-SQL for exact numbers; multimodal for figures. RAG still beats stuffing 1M tokens on cost/freshness/focus. Eval context precision/recall + faithfulness + relevance.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Retrieve → grade → retry, budgeted.</li><li>Router picks the right tool.</li><li>Graphs for “connect the dots”.</li><li>SQL for numbers, not quotes.</li><li>Lost-in-the-middle is real.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 138" role="img" aria-label="hybrid trace"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">hybrid trace</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">ask "refund window for shoes?"</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">dense 8 + sparse 8 → rerank → top 3</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">answer + 3 citations ✓ </tspan><tspan fill="#94a3b8">faith 0.96</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 48.1 — hybrid retrieval trace: dense + sparse, reranked, cited.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Corrective (agentic) RAG differs from basic RAG by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Never retrieving anything</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Grading retrieved chunks and looping (rewrite → re-retrieve) when thin</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Using a smaller model</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Deleting the index</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Retrieve once and hope → investigate until sufficient.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. GraphRAG helps most with questions like:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. “What’s the capital of France?”</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. “Summarise this paragraph”</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. “How do supplier delays connect to refund spikes across regions?”</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. “Write a haiku”</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Multi-hop relationship questions need graphs, not passages.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. For exact figures from company tables, prefer:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Text-to-SQL over the source DB — no rounding hallucinations</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Asking the LLM to guess</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Screenshots of charts</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Deleting the tables</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Compute numbers; don’t recite them.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. “Lost in the middle” refers to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Losing your keys</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A sorting algorithm</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GPU overheating</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. LLMs underusing information buried mid-prompt in giant contexts</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Why good retrieval still beats stuffing 1M tokens.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. RAGAS context recall measures:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Typing speed</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Whether the retriever found the chunks needed to answer (coverage)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Model size</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Electricity use</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Pair with precision (ranking) + faithfulness (grounding).</div></div>
+            <button class="btn gold" onclick="checkChapter('ch48')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c48p1"><p class="q">P1. Basic RAG fails on “compare Q3 vs Q4 refund drivers.” Design the advanced pipeline.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Router detects comparison-over-time → plan sub-queries (Q3 drivers, Q4 drivers) → retrieve each + Text-to-SQL for exact figures → grade coverage → synthesise a comparison table with per-cell citations. Eval: faithfulness per claim + number-exactness checks. Log hops; cap at 5.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c48p2"><p class="q">P2. When would you build a knowledge graph instead of better chunking?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>When questions span relationships across documents (ownership chains, incident timelines, policy interactions) that no single chunk contains. Signal: multi-hop eval slice fails while factoid slice passes. Cost: extraction pipeline + graph maintenance + community summaries — only worth it when the question log proves the need.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c48p3"><p class="q">P3. Your 1M-context model answers worse than small-context RAG on long contracts. Why + fix?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Lost-in-the-middle + distractor dilution: key clauses drown in 900k irrelevant tokens, at 50× the cost. Fix: hybrid — retrieve top clauses precisely, then give the big window only the retrieved evidence + structure (tables intact). Big context is a safety net, not a retrieval strategy.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch47">← AGI</button>
+            <button data-go="ch49">Reasoning models →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

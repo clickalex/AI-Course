@@ -1,0 +1,136 @@
+<article class="page" id="ch2">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 2 · Foundations</div>
+          <h2>History of AI</h2>
+          <p class="lede">AI did not begin with ChatGPT. It is a 70-year story of bold claims, winters, and a few phase changes in computing and data.</p>
+        </div>
+        <div class="content">
+          <h3>A timeline you can actually remember</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 720 220" width="720" height="220" role="img">
+              <line x1="40" y1="110" x2="680" y2="110" stroke="#0f766e" stroke-width="4"/>
+              <g font-family="Source Sans 3" font-size="11" text-anchor="middle">
+                <circle cx="70" cy="110" r="8" fill="#fbbf24"/><text x="70" y="50" fill="#0c1b2e">1950</text><text x="70" y="68" fill="#57534e">Turing</text>
+                <circle cx="170" cy="110" r="8" fill="#14b8a6"/><text x="170" y="160" fill="#0c1b2e">1956</text><text x="170" y="178" fill="#57534e">Dartmouth</text>
+                <circle cx="280" cy="110" r="8" fill="#64748b"/><text x="280" y="50" fill="#0c1b2e">1970s–80s</text><text x="280" y="68" fill="#57534e">Winters</text>
+                <circle cx="400" cy="110" r="8" fill="#14b8a6"/><text x="400" y="160" fill="#0c1b2e">1997–2012</text><text x="400" y="178" fill="#57534e">Data + GPUs</text>
+                <circle cx="520" cy="110" r="8" fill="#fbbf24"/><text x="520" y="50" fill="#0c1b2e">2017</text><text x="520" y="68" fill="#57534e">Transformer</text>
+                <circle cx="640" cy="110" r="8" fill="#f43f5e"/><text x="640" y="160" fill="#0c1b2e">2022–</text><text x="640" y="178" fill="#57534e">LLM era</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 2 — Six landmarks. The field twice nearly froze when promises outran compute and data.</div>
+          </div>
+
+          <h4>1950 — Can machines think?</h4>
+          <p>Alan Turing’s paper <em>Computing Machinery and Intelligence</em> proposed the imitation game (Turing Test): if you cannot tell the machine from a human in conversation, treat it as intelligent. The test is a behavioural benchmark, not a theory of mind.</p>
+          <h4>1956 — The name “Artificial Intelligence”</h4>
+          <p>The Dartmouth workshop (McCarthy, Minsky, Shannon, Rochester and others) coined the term and bet that a few months of work might crack intelligence. That optimism set a pattern: overpromise, then winter.</p>
+          <h4>Winters</h4>
+          <p>When funding collapsed (1970s, late 1980s), it was usually because systems could not scale: combinatorial explosion in search, brittle expert systems, and computers that were too small. The lesson still holds — <strong>ideas need matching compute, data, and evaluation</strong>.</p>
+          <h4>1997–2012 — Quiet competence, then ImageNet</h4>
+          <p>IBM Deep Blue beat Kasparov (1997) mostly with search and specialised hardware. Statistical NLP and SVMs matured. In 2012, AlexNet crushed the ImageNet contest using a deep CNN on GPUs — the deep learning boom’s public start.</p>
+          <h4>2017 onward — Sequence models grow up</h4>
+          <p>The paper <em>Attention Is All You Need</em> introduced the Transformer. Scaling laws later showed that bigger models + more data + more compute predictably improved language modelling. ChatGPT (2022) made that capability a consumer product. The research frontier since then is less “invent a new layer type” and more data quality, alignment, tools/agents, multimodal models, and efficiency.</p>
+
+          <div class="insight">
+            <h4>Key insight</h4>
+            <p>Breakthroughs usually needed three things at once: a better model class, enough compute, and a dataset/benchmark that made progress measurable (ImageNet, SQuAD, GLUE, then next-token perplexity and human evals).</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Turing (1950) set a behavioural test. Dartmouth (1956) named the field. Two winters followed hype. Statistical ML and then deep CNNs (2012) revived it. Transformers (2017) plus scale produced modern LLMs. History’s moral: evaluation + resources matter as much as clever maths.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>1950 Turing Test · 1956 Dartmouth · 1997 Deep Blue · 2012 AlexNet · 2017 Transformer · 2022 ChatGPT.</li>
+              <li>AI winters: hype &gt; capability.</li>
+              <li>GPUs made deep nets practical.</li>
+              <li>Scale (data, parameters, compute) is a central 2018–2020s story.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 200" width="640" height="200">
+<rect x="10" y="10" width="620" height="180" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">git log — ai-history</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">git log --oneline ai-history</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">a1b2c3d </tspan><tspan fill="#e2e8f0">1956 Dartmouth: the term 'AI' is born</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">e4f5g6h </tspan><tspan fill="#e2e8f0">1997 Deep Blue beats Kasparov</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">i7j8k9l </tspan><tspan fill="#e2e8f0">2012 AlexNet ignites deep learning</tspan></text>
+              <text x="34" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">m1n2o3p </tspan><tspan fill="#e2e8f0">2017 Attention is all you need</tspan></text>
+              <text x="34" y="170" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">q4r5s6t </tspan><tspan fill="#e2e8f0">2022 ChatGPT: AI goes mainstream ✓</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 2.1 — Seventy years of AI as a commit log. Winters included.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="c">
+              <p class="q">1. The Turing Test primarily measures:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Energy efficiency of a chip</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Whether a model is conscious</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Whether behaviour is indistinguishable from a human in conversation</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. ImageNet top-1 accuracy</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">It is a behavioural imitation test, not a proof of inner experience.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">2. AlexNet (2012) mattered because it:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Showed deep CNNs + GPUs smash a major vision benchmark</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Invented the Turing Test</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Was the first expert system</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Proved AGI had arrived</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">The ImageNet result convinced industry that deep learning was not a niche academic toy.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">3. The 2017 Transformer paper’s core claim was that:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Convolution is all you need</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Recurrence is mandatory for language</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Expert systems beat neural nets</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Attention can replace recurrence for sequence transduction</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain"><em>Attention Is All You Need</em> dropped RNNs/CNNs as the backbone of translation models.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">4. An “AI winter” is best described as:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A season when GPUs overheat</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A collapse in funding and interest after overstated claims</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The period after ChatGPT</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. When models become too accurate</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Winters followed unmet promises and limited compute/data — a caution still relevant in hype cycles.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch2')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c2p1">
+              <p class="q">P1. Name three ingredients that turned deep learning from a curiosity into an industry (2012–2020).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Any solid trio: (1) large labelled datasets (ImageNet, web text), (2) GPU/TPU compute, (3) algorithms that train stably (ReLU, batch norm, residual connections, Adam), (4) open-source frameworks (Theano, Caffe, TensorFlow, PyTorch), (5) benchmarks that made progress public.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c2p2">
+              <p class="q">P2. Why did expert systems stall even when they worked in narrow domains?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Knowledge acquisition bottleneck: experts cannot enumerate all cases. Rules conflict and rot. The systems did not generalise to slightly new problems. Maintenance cost grew faster than capability.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch1">← Chapter 1</button>
+            <button data-go="ch3">Chapter 3 →</button>
+          </div>
+        </div>
+      </article>

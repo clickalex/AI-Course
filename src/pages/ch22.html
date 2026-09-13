@@ -1,0 +1,55 @@
+<article class="page" id="ch22">
+        <div class="chapter-head"><div class="kicker">Chapter 22 · LLMs in practice</div>
+          <h2>Fine-tuning, PEFT &amp; evals</h2>
+          <p class="lede">You rarely train a foundation model. You adapt one — cheaply — and you prove it with evals, not vibes.</p></div>
+        <div class="content">
+          <ol>
+            <li><strong>Prompt / few-shot</strong> — no weight change.</li>
+            <li><strong>SFT</strong> — supervised instruction data; full or LoRA.</li>
+            <li><strong>PEFT</strong> — LoRA/QLoRA, adapters, prefix-tuning: train a tiny residual, freeze the rest.</li>
+            <li><strong>Preference</strong> — DPO / RLHF / ORPO so style and safety match raters.</li>
+            <li><strong>RAG</strong> — don’t memorise facts; fetch them (often better than fine-tunes for changing knowledge).</li>
+          </ol>
+          <div class="formula">LoRA: W' = W + BA<small>B, A low-rank; W frozen. QLoRA stores W in 4-bit.</small></div>
+          <p>Evals: held-out task suites, factuality with citations, toxicity, prompt-injection tests, cost/latency, and human rubrics. Overfitting a famous public benchmark is the new train/test leak.</p>
+          <div class="note"><h4>Short notes</h4><p>Choose the cheapest adapter that hits the metric. Fine-tune for style and format; retrieve for facts. Quantisation (INT8/4) is how 7B models fit on a laptop GPU.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>LoRA = low-rank update.</li><li>DPO ≈ RLHF without a separate PPO loop.</li><li>Eval set ≠ the tweet demo.</li><li>RAG vs FT: freshness vs behaviour.</li></ul></div>
+                    <div class="diagram">
+            <svg viewBox="0 0 640 140" width="640" height="140">
+<rect x="10" y="10" width="620" height="120" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">LoRA — cheap adaptation</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">python train_lora.py --r 16 --epochs 3</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">trainable: 4.2M / 7B </tspan><tspan fill="#64748b">(0.06% of weights)</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">eval 0.61 → 0.83 ✓ </tspan><tspan fill="#64748b">one GPU, lunch break, done</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 22.1 — 0.06% of weights move, eval jumps 22 points.</div>
+          </div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. LoRA is a PEFT method because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Retrains every ImageNet CNN from scratch</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Trains small low-rank matrices while freezing base weights</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Deletes the tokenizer</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Is k-means on prompts</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Parameter-efficient fine-tuning.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. For a bot that must quote this week’s HR policy, prefer:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A one-time 2000-epoch full fine-tune and never update</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Raising temperature</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. RAG over the live policy corpus</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. PCA on PDFs</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Facts that change belong in the index.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. DPO trains from:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Pairs of preferred vs rejected answers</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only unlabeled images</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-means labels</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Minimax trees</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Direct Preference Optimization.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch22')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c22p1"><p class="q">P1. You have 400 high-quality support transcripts. Full FT or LoRA? Why?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>LoRA/QLoRA: small data, want to keep general skills, cheap to iterate. Full FT on 400 examples will overfit and catastrophic-forget. Add a style eval and a factual RAG layer for product names.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch14">← Chapter 14</button>
+            <button data-go="ch23">AI Agents →</button>
+          </div>
+        </div>
+      </article>

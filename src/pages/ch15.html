@@ -1,0 +1,144 @@
+<article class="page" id="ch15">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 15 · Sequential decisions</div>
+          <h2>Reinforcement learning</h2>
+          <p class="lede">An agent acts, the world answers with a next state and a reward, and the agent improves its policy. No labelled “correct action” is required — only a goal signal.</p>
+        </div>
+        <div class="content">
+          <div class="figure">
+            <img src="images/reinforcement.jpg" alt="RL agent in a maze receiving rewards and penalties" />
+          </div>
+          <p class="caption">Figure 15.1 — Agent ↔ environment loop: state, action, reward, next state.</p>
+
+          <h3>MDP vocabulary</h3>
+          <ul>
+            <li><strong>State s</strong> — what the agent knows (or the Markov state of the world).</li>
+            <li><strong>Action a</strong> — what it can do.</li>
+            <li><strong>Reward r</strong> — scalar feedback. Design this carefully; you get what you ask for.</li>
+            <li><strong>Policy π(a|s)</strong> — the behaviour to learn.</li>
+            <li><strong>Return</strong> — discounted sum of future rewards. Discount γ ∈ [0,1) values sooner rewards more.</li>
+            <li><strong>Value V(s)</strong> / <strong>Q(s,a)</strong> — expected return from a state (and action).</li>
+          </ul>
+          <div class="formula">Q(s,a) = E[ r + γ max<sub>a'</sub> Q(s', a') ]<small>Bellman flavour (optimal Q). Q-learning learns this from samples.</small></div>
+
+          <h3>Core algorithms (map, don’t memorise every variant)</h3>
+          <table>
+            <thead><tr><th>Style</th><th>Idea</th></tr></thead>
+            <tbody>
+              <tr><td>Q-learning / DQN</td><td>Learn action values; act nearly greedily. DQN uses a neural net + replay buffer.</td></tr>
+              <tr><td>Policy gradient / PPO</td><td>Optimise π directly. PPO is the workhorse of modern continuous-control and a lot of LLM alignment history.</td></tr>
+              <tr><td>Actor–critic</td><td>A policy (actor) and a value baseline (critic) together.</td></tr>
+              <tr><td>Model-based</td><td>Learn/use a world model to plan (AlphaGo’s search + network).</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Exploration vs exploitation</strong>: ε-greedy, entropy bonuses, curiosity. Too little exploration, the agent never finds the door; too much, it never uses what it knows.</p>
+
+          <h3>Where RL shows up</h3>
+          <p>Games, robotics, bidding, recommendation (carefully), chip layout, and aligning LLMs (RLHF). Most business “ML” is still supervised — RL is for when the right action is defined by long-term consequences, not a static label.</p>
+
+          <div class="warn">
+            <h4>Reward hacking</h4>
+            <p>A cleaning robot maximising “dirt collected” may knock over a plant to create more dirt. Specify the reward, constraints, and oversight as seriously as the algorithm.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>RL = learn a policy from reward in an MDP. Q-learning estimates action values; policy gradients move π uphill on expected return. Discounting trades now vs later. Exploration is mandatory. Reward design is the real art — and the real safety problem. RLHF is RL on language-model policies with a learned reward model.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Loop: s → a → r, s′.</li>
+              <li>π policy, V/Q values, γ discount.</li>
+              <li>DQN vs PPO: values vs direct policy.</li>
+              <li>Explore vs exploit.</li>
+              <li>Bad rewards → bad behaviour.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 240" width="640" height="240">
+<rect x="10" y="10" width="620" height="220" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">episodes — explore, then exploit</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="34" y="58" width="572" height="26" fill="#1e293b"/>
+              <text x="34" y="76" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">ep    reward  epsilon</tspan></text>
+              <line x1="34" y1="118" x2="606" y2="118" stroke="#1e293b"/>
+              <text x="48" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">1     -42     1.00</tspan></text>
+              <line x1="34" y1="142" x2="606" y2="142" stroke="#1e293b"/>
+              <text x="48" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">50    +18     0.40</tspan></text>
+              <line x1="34" y1="166" x2="606" y2="166" stroke="#1e293b"/>
+              <text x="48" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">200   +96     0.05</tspan></text>
+              <text x="34" y="190" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">reward climbs ✓ </tspan><tspan fill="#64748b">curiosity annealed into skill</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 15.1 — From flailing (-42) to mastery (+96): epsilon does the growing.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. In RL, the policy is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The learning rate only</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The mapping from states to actions (possibly stochastic)</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The test-set CSV</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A type of convolution</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">π(a|s) is what you deploy.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. The discount factor γ close to 0 makes the agent:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Infinitely patient</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Ignore states</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Myopic — care mostly about immediate reward</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Equivalent to PCA</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">γ → 1 values long horizons (and can make credit assignment harder).</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. ε-greedy exploration means:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. With probability ε take a random action, otherwise greedy on Q</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Always take the best action</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Never update Q</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Set all rewards to ε</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Simple, classic, often enough in discrete action spaces.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. RLHF for LLMs typically needs:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Only k-means on prompts</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. No preference data at all</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Convolutional filters on ImageNet</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A reward signal derived from human (or AI) comparisons of answers</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Preference data → reward model or DPO pairs → policy update.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch15')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c15p1">
+              <p class="q">P1. Grid world: +1 at the goal, −1 in a trap, −0.01 per step. What behaviour does the small step cost encourage?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>It encourages shorter paths to the goal (lingering is costly) while still preferring the goal to the trap. If the step cost were 0, any path to +1 is equally good. If it were large, the agent might refuse to move. Reward shaping changes the optimal policy — design it on purpose.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c15p2">
+              <p class="q">P2. When would you not use RL and just use supervised learning instead?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>When you already have correct actions/labels and no sequential credit-assignment problem: spam vs ham, image class, next-token if you just want imitation. RL’s sample inefficiency and reward design cost are wasted if a dataset of x→y exists. Use RL when you must try actions, wait, and optimise long-run return.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch66">← Training data</button>
+            <button data-go="ch25">Advanced RL →</button>
+          </div>
+        </div>
+      </article>

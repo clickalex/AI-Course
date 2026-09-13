@@ -1,0 +1,140 @@
+<article class="page" id="ch3">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 3 · Foundations</div>
+          <h2>Types of AI</h2>
+          <p class="lede">Classify systems by capability (what they could do in principle) and by how they use memory and experience.</p>
+        </div>
+        <div class="content">
+          <div class="figure">
+            <img src="images/ai-types.jpg" alt="Three stages of AI capability" />
+          </div>
+          <p class="caption">Figure 3.1 — From narrow tools, to hypothetical general intelligence, to superintelligence. Only the first exists as products today.</p>
+
+          <h3>By capability</h3>
+          <table>
+            <thead><tr><th>Type</th><th>Definition</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ANI — Artificial Narrow Intelligence</strong></td><td>Strong at a bounded task or cluster of tasks.</td><td>All current deployed AI: recommenders, detectors, LLMs (broad but still tool-like).</td></tr>
+              <tr><td><strong>AGI — Artificial General Intelligence</strong></td><td>Human-level competence across most cognitive tasks, including novel ones.</td><td>Not achieved. Definitions and tests are disputed.</td></tr>
+              <tr><td><strong>ASI — Artificial Superintelligence</strong></td><td>Exceeds humans on almost all valuable cognitive work.</td><td>Hypothetical; central to long-term safety debates.</td></tr>
+            </tbody>
+          </table>
+          <p>LLMs feel “general” because language is a universal interface. They are still narrow in a strict sense: they do not autonomously run a scientific programme, reliably act in the physical world, or hold stable long-horizon goals without scaffolding. Treat them as extremely capable pattern engines plus tools.</p>
+
+          <h3>By functionality (Russell &amp; Norvig flavour / pop taxonomy)</h3>
+          <ol>
+            <li><strong>Reactive machines</strong> — no memory of the past. IBM Deep Blue evaluated the current board.</li>
+            <li><strong>Limited memory</strong> — use recent history. Self-driving stacks and almost all ML models (trained on past data, using a context window).</li>
+            <li><strong>Theory of mind</strong> — would model others’ beliefs and intentions. Research, not a product category you can buy.</li>
+            <li><strong>Self-aware AI</strong> — would have a model of itself as an agent. Science fiction / philosophy until evidence says otherwise.</li>
+          </ol>
+
+          <h3>By learning style (preview of later chapters)</h3>
+          <ul>
+            <li><strong>Supervised</strong> — learn from input–label pairs.</li>
+            <li><strong>Unsupervised / self-supervised</strong> — learn structure (or predict hidden parts of the input).</li>
+            <li><strong>Reinforcement</strong> — learn from rewards by acting in an environment.</li>
+          </ul>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Everything you use is ANI. AGI/ASI are capability levels, not brands. Most ML systems are “limited memory”: they use training data and a short context, not lifelong autobiographical memory. Do not confuse a wide skill surface (an LLM) with general autonomous intelligence.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>ANI exists · AGI/ASI do not (as of this book).</li>
+              <li>Reactive vs limited-memory vs ToM vs self-aware.</li>
+              <li>Supervised / unsupervised / RL are learning paradigms, not capability levels.</li>
+              <li>Chatbots ≠ AGI.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 264" width="640" height="264">
+<rect x="10" y="10" width="620" height="244" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">model cards — scope check</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="34" y="58" width="572" height="26" fill="#1e293b"/>
+              <text x="34" y="76" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">system        scope    status</tspan></text>
+              <line x1="34" y1="118" x2="606" y2="118" stroke="#1e293b"/>
+              <text x="48" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">spam filter   narrow   shipped ✓</tspan></text>
+              <line x1="34" y1="142" x2="606" y2="142" stroke="#1e293b"/>
+              <text x="48" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">chess engine  narrow   shipped ✓</tspan></text>
+              <line x1="34" y1="166" x2="606" y2="166" stroke="#1e293b"/>
+              <text x="48" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">chatbot       broad    here-ish</tspan></text>
+              <line x1="34" y1="190" x2="606" y2="190" stroke="#1e293b"/>
+              <text x="48" y="182" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">AGI           general  research</tspan></text>
+              <text x="34" y="214" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">narrow = solved slices · general = the moonshot</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 3.1 — Narrow AI ships products; general AI ships papers.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="a">
+              <p class="q">1. AlphaGo, a spam filter, and a face unlock system are all examples of:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Narrow AI</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Superintelligence</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Theory-of-mind AI</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. AGI</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Each is specialised. AlphaGo cannot file your taxes.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. A model that only looks at the current input and has no state is closest to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. AGI</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Self-aware AI</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A reactive machine</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Reinforcement learning by definition</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Reactive systems map the present percept to an action with no memory.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">3. Self-supervised learning is usually grouped nearest to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Hand-written expert rules</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Unsupervised / “labels from the data itself”</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Human-in-the-loop legal review</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Superintelligence</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Predict-the-masked-token is a label created from the input. That is why LLMs can train on raw text.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. Which is the honest status of AGI?</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Shipped in all phones in 2015</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Identical to any large language model</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Banned by definition</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Not demonstrated; definitions still debated</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Impressive language competence is not an agreed AGI threshold.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch3')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c3p1">
+              <p class="q">P1. A journalist writes “GPT is AGI because it can code, translate, and write poems.” Write a 4-sentence rebuttal that is still fair to the model’s skill.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>The model is unusually broad for ANI because language is a general interface. Breadth of demos is not the same as reliable, autonomous competence on new goals in the real world. It still fails in systematic ways (hallucination, weak long-horizon planning, no persistent agency). AGI would require a clearer bar — e.g. matching a skilled human across most economically useful cognitive tasks with learning on the fly — which has not been met.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c3p2">
+              <p class="q">P2. Classify: (i) thermostat, (ii) spam filter trained on mail, (iii) robot that improves from reward in a warehouse.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(i) Reactive control / simple rules — barely AI, not ML. (ii) Supervised ANI, limited memory via training set. (iii) Reinforcement learning agent, still ANI if the task is warehousing only.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch2">← Chapter 2</button>
+            <button data-go="ch4">Chapter 4 →</button>
+          </div>
+        </div>
+      </article>

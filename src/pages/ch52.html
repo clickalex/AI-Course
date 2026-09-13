@@ -1,0 +1,130 @@
+<article class="page" id="ch52">
+        <div class="chapter-head"><div class="kicker">Chapter 52 · Frontier · F6</div>
+          <h2>Voice agents &amp; speech AI</h2>
+          <p class="lede">Talking machines are back — this time they work. Learn the ASR → LLM → TTS loop, streaming tricks that kill latency, barge-in handling, and how to eval a voice your customers will trust.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">ASR</span><span class="tag">TTS</span><span class="tag">Streaming</span><span class="tag">Telephony</span></div>
+          <div class="figure"><img src="images/voice-agents.jpg" alt="Voice waves flowing through a phone agent loop" /></div>
+          <p class="caption">Figure 52.1 — Speech in, speech out, under a second. Every millisecond of pipeline is UX.</p>
+          <h3>1. The loop: ASR → brain → TTS</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="15" y="50" width="110" height="55" rx="10" fill="#0f766e"/><text x="70" y="73" fill="#fff">Mic / call</text><text x="70" y="89" fill="#d1fae5" font-size="10">VAD + denoise</text>
+                <rect x="150" y="50" width="110" height="55" rx="10" fill="#0c1b2e"/><text x="205" y="73" fill="#fff">ASR</text><text x="205" y="89" fill="#94a3b8" font-size="10">streaming text</text>
+                <rect x="285" y="50" width="120" height="55" rx="10" fill="#0ea5e9"/><text x="345" y="73" fill="#fff">LLM + tools</text><text x="345" y="89" fill="#e0f2fe" font-size="10">RAG, booking</text>
+                <rect x="430" y="50" width="90" height="55" rx="10" fill="#b45309"/><text x="475" y="73" fill="#fff">TTS</text><text x="475" y="89" fill="#fef3c7" font-size="10">stream audio</text>
+                <rect x="545" y="50" width="80" height="55" rx="10" fill="#be123c"/><text x="585" y="73" fill="#fff">Play</text><text x="585" y="89" fill="#ffe4e6" font-size="10">barge-in?</text>
+                <text x="330" y="130" fill="#57534e" font-size="11">Budget: &lt;800 ms ear-to-mouth · stream every stage, never batch the call</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 52.1 — Voice is a real-time system wearing an AI costume. VAD, partial transcripts, and streaming TTS hide the pipeline.</div>
+          </div>
+          <ul>
+            <li><strong>VAD (voice activity detection):</strong> when did they stop? Too eager = interrupts; too slow = dead air. Tune per locale + background.</li>
+            <li><strong>ASR:</strong> streaming models (Whisper-streaming, Conformer) emit partials; low WER on accents/noise matters more than benchmarks on clean audio.</li>
+            <li><strong>TTS:</strong> neural voices (VITS, codec-LMs) with cloning; stream first chunk in &lt;200 ms. Prosody &gt; perfection for trust.</li>
+          </ul>
+          <h3>2. The hard parts aren’t the models</h3>
+          <ul>
+            <li><strong>Barge-in:</strong> user talks over the bot → stop TTS in &lt;300 ms, keep context, respond to the interruption. Echo cancellation required.</li>
+            <li><strong>Turn-taking:</strong> backchannels (“hmm”, “got it”) while tools run; filler honesty (“checking your booking…”) beats silence.</li>
+            <li><strong>Telephony reality:</strong> 8 kHz audio, packet loss, IVR handoffs, DTMF (“press 1”), regulatory recording consent. Test on real calls, not laptop mics.</li>
+            <li><strong>Identity &amp; fraud:</strong> voice cloning cuts both ways — authenticate callers (OTP, not “sounds like them”), watermark/sandbox your own cloned voices.</li>
+          </ul>
+          <h3>3. Evals for voice</h3>
+          <table><thead><tr><th>Metric</th><th>Target</th></tr></thead><tbody>
+            <tr><td>Task completion (booking done?)</td><td>Primary — everything else is secondary</td></tr>
+            <tr><td>Ear-to-mouth latency p95</td><td>&lt; 1 s; &lt; 800 ms feels human</td></tr>
+            <tr><td>Interruption handling</td><td>Recovers without losing state</td></tr>
+            <tr><td>WER on your accents/noise</td><td>Measure on <em>your</em> calls, not Librispeech</td></tr>
+            <tr><td>Containment + CSAT</td><td>Resolved without human, and liked it</td></tr>
+          </tbody></table>
+          <div class="warn"><h4>Voice pitfalls</h4><p>Batch pipeline with 4 s latency (callers hang up) · no barge-in (rage-inducing) · testing only on clean mic audio · cloning voices without consent · no human-escalation path when tools fail mid-call.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Loop: VAD → streaming ASR → LLM+tools → streaming TTS, &lt;800 ms ear-to-mouth. Barge-in + turn-taking + telephony grit decide UX, not model size. Eval task completion, latency, interruptions, your-accent WER, containment. Consent for cloning; OTP for identity; always an escape to humans.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Stream every stage.</li><li>VAD tunes interruptions.</li><li>Barge-in &lt; 300 ms.</li><li>Test on real calls.</li><li>Completion &gt; WER.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 256" role="img" aria-label="call — live transcript"><rect x="10" y="10" width="620" height="236" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">call — live transcript</text>
+              <line x1="60" y1="168" x2="590" y2="168" stroke="#64748b"/>
+              <rect x="64" y="133" width="12" height="35" rx="3" fill="#0ea5e9"/>
+              <rect x="85" y="110" width="12" height="58" rx="3" fill="#0ea5e9"/>
+              <rect x="106" y="76" width="12" height="92" rx="3" fill="#0ea5e9"/>
+              <rect x="127" y="99" width="12" height="69" rx="3" fill="#0ea5e9"/>
+              <rect x="148" y="122" width="12" height="46" rx="3" fill="#0ea5e9"/>
+              <rect x="169" y="87" width="12" height="81" rx="3" fill="#0ea5e9"/>
+              <rect x="190" y="64" width="12" height="104" rx="3" fill="#0ea5e9"/>
+              <rect x="211" y="110" width="12" height="58" rx="3" fill="#0ea5e9"/>
+              <rect x="232" y="128" width="12" height="40" rx="3" fill="#0ea5e9"/>
+              <rect x="253" y="99" width="12" height="69" rx="3" fill="#0ea5e9"/>
+              <rect x="274" y="81" width="12" height="87" rx="3" fill="#0ea5e9"/>
+              <rect x="295" y="116" width="12" height="52" rx="3" fill="#0ea5e9"/>
+              <rect x="316" y="133" width="12" height="35" rx="3" fill="#0ea5e9"/>
+              <rect x="337" y="104" width="12" height="64" rx="3" fill="#0ea5e9"/>
+              <rect x="358" y="70" width="12" height="98" rx="3" fill="#0ea5e9"/>
+              <rect x="379" y="93" width="12" height="75" rx="3" fill="#0ea5e9"/>
+              <rect x="400" y="122" width="12" height="46" rx="3" fill="#0ea5e9"/>
+              <rect x="421" y="110" width="12" height="58" rx="3" fill="#0ea5e9"/>
+              <rect x="442" y="87" width="12" height="81" rx="3" fill="#0ea5e9"/>
+              <rect x="463" y="116" width="12" height="52" rx="3" fill="#0ea5e9"/>
+              <rect x="484" y="133" width="12" height="35" rx="3" fill="#0ea5e9"/>
+              <rect x="505" y="99" width="12" height="69" rx="3" fill="#0ea5e9"/>
+              <rect x="526" y="110" width="12" height="58" rx="3" fill="#0ea5e9"/>
+              <rect x="547" y="128" width="12" height="40" rx="3" fill="#0ea5e9"/>
+              <text x="34" y="212" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">"refund chahiye" </tspan><tspan fill="#4ade80">· barge-in at 0:42 ✓</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 52.1 — live waveform with barge-in at 0:42.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. “Ear-to-mouth latency” in voice agents means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. How loud the speaker is</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. User-stops-talking → bot-starts-replying; target &lt;800 ms to feel human</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The length of the phone call</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Battery drain</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Latency is the UX in voice.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Barge-in handling requires:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Louder speakers</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Ending the call</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Stopping TTS fast (&lt;300 ms) + echo cancellation + keeping context</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Ignoring the user</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Interruptions are normal conversation.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. VAD tuned too aggressively causes:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Constant interruptions mid-sentence (endpointing too early)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Better audio quality</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Lower costs</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Faster GPUs</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Too lax = dead air; tune per locale.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Primary metric for a booking voice agent:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Voice sexiness</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Model parameter count</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Librispeech WER</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Task completion (booking done, correctly) + containment/CSAT</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Outcomes over acoustics.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Caller authentication should use OTP rather than “sounds like them” because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. OTPs sound nicer</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Voice cloning makes voice alone spoofable — it’s an identifier, not a password</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ASR can’t hear OTPs</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Phones lack microphones</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Your voice is public; treat it that way.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch52')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c52p1"><p class="q">P1. Latency audit: ear-to-mouth is 3.2 s. Break down suspects and fixes per stage.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>VAD endpointing (~800 ms: tune, use semantic endpointing) + ASR final-only (~700 ms: use partials, start LLM early) + LLM full-answer-then-speak (~1200 ms: stream tokens → stream TTS) + TTS first-chunk (~500 ms: smaller voice, edge inference). Fix order by measured ms; add “checking…” fillers only after real cuts. Target &lt;800 ms p95.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c52p2"><p class="q">P2. Design the test plan for a Hindi–English code-mixed support line.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Record real calls (consent): accents × noise (street, office) × code-mix ratios. Metrics: WER per slice, intent accuracy, task completion, barge-in recovery. Red-team: kids crying, cross-talk, low-signal 8kHz. Benchmark ASR candidates on THIS set, not Librispeech. Weekly regression on new call samples.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c52p3"><p class="q">P3. Fraud team reports cloned-CEO voice scams via your TTS API. Your 4 controls?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Consent + verification for custom voices (liveness-checked enrollment). (2) Watermark all synthetic audio + no-clone blocklist (public figures). (3) Rate limits + abuse monitoring (many short generations = scam pattern). (4) Takedown + disclosure process and caller-side guidance: voice is not identity — OTP always.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch51">← Vision-language models</button>
+            <button data-go="ch53">Video generation →</button>
+          </div>
+        </div>
+      </article>

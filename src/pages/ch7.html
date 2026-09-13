@@ -1,0 +1,198 @@
+<article class="page" id="ch7">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 7 · Machine learning</div>
+          <h2>Machine learning fundamentals</h2>
+          <p class="lede">Learning = search for parameters that make a model score well on unseen data, not just the data it was shown.</p>
+        </div>
+        <div class="content">
+          <h3>The three big paradigms</h3>
+          <table>
+            <thead><tr><th>Paradigm</th><th>Supervision</th><th>Goal</th></tr></thead>
+            <tbody>
+              <tr><td>Supervised</td><td>Labels y</td><td>Predict y from x</td></tr>
+              <tr><td>Unsupervised</td><td>None</td><td>Structure, clusters, compressions</td></tr>
+              <tr><td>Reinforcement</td><td>Rewards</td><td>Policy that maximises return</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Self-supervised</strong> learning (mask a word, predict it) is supervised learning where the label is made from the input. It is how foundation models swallow the internet.</p>
+
+          <h3>Loss functions</h3>
+          <p>A <strong>loss</strong> is a number that is small when the model is right. Training minimises average loss.</p>
+          <ul>
+            <li><strong>MSE</strong> — (ŷ − y)² for regression. Punishes large errors.</li>
+            <li><strong>Cross-entropy / log loss</strong> — for classification probabilities. Hates confident wrong answers.</li>
+            <li><strong>Hinge</strong> — classic SVM.</li>
+          </ul>
+
+          <h3>Underfitting vs overfitting</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 660 200" width="660" height="200">
+              <rect width="660" height="200" rx="12" fill="#f8fafc"/>
+              <!-- three panels -->
+              <text x="110" y="28" text-anchor="middle" font-size="13" fill="#0c1b2e" font-family="Source Sans 3">Underfit</text>
+              <text x="330" y="28" text-anchor="middle" font-size="13" fill="#0c1b2e" font-family="Source Sans 3">Good fit</text>
+              <text x="550" y="28" text-anchor="middle" font-size="13" fill="#0c1b2e" font-family="Source Sans 3">Overfit</text>
+              <g fill="#0f766e">
+                <circle cx="50" cy="140" r="4"/><circle cx="80" cy="100" r="4"/><circle cx="110" cy="90" r="4"/><circle cx="140" cy="70" r="4"/><circle cx="170" cy="85" r="4"/>
+              </g>
+              <line x1="40" y1="130" x2="180" y2="90" stroke="#b45309" stroke-width="3"/>
+              <g fill="#0f766e">
+                <circle cx="270" cy="140" r="4"/><circle cx="300" cy="100" r="4"/><circle cx="330" cy="90" r="4"/><circle cx="360" cy="70" r="4"/><circle cx="390" cy="85" r="4"/>
+              </g>
+              <path d="M260 145 Q 330 60 400 90" fill="none" stroke="#b45309" stroke-width="3"/>
+              <g fill="#0f766e">
+                <circle cx="490" cy="140" r="4"/><circle cx="520" cy="100" r="4"/><circle cx="550" cy="90" r="4"/><circle cx="580" cy="70" r="4"/><circle cx="610" cy="85" r="4"/>
+              </g>
+              <path d="M480 145 L520 100 L550 90 L580 70 L610 85 L620 40" fill="none" stroke="#be123c" stroke-width="3"/>
+            </svg>
+            <div class="diagram-title">Diagram 7.1 — Underfit ignores the pattern; overfit memorizes noise; good fit captures the signal.</div>
+          </div>
+          <p><strong>Regularisation</strong> fights overfit: L2 (weight decay), L1 (sparsity), dropout, early stopping, more data, simpler models.</p>
+
+          <h3>Bias–variance trade-off</h3>
+          <p><strong>Bias</strong>: the model class is too dumb (linear line through a curve). <strong>Variance</strong>: the model swings wildly with different samples. Total expected error ≈ bias² + variance + noise. Deep nets complicate the classic U-shape, but the vocabulary is still how teams talk.</p>
+
+          <h3>Metrics</h3>
+          <table>
+            <thead><tr><th>Metric</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td>Accuracy</td><td>Balanced classes, equal cost errors</td></tr>
+              <tr><td>Precision</td><td>Of predicted positives, how many are real? (spam: don’t bury real mail)</td></tr>
+              <tr><td>Recall / sensitivity</td><td>Of real positives, how many did we catch? (cancer screening)</td></tr>
+              <tr><td>F1</td><td>Harmonic mean of precision and recall</td></tr>
+              <tr><td>ROC-AUC</td><td>Ranking quality across thresholds</td></tr>
+              <tr><td>MAE / RMSE</td><td>Regression error</td></tr>
+            </tbody>
+          </table>
+          <div class="diagram">
+            <svg viewBox="0 0 420 200" width="420" height="200">
+              <rect x="40" y="20" width="160" height="70" fill="#dcfce7" stroke="#15803d"/>
+              <rect x="200" y="20" width="160" height="70" fill="#ffe4e6" stroke="#be123c"/>
+              <rect x="40" y="90" width="160" height="70" fill="#ffe4e6" stroke="#be123c"/>
+              <rect x="200" y="90" width="160" height="70" fill="#dcfce7" stroke="#15803d"/>
+              <text x="120" y="60" text-anchor="middle" font-size="14" font-family="Source Sans 3">TP</text>
+              <text x="280" y="60" text-anchor="middle" font-size="14" font-family="Source Sans 3">FP</text>
+              <text x="120" y="130" text-anchor="middle" font-size="14" font-family="Source Sans 3">FN</text>
+              <text x="280" y="130" text-anchor="middle" font-size="14" font-family="Source Sans 3">TN</text>
+              <text x="210" y="185" text-anchor="middle" font-size="12" fill="#57534e" font-family="Source Sans 3">Predicted →     Actual ↓  (P then N)</text>
+            </svg>
+            <div class="diagram-title">Diagram 7.2 — Confusion matrix. Precision = TP/(TP+FP). Recall = TP/(TP+FN).</div>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Choose a loss that matches the task. Watch train vs val curves: both high error → underfit; train great / val poor → overfit. Pick metrics from the cost of mistakes, not habit. Cross-validation estimates variance of performance. Regularise rather than celebrating train accuracy.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Supervised / unsupervised / RL (+ self-supervised).</li>
+              <li>Loss guides learning; metric guides reporting.</li>
+              <li>Overfit = memorise noise.</li>
+              <li>Precision vs recall is a threshold choice.</li>
+              <li>Early stopping is free regularisation.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+<rect x="10" y="10" width="620" height="140" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">split — no leakage</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">python split.py --test 0.2 --seed 42</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">train 8000 · test 2000 </tspan><tspan fill="#64748b">stratify=label ✓</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">python leak_check.py</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">0 shared ids ✓ </tspan><tspan fill="#64748b">— test set stays virgin</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 7.1 — Split once, stratify, and prove zero leakage.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="c">
+              <p class="q">1. Training loss near 0 while validation loss is high indicates:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Underfitting</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Perfect generalisation</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Overfitting</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A learning rate of zero</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">The model memorised the training sample.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">2. Cross-entropy is a typical loss for:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Classification with probability outputs</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. k-means clustering</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. PCA only</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Computing ROC curves</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Log loss between softmax/sigmoid outputs and labels.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">3. In a cancer screen, missing a true case is far worse than a false alarm. Optimise:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Precision only</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Training accuracy only</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. L2 weight magnitude</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. High recall (then manage false positives)</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Recall catches positives. You still need a follow-up test because false positives have costs too.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">4. L2 regularisation (weight decay) tends to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Increase model variance without bound</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Keep weights small and reduce overfit</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete the validation set</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Convert regression into clustering</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">The extra term λ||w||² penalises complexity.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">5. Self-supervised pretraining on text is closest to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Supervised learning with labels invented from the text</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Manual expert rules</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Reinforcement learning in a warehouse</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Unsupervised k-means on pixels only</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Next-token or masked-token prediction is a supervised loss on synthetic labels.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch7')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c7p1">
+              <p class="q">P1. Confusion matrix: TP=40, FP=10, FN=10, TN=140. Compute accuracy, precision, recall, F1.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+                <p>N = 200. Accuracy = (40+140)/200 = <strong>0.90</strong>.</p>
+                <p>Precision = 40/(40+10) = <strong>0.80</strong>. Recall = 40/(40+10) = <strong>0.80</strong>.</p>
+                <p>F1 = 2·0.8·0.8 / (0.8+0.8) = <strong>0.80</strong>.</p>
+              </div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c7p2">
+              <p class="q">P2. Train error 25%, val error 26% after many epochs. What is more likely, and what would you try?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Underfitting (high bias): both errors are high and close. Try a richer model, better features, longer training, less regularisation. Overfitting would show a large gap (train 2%, val 26%).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c7p3">
+              <p class="q">P3. Why can accuracy be 99% and the model still be useless for fraud detection?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>If fraud is 0.5% of rows, always predicting “not fraud” is 99.5% accurate and catches nothing. Use recall at a budgeted precision, PR-AUC, or expected cost. Report a confusion matrix at the operating threshold.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch18">← Logic & planning</button>
+            <button data-go="ch8">Chapter 8 →</button>
+          </div>
+        </div>
+      </article>

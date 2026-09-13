@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hindi glossary (data skills) · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Hindi glossary (data skills) · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item active" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="glossary">
+        <div class="chapter-head">
+          <div class="kicker">Revision · हिंदी शब्दावली</div>
+          <h2>Hindi quick-glossary — data & applied</h2>
+          <p class="lede">Every key term from Ch 30–74 with its हिंदी meaning in one line. Revise here, then take the exam (which stays in English).</p>
+        </div>
+        <div class="content">
+          <div class="insight"><h4>How to use</h4><p>Read a chapter, then test yourself on its 8 rows below: cover the हिंदी column and recall. Tip: the floating <strong>🖨 Print / PDF</strong> button prints only this page — a handy desk reference.</p></div>
+          <h3>Ch 30 · Python in depth</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Variable</td><td>चर</td><td>ऐसा नाम जिसमें रखी value बदली जा सकती है</td></tr>
+            <tr><td>List</td><td>सूची</td><td>क्रम में रखी, बदलने योग्य items: [1, 2, 3]</td></tr>
+            <tr><td>Dictionary</td><td>शब्दकोश</td><td>key → value के जोड़े: {"name": "Asha"}</td></tr>
+            <tr><td>Function</td><td>फ़ंक्शन</td><td>नाम दिया हुआ, दोबारा चलने वाला कोड ब्लॉक</td></tr>
+            <tr><td>Class / Object</td><td>क्लास / ऑब्जेक्ट</td><td>data + behaviour का खाका / उससे बनी चीज़</td></tr>
+            <tr><td>Loop</td><td>लूप</td><td>कोड को बार-बार चलाना (for / while)</td></tr>
+            <tr><td>Exception</td><td>अपवाद (त्रुटि)</td><td>प्रोग्राम की गड़बड़ी; try/except से सँभालें</td></tr>
+            <tr><td>Virtual environment</td><td>वर्चुअल एनवायरनमेंट</td><td>हर प्रोजेक्ट के packages का अलग डिब्बा</td></tr>
+          </tbody></table>
+          <h3>Ch 31 · Excel &amp; Sheets</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Cell / Range</td><td>सेल / रेंज</td><td>एक खाना (A1) / खानों का आयत (A2:D100)</td></tr>
+            <tr><td>Formula</td><td>फ़ॉर्मूला</td><td>= से शुरू होने वाली गणना</td></tr>
+            <tr><td>Absolute reference ($)</td><td>निरपेक्ष संदर्भ</td><td>$A$1 — खींचने पर भी स्थिर पता</td></tr>
+            <tr><td>XLOOKUP</td><td>लुकअप</td><td>दूसरी table से value खोजकर लाना</td></tr>
+            <tr><td>PivotTable</td><td>पिवट टेबल</td><td>drag-drop से समूहवार जोड़ / गिनती</td></tr>
+            <tr><td>Slicer</td><td>स्लाइसर</td><td>क्लिक से फ़िल्टर करने वाले बटन</td></tr>
+            <tr><td>Conditional formatting</td><td>शर्तिया फ़ॉर्मैटिंग</td><td>शर्त पूरी हो तो रंग बदलना</td></tr>
+            <tr><td>Power Query</td><td>पावर क्वेरी</td><td>दोहराए जाने वाले import + सफ़ाई steps</td></tr>
+          </tbody></table>
+          <h3>Ch 32 · Pandas &amp; NumPy</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>DataFrame</td><td>डेटा-फ्रेम</td><td>लेबल वाली table (rows × columns)</td></tr>
+            <tr><td>Series</td><td>सीरीज़</td><td>एक लेबल वाला कॉलम</td></tr>
+            <tr><td>Mask / Filter</td><td>मास्क / फ़िल्टर</td><td>शर्त पर rows चुनना</td></tr>
+            <tr><td>GroupBy</td><td>समूह-वार</td><td>key से बाँटो → जोड़ो / औसत निकालो</td></tr>
+            <tr><td>Merge</td><td>मर्ज (जोड़)</td><td>key पर दो tables मिलाना</td></tr>
+            <tr><td>Missing value (NaN)</td><td>लापता मान</td><td>खाली entry; fillna / dropna से सँभालें</td></tr>
+            <tr><td>Resample</td><td>री-सैंपल</td><td>समय के हिसाब से दोबारा समूह (मासिक जोड़)</td></tr>
+            <tr><td>Vectorisation</td><td>वेक्टरीकरण</td><td>loop की जगह पूरे कॉलम पर एक साथ गणना</td></tr>
+          </tbody></table>
+          <h3>Ch 33 · SQL</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Query</td><td>क्वेरी</td><td>database से सवाल (SELECT …)</td></tr>
+            <tr><td>WHERE / HAVING</td><td>WHERE / HAVING</td><td>rows छाँटो / समूह बनने के बाद छाँटो</td></tr>
+            <tr><td>JOIN</td><td>जॉइन</td><td>दो tables को key से मिलाना</td></tr>
+            <tr><td>GROUP BY</td><td>GROUP BY</td><td>समूह बनाकर COUNT / SUM / AVG</td></tr>
+            <tr><td>CTE (WITH)</td><td>CTE</td><td>नाम दिया हुआ step; उलझी query साफ़ रखे</td></tr>
+            <tr><td>Window function</td><td>विंडो फ़ंक्शन</td><td>पड़ोसी rows से तुलना (ROW_NUMBER, LAG)</td></tr>
+            <tr><td>NULL</td><td>NULL (अज्ञात)</td><td>खाली/अज्ञात; COALESCE से सँभालें</td></tr>
+            <tr><td>Primary key</td><td>प्राथमिक कुंजी</td><td>हर row की अनूठी पहचान</td></tr>
+          </tbody></table>
+          <h3>Ch 34 · Visualization</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Bar chart</td><td>दंड आरेख</td><td>श्रेणियों की तुलना</td></tr>
+            <tr><td>Line chart</td><td>रेखा आरेख</td><td>समय के साथ रुझान</td></tr>
+            <tr><td>Histogram</td><td>हिस्टोग्राम</td><td>बँटवारे (distribution) का चित्र</td></tr>
+            <tr><td>Scatter plot</td><td>स्कैटर प्लॉट</td><td>दो चीज़ों का संबंध (x–y)</td></tr>
+            <tr><td>Dashboard</td><td>डैशबोर्ड</td><td>एक स्क्रीन पर KPIs + charts</td></tr>
+            <tr><td>KPI</td><td>मुख्य संकेतक</td><td>नज़र रखने वाली मुख्य संख्या</td></tr>
+            <tr><td>Annotation</td><td>टिप्पणी</td><td>chart पर घटना का निशान / नोट</td></tr>
+            <tr><td>Truncated axis</td><td>कटा अक्ष</td><td>कटा y-axis जो फ़र्क़ बढ़ा-चढ़ाकर दिखाए (ग़लत)</td></tr>
+          </tbody></table>
+          <h3>Ch 35 · Statistics</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Mean / Median</td><td>माध्य / माध्यिका</td><td>औसत / बीच वाली value (तिरछे data में median)</td></tr>
+            <tr><td>Std deviation</td><td>मानक विचलन</td><td>फैलाव की माप</td></tr>
+            <tr><td>Percentile</td><td>शतमक</td><td>p90 = 90% values इससे नीचे</td></tr>
+            <tr><td>Confidence interval</td><td>विश्वास अंतराल</td><td>दोहराने पर सच को पकड़ने वाली रेंज</td></tr>
+            <tr><td>p-value</td><td>p-मान</td><td>H0 सच हो तो इतना चरम data दिखने की संभावना</td></tr>
+            <tr><td>A/B test</td><td>A/B परीक्षण</td><td>दो versions की तुलना; metric पहले तय करो</td></tr>
+            <tr><td>Correlation</td><td>सहसंबंध</td><td>रैखिक साथ-बदलाव (−1 से 1); कारण नहीं</td></tr>
+            <tr><td>Outlier</td><td>अपवाद-मान</td><td>बाक़ियों से बहुत दूर की value</td></tr>
+          </tbody></table>
+          <h3>Ch 36–38 · Power BI, project &amp; BI tools</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Data model</td><td>डेटा मॉडल</td><td>tables + उनके रिश्ते</td></tr>
+            <tr><td>Star schema</td><td>स्टार स्कीमा</td><td>बीच में fact table, चारों तरफ़ dimensions</td></tr>
+            <tr><td>Measure (DAX)</td><td>मेज़र</td><td>visual के हिसाब से गणना (SUM, CALCULATE)</td></tr>
+            <tr><td>Refresh</td><td>रिफ़्रेश</td><td>नए data से dashboard अपडेट</td></tr>
+            <tr><td>RLS</td><td>पंक्ति-सुरक्षा</td><td>हर user को सिर्फ़ अपना हिस्सा दिखे</td></tr>
+            <tr><td>Metric / KPI</td><td>मापदंड</td><td>सफलता नापने वाली एक परिभाषित संख्या</td></tr>
+            <tr><td>Leakage</td><td>लीकेज</td><td>भविष्य की जानकारी features में — नकली accuracy</td></tr>
+            <tr><td>Semantic layer</td><td>अर्थ-परत</td><td>सबके लिए metrics की एक सच्ची परिभाषा (LookML)</td></tr>
+          </tbody></table>
+          <h3>Ch 39–41 · Data engineering, APIs & git</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Pipeline</td><td>पाइपलाइन</td><td>data को स्रोत से dashboard तक पहुँचाने वाली कड़ी</td></tr>
+            <tr><td>Batch / Streaming</td><td>बैच / स्ट्रीमिंग</td><td>तय समय पर थोक में / हर घटना तुरंत</td></tr>
+            <tr><td>Parquet</td><td>पार्के (कॉलम-फ़ॉर्मैट)</td><td>analytics के लिए तेज़, कॉलम-वाइज़ फ़ाइल फ़ॉर्मैट</td></tr>
+            <tr><td>DAG (Airflow)</td><td>निर्देशित कार्य-जाल</td><td>बिना चक्र के तय क्रम में चलने वाले tasks</td></tr>
+            <tr><td>API key</td><td>API कुंजी</td><td>गुप्त पासवर्ड-जैसी key; env में रखें, git में कभी नहीं</td></tr>
+            <tr><td>Pagination</td><td>पेज-दर-पेज</td><td>बड़ा data टुकड़ों में लाना (cursor बेहतर)</td></tr>
+            <tr><td>robots.txt</td><td>रोबोट-नियम</td><td>साइट का “क्या scrape कर सकते हो” नियम-पत्र</td></tr>
+            <tr><td>Commit / .gitignore</td><td>कमिट / अनदेखा-सूची</td><td>इतिहास में snapshot / git से बाहर रखने वाली सूची</td></tr>
+          </tbody></table>
+          <h3>Ch 42–44 · Applied production</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Prompt</td><td>प्रॉम्प्ट</td><td>model को दिया गया निर्देश (role + task + format)</td></tr>
+            <tr><td>RAG</td><td>RAG (खोज-सह-लेखन)</td><td>पहले दस्तावेज़ खोजो, फिर उद्धरण सहित उत्तर दो</td></tr>
+            <tr><td>Chunk / Embedding</td><td>टुकड़ा / एम्बेडिंग</td><td>खोजने योग्य छोटा हिस्सा / उसका संख्या-रूप</td></tr>
+            <tr><td>Hallucination</td><td>भ्रम-उत्तर</td><td>आत्मविश्वास से गढ़ा गया ग़लत जवाब</td></tr>
+            <tr><td>Image / Container</td><td>इमेज / कंटेनर</td><td>जमा हुआ नुस्ख़ा / उसका चलता हुआ रूप</td></tr>
+            <tr><td>GPU</td><td>GPU</td><td>training/inference के लिए किराए की तेज़ चिप</td></tr>
+            <tr><td>Drift</td><td>बहाव</td><td>data या उसके मतलब का धीमा बदलाव; निगरानी ज़रूरी</td></tr>
+            <tr><td>Canary deploy</td><td>केनरी तैनाती</td><td>पहले 5% users पर, फिर सब पर; गड़बड़ पर वापसी</td></tr>
+          </tbody></table>
+          <h3>Ch 46 · Transformers lab</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Tokenizer</td><td>टोकनाइज़र</td><td>text को model के टुकड़ों (tokens) में बाँटना</td></tr>
+            <tr><td>Chat template</td><td>चैट-साँचा</td><td>role-ढाँचा (system/user/assistant); ग़लत = बकवास</td></tr>
+            <tr><td>Fine-tuning</td><td>फ़ाइन-ट्यूनिंग</td><td>पहले से सीखे model को अपने काम पर ढालना</td></tr>
+            <tr><td>LoRA / QLoRA</td><td>लोरा</td><td>छोटे adapters से सस्ती tuning (4-bit पर भी)</td></tr>
+            <tr><td>Adapter</td><td>अडैप्टर</td><td>जमी base पर लगने वाली छोटी trainable परत</td></tr>
+            <tr><td>Epoch</td><td>एपॉक</td><td>पूरा data एक बार देखना; 1–3 काफ़ी</td></tr>
+            <tr><td>Checkpoint</td><td>चेकपॉइंट</td><td>बीच में सहेजा model; वापसी का रास्ता</td></tr>
+            <tr><td>Inference server</td><td>अनुमान-सर्वर</td><td>तेज़ serving इंजन (vLLM); batching + quant</td></tr>
+          </tbody></table>
+          <h3>Ch 47–50 · Frontier</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>AGI</td><td>सामान्य कृत्रिम बुद्धि</td><td>इंसानों जैसे ज़्यादातर काम कर सकने वाली AI (अभी नहीं)</td></tr>
+            <tr><td>Benchmark</td><td>बेंचमार्क</td><td>क्षमता नापने वाली तय परीक्षा (ARC, SWE-bench)</td></tr>
+            <tr><td>Contamination</td><td>प्रदूषण (लीक)</td><td>परीक्षा के सवाल training में — नकली ऊँचे marks</td></tr>
+            <tr><td>Agentic RAG</td><td>एजेंट-RAG</td><td>खोज → जाँच → दोबारा खोज का चक्र</td></tr>
+            <tr><td>Knowledge graph</td><td>ज्ञान-जाल</td><td>entities + रिश्तों का नक्शा (GraphRAG)</td></tr>
+            <tr><td>Chain-of-thought</td><td>विचार-श्रृंखला</td><td>step-by-step सोचना; ज़्यादा सोच = बेहतर जवाब</td></tr>
+            <tr><td>Quantization</td><td>क्वांटाइज़ेशन</td><td>model को छोटा करना (INT4) — फिर दोबारा जाँचो</td></tr>
+            <tr><td>Cascade</td><td>क्रम-चढ़ाव</td><td>पहले छोटा model, मुश्किल पर बड़ा (SLM → cloud)</td></tr>
+          </tbody></table>
+          <h3>Ch 51–55 · Vision, voice, video, privacy, quantum</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>VLM</td><td>दृष्टि-भाषा मॉडल</td><td>image + text दोनों समझने वाला model</td></tr>
+            <tr><td>Grounding</td><td>स्थापन</td><td>शब्दों को image में box से जोड़ना</td></tr>
+            <tr><td>ASR / TTS</td><td>वाक्-पहचान / वाक्-संश्लेषण</td><td>बोली → text / text → बोली</td></tr>
+            <tr><td>Barge-in</td><td>बीच में टोकना</td><td>user के टोकते ही bot का रुकना</td></tr>
+            <tr><td>Watermark (C2PA)</td><td>वॉटरमार्क</td><td>AI-निर्मित होने की पक्की मुहर</td></tr>
+            <tr><td>Federated learning</td><td>संघीय शिक्षण</td><td>data घर पर, सिर्फ़ updates साझा</td></tr>
+            <tr><td>Epsilon (ε)</td><td>एप्सिलॉन</td><td>privacy का बजट; छोटा = ज़्यादा privacy</td></tr>
+            <tr><td>Qubit</td><td>क्यूबिट</td><td>0+1 का मेल; नापते ही एक नतीजा</td></tr>
+          </tbody></table>
+          <h3>Ch 56–58 · Robotics, science, recsys</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>VLA</td><td>VLA</td><td>देखो + समझो + चलो — भाषा से robot हरकत</td></tr>
+            <tr><td>Teleoperation</td><td>टेली-ऑपरेशन</td><td>इंसान robot चलाए, model नकल करे</td></tr>
+            <tr><td>Sim-to-real</td><td>सिम-से-वास्तव</td><td>नकली दुनिया में सीखो, असली में चलाओ (अंतर नापो)</td></tr>
+            <tr><td>Surrogate model</td><td>प्रतिरूप मॉडल</td><td>महँगे सच का सस्ता अंदाज़ा</td></tr>
+            <tr><td>Prospective test</td><td>भावी-परीक्षण</td><td>भविष्य/नई चीज़ों पर जाँच — असली सबूत</td></tr>
+            <tr><td>Two-tower</td><td>दो-मीनार</td><td>user + item को एक ही space में (ANN खोज)</td></tr>
+            <tr><td>Position bias</td><td>स्थान-पक्षपात</td><td>ऊपर = ज़्यादा clicks; सुधारो वरना ग़लत सीख</td></tr>
+            <tr><td>Bandit</td><td>बैंडिट</td><td>नई चीज़ें आज़माओ, अच्छी को बढ़ाओ</td></tr>
+          </tbody></table>
+          <h3>Ch 59–62 · Security, economics, evals</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Prompt injection</td><td>प्रॉम्प्ट-घुसपैठ</td><td>धोखे से model को ग़लत काम कराना</td></tr>
+            <tr><td>Jailbreak</td><td>जेलब्रेक</td><td>मना किए काम के लिए तरकीब से मनाना</td></tr>
+            <tr><td>Privilege hierarchy</td><td>अधिकार-क्रम</td><td>system &gt; developer &gt; user &gt; tool</td></tr>
+            <tr><td>Egress check</td><td>निकास-जाँच</td><td>बाहर जाते data/पते की रोक-जाँच</td></tr>
+            <tr><td>J-curve</td><td>J-वक्र</td><td>पहले गिरावट, फिर तेज़ फ़ायदा (बदलाव के बाद)</td></tr>
+            <tr><td>IoU</td><td>IoU (अतिव्यापन)</td><td>box कितना सही — 0.5+ पास</td></tr>
+            <tr><td>Red team</td><td>रेड टीम</td><td>जानबूझकर हमला करके कमज़ोरी खोजना</td></tr>
+            <tr><td>Sandbox</td><td>सैंडबॉक्स</td><td>सीमित सुरक्षित खेल-मैदान (allowlist + kill switch)</td></tr>
+          </tbody></table>
+          <h3>Ch 63–66 · Code agents, data, languages</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>SWE-bench</td><td>SWE-बेंच</td><td>असली GitHub मुद्दों पर कोड-एजेंट की परीक्षा</td></tr>
+            <tr><td>Distillation</td><td>डिस्टिलेशन</td><td>बड़े model से छोटा-सस्ता model बनाना</td></tr>
+            <tr><td>Model collapse</td><td>मॉडल-संकुचन</td><td>नक़ली data दोहराने से विविधता मरना</td></tr>
+            <tr><td>Fertility</td><td>फर्टिलिटी</td><td>एक शब्द पर कितने टोकन (लागत/संदर्भ)</td></tr>
+            <tr><td>Code-switching</td><td>कोड-मिक्सिंग</td><td>वाक्य में भाषा बदलना (Hinglish)</td></tr>
+            <tr><td>Translationese</td><td>अनुवादिया-भाषा</td><td>अनुवाद-जैसी बनावटी भाषा (मूल्यांकन-भ्रम)</td></tr>
+            <tr><td>Dedup</td><td>डुप्लिकेट-सफ़ाई</td><td>दोहरी सामग्री हटाना (exact + fuzzy)</td></tr>
+            <tr><td>Provenance</td><td>उद्गम-रिकॉर्ड</td><td>data कहाँ से, किस लाइसेंस पर</td></tr>
+          </tbody></table>
+          <h3>Ch 67–70 · DSA, serving, terminal</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Big-O</td><td>बिग-O</td><td>input बढ़ने पर चाल की रफ़्तार (लागत का अंदाज़ा)</td></tr>
+            <tr><td>Hash map</td><td>हैश-नक्शा</td><td>तुरंत खोज वाली सूची (dict/set)</td></tr>
+            <tr><td>Recursion</td><td>रिकर्शन</td><td>खुद को छोटे हिस्से पर दोहराना</td></tr>
+            <tr><td>Binary tree</td><td>बाइनरी-पेड़</td><td>हर गाँठ से दो शाखाएँ</td></tr>
+            <tr><td>BFS / DFS</td><td>BFS/DFS</td><td>graph घूमना — परत-दर-परत / गहराई तक</td></tr>
+            <tr><td>Endpoint</td><td>एंडपॉइंट</td><td>API का पता (जैसे /predict)</td></tr>
+            <tr><td>Virtualenv</td><td>वर्चुअल-वातावरण</td><td>हर project का अलग Python-संसार</td></tr>
+            <tr><td>tmux</td><td>tmux</td><td>टूटे बिना चलता terminal-सत्र (server पर अमर)</td></tr>
+          </tbody></table>
+          <h3>Ch 71–74 · SQL II, databases, DSA III, K8s</h3>
+          <table><thead><tr><th>English</th><th>हिंदी</th><th>आसान मतलब</th></tr></thead><tbody>
+            <tr><td>Window function</td><td>विंडो-फंक्शन</td><td>पंक्तियाँ रखकर रैंक/जोड़ निकालना</td></tr>
+            <tr><td>CTE</td><td>CTE (अस्थायी-चरण)</td><td>पढ़ने लायक चरणबद्ध query (WITH)</td></tr>
+            <tr><td>Vector DB</td><td>वेक्टर-DB</td><td>अर्थ से खोजने वाला भंडार (RAG)</td></tr>
+            <tr><td>Cache</td><td>कैश</td><td>तुरंत मिलने वाली नक़ल (Redis)</td></tr>
+            <tr><td>Heap</td><td>हीप</td><td>सबसे छोटा/बड़ा ऊपर रखने वाली संरचना</td></tr>
+            <tr><td>Trie</td><td>ट्राई</td><td>उपसर्ग-साझा पेड़ (autocomplete)</td></tr>
+            <tr><td>Union-find</td><td>यूनियन-फाइंड</td><td>जुड़े समूह पहचानना (लगभग तुरंत)</td></tr>
+            <tr><td>Pod</td><td>पॉड</td><td>K8s की सबसे छोटी इकाई (container-समूह)</td></tr>
+          </tbody></table>
+          <div class="note"><h4>Short notes</h4><p>136 terms, 8 per chapter group. If you can say each row’s मतलब without reading it, your data vocabulary is interview-ready. Bold exam words: leakage, p-value, fanout, measure, star schema, RLS.</p></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="notes">← Short notes</button>
+            <button data-go="cheats">Cheat sheets →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

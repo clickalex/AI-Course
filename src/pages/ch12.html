@@ -1,0 +1,138 @@
+<article class="page" id="ch12">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 12 · Language</div>
+          <h2>Natural language processing</h2>
+          <p class="lede">Computers see text as discrete tokens. NLP is the art of turning those tokens into meaning-shaped vectors — and back into text.</p>
+        </div>
+        <div class="content">
+          <h3>The classical pipeline</h3>
+          <ol>
+            <li><strong>Tokenise</strong> — words, subwords (BPE, WordPiece, SentencePiece). Subwords handle rare words: “unbelievable” → un + believe + able.</li>
+            <li><strong>Normalise</strong> — lowercasing, Unicode, sometimes stemming (less critical with subwords).</li>
+            <li><strong>Represent</strong> — bag-of-words / TF–IDF, or dense embeddings.</li>
+            <li><strong>Model</strong> — Naive Bayes / linear SVM on TF–IDF, or a neural sequence model.</li>
+          </ol>
+
+          <h3>Embeddings</h3>
+          <p>A <strong>word embedding</strong> places each token in a vector space where “king − man + woman ≈ queen” was the famous slogan of word2vec. Similar words cluster. Modern models learn <strong>contextual</strong> embeddings: “bank” near “river” is not the same vector as “bank” near “loan”.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 560 170" width="560" height="170">
+              <rect width="560" height="170" rx="12" fill="#0c1b2e"/>
+              <circle cx="120" cy="70" r="7" fill="#2dd4bf"/><text x="132" y="74" fill="#ccfbf1" font-size="12" font-family="Source Sans 3">cat</text>
+              <circle cx="150" cy="95" r="7" fill="#2dd4bf"/><text x="162" y="99" fill="#ccfbf1" font-size="12" font-family="Source Sans 3">dog</text>
+              <circle cx="400" cy="50" r="7" fill="#fbbf24"/><text x="412" y="54" fill="#fef3c7" font-size="12" font-family="Source Sans 3">king</text>
+              <circle cx="430" cy="80" r="7" fill="#fbbf24"/><text x="442" y="84" fill="#fef3c7" font-size="12" font-family="Source Sans 3">queen</text>
+              <circle cx="280" cy="130" r="7" fill="#fb7185"/><text x="292" y="134" fill="#fecdd3" font-size="12" font-family="Source Sans 3">car</text>
+            </svg>
+            <div class="diagram-title">Diagram 12.1 — Static embeddings: geometry encodes analogy and similarity (schematic).</div>
+          </div>
+
+          <h3>Classic tasks</h3>
+          <table>
+            <thead><tr><th>Task</th><th>Input → output</th></tr></thead>
+            <tbody>
+              <tr><td>Classification</td><td>Review → positive/negative</td></tr>
+              <tr><td>NER</td><td>Tokens → person/place/org tags</td></tr>
+              <tr><td>Machine translation</td><td>Sentence → sentence in another language</td></tr>
+              <tr><td>Summarisation / QA</td><td>Document (+ question) → text</td></tr>
+              <tr><td>Retrieval</td><td>Query → ranked passages (embeddings + ANN index)</td></tr>
+            </tbody>
+          </table>
+          <p>Seq2seq with attention (Bahdanau, Luong) was the bridge from LSTMs to Transformers: the decoder learns <em>where to look</em> in the source.</p>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Tokenisation is the first modelling choice. TF–IDF + linear models remain strong for simple classification. Embeddings turn discrete tokens into geometry. Context matters: modern NLP is almost entirely pretrained Transformers. Evaluation must match the task (BLEU is not “truth”; human eval and task metrics matter).</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Subword tokenisers fix open vocabulary.</li>
+              <li>TF–IDF = importance of a term in a document vs corpus.</li>
+              <li>word2vec/GloVe = static; BERT/GPT = contextual.</li>
+              <li>Attention = weighted look-up over other tokens.</li>
+              <li>RAG: retrieve then generate, to ground answers.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+<rect x="10" y="10" width="620" height="140" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">tokens — text becomes numbers</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">python tok.py</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">tokens: ['cats', 'love', 'naps']</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">ids:    [ 4821,  2390,  9117 ]</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">3 words → 3 ids ✓ </tspan><tspan fill="#64748b">(vocab 50k)</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 12.1 — Words in, integers out. Everything downstream is arithmetic.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="c">
+              <p class="q">1. BPE/WordPiece tokenisation exists mainly to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Compress images</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Cluster customers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Handle rare and unknown words via subword pieces</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Remove the need for embeddings</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Open-vocabulary text without a giant word list or endless UNKs.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">2. “Bank” having different vectors in “river bank” vs “investment bank” requires:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Contextual embeddings</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A single static word2vec row</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-means with k=1</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. PCA on pixels</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Static tables assign one vector per word type. Contextual models condition on neighbours.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">3. TF–IDF down-weights words that:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Never appear</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Are numbers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Appear only in one document</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Appear in almost every document (like “the”)</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Inverse document frequency is low for ubiquitous terms.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">4. Retrieval-augmented generation (RAG) is useful because:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It makes models smaller than embeddings</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It lets a generator condition on fetched, up-to-date documents</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It eliminates all hallucinations by law</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It replaces evaluation</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">RAG reduces closed-book guessing; it does not magically guarantee truth if retrieval is wrong.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch12')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c12p1">
+              <p class="q">P1. You need a “is this support ticket urgent?” classifier and have 8,000 labelled tickets. Compare TF–IDF+linear vs a small pretrained Transformer.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>TF–IDF + logistic/SVM is fast, cheap, often surprisingly strong if urgency is keyword-heavy (“cannot login”, “data loss”). A fine-tuned Transformer captures paraphrase and sarcasm better, at higher cost. Start with the linear baseline; only keep the Transformer if val metrics (and latency/cost) justify it. Watch leakage from ticket IDs and agent tags.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c12p2">
+              <p class="q">P2. Why is BLEU a weak standalone metric for chatbot quality?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>BLEU counts n-gram overlap with reference text. Many correct answers share few n-grams (“Sure, here’s how…” vs “You can fix this by…”). Chat needs helpfulness, safety, and factuality — human or LLM-as-judge rubrics, plus task success, beat BLEU.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch21">← Vision & speech</button>
+            <button data-go="ch13">Chapter 13 →</button>
+          </div>
+        </div>
+      </article>

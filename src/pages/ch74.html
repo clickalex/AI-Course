@@ -1,0 +1,133 @@
+<article class="page" id="ch74">
+        <div class="chapter-head"><div class="kicker">Chapter 74 · Applied · A10</div>
+          <h2>Kubernetes for ML workloads</h2>
+          <p class="lede">One GPU VM is a pet; fifty is a stampede. Kubernetes turns stampedes into cattle: declarative jobs, GPU scheduling, autoscaling, and self-healing. Learn the 20% of K8s that runs 80% of ML — pods, jobs, quotas, and when to walk away.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Pods</span><span class="tag">Jobs</span><span class="tag">GPU scheduling</span><span class="tag">Autoscale</span></div>
+          <div class="figure"><img src="images/kubernetes-ml.jpg" alt="Container ship shaped like a GPU with autoscaling cranes and pods" /></div>
+          <p class="caption">Figure 74.1 — You declare the desired state (“4 replicas, 1 GPU each”); the control plane herds reality toward it, forever.</p>
+          <h3>1. The vocabulary (six objects, that’s the chapter)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 130" width="640" height="130">
+              <g font-family="Source Sans 3" font-size="11" text-anchor="middle">
+                <rect x="150" y="5" width="340" height="26" rx="8" fill="#0c1b2e"/><text x="320" y="22" fill="#fff">CLUSTER (control plane + nodes, some with GPUs)</text>
+                <rect x="40" y="46" width="160" height="36" rx="8" fill="#0f766e"/><text x="120" y="60" fill="#fff">Deployment</text><text x="120" y="74" fill="#5eead4">N replicas of API</text>
+                <rect x="240" y="46" width="160" height="36" rx="8" fill="#0ea5e9"/><text x="320" y="60" fill="#fff">Job / CronJob</text><text x="320" y="74" fill="#fff">train · batch · nightly</text>
+                <rect x="440" y="46" width="160" height="36" rx="8" fill="#b45309"/><text x="520" y="60" fill="#fff">Service</text><text x="520" y="74" fill="#fff">stable URL + LB</text>
+                <rect x="140" y="94" width="150" height="30" rx="8" fill="#166534"/><text x="215" y="113" fill="#fff">Pod = 1+ containers</text>
+                <rect x="350" y="94" width="150" height="30" rx="8" fill="#7c2d12"/><text x="425" y="113" fill="#fff">PVC / Secret / CM</text>
+                <g fill="#0c1b2e" font-size="13"><text x="120" y="42">↑</text><text x="320" y="42">↑</text><text x="520" y="42">↑</text></g>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 74.1 — Deployments serve, Jobs train, Services route, Pods run. Storage and secrets ride along as volumes.</div>
+          </div>
+          <table><thead><tr><th>Object</th><th>ML use</th><th>One-liner</th></tr></thead><tbody>
+            <tr><td><strong>Pod</strong></td><td>Smallest unit: your container + GPU request</td><td><code>kubectl run -i --rm debug --image=... -- nvidia-smi</code></td></tr>
+            <tr><td><strong>Deployment</strong></td><td>Always-on inference API (Ch 69)</td><td>replicas + rolling updates + health probes</td></tr>
+            <tr><td><strong>Job / CronJob</strong></td><td>Training runs, batch inference, nightly evals</td><td>completions, backoffLimit, schedules</td></tr>
+            <tr><td><strong>Service / Ingress</strong></td><td>Stable endpoint + TLS + routing</td><td>ClusterIP inside, Ingress outside</td></tr>
+          </tbody></table>
+          <h3>2. GPUs on K8s (requests, quotas, sharing)</h3>
+          <pre><code># train-job.yaml — one GPU, 4 CPU, retry twice, die politely in 24h
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: train-bert-v3
+spec:
+  backoffLimit: 2
+  activeDeadlineSeconds: 86400
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: trainer
+        image: registry/img:ml-2.4.1
+        command: ["python", "train.py", "--config", "bert-v3.yaml"]
+        resources:
+          requests: {nvidia.com/gpu: 1, memory: 16Gi, cpu: 4}
+          limits:   {nvidia.com/gpu: 1, memory: 24Gi}
+        volumeMounts:
+        - {mountPath: /data, name: data}
+      volumes:
+      - name: data
+        persistentVolumeClaim: {claimName: ml-data}</code></pre>
+          <pre><code># daily driver commands (alias k=kubectl, thank me later)
+kubectl apply -f train-job.yaml
+kubectl get pods -w                       # watch scheduling
+kubectl logs -f job/train-bert-v3         # follow training logs
+kubectl describe pod &lt;name&gt;            # why Pending? (events!)
+kubectl top pods                          # CPU/RAM per pod</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 236" width="640" height="236">
+<rect x="10" y="10" width="620" height="216" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">user@cloud: ~/ml — kubectl</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">kubectl get pods</tspan></text>
+              <text x="34" y="94" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">NAME            READY   STATUS    GPU</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">api-7d9f-2x4qj  1/1     Running   1</tspan></text>
+              <text x="34" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">train-bert-v3   0/1     Running   1</tspan></text>
+              <text x="34" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">kubectl logs -f job/train-bert-v3</tspan></text>
+              <text x="34" y="178" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">epoch 3/10  loss=0.41  lr=2e-5  ✓ falling</tspan></text>
+              <text x="34" y="198" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b"># quota used: 2/4 team GPUs</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 74.1 — kubectl get pods: API serving on 1 GPU, training running on another. Logs stream with -f; the quota comment keeps teams honest.</div>
+          </div>
+          <h3>3. When K8s (and when a VM)</h3>
+          <ol>
+            <li><strong>Choose K8s when:</strong> multiple models/teams share GPUs, traffic needs autoscaling (HPA/VPA + cluster-autoscaler), or jobs must self-heal overnight. Namespaces + quotas stop teams eating each other’s GPUs.</li>
+            <li><strong>Choose a VM when:</strong> one model, one team, steady traffic — a single GPU box with Docker + systemd wins on simplicity for months (Ch 44).</li>
+            <li><strong>Costs to budget:</strong> control-plane fees, idle GPU requests (requests ≠ usage — rightsizing matters), storage/egress, and engineer-hours learning YAML. FinOps labels per team/model from day one.</li>
+            <li><strong>ML platforms on top:</strong> Kubeflow, Flyte, Ray on K8s add pipelines + experiment tracking — adopt when raw Jobs drown you in YAML, not before.</li>
+          </ol>
+          <div class="warn"><h4>Pending-pod purgatory</h4><p>“0/3 nodes available: insufficient nvidia.com/gpu” means your request exceeds the cluster — <code>kubectl describe</code> the pod and READ THE EVENTS. Fix order: lower the request, add a node pool / autoscaler, set quotas so one team can’t starve others, and never <code>latest</code>-tag training images (unreproducible reruns are undebuggable incidents).</p></div>
+          <div class="note"><h4>Short notes</h4><p>Six objects: Pod, Deployment (serve), Job/CronJob (train), Service/Ingress (route), PVC/Secrets (state). GPUs via nvidia.com/gpu requests + quotas; debug with describe + events; logs -f for training. K8s for shared/autoscaled/self-healing fleets; a VM for one model + one team. Label costs, pin images, rightsizing never ends.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Deployments serve, Jobs train.</li><li>GPU = request + quota.</li><li>describe reads the events.</li><li>Pin images, label costs.</li><li>VM first, K8s at scale.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="d"><p class="q">1. A training run that should execute once to completion belongs in a:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deployment</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Service</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ingress</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Job (backoffLimit + deadline; CronJob for schedules)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Jobs finish; Deployments persist.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">2. Your GPU pod sits in Pending. First command:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Delete the cluster</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. kubectl describe pod — read the Events for the scheduler’s reason</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Reboot your laptop</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Apply twice</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Events explain Pending.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">3. GPU access in a pod spec is declared via:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Hope</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A comment in YAML</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. resources.requests/limits: nvidia.com/gpu</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Email to the admin</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Requests schedule, limits cap.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">4. Training images should avoid the <code>:latest</code> tag because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Reruns become unreproducible — undebuggable incidents</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Latest is slower</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. YAML forbids it</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. GPUs dislike it</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Pin digests; reproduce everything.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">5. Pick a single GPU VM over Kubernetes when:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Five teams share 50 GPUs</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Traffic spikes 100× daily</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. One model, one team, steady traffic — simplicity wins</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Never — K8s always</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Boring infra ships models.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch74')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c74p1"><p class="q">P1. Two teams share 8 GPUs; team A’s jobs starve team B. Fix with K8s primitives.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Namespaces per team + ResourceQuotas (e.g. 4 GPU each, burstable with limits) + LimitRanges for sane defaults. Add priority classes (prod serving &gt; experiments) with preemption, and FinOps labels for chargeback. Verify: describe quota usage weekly; alert at 90%. Social fix: shared calendar for big sweeps — primitives plus manners.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c74p2"><p class="q">P2. Nightly batch inference must finish by 6am or page someone. Design it.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>CronJob at 1am (buffer for retries): parallelism over shards, backoffLimit 3, activeDeadlineSeconds before 6am, PodDisruptionBudget for the serving tier so batch doesn’t evict prod. Liveness: success metric → alert if no successful Job by 5:30am. Logs to central store; model image pinned; input snapshot versioned so reruns reproduce.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c74p3"><p class="q">P3. Your inference Deployment OOMs at traffic peaks but idles at night. Rightsize it.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>HPA on custom metric (queue depth / p99 latency, not just CPU) with min/max replicas; VPA in recommendation mode first to fix requests vs usage; PodDisruptionBudget + rolling updates for safe churn; cluster-autoscaler for node capacity; scale-to-near-zero for dev namespaces. Review weekly: requests should hug the p90 of actual usage.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch73">← DSA III</button>
+            <button data-go="ch47">AGI →</button>
+          </div>
+        </div>
+      </article>

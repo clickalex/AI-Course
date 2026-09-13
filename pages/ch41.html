@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Git & collaboration · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Git & collaboration · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item active" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch41">
+        <div class="chapter-head"><div class="kicker">Chapter 41 · Data skills · Collaboration</div>
+          <h2>Git, GitHub &amp; collaboration</h2>
+          <p class="lede">Git is a time machine for code. Learn the 8 commands that cover 95% of daily work, branching that doesn’t end in tears, and pull requests your teammates will actually review.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">PRs</span><span class="tag">Reproducibility</span></div>
+          <div class="figure"><img src="../images/git-collab.jpg" alt="Branching timelines merging into one trunk" /></div>
+          <p class="caption">Figure 41.1 — Branches are parallel timelines. Merge when the story checks out.</p>
+          <h3>1. The 8 commands (95% of life)</h3>
+<pre><code>git status                    # what's changed? (run constantly)
+git pull --rebase             # get latest, replay my work on top
+git checkout -b feat/x        # new branch for one thing
+git add -p                    # stage hunks deliberately
+git commit -m "feat: ..."     # snapshot with a real message
+git push -u origin feat/x     # publish branch
+# open PR → review → merge → delete branch
+git log --oneline --graph -8  # where am I in history?</code></pre>
+          <h3>2. Branches &amp; merges without fear</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <line x1="30" y1="110" x2="610" y2="110" stroke="#0c1b2e" stroke-width="4"/>
+              <path d="M150 110 C 220 110, 220 50, 290 50 L 420 50 C 480 50, 480 110, 540 110" fill="none" stroke="#0f766e" stroke-width="4"/>
+              <circle cx="150" cy="110" r="8" fill="#0c1b2e"/><circle cx="290" cy="50" r="8" fill="#0f766e"/><circle cx="420" cy="50" r="8" fill="#0f766e"/><circle cx="540" cy="110" r="8" fill="#b45309"/>
+              <g font-family="Source Sans 3" font-size="12" fill="#334155">
+                <text x="60" y="95">main</text><text x="300" y="32">feat/x (commits)</text><text x="520" y="95">merge</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 41.1 — main stays green; feature branches carry risk. Merge via PR, delete after.</div>
+          </div>
+          <ul>
+            <li><strong>One branch, one job.</strong> Small PRs (&lt; 300 lines) get reviewed; 3,000-line PRs get skimmed and regretted.</li>
+            <li><strong>Merge conflicts</strong> = two edits, same lines. Open the file, keep what’s right (often both), <code>git add</code>, continue. Pull often to shrink them.</li>
+            <li><strong>Never force-push shared branches.</strong> Rewriting public history strands your teammates.</li>
+          </ul>
+          <h3>3. .gitignore + secrets + big files</h3>
+<pre><code># .gitignore essentials for data/ML work
+.env
+__pycache__/
+*.csv
+*.parquet
+data/
+models/
+checkpoints/
+.DS_Store</code></pre>
+          <ul>
+            <li><strong>Secrets never in git</strong> — not “temporarily”, not “private repo”. Env vars + secret manager + pre-commit scanners (gitleaks).</li>
+            <li><strong>Data/models don’t belong in git.</strong> Use DVC, S3/GCS versioning, or Hugging Face / MLflow artifacts. Git tracks <em>code</em>; pointers + hashes track the rest.</li>
+            <li>Committed a 2 GB CSV? <code>git filter-repo</code> / BFG to purge, then add the ignore rule.</li>
+          </ul>
+          <h3>4. PRs people love to review</h3>
+          <ol>
+            <li>Title says <em>what + why</em>: “fix: dedupe orders by id — dashboard double-counted refunds”.</li>
+            <li>Description: what changed, how tested, screenshot for visuals.</li>
+            <li>CI green: tests + lint pass <em>before</em> requesting review.</li>
+            <li>Reply to every comment (even “done”) — reviewers are volunteers on your behalf.</li>
+          </ol>
+          <div class="warn"><h4>Notebook caution</h4><p>Committing raw <code>.ipynb</code> buries diffs in JSON + outputs. Strip outputs (<code>nbstripout</code>), or better: develop in <code>.py</code> modules, keep notebooks as thin reports. Reviewers can’t review what they can’t diff.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Status, pull --rebase, branch, add -p, commit, push, PR, log — that’s daily git. One branch per job, small PRs, never rewrite shared history. .gitignore secrets/data/models; track code in git, artifacts in DVC/S3/MLflow.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>main stays green; risk lives in branches.</li><li>Pull often → tiny conflicts.</li><li>Secrets in env, scanned pre-commit.</li><li>Data via DVC/S3, not git.</li><li>Small PRs + green CI = fast reviews.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 182" role="img" aria-label="ship it"><rect x="10" y="10" width="620" height="162" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">ship it</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">git log --graph --oneline -4</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">* 9f2c1a Add LEFT JOIN query ✓ CI green</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">* 7b3d0e Fix fanout (dedupe keys)</tspan></text>
+              <text x="34" y="136" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">git status</tspan></text>
+              <text x="34" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">clean ✓ </tspan><tspan fill="#94a3b8">— small PRs, green CI, ship it</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 41.1 — small PRs, green CI, clean tree — ship it.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. Why <code>git pull --rebase</code> instead of plain merge-pull for daily work?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It deletes your commits</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It pushes automatically</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It replays your work on latest main — linear, readable history</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It upgrades your GPU</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">No “merge branch main into feat” noise.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">2. A merge conflict means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The repo is corrupted forever</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Two sides edited the same lines — a human must pick the right combination</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GitHub is down</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Your branch was deleted</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Open, choose (often both), add, continue.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">3. Where should a 4 GB training CSV live?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Committed to git next to the code</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Pasted into a PR description</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. In a screenshot</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Versioned object storage (S3/DVC/HF) with a pointer + hash in git</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Git is for code; blobs go to blob stores.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">4. Best PR habit:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Small (<300 lines), CI green, what+why description</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. 5,000 lines titled “stuff”</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Merge your own PR unreviewed at 2am</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Ignore reviewer comments</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Respect reviewers’ time; they’ll return it.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">5. You find an AWS key in last week’s commit. First action:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Delete the file and hope</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Rename the branch</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Revoke/rotate the key immediately, then purge history</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Commit a second key as backup</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">History is forever; the key must die first.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch41')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c41p1"><p class="q">P1. Write a .gitignore for an ML project (data, models, notebooks, secrets, OS junk). Justify each group.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p><code>.env</code> (secrets) · <code>data/</code>, <code>*.csv/parquet</code> (datasets → DVC/S3) · <code>models/</code>, <code>checkpoints/</code>, <code>*.pt/*.bin</code> (artifacts → registry) · <code>__pycache__/</code>, <code>.ipynb_checkpoints/</code> (generated) · <code>.DS_Store</code>, <code>.vscode/</code> (local). Rule: git holds what humans review; everything derivable or bulky lives elsewhere with a hash pointer.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c41p2"><p class="q">P2. Your teammate force-pushed main and your pull now errors. What happened, and the team rule to prevent it?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Public history was rewritten, so your local main diverged from the new remote. Recover via <code>git fetch</code> + rebase onto origin/main (or reflog rescue). Team rule: branch protection on main (PR + CI required), never force-push shared branches; use <code>--force-with-lease</code> on personal branches only.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c41p3"><p class="q">P3. Draft the PR description for “fix: use cursor pagination in orders pull”.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>What: replace offset with cursor pagination + resume state. Why: offset drift skipped ~2% of rows on big pulls (#issue). Testing: dry-run 5k products, row counts match API totals; 429-sim passes. Risk: low; rollback = revert. Screenshot: before/after counts.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch40">← APIs &amp; scraping</button>
+            <button data-go="ch45">Time series →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

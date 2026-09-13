@@ -1,0 +1,167 @@
+<article class="page" id="ch8">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 8 · Machine learning</div>
+          <h2>Supervised learning</h2>
+          <p class="lede">Learn a mapping x → y from labelled examples. Regression predicts numbers; classification predicts categories.</p>
+        </div>
+        <div class="content">
+          <div class="figure">
+            <img src="images/supervised.jpg" alt="Supervised learning from labelled cat and dog examples" />
+          </div>
+          <p class="caption">Figure 8.1 — The teacher provides labels. The learner infers a rule that should work on new, unlabelled cases.</p>
+
+          <h3>Linear regression</h3>
+          <p>Fit a hyperplane ŷ = w·x + b by minimising MSE. Closed form exists (normal equations); gradient descent also works and scales. Coefficients are interpretable if features are scaled — but correlation is not causation.</p>
+          <p><strong>Logistic regression</strong> is linear regression’s classification cousin: squash w·x + b through a sigmoid to get a probability, train with log loss. It is still a linear decision boundary. Do not be fooled by the name — it is a classifier.</p>
+
+          <h3>Neighbours, Bayes, and margins</h3>
+          <ul>
+            <li><strong>k-NN</strong> — predict the majority label among k nearest training points. Simple, slow at prediction, cursed by dimension.</li>
+            <li><strong>Naive Bayes</strong> — apply Bayes’ rule assuming features are independent given the class. Strong baseline for text.</li>
+            <li><strong>SVM</strong> — find a maximum-margin separator. Kernels (RBF) make nonlinear boundaries. Less dominant now but conceptually important.</li>
+          </ul>
+
+          <h3>Decision trees and forests</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 520 200" width="520" height="200">
+              <rect x="200" y="10" width="120" height="36" rx="8" fill="#0c1b2e"/>
+              <text x="260" y="33" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">income &gt; 50k?</text>
+              <line x1="260" y1="46" x2="120" y2="80" stroke="#0f766e" stroke-width="2"/>
+              <line x1="260" y1="46" x2="400" y2="80" stroke="#b45309" stroke-width="2"/>
+              <rect x="50" y="80" width="140" height="36" rx="8" fill="#115e59"/>
+              <text x="120" y="103" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">age &gt; 30?</text>
+              <rect x="330" y="80" width="140" height="36" rx="8" fill="#b45309"/>
+              <text x="400" y="103" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">credit ok?</text>
+              <rect x="20" y="150" width="80" height="32" rx="8" fill="#15803d"/><text x="60" y="170" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">yes</text>
+              <rect x="130" y="150" width="80" height="32" rx="8" fill="#be123c"/><text x="170" y="170" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">no</text>
+              <rect x="310" y="150" width="80" height="32" rx="8" fill="#be123c"/><text x="350" y="170" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">no</text>
+              <rect x="420" y="150" width="80" height="32" rx="8" fill="#15803d"/><text x="460" y="170" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">yes</text>
+            </svg>
+            <div class="diagram-title">Diagram 8.1 — A tree partitions the feature space with axis-aligned splits. Leaves vote a class or mean.</div>
+          </div>
+          <p>Single trees overfit. <strong>Random forests</strong> average many trees trained on bootstrap samples with random feature subsets. <strong>Gradient boosting</strong> (XGBoost, LightGBM, CatBoost) adds trees that correct previous residuals — usually the first weapon on tabular data.</p>
+
+          <h3>Ensembles</h3>
+          <p>Bagging reduces variance (forests). Boosting reduces bias by focusing on hard examples. Stacking trains a meta-model on base-model outputs. Use them when a single model plateaus — not as a first move.</p>
+
+          <div class="insight">
+            <h4>When to use what</h4>
+            <p>Need a baseline tonight? Logistic regression or a boosted tree. Need probabilities that are somewhat calibrated? Logistic + calibration. Need to explain to a regulator? Linear model or a shallow tree. Images/text? Skip to deep learning — these classical models on raw pixels/tokens rarely win.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Supervised learning fits f(x)≈y. Linear/logistic = hyperplanes. Trees split space; forests/boosting ensemble them. k-NN memorizes; SVM maximises margin; Naive Bayes multiplies likelihoods. For tables, boosting is the default champion. Always start with a simple baseline so you know the fancy model earned its keep.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Regression → MSE; classification → log loss / trees.</li>
+              <li>Logistic regression = linear classifier + sigmoid.</li>
+              <li>Random forest = bagged trees.</li>
+              <li>XGBoost-style boosting often wins tabular contests.</li>
+              <li>Baseline first, complexity second.</li>
+            </ul>
+          </div>
+
+                    <div class="diagram">
+            <svg viewBox="0 0 640 216" width="640" height="216">
+<rect x="10" y="10" width="620" height="196" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">confusion matrix — errors have addresses</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="34" y="58" width="572" height="26" fill="#1e293b"/>
+              <text x="34" y="76" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">             pred-N  pred-P</tspan></text>
+              <line x1="34" y1="118" x2="606" y2="118" stroke="#1e293b"/>
+              <text x="48" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">actual-N     1820    96</tspan></text>
+              <line x1="34" y1="142" x2="606" y2="142" stroke="#1e293b"/>
+              <text x="48" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">actual-P     140     944</tspan></text>
+              <text x="34" y="166" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">accuracy 0.92 · recall 0.87 </tspan><tspan fill="#64748b">— read the off-diagonal</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 8.1 — Accuracy hides sins; the matrix shows where they live.</div>
+          </div>
+<div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. Logistic regression outputs a probability via:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A majority vote of 100 trees</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A sigmoid (or softmax) of a linear score</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-means centroids</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Convolution over pixels</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">σ(w·x+b) ∈ (0,1). Decision boundary is still linear in x.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. Random forests reduce overfitting relative to one deep tree mainly by:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Using no features</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Maximising training accuracy only</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Averaging many diverse trees (bagging + feature randomness)</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Converting labels to images</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Variance drops when errors of trees are not perfectly correlated.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. Naive Bayes is “naive” because it assumes:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Features are independent given the class</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. All weights are zero</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The dataset has no labels</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The decision boundary is a deep net</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">The assumption is wrong but the classifier can still work well.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. For a messy spreadsheet of house features, a strong default model is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A randomly initialised CNN</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. k-means with k=2</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. An untrained Transformer</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Gradient boosting (e.g. XGBoost/LightGBM)</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Boosted trees handle mixed types, nonlinearities and interactions with little fuss.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">5. k-NN’s main practical weakness on large, high-dimensional data is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It cannot do classification</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Distance becomes less meaningful and prediction can be slow</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It requires a GPU by definition</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It has no hyperparameters</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Curse of dimensionality + scanning neighbours at inference time.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch8')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c8p1">
+              <p class="q">P1. A bank wants to predict loan default from 40 numeric/categorical columns and explain the top factors to auditors. Propose a model and an explanation method.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Start with logistic regression on well-engineered features — coefficients are signed effects. If accuracy is insufficient, use gradient boosting and explain with SHAP (global + per-loan). Do not ship a raw deep net as the first explainer-friendly option. Keep a simple model as a challenger for fairness tests.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c8p2">
+              <p class="q">P2. Why might a random forest beat logistic regression on the same tabular task?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Trees capture nonlinearities and feature interactions (income × region) without you multiplying columns by hand. They are invariant to monotonic scaling and handle mixed types. Logistic regression only wins if the true boundary is close to linear or you spent time on feature crosses.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c8p3">
+              <p class="q">P3. Sketch how gradient boosting differs from a random forest in how trees are combined.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Forest: trees are grown independently on bootstrap samples; we average votes. Boosting: trees are grown sequentially; each new tree fits the residual errors (or negative gradients) of the current ensemble, with a small learning rate. Boosting is additive correction; bagging is averaging.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch7">← Chapter 7</button>
+            <button data-go="ch9">Chapter 9 →</button>
+          </div>
+        </div>
+      </article>

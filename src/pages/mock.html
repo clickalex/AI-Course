@@ -1,0 +1,66 @@
+<article class="page" id="mock">
+        <div class="chapter-head"><div class="kicker">Careers · Timed practice</div>
+          <h2>Mock interview mode</h2>
+          <p class="lede">Random questions from the Interview Q&A bank, on the clock. Answer aloud before the timer ends, reveal the model answer, mark yourself honestly — then beat your best score.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Timed</span><span class="tag">Randomised</span><span class="tag">Self-scored</span></div>
+          <div class="figure"><img src="images/mock-interview.jpg" alt="Stopwatch over a rehearsal stage" /></div>
+          <p class="caption">Figure M.1 — Pressure is a skill. Train it like one.</p>
+
+          <div id="mockSetup" class="card-grid">
+            <div class="card"><h4>1 · Questions</h4><p>
+              <select id="mockCount" style="font-size:1rem;padding:6px">
+                <option value="5">5 questions (quick)</option>
+                <option value="10" selected>10 questions (standard)</option>
+                <option value="15">15 questions (marathon)</option>
+              </select></p></div>
+            <div class="card"><h4>2 · Seconds each</h4><p>
+              <select id="mockSecs" style="font-size:1rem;padding:6px">
+                <option value="60">60 (pressure)</option>
+                <option value="90" selected>90 (interview-real)</option>
+                <option value="120">120 (learning)</option>
+              </select></p></div>
+            <div class="card"><h4>3 · Pool</h4><p>
+              <select id="mockPool" style="font-size:1rem;padding:6px">
+                <option value="all">All 24 questions</option>
+                <option value="star">★ Starred only (toughest)</option>
+              </select></p></div>
+            <div class="card"><h4>Best score</h4><p id="mockBest" style="font-size:1.4rem;font-weight:700">—</p></div>
+          </div>
+          <div id="mockSetupBtn" style="margin:14px 0">
+            <button class="btn gold" onclick="startMock()">Start mock interview →</button>
+          </div>
+
+          <div id="mockStage" style="display:none">
+            <p><strong id="mockProg">Q 1/10</strong> · <span id="mockTimeText">90s left</span></p>
+            <div style="height:10px;background:#e2e8f0;border-radius:6px;overflow:hidden;margin:6px 0 14px">
+              <div id="mockTimeBar" style="height:100%;width:100%;background:#0f766e;border-radius:6px"></div>
+            </div>
+            <div class="practice"><p class="q" id="mockQ">…</p>
+              <button class="btn" id="mockRevealBtn" onclick="revealMockAns()">I answered — reveal model answer</button>
+              <div class="answer" id="mockAns" style="display:none"></div>
+              <div class="self-mark" id="mockMark" style="display:none"><span>Honest mark:</span>
+                <button onclick="markMock(true)">Nailed it</button><button onclick="markMock(false)">Missed it</button>
+              </div>
+            </div>
+            <p><button class="ghost" onclick="quitMock()">End session early</button></p>
+          </div>
+
+          <div id="mockFinal" style="display:none">
+            <div class="insight"><h4>Session score</h4>
+              <p style="font-size:2rem;font-weight:800;margin:4px 0"><span id="mockScore">0/10</span> · <span id="mockPct">0%</span></p>
+              <p id="mockVerdict">—</p>
+            </div>
+            <h3>Review</h3>
+            <div id="mockReview"></div>
+            <p style="margin-top:14px"><button class="btn gold" onclick="resetMock()">New session</button>
+            <button class="ghost" data-go="interview">Study the bank</button></p>
+          </div>
+
+          <div class="note"><h4>Short notes</h4><p>90 seconds, aloud, then reveal. “Nailed it” means complete + structured + trade-off named — close doesn’t count. Redo missed questions in the bank, then run a ★-only session. Three 80%+ sessions in a row = interview-ready.</p></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="gate">← GATE bank</button>
+            <button data-go="exam">Final exam →</button>
+          </div>
+        </div>
+      </article>

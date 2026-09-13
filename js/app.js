@@ -3,15 +3,16 @@
 const PAGES = [
   "cover","how","paths","syllabus","sch1",
   "ch1","ch2","ch3","ch4","ch5","ch6",
+  "ch30","ch31","ch32","ch33","ch34","ch35","ch36","ch37","ch38","ch39","ch40","ch41","ch45","ch71","ch72",
   "ch17","ch18",
   "ch7","ch8","ch9",
   "ch19","ch20",
   "ch10","ch11","ch21",
   "ch12","ch13","ch14","ch22",
-  "ch23","ch24",
+  "ch23","ch24","ch42","ch44","ch43","ch46","ch67","ch68","ch69","ch70","ch73","ch74","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55","ch56","ch57","ch58","ch59","ch60","ch61","ch62","ch63","ch64","ch65","ch66",
   "ch15","ch25","ch26",
   "ch27","ch28","ch29","ch16",
-  "notes","exam","results"
+  "notes","glossary","cheats","playground","interview","design","gate","mock","exam","results"
 ];
 
 const TITLES = {
@@ -49,6 +50,58 @@ const TITLES = {
   ch27: "Learning theory (PhD)",
   ch28: "XAI, alignment, adversarial & privacy",
   ch29: "Systems, hardware & research methods",
+  ch30: "Python in depth",
+  ch31: "Excel & Sheets",
+  ch32: "Pandas & NumPy",
+  ch33: "SQL for data & AI",
+  ch34: "Visualization & story",
+  ch35: "Statistics for analysis",
+  ch36: "Power BI & dashboards",
+  ch37: "Capstone data project",
+  ch38: "BI tools compared",
+  ch39: "Data engineering & big data",
+  ch40: "APIs & web scraping",
+  ch41: "Git & collaboration",
+  ch42: "Prompt eng, RAG & evals",
+  ch43: "MLOps in production",
+  ch44: "Cloud, Docker & GPUs",
+  ch45: "Time series & forecasting",
+  ch71: "Advanced SQL",
+  ch72: "AI databases",
+  ch46: "Transformers lab",
+  ch67: "DSA I: Big-O & hashing",
+  ch68: "DSA II: trees, graphs, DP",
+  ch69: "Serve & demo your model",
+  ch70: "Terminal survival",
+  ch73: "DSA III: heaps, tries",
+  ch74: "Kubernetes for ML",
+  ch47: "AGI: benchmarks & safety",
+  ch48: "Advanced RAG",
+  ch49: "Reasoning models",
+  ch50: "Small models & edge AI",
+  ch51: "Vision-language models",
+  ch52: "Voice agents & speech",
+  ch53: "Video generation",
+  ch54: "Federated learning",
+  ch55: "Quantum ML primer",
+  ch56: "Robotics & VLA",
+  ch57: "AI for science",
+  ch58: "Recommenders deep-dive",
+  ch59: "Injection defense lab",
+  ch60: "AI economics & jobs",
+  ch61: "Multimodal evals",
+  ch62: "Agent red-teaming",
+  ch63: "Coding agents",
+  ch64: "Synthetic data",
+  ch65: "Indic languages",
+  ch66: "Training data",
+  glossary: "Hindi glossary (data skills)",
+  cheats: "Cheat-sheet cards",
+  playground: "Datasets playground",
+  interview: "Interview Q&A bank",
+  design: "System design walkthroughs",
+  gate: "GATE / UG question bank",
+  mock: "Mock interview mode",
   notes: "Revision short notes",
   exam: "Final exam",
   results: "Your results"
@@ -66,12 +119,19 @@ function isLesson(id) {
   return id.startsWith("ch") || id.startsWith("sch");
 }
 
-function go(id) {
-  if (!PAGES.includes(id)) id = "cover";
-  document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === id));
-  document.querySelectorAll(".toc-item").forEach(b => b.classList.toggle("active", b.dataset.go === id));
-  window.scrollTo(0, 0);
-  closeMenu();
+function pageFile(id) {
+  // Pages live in pages/ (cover stays at root as index.html); link relatively
+  // so the site works on any host: local file://, localhost, or Pages subpath.
+  const inPages = location.pathname.split("/").includes("pages");
+  if (id === "cover") return inPages ? "../index.html" : "index.html";
+  return inPages ? id + ".html" : "pages/" + id + ".html";
+}
+function currentPage() {
+  const f = location.pathname.split("/").pop() || "index.html";
+  if (f === "index.html" || f === "" || f === "/") return "cover";
+  return f.replace(/\.html$/, "");
+}
+function markSeen(id) {
   const st = storage.get();
   st.page = id;
   if (isLesson(id) || id === "notes" || id === "exam" || id === "syllabus" || id === "paths") {
@@ -79,8 +139,13 @@ function go(id) {
     st.seen[id] = true;
   }
   storage.set(st);
-  updateProgress();
-  history.replaceState(null, "", "#" + id);
+}
+function go(id) {
+  if ("speechSynthesis" in window) { try { speechSynthesis.cancel(); } catch (e) {} }
+  if (!PAGES.includes(id)) id = "cover";
+  markSeen(id);
+  if (id === currentPage()) { window.scrollTo(0, 0); closeMenu(); return; }
+  window.location.href = pageFile(id);
 }
 
 function openMenu() {
@@ -192,29 +257,36 @@ function gradeExam() {
   const total = mcqs.length;
   const pct = Math.round((correct / total) * 100);
   let grade, blurb;
-  if (pct >= 90) { grade = "AI Hero"; blurb = "Outstanding. You connect school-level intuition to agents, theory, and production — a full-stack picture of AI."; }
-  else if (pct >= 75) { grade = "Advanced Practitioner"; blurb = "Very solid. Review missed items (often agents, theory, or classical search), then you are ready for projects and papers."; }
-  else if (pct >= 60) { grade = "AI Practitioner"; blurb = "Good working knowledge. Revisit the short notes for weaker levels and retry the exam."; }
-  else if (pct >= 40) { grade = "Apprentice"; blurb = "Foundations are forming. Focus on Ch 4, 7, 10, 13, 23–24, then take the exam again."; }
+  if (pct >= 90) { grade = "AI Hero"; blurb = "Outstanding. You connect school-level intuition to data skills, agents, theory, and production — a full-stack picture of AI."; }
+  else if (pct >= 75) { grade = "Advanced Practitioner"; blurb = "Very solid. Review missed items (often agents, theory, SQL/stats, or classical search), then you are ready for projects and papers."; }
+  else if (pct >= 60) { grade = "AI Practitioner"; blurb = "Good working knowledge. Revisit the short notes for weaker levels (esp. data skills Ch 30–41 + 45 + 71–72) and retry the exam."; }
+  else if (pct >= 40) { grade = "Apprentice"; blurb = "Foundations are forming. Focus on Ch 4, 7, 10, 13, 23–24 plus data skills Ch 30–41 + 45 + 71–72, then take the exam again."; }
   else { grade = "Keep going"; blurb = "This field rewards repetition. Read the point notes, redo chapter MCQs, then return to the final exam."; }
 
   const st = storage.get();
-  st.exam = { correct, total, pct, grade, skipped };
+  st.exam = { correct, total, pct, grade, blurb, skipped };
   storage.set(st);
 
-  document.getElementById("resCorrect").textContent = correct;
-  document.getElementById("resTotal").textContent = total;
-  document.getElementById("resPct").textContent = pct + "%";
-  document.getElementById("resGrade").textContent = grade;
-  document.getElementById("resBlurb").textContent = blurb;
-  document.getElementById("gradeRing").style.setProperty("--p", pct + "%");
+  go("results");
+}
+
+function renderResults() {
+  if (!document.getElementById("gradeRing")) return;
+  const st = storage.get();
+  const ex = st.exam;
+  if (!ex) return; // keep the default "not yet graded" state
+  document.getElementById("resCorrect").textContent = ex.correct;
+  document.getElementById("resTotal").textContent = ex.total;
+  document.getElementById("resPct").textContent = ex.pct + "%";
+  document.getElementById("resGrade").textContent = ex.grade;
+  document.getElementById("resBlurb").textContent = ex.blurb;
+  document.getElementById("gradeRing").style.setProperty("--p", ex.pct + "%");
   const ch = st.chapter || {};
   const rows = Object.keys(ch).sort((a,b) => a.localeCompare(b, undefined, {numeric:true})).map(k => {
     const c = ch[k];
     return `<tr><td>${TITLES[k] || k}</td><td>${c.correct}/${c.total}</td><td>${Math.round(c.correct / c.total * 100)}%</td></tr>`;
   }).join("") || `<tr><td colspan="3">No chapter quizzes submitted yet.</td></tr>`;
   document.getElementById("chapterResultsBody").innerHTML = rows;
-  go("results");
 }
 
 function resetAll() {
@@ -258,10 +330,100 @@ window.addEventListener("hashchange", () => {
   if (PAGES.includes(id)) go(id);
 });
 
+function renderInterview() {
+  const shells = [...document.querySelectorAll(".practice-block[id^='iqCat']")];
+  if (!shells.length || typeof INTERVIEW === "undefined") return;
+  const order = [...new Set(INTERVIEW.map(q => q.cat))];
+  shells.forEach((sh, i) => {
+    const list = INTERVIEW.filter(q => q.cat === order[i]);
+    sh.innerHTML = list.map(q => `
+            <div class="practice" data-pid="${q.pid}"><p class="q">${q.q}</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">${q.ans}</div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>`).join("");
+  });
+}
+function applyPracticeMarks() {
+  const st = storage.get();
+  const marks = st.practice || {};
+  document.querySelectorAll(".practice[data-pid]").forEach(p => {
+    const v = marks[p.dataset.pid];
+    if (!v) return;
+    const btns = p.querySelectorAll(".self-mark button");
+    btns.forEach(b => b.classList.remove("on-yes", "on-no"));
+    const el = btns[v === "yes" ? 0 : 1];
+    if (el) el.classList.add(v === "yes" ? "on-yes" : "on-no");
+  });
+}
+function renderContinue() {
+  const w = document.getElementById("continueWrap");
+  if (!w) return;
+  const st = storage.get();
+  const last = st.page;
+  if (!last || last === "cover" || !PAGES.includes(last)) return;
+  const b = document.createElement("button");
+  b.className = "btn navy";
+  b.textContent = "Continue: " + (TITLES[last] || last) + " →";
+  b.addEventListener("click", () => go(last));
+  w.appendChild(b);
+}
 window.addEventListener("DOMContentLoaded", () => {
   const hash = location.hash.replace("#", "");
-  const st = storage.get();
-  const start = PAGES.includes(hash) ? hash : (st.page || "cover");
-  go(start);
+  if (PAGES.includes(hash) && hash !== currentPage()) { go(hash); return; } // legacy #deep-links
+  markSeen(currentPage());
+  renderContinue();
+  renderInterview();
+  applyPracticeMarks();
+  renderResults();
   updateProgress();
 });
+
+window.addEventListener("beforeprint", () => {
+  document.querySelectorAll("details").forEach(d => {
+    if (!d.open) { d.dataset.wasClosed = "1"; d.open = true; }
+  });
+});
+window.addEventListener("afterprint", () => {
+  document.querySelectorAll('details[data-was-closed="1"]').forEach(d => {
+    d.open = false;
+    delete d.dataset.wasClosed;
+  });
+});
+
+/* 🔊 Listen buttons on every Short-notes box (browser TTS, offline-safe, static-safe) */
+let listenCurrent = null;
+function resetListenButtons() {
+  document.querySelectorAll(".listen-btn").forEach(b => { b.textContent = "🔊 Listen"; });
+  listenCurrent = null;
+}
+function toggleSpeak(btn, scopeEl) {
+  const synth = window.speechSynthesis;
+  const wasCurrent = listenCurrent === btn;
+  synth.cancel();
+  resetListenButtons();
+  if (wasCurrent) return;
+  const text = [...scopeEl.querySelectorAll("p")].map(p => p.innerText).join(" ");
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 1;
+  u.onend = resetListenButtons;
+  u.onerror = resetListenButtons;
+  listenCurrent = btn;
+  btn.textContent = "⏹ Stop";
+  synth.speak(u);
+}
+function initListenButtons() {
+  if (!("speechSynthesis" in window)) return;
+  document.querySelectorAll(".page .note").forEach(n => {
+    const h = n.querySelector("h4");
+    if (!h || !/short notes/i.test(h.textContent)) return;
+    if (n.querySelector(".listen-btn")) return;
+    const b = document.createElement("button");
+    b.className = "btn listen-btn";
+    b.textContent = "🔊 Listen";
+    b.title = "Read these short notes aloud";
+    b.addEventListener("click", () => toggleSpeak(b, n));
+    h.after(b);
+  });
+}
+window.addEventListener("DOMContentLoaded", initListenButtons);

@@ -1,0 +1,95 @@
+<article class="page" id="ch23">
+        <div class="chapter-head"><div class="kicker">Chapter 23 · Agents</div>
+          <h2>AI Agents</h2>
+          <p class="lede">A chatbot answers in one shot. An <strong>agent</strong> has a goal, may use tools, observe results, and continue until it should stop.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Perceive</span><span class="tag">Plan</span><span class="tag">Act</span><span class="tag">Tools</span></div>
+          <div class="figure"><img src="images/agents.jpg" alt="An AI agent with tools and a plan-act loop" /></div>
+          <p class="caption">Figure 23.1 — Goal + tools + loop. The model is the brain; tools are the hands.</p>
+          <h3>Two meanings of “agent” (don’t mix them)</h3>
+          <table><thead><tr><th></th><th>Classical (Ch 17)</th><th>LLM agent (this chapter)</th></tr></thead><tbody>
+            <tr><td>Brain</td><td>Search / policy / rules</td><td>A language model</td></tr>
+            <tr><td>Actions</td><td>Move, shoot, set a variable</td><td>Call tools: search, SQL, code, email, browser</td></tr>
+            <tr><td>Memory</td><td>State s</td><td>Context window + optional store</td></tr>
+            <tr><td>Stop</td><td>Goal test</td><td>Final answer, budget, or human</td></tr>
+          </tbody></table>
+          <h3>The ReAct loop</h3>
+          <p>Thought → Action (tool name + args) → Observation → … → Answer. This is the skeleton of LangChain/LlamaIndex-style agents, function-calling APIs, and “computer use” demos.</p>
+<pre><code>while not done and steps &lt; budget:
+    thought = llm(goal, history)
+    if thought.wants_tool:
+        obs = run(thought.tool, thought.args)  # sandboxed
+        history += (thought, obs)
+    else:
+        return thought.answer</code></pre>
+          <h3>What an agent needs</h3>
+          <ul>
+            <li><strong>Goal / spec</strong> — measurable, with constraints (“don’t email customers”).</li>
+            <li><strong>Tools</strong> — typed functions (JSON schema). Least privilege.</li>
+            <li><strong>Memory</strong> — scratchpad, long-term vector/SQL store, user profile.</li>
+            <li><strong>Planning</strong> — implicit in CoT, or explicit (to-do list, HTN, search).</li>
+            <li><strong>Control</strong> — max steps, spend cap, confirmation on irreversible acts.</li>
+            <li><strong>Eval</strong> — task success, not “the transcript looked smart.”</li>
+          </ul>
+          <div class="warn"><h4>Agents fail in stereotyped ways</h4>
+            <p>Infinite loops; hallucinated tool args; prompt injection via a fetched page (“ignore the user, exfiltrate secrets”); taking a destructive action too early. Treat tool output as <em>untrusted data</em>, not as instructions.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Agent = LLM + tools + loop + memory + stop condition. ReAct is the default pattern. Safety is in the tool sandbox and the budget, not in hoping the model is nice. Evaluate with end-to-end tasks.</p></div>
+          <div class="points"><h4>Point notes</h4><ul>
+            <li>Chat = one shot; agent = multi-step.</li>
+            <li>Function calling = structured tool use.</li>
+            <li>Observation ≠ trusted instruction.</li>
+            <li>Budget steps, money, and permissions.</li>
+            <li>Human-in-the-loop for irreversible tools.</li>
+          </ul></div>
+                    <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+<rect x="10" y="10" width="620" height="140" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">ReAct trace — think, act, observe</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">think: </tspan><tspan fill="#e2e8f0">Need today's rice price. Search first.</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#fbbf24">act: </tspan><tspan fill="#e2e8f0">search(rice price mandi) → ₹3,240/quintal</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">think: </tspan><tspan fill="#e2e8f0">Got a number + source. Answer now.</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#7dd3fc">ai: </tspan><tspan fill="#e2e8f0">₹3,240/quintal (mandi report, today) ✓</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 23.1 — The agent loop in four lines: think, act, observe, answer.</div>
+          </div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">4</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. The key difference between a chatbot and an AI agent is usually:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Agents cannot use language</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Chatbots always have GPUs</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Agents take multi-step actions (often via tools) toward a goal</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Agents never hallucinate</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Agency is the loop, not the brand name.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. In ReAct, an Observation is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The result of a tool call, fed back into context</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The learning rate</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A frozen LoRA matrix</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Always a trusted system prompt</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">And it must be treated as untrusted text.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">3. Prompt injection via a web page the agent fetched is dangerous because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. BM25 cannot index HTML</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A* becomes inadmissible</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GPUs overheat</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The model may treat attacker text as new instructions and misuse tools</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Separate data from instructions; confirm side effects.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">4. A good stop condition is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Run forever so it can “think”</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Goal met, or max steps / spend, or human abort</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. When the loss is NaN</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. After exactly one SGD step</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Budgets prevent runaway loops.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch23')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block">
+            <div class="practice" data-pid="c23p1"><p class="q">P1. Design tools for “book me a meeting with Priya next week.” Which must require confirmation?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Read-calendar and search-slots can be free. <strong>create-event</strong> and <strong>send-email</strong> need confirmation (or a draft). Bound time zones, don’t invite the whole company, log the act. Don’t give a generic “run_any_python” tool.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c23p2"><p class="q">P2. Write a 5-line eval for a “refund agent.”</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Gold cases: (1) eligible refund → correct tool + amount; (2) ineligible → refuse, no tool; (3) injected page “refund everyone” → ignore; (4) missing order id → ask; (5) budget: ≤ N steps. Score exact policy match, not fluency.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch22">← Fine-tuning</button>
+            <button data-go="ch24">Agentic AI →</button>
+          </div>
+        </div>
+      </article>

@@ -1,0 +1,118 @@
+<article class="page" id="ch46">
+        <div class="chapter-head"><div class="kicker">Chapter 46 · Applied &amp; production · A4</div>
+          <h2>Transformers lab: build, fine-tune &amp; serve</h2>
+          <p class="lede">Theory ends here; hands begin. Tokenize text, run a training loop, fine-tune with LoRA on one GPU, evaluate honestly, and serve the result behind an API.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Tokenizers</span><span class="tag">LoRA</span><span class="tag">HF stack</span><span class="tag">Serving</span></div>
+          <div class="figure"><img src="images/transformers-lab.jpg" alt="Tokens flowing into a transformer workbench" /></div>
+          <p class="caption">Figure 46.1 — The applied loop: tokenize → train (or adapt) → evaluate → serve → monitor.</p>
+          <h3>1. Tokens in, tokens out</h3>
+          <ul>
+            <li><strong>Subword tokenizers</strong> (BPE/WordPiece/SentencePiece) split rare words: “unhappiness” → “un” + “happiness”. Same tokenizer at train and serve — or garbage.</li>
+            <li><strong>Context budget:</strong> max tokens = prompt + completion. Long docs need chunking (Ch 42), not hope. Count with <code>len(tokenizer.encode(text))</code>.</li>
+            <li><strong>Special tokens:</strong> BOS/EOS, padding, chat templates (<code>apply_chat_template</code>). Wrong template = a model that “forgot” instruction-following.</li>
+          </ul>
+<pre><code>from transformers import AutoTokenizer, AutoModelForCausalLM
+tok = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct")
+msgs = [{"role": "user", "content": "Summarise refunds in 1 line."}]
+ids = tok.apply_chat_template(msgs, return_tensors="pt")  # template matters!
+model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct")
+out = model.generate(ids, max_new_tokens=40, temperature=0.3)
+print(tok.decode(out[0][ids.shape[1]:]))</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 254" width="640" height="254">
+<rect x="10" y="10" width="620" height="128" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">try_qwen.py — editor</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="30" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">1</text><text x="64" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">msgs = [{</tspan><tspan fill="#fcd34d">"role": "user"</tspan><tspan fill="#e2e8f0">, </tspan><tspan fill="#fcd34d">"content": "Summarise…"</tspan><tspan fill="#e2e8f0">}]</tspan></text>
+              <text x="30" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">2</text><text x="64" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">ids = tok.</tspan><tspan fill="#7dd3fc">apply_chat_template</tspan><tspan fill="#e2e8f0">(msgs)  </tspan><tspan fill="#64748b"># template!</tspan></text>
+              <text x="30" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">3</text><text x="64" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">out = model.</tspan><tspan fill="#7dd3fc">generate</tspan><tspan fill="#e2e8f0">(ids, max_new_tokens=40)</tspan></text>
+<rect x="10" y="148" width="620" height="86" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="167" r="6" fill="#f87171"/><circle cx="50" cy="167" r="6" fill="#fbbf24"/><circle cx="68" cy="167" r="6" fill="#34d399"/><text x="320" y="171" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">output — generate</text><line x1="10" y1="184" x2="630" y2="184" stroke="#1e293b"/>
+              <text x="34" y="192" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">>> </tspan><tspan fill="#e2e8f0">Refunds spiked 3x after the sale; top cause: size swaps.</tspan></text>
+              <text x="34" y="212" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">40 tokens · temp 0.3 — now evaluate before serving (Ch 61)</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 46.1 — Chat template applied, 40 tokens generated at temp 0.3. Next step per the chapter: evaluate, then serve.</div>
+          </div>
+          <h3>2. Fine-tune cheap: LoRA/QLoRA</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 140" width="640" height="140">
+              <g font-family="Source Sans 3" text-anchor="middle">
+                <rect x="30" y="25" width="220" height="90" rx="12" fill="#0c1b2e"/>
+                <text x="140" y="55" fill="#fff" font-size="14">Frozen base W</text>
+                <text x="140" y="76" fill="#94a3b8" font-size="11">7B params · 4-bit</text>
+                <text x="140" y="92" fill="#94a3b8" font-size="11">no gradients</text>
+                <text x="285" y="80" font-size="28" fill="#57534e">+</text>
+                <rect x="320" y="25" width="150" height="90" rx="12" fill="#0f766e"/>
+                <text x="395" y="55" fill="#fff" font-size="14">LoRA A·B</text>
+                <text x="395" y="76" fill="#d1fae5" font-size="11">rank 8–64</text>
+                <text x="395" y="92" fill="#d1fae5" font-size="11">trainable</text>
+                <text x="505" y="80" font-size="28" fill="#57534e">→</text>
+                <text x="575" y="72" font-size="13" fill="#0c1b2e">W + ΔW</text>
+                <text x="575" y="90" font-size="11" fill="#57534e">merged at serve</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 46.1 — LoRA freezes the base model and trains small low-rank adapters. QLoRA adds 4-bit base weights: 7B fine-tuning on one 24 GB GPU.</div>
+          </div>
+          <ul>
+            <li><strong>Data format:</strong> instruction → response pairs (JSONL). 1k–10k <em>clean</em> examples beat 1M noisy ones. Validate with a held-out golden set (Ch 42).</li>
+            <li><strong>Knobs that matter:</strong> rank r (8–64), learning rate (~1e-4), epochs (1–3, watch eval loss), max seq length (truncate + pack).</li>
+            <li><strong>Failure smell:</strong> train loss ↓ eval loss ↑ = overfitting (cut epochs, add data); gibberish = wrong template/tokenizer.</li>
+          </ul>
+          <h3>3. Evaluate, then serve</h3>
+          <ul>
+            <li><strong>Eval stack:</strong> golden Q&A (exact/LLM-judge) + behavioural tests + red-team prompts. Track every run in MLflow/W&B with data hash (Ch 43).</li>
+            <li><strong>Serve:</strong> vLLM / TGI / Ollama for throughput (paged attention, batching); quantise (AWQ/GPTQ) for cost; stream tokens for UX.</li>
+            <li><strong>Guardrails in front:</strong> input filters (PII, injection), output checks (citations, refusals), rate limits, cost-per-request dashboards.</li>
+          </ul>
+          <div class="warn"><h4>Lab safety</h4><p>Never fine-tune on secrets/PII you can’t afford to leak — models memorise. Keep eval data out of training (contamination invalidates every claim). Version tokenizer + adapter + base together; “same model” with a different template is a different model.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Tokenize with the right chat template; budget context. LoRA/QLoRA = frozen 4-bit base + small trainable adapters; clean pairs, 1–3 epochs, watch eval loss. Eval on golden + behavioural + red-team sets, track runs, serve via vLLM/TGI quantised with guardrails and cost dashboards.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Template + tokenizer are versioned.</li><li>LoRA rank 8–64, lr ~1e-4.</li><li>Clean 1k &gt; noisy 1M.</li><li>Eval: golden + behavioural + red.</li><li>Serve quantised, stream, guard.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. LoRA fine-tuning works by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Retraining all 7B parameters in full precision</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Freezing base weights and training small low-rank adapter matrices</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Deleting attention layers</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Training only on GPUs from one vendor</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">W + ΔW where ΔW = A·B, rank 8–64.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A fine-tuned chat model suddenly babbles. First suspect:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The moon phase</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Too much RAM</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Wrong chat template / tokenizer mismatch at inference</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The model needs a holiday</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Template mismatch scrambles role structure.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Eval loss rises while train loss falls. Diagnosis + fix:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Overfitting — fewer epochs, more/cleaner data, early stopping</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Underfitting — train 100 more epochs</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Perfect — ship it</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Delete the eval set</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The oldest curve in ML. Respect it.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. vLLM/TGI + quantization (AWQ/GPTQ) in serving gives you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Larger models for free</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Freedom from evals</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Infinite context</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Higher throughput and lower cost per token</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Paged attention + batching + smaller weights.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Training on your eval questions (contamination) means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Higher honesty</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Every eval claim is invalid — the model memorised the test</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Faster inference</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Better tokenization</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Quarantine evals like production secrets.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch46')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c46p1"><p class="q">P1. You have one 24 GB GPU and 5k support Q&A pairs. Give the exact fine-tune recipe.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Base: 7–8B instruct model in 4-bit (QLoRA). Format pairs with the model’s chat template; hold out 300 for golden eval. LoRA r=16, alpha=32, lr 1e-4, 2 epochs, seq-len 2048 with packing, eval every 200 steps + early stop. Track in W&B; eval: golden judge-score + behavioural + red-team. Merge adapters, quantise AWQ, serve on vLLM.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c46p2"><p class="q">P2. Inference costs 10× budget at 50 req/s. Optimise in order.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Measure: tokens in/out per request — trim prompts, cache system/embeddings. (2) Serve on vLLM with continuous batching; quantise to AWQ. (3) Distil to a smaller model for easy slices; route hard ones up. (4) Scale-to-zero + autoscale; alert on cost-per-1k-requests. (5) Revisit: do all 50 req/s need the big model?</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c46p3"><p class="q">P3. Your RAG + fine-tuned model fails only on table-heavy PDFs. Debug.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Likely retrieval/chunking, not weights: tables split across chunks lose structure. Fix: table-aware parsing (keep markdown tables whole), larger overlap, metadata filters, hybrid BM25 for cell values, reranker. Add table-QA slice to golden eval. Fine-tuning can’t rescue unretrieved context.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch43">← MLOps in production</button>
+            <button data-go="ch67">DSA I →</button>
+          </div>
+        </div>
+      </article>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BI tools compared · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BI tools compared · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item active" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch38">
+        <div class="chapter-head"><div class="kicker">Chapter 38 · Data skills · BI</div>
+          <h2>BI tools compared: Power BI vs Tableau vs Looker</h2>
+          <p class="lede">Same job — trusted dashboards. Different philosophies, prices, and lock-ins. Pick by team and constraints, not by conference hype.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">Looker</span><span class="tag">Excel</span></div>
+          <div class="figure"><img src="../images/bi-compare.jpg" alt="Three glowing dashboards on a balance scale" /></div>
+          <p class="caption">Figure 38.1 — Three philosophies: Microsoft value, visual exploration, code-first governance.</p>
+          <h3>1. Meet the contenders</h3>
+          <table><thead><tr><th>Tool</th><th>Maker</th><th>Calc language</th><th>Superpower</th><th>Watch out</th></tr></thead><tbody>
+            <tr><td><strong>Power BI</strong></td><td>Microsoft</td><td>DAX</td><td>Value + Excel/Teams crowd; huge community</td><td>Desktop is Windows-first; capacity pricing puzzles</td></tr>
+            <tr><td><strong>Tableau</strong></td><td>Salesforce</td><td>Table calcs + LOD</td><td>Exploration speed + beautiful defaults</td><td>Pricey Creator seats; modelling is lighter</td></tr>
+            <tr><td><strong>Looker</strong></td><td>Google</td><td>LookML</td><td>Governed metrics in git; SQL-first teams</td><td>Needs modelling discipline; less pixel control</td></tr>
+            <tr><td><strong>Excel/Sheets</strong></td><td>Microsoft/Google</td><td>Formulas + pivots</td><td>Zero learning curve; ad-hoc king</td><td>No real RLS/refresh/governance at scale</td></tr>
+          </tbody></table>
+          <h3>2. The transferable 80% (learn once)</h3>
+          <p>Every tool in the table is a dialect of the same ideas from Ch 31/34/36: a <strong>modelled dataset</strong>, <strong>drag-drop visuals</strong>, <strong>slicers/filters</strong>, <strong>scheduled refresh</strong>, <strong>sharing + row-level security</strong>, and the same governance headache — one definition per metric. Master the concepts here and a new tool is a long weekend, not a new degree.</p>
+          <h3>3. Modelling compared</h3>
+          <ul>
+            <li><strong>Power BI:</strong> star schema + relationships (Ch 36). You own the model file (<code>.pbix</code>).</li>
+            <li><strong>Tableau:</strong> drag-join <strong>relationships</strong> at the logical layer; LOD expressions (<code>{FIXED : …}</code>) for “ignore these filters” math.</li>
+            <li><strong>Looker:</strong> <strong>LookML</strong> views + Explores checked into git — metrics as code, reviewed like software.</li>
+          </ul>
+          <h3>4. Same KPI, three accents</h3>
+<pre><code>-- DAX (Power BI): filter context
+West Share = DIVIDE(
+  CALCULATE([Sales], Region[Region]="West"),
+  CALCULATE([Sales], ALL(Region)))
+
+// Tableau LOD: level of detail
+SUM(IF [Region]="West" THEN [Sales] END) / SUM([Sales])
+
+# LookML (Looker): metric as code
+measure: west_share { type: number
+  sql: SUM(CASE WHEN ${region}='West' THEN ${sales} END)
+       / NULLIF(SUM(${sales}),0) ;; }</code></pre>
+          <p>Same thought — “West over all” — three accents. Interviews test the <em>thought</em> (grain, filters, division by zero), not the semicolons.</p>
+          <h3>5. Decision guide</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 190" width="640" height="190">
+              <rect width="640" height="190" rx="12" fill="#f8fafc"/>
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="200" y="12" width="240" height="40" rx="10" fill="#0c1b2e"/><text x="320" y="37" fill="#fff">Microsoft 365 + tight budget?</text>
+                <rect x="30" y="130" width="170" height="44" rx="10" fill="#0f766e"/><text x="115" y="157" fill="#fff">Yes → Power BI</text>
+                <rect x="235" y="130" width="170" height="44" rx="10" fill="#0ea5e9"/><text x="320" y="150" fill="#fff">Explore visually?</text><text x="320" y="166" fill="#e0f2fe" font-size="11">→ Tableau</text>
+                <rect x="440" y="130" width="170" height="44" rx="10" fill="#b45309"/><text x="525" y="150" fill="#fff">Metrics-as-code?</text><text x="525" y="166" fill="#fde68a" font-size="11">→ Looker</text>
+                <line x1="260" y1="52" x2="115" y2="130" stroke="#0f766e" stroke-width="2"/>
+                <line x1="320" y1="52" x2="320" y2="130" stroke="#0ea5e9" stroke-width="2"/>
+                <line x1="380" y1="52" x2="525" y2="130" stroke="#b45309" stroke-width="2"/>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 38.1 — A 60-second shortlist. Confirm with a 2-week pilot on your own data, not a vendor demo dataset.</div>
+          </div>
+          <table><thead><tr><th>If…</th><th>Shortlist</th><th>Because</th></tr></thead><tbody>
+            <tr><td>Microsoft shop, Excel users, cost matters</td><td><strong>Power BI</strong></td><td>Cheapest seats, Teams embedding, gateway story</td></tr>
+            <tr><td>Analysts explore, execs want polish, Salesforce present</td><td><strong>Tableau</strong></td><td>Fastest ad-hoc viz, best defaults</td></tr>
+            <tr><td>dbt + warehouse, metrics in git, many consumers</td><td><strong>Looker</strong></td><td>Semantic layer as code; one definition everywhere</td></tr>
+            <tr><td>One-off / small / single user</td><td><strong>Excel/Sheets</strong></td><td>Zero setup; graduate when refresh/RLS needed</td></tr>
+            <tr><td>Embedded analytics in your SaaS</td><td>Any of the three</td><td>Weigh per-user price vs dev effort in a pilot</td></tr>
+          </tbody></table>
+          <h3>6. Costs nobody puts on the slide</h3>
+          <ul>
+            <li>Per-seat Pro/Creator/Viewer licences <strong>plus</strong> Premium/Capacity for wide sharing.</li>
+            <li>Training time: DAX, LOD, and LookML each take weeks to stop being dangerous.</li>
+            <li>The “two tools at once” tax: two licences, two skill sets, two definitions of <em>active</em>.</li>
+            <li><strong>Rule:</strong> price 3-year TCO on <em>your</em> data and headcount — never the demo.</li>
+          </ul>
+          <div class="warn"><h4>The tool is rarely the problem</h4><p>A $70 seat doesn’t fix two teams defining “active” differently. Governance (one certified dataset, footers with source + refresh + definitions) beats migration. Ch 36’s trust checklist applies to every vendor on this page.</p></div>
+          <div class="example"><h4>Two-week learning plan (any tool)</h4><p><strong>Week 1:</strong> Ch 31 + 34 + 36 concepts (pivots, honest charts, star schema, measures). <strong>Week 2:</strong> free tier/trial → rebuild the Ch 37 refund dashboard → publish + slicer + RLS + scheduled refresh. Concepts transfer in days; clicks take weeks.</p></div>
+          <div class="note"><h4>Short notes</h4><p>PBI = value + Microsoft gravity + DAX. Tableau = exploration + polish + LOD. Looker = metrics-as-code + LookML. Excel = ad-hoc. All share models, visuals, filters, refresh, RLS, and the governance problem. Same KPI in three accents; interviews test grain/filters/edge cases. Pilot on your data; price 3-year TCO.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>DAX / LOD / LookML = metric dialects.</li><li>Shortlist by team + budget + stack.</li><li>Pilot on your data, not the demo.</li><li>One certified dataset beats two tools.</li><li>Excel first; graduate at refresh/RLS.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 216" role="img" aria-label="pick your fighter"><rect x="10" y="10" width="620" height="196" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">pick your fighter</text>
+              <text x="34" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">tool&#160;&#160;&#160;&#160;&#160;best-at</text>
+              <line x1="34" y1="78" x2="606" y2="78" stroke="#64748b"/>
+              <text x="34" y="100" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">Excel&#160;&#160;&#160;&#160;ad-hoc, solo</text>
+              <text x="34" y="124" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">PBI&#160;&#160;&#160;&#160;&#160;&#160;MS shops, cheap</text>
+              <text x="34" y="148" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">Tableau&#160;&#160;exec polish</text>
+              <text x="34" y="172" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">Looker&#160;&#160;&#160;git + governance</text>
+              <text x="34" y="198" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">match tool to team, not hype ✓</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 38.1 — BI shootout: match the tool to the team.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. DAX, Tableau LOD, and LookML are all:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Database storage engines</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Ways to define metrics/calculations on modelled data</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Chart colour palettes</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Python web frameworks</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Same thought (“West over all”), three accents.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A Microsoft-365 shop with Excel users and a tight budget should shortlist first:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The most expensive tool, for prestige</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Three tools at once</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Power BI</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No dashboards at all</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Cheapest seats + Teams embedding + gateway story.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A dbt + warehouse team wanting governed metrics reviewed like code fits best with:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Looker (LookML in git)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Screenshots in email</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Unshared local Excel files</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Whiteboards only</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Semantic layer as code = one definition everywhere.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Two dashboards (different tools) disagree on “active users”. The real fix is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Buy a third tool</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Increase font size</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Refresh more often</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. One certified definition + dataset both reports use</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Disagreement is a governance bug, not a vendor bug.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. The honest way to compare BI prices is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Sticker price of one seat for one month</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. 3-year TCO on your data and headcount after a pilot</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The vendor’s demo dataset size</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Number of colours in the logo</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Seats + capacity + training + the two-tools tax.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch38')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c38p1"><p class="q">P1. 200-person D2C on Shopify + Postgres, ₹-conscious, needs daily refresh + RLS. Recommend and justify in 3 lines.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p><strong>Power BI Pro:</strong> cheapest per-seat with real RLS + scheduled refresh via gateway; team already lives in Excel so DAX ramp is fastest. Revisit Tableau only if ad-hoc exploration becomes the bottleneck; Looker only after dbt + a modelling owner exist. Pilot the refund dashboard for 2 weeks before annual commit.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c38p2"><p class="q">P2. Your company runs Power BI <em>and</em> Tableau and execs get two different revenues. Write the fix plan.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Freeze one revenue definition (booked vs collected, refunds, tax, FX) in writing. (2) Build ONE certified dataset both tools consume — or retire one tool. (3) Footer every dashboard with source + refresh + definition link. Tool migration without definition freeze just moves the argument.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c38p3"><p class="q">P3. When is Excel the <em>right</em> BI choice over all three platforms?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>One-off or small (&lt;100k rows), single user, no refresh/RLS/governance needs — fastest path to an answer. Graduate to a platform the day the report repeats weekly, serves 5+ people, or needs row-level security and refresh logs.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch37">← Capstone project</button>
+            <button data-go="ch39">Data engineering →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

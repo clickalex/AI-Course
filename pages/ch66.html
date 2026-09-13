@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Training data · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Training data · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item active" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch66">
+        <div class="chapter-head"><div class="kicker">Chapter 66 · Frontier · F20</div>
+          <h2>Training-data engineering</h2>
+          <p class="lede">Models are what they eat. Behind every frontier model is a data refinery: crawling, filtering, deduping, and licensing trillions of tokens. Learn the pipeline, the quality math, and why provenance is now a board-level asset.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Curation</span><span class="tag">Dedup</span><span class="tag">Licensing</span><span class="tag">Provenance</span></div>
+          <div class="figure"><img src="../images/training-data.jpg" alt="Pipeline filtering messy web content into a clean data lake" /></div>
+          <p class="caption">Figure 66.1 — Trillions in, billions kept. The refinery rejects 90%+ — quality is a subtraction game.</p>
+          <h3>1. The refinery (crawl → keep)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <g font-family="Source Sans 3" font-size="11" text-anchor="middle">
+                <rect x="8" y="35" width="95" height="50" rx="8" fill="#0c1b2e"/><text x="55" y="55" fill="#fff">CRAWL</text><text x="55" y="70" fill="#5eead4">web+code+books</text>
+                <rect x="115" y="35" width="95" height="50" rx="8" fill="#0f766e"/><text x="162" y="55" fill="#fff">EXTRACT</text><text x="162" y="70" fill="#fff">boilerplate out</text>
+                <rect x="222" y="35" width="95" height="50" rx="8" fill="#0ea5e9"/><text x="269" y="55" fill="#fff">FILTER</text><text x="269" y="70" fill="#fff">quality+lang</text>
+                <rect x="329" y="35" width="95" height="50" rx="8" fill="#b45309"/><text x="376" y="55" fill="#fff">DEDUP</text><text x="376" y="70" fill="#fff">exact+fuzzy</text>
+                <rect x="436" y="35" width="95" height="50" rx="8" fill="#7c2d12"/><text x="483" y="55" fill="#fff">DECONTAM.</text><text x="483" y="70" fill="#fff">evals out</text>
+                <rect x="543" y="35" width="89" height="50" rx="8" fill="#166534"/><text x="587" y="55" fill="#fff">MIX</text><text x="587" y="70" fill="#fff">weights</text>
+                <g fill="#0c1b2e" font-size="13"><text x="109" y="63">→</text><text x="217" y="63">→</text><text x="324" y="63">→</text><text x="431" y="63">→</text><text x="537" y="63">→</text></g>
+                <text x="320" y="108" fill="#64748b">Every stage logs provenance: source URL, licence, filter scores, keep/drop reason</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 66.1 — Six stages, one rule: any row you can’t explain is a row you shouldn’t train on.</div>
+          </div>
+          <ul>
+            <li><strong>Extraction beats collection:</strong> boilerplate, nav bars, and SEO spam poison more than scarcity does. Text extraction quality is step zero.</li>
+            <li><strong>Filters stack:</strong> language ID, perplexity/quality classifiers, toxicity/PII screens, length and repetition heuristics — each tuned per domain.</li>
+            <li><strong>Mix weights are hyperparameters:</strong> code, books, web, and synthetic each get a share; ablate on downstream evals, not vibes (Ch 64).</li>
+          </ul>
+          <h3>2. Dedup &amp; decontamination (the unglamorous 80%)</h3>
+          <table><thead><tr><th>Technique</th><th>Catches</th><th>Why it matters</th></tr></thead><tbody>
+            <tr><td><strong>Exact dedup (hashing)</strong></td><td>Byte-identical copies</td><td>Memorisation + wasted compute</td></tr>
+            <tr><td><strong>Fuzzy dedup (MinHash/LSH)</strong></td><td>Near-copies, boilerplate, spun text</td><td>Diversity; the tail survives</td></tr>
+            <tr><td><strong>Eval decontamination</strong></td><td>Benchmark items (even paraphrased) in training</td><td>Without it, leaderboards are fiction</td></tr>
+            <tr><td><strong>Canaries</strong></td><td>Planted strings proving whether data was used</td><td>Auditability + leak detection (Ch 59)</td></tr>
+          </tbody></table>
+          <h3>3. Rights &amp; provenance (the new moat)</h3>
+          <ol>
+            <li><strong>Licence per row:</strong> public ≠ usable. Track licence/ToS at the document level; robots.txt and opt-outs are the floor, not the ceiling.</li>
+            <li><strong>Consent &amp; compensation:</strong> publishers, artists, and communities are negotiating data deals — budget for licensed data like you budget GPUs.</li>
+            <li><strong>Datasheets:</strong> who collected it, when, from whom, with what filters, known gaps. Future-you (and regulators) will ask.</li>
+            <li><strong>Deletion readiness:</strong> if a source must be removed, can you find every derived row and retrain? Design for unlearning requests.</li>
+          </ol>
+          <div class="warn"><h4>Contamination ruins science</h4><p>One leaked benchmark in training invalidates every comparison you publish. Quarantine all eval material (and paraphrases) BEFORE the first training run, re-scan on every data refresh, and treat third-party “clean” mixes as guilty until proven innocent. A leaderboard built on contamination is marketing, not measurement.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Refinery: crawl → extract → filter → dedup → decontaminate → mix, with provenance logged at every stage. Dedup exact + fuzzy; decontaminate evals (paraphrases too); plant canaries. Rights: licence per row, pay for data, write datasheets, stay deletion-ready. Quality is subtraction; mix weights are hyperparameters.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Extraction quality is step zero.</li><li>Fuzzy dedup saves the tail.</li><li>Quarantine evals first.</li><li>Licence per row.</li><li>Datasheets or it didn’t happen.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 138" role="img" aria-label="refinery"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">refinery</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">refine --in crawl-100GB</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">kept 8.2% · dedup -31% · evals quarantined ✓</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">licenses 100% known ✓ </tspan><tspan fill="#94a3b8">datasheet written</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 66.1 — data refinery: keep 8%, dedup, license, datasheet.</figcaption>
+          </figure>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="a"><p class="q">1. Why dedup against EVAL sets specifically?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Leaked benchmarks invalidate every comparison — leaderboards become fiction</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Evals take disk space</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GPUs dislike evals</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It makes loss prettier</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Contamination is marketing, not measurement.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Fuzzy dedup (MinHash/LSH) catches what exact hashing misses:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Nothing, exact is enough</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only images</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Near-copies, boilerplate, spun text — protecting diversity</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. GPU errors</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The tail survives fuzzy dedup.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">3. “Mix weights are hyperparameters” means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Mix randomly and pray</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Code/books/web/synthetic shares must be ablated against downstream evals</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 50/50 always</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Weights don’t matter</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Ablate the mix, don’t vibe it.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. A planted canary string in training data lets you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Attract birds</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Mine crypto</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Skip filtering</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Prove whether that data was used (auditability + leak detection)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Tripwires for datasets.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">5. “Public ≠ usable” for training data because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Licences/ToS/opt-outs still apply — track rights per row</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Public data is always low quality</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The internet is too big</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Models prefer secrets</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Licence per row; budget for data.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch66')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c66p1"><p class="q">P1. Audit a 100GB web crawl for a Hindi-first model: stages, gates, and kill criteria.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Stages: extract (boilerplate removal, keep main content) → language ID (keep hi + en-mixed, drop mislabelled) → quality filters (perplexity, repetition, length) → exact + fuzzy dedup → PII/toxicity screens → eval decontamination. Gates: ≥60% Hindi-token share retained, dup rate &lt;15% post-filter, zero eval n-gram hits above threshold. Kill criteria: &gt;40% boilerplate, eval leakage unfixable, or licence status unknown for &gt;20% of rows.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c66p2"><p class="q">P2. A publisher demands removal of their articles from your training mix — after you’ve trained. What breaks, and what would you have done differently?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Breaks: you must locate every derived row (raw + paraphrases + synthetic children), remove, retrain or unlearn, and re-eval — weeks of work without provenance tooling. Differently: per-row licence + source tracking from day one, licensed-data budget, robots/opt-out honoring, deletion-ready pipeline (shard training so single-shard removal is cheap), datasheets documenting every source.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c66p3"><p class="q">P3. Your ablation shows +2% code share improves reasoning evals but hurts Hindi chat. Decide the mix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>No free lunch: pick by product priority with guardrail metrics (no language may regress &gt;1pt). Options: keep code bump but upweight Hindi chat slice to compensate; or stage it (code-heavy mid-training, Hindi-heavy anneal). Document the trade-off in the datasheet, re-check on native-authored Hindi tests (not translated), and ship the Pareto mix — not the reasoning-max one.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch65">← Indic languages</button>
+            <button data-go="ch15">Reinforcement learning →</button>
+          </div>
+        </div>
+      </article>
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>
