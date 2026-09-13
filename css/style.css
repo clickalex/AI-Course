@@ -771,3 +771,6 @@ pre code { background: none; color: inherit; padding: 0; }
   .cheat-card { border-style: dashed; break-inside: avoid; }
   .code-input, .challenge-actions, .challenge-hint { display: none !important; }
 }
+
+button:focus-visible, a:focus-visible { outline: 3px solid #0f766e; outline-offset: 2px; }
+#continueWrap .btn { font-size: 17px; margin-bottom: 6px; }

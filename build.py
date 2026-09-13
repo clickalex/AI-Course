@@ -52,6 +52,8 @@ for pid in PAGES:
     title = TITLES.get(pid, pid)
     h = head.replace("<title>Zero to Hero AI Course Book</title>",
                      f"<title>{title} · Zero to Hero AI</title>", 1)
+    h = h.replace('<meta property="og:title" content="Zero to Hero AI Course Book" />',
+                  f'<meta property="og:title" content="{title} · Zero to Hero AI" />', 1)
     out = h + sb + "\n" + mainopen + art + "\n" + foot
     dest = ROOT / ("index.html" if pid == "cover" else f"{pid}.html")
     dest.write_text(out)

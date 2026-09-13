@@ -340,10 +340,23 @@ function applyPracticeMarks() {
     if (el) el.classList.add(v === "yes" ? "on-yes" : "on-no");
   });
 }
+function renderContinue() {
+  const w = document.getElementById("continueWrap");
+  if (!w) return;
+  const st = storage.get();
+  const last = st.page;
+  if (!last || last === "cover" || !PAGES.includes(last)) return;
+  const b = document.createElement("button");
+  b.className = "btn navy";
+  b.textContent = "Continue: " + (TITLES[last] || last) + " →";
+  b.addEventListener("click", () => go(last));
+  w.appendChild(b);
+}
 window.addEventListener("DOMContentLoaded", () => {
   const hash = location.hash.replace("#", "");
   if (PAGES.includes(hash) && hash !== currentPage()) { go(hash); return; } // legacy #deep-links
   markSeen(currentPage());
+  renderContinue();
   renderInterview();
   applyPracticeMarks();
   renderResults();
