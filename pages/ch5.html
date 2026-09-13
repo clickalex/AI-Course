@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -161,6 +161,9 @@
           <p class="lede">Python won AI because the libraries are excellent and the syntax stays out of the way. You still need to know what each library is for.</p>
         </div>
         <div class="content">
+          <div class="figure"><img src="../images/python-ai.jpg" alt="A glowing ribbon coiled into abstract code brackets" /></div>
+          <p class="caption">Figure 5.1 — Python is the glue between data, the learning loop, and pretrained models.</p>
+
           <h3>The stack</h3>
           <table>
             <thead><tr><th>Library</th><th>Job</th></tr></thead>
@@ -244,7 +247,7 @@ optimizer.step()</code></pre>
           </div>
 
           <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c">
               <p class="q">1. The sklearn methods used to train and then label new rows are:</p>
               <div class="opts">
@@ -289,6 +292,17 @@ optimizer.step()</code></pre>
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">NumPy/PyTorch run fast compiled loops internally.</div>
             </div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">5. In PyTorch, calling loss.backward() computes:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Gradients of the loss with respect to tensors that have requires_grad enabled</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The learning rate schedule</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The test accuracy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The tokenizer vocabulary</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Autograd walks the computation graph and fills .grad; optimizer.step() then applies the update.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch5')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -313,6 +327,12 @@ print(accuracy_score(yte, clf.predict(Xte)))</code></pre>
               <p class="q">P2. What is the shape of logits if a CNN takes a batch of 16 ImageNet images and has 1000 classes?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p><strong>(16, 1000)</strong> — one score per class per image. Softmax along dim 1 turns them into probabilities.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c5p3">
+              <p class="q">P3. Your GPU runs out of memory on the first training batch. List four independent things to try, in order of ease.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Halve the batch size (or use gradient accumulation to keep the effective batch). (2) Enable mixed precision (bf16/fp16) and use a smaller image resolution/sequence length. (3) Check for accidental tensor expansion or retained computation graph (forgotten .item() in loops, list of tensors with grad). (4) Free stale GPU processes/cache, then consider a smaller model or more aggressive gradient checkpointing.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>

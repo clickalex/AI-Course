@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -190,7 +190,7 @@
             <div class="diagram-title">Snapshot S1.1 — The one-line test: fixed rules (calculator) versus learned patterns (search).</div>
           </div>
 <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. A chatbot writes a perfect-looking history paragraph. You should:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Submit it — fluent means true</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Use it only if it used big words</button>
@@ -209,6 +209,29 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The word photosynthesis</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A public Wikipedia link</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Treat chats as possibly stored. Secrets stay offline.</div></div>
+                        <div class="mcq" data-answer="c">
+              <p class="q">4. How does a voice assistant usually act when you speak to it?</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A tiny person lives in the phone</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It feels happy when you are polite</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It turns sound into learned patterns and predicts a useful response</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It can only work if you type in English</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Speech becomes features, a learned model predicts intent, and a tool answers — with no feelings involved.</div>
+            </div>
+
+            <div class="mcq" data-answer="b">
+              <p class="q">5. A homework chatbot confidently gives a historical date that disagrees with your textbook. The best move is to:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Rewrite the textbook to match the bot</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Check a trusted source and ask the bot where the date came from</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Trust the bot because it types faster than books</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Never use a bot for anything again</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Fluency is not factuality. Verify claims in trusted sources and cite them.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('sch1')">Grade this chapter</button><div class="chapter-score"></div>
           </div>
           <div class="practice-block"><h3>Practice</h3>
@@ -216,6 +239,19 @@
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>Maps (wrong traffic), autocorrect (wrong word), video feed (wastes time), chatbot (fake citation), camera (misses a face). Point: useful + fallible.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="s1p2">
+              <p class="q">P2. A classmate says, “If the AI says it, it must be true.” How would you answer, with an example?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Fluent writing is not the same as truth. AI predicts patterns from its training data and can confidently invent facts (a fake citation, a wrong date, a made-up law). Example: a chatbot may list a book the author never wrote. Check people-facts in a trusted source, and you stay responsible for what you submit.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="s1p3">
+              <p class="q">P3. Draw input → process → output for a video app that suggests the next clip. What are the “examples” it learns from?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Inputs = watch history, clicks, skips, likes and time watched; process = a learned ranking model; output = the suggested list. The examples are millions of past interactions from many users (and your past sessions). Your clicks become new training data — which is why the feed can narrow toward what keeps you watching.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
             <button class="ghost" data-go="syllabus">← Syllabus</button>

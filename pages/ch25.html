@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -159,6 +159,9 @@
           <h2>Advanced RL, MARL &amp; world models</h2>
           <p class="lede">Beyond toy Q-learning: partial observability, many agents, learning a simulator, and using RL on language policies.</p></div>
         <div class="content">
+          <div class="figure"><img src="../images/world-models.jpg" alt="A small robot inside a glass globe with predicted terrain fading ahead" /></div>
+          <p class="caption">Figure 25.1 — Dream first: plan and rehearse inside a learned model of the world.</p>
+
           <ul>
             <li><strong>POMDP</strong> — you don’t see s, only observations; need memory (RNN, belief state).</li>
             <li><strong>Offline RL</strong> — learn from a log without more env interaction (conservative Q, IQL). Easy to overestimate unseen actions.</li>
@@ -167,6 +170,18 @@
             <li><strong>Imitation</strong> — behaviour cloning; DAgger when you can query an expert.</li>
             <li><strong>LLM+RL</strong> — RLHF, process rewards, RL on verifiable tasks (math, code tests).</li>
           </ul>
+          <h3>Which RL problem am I holding?</h3>
+          <table><thead><tr><th>Setting</th><th>Defining feature</th><th>Examples</th></tr></thead><tbody>
+            <tr><td>Full MDP</td><td>State known; learn policy/value by interaction</td><td>Atari, simple control</td></tr>
+            <tr><td>POMDP</td><td>Only observations; hidden state needs memory/belief</td><td>Occluded driving, dialogue</td></tr>
+            <tr><td>Contextual bandit</td><td>One-step action, no state transition</td><td>News/feed cards, dose starting points</td></tr>
+            <tr><td>Offline RL</td><td>Only logged data; live exploration unsafe</td><td>Healthcare, industrial control</td></tr>
+            <tr><td>MARL</td><td>Other learners; environment is non-stationary</td><td>Games, trading, traffic routing</td></tr>
+            <tr><td>Imitation / DAgger</td><td>Learn from expert demonstrations</td><td>Robot manipulation, driving</td></tr>
+            <tr><td>Model-based / world model</td><td>Learn T(s′|s,a), plan in imagination</td><td>MuZero, Dreamer</td></tr>
+          </tbody></table>
+          <div class="formula">Q-learning update<small>Q(s,a) ← Q(s,a) + α [ r + γ maxₐ′ Q(s′,a′) − Q(s,a) ] — the bracketed term is the temporal-difference error: reality plus discounted future value minus the old prediction. α is step size, γ is patience for delayed reward.</small></div>
+          <p>Before reaching for RL, ask three questions: is there a reward you can trust, can you interact cheaply and safely, and is the problem genuinely sequential? Two “no” answers usually mean supervised learning or a bandit is the right tool.</p>
           <div class="note"><h4>Short notes</h4><p>Most “RL for products” still dies on reward design and sample cost. World models and offline logs help. Multi-agent is a different theory. For LLMs, prefer verifiable rewards over vague preference when you can.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>POMDP = hidden state.</li><li>Offline RL ≠ copy the log blindly.</li><li>MARL: opponents learn too.</li><li>World model = learned simulator.</li></ul></div>
                     <div class="diagram">
@@ -184,7 +199,7 @@
             </svg>
             <div class="diagram-title">Snapshot 25.1 — Agents level up by beating their own past selves.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. A POMDP differs from an MDP because:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. There is no reward</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The agent sees observations, not necessarily the full Markov state</button>
@@ -203,11 +218,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. BM25</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A type of dropout</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Model-based RL.</div></div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">4. Behaviour cloning is:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Supervised learning of an action policy from expert state–action demonstrations</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A clustering algorithm</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Copying the reward function illegally</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A type of Monte Carlo tree search</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">It is the simplest imitation method; covariate shift is its classic failure, fixed partly by DAgger.</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">5. Conservative Q-learning and similar offline RL methods deliberately:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Encourage taking every unseen action</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Delete the replay buffer</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Penalise Q-values for actions poorly supported by the logged data</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Set the discount factor to zero</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Without pessimism the agent extrapolates to falsely wonderful actions no log ever tried.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch25')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c25p1"><p class="q">P1. Why is “RL on an LLM with a learned reward model” fragile compared with “RL on unit-test pass rate”?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>Reward models can be gamed (sycophancy, verbose fluff). Unit tests are a ground-truth verifier. Prefer verifiable rewards when the domain allows; keep humans for taste and safety that tests miss.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c25p2">
+              <p class="q">P2. Why can self-play collapse or cycle, and how do league-based systems counter it?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Agents optimised against a single opponent overfit its strategy or enter rock–paper–scissors-style cycles as yesterday's counter-strategy becomes today's target — the environment is non-stationary. Maintaining a population/pool of past and diverse opponents (fictitious self-play, league training, PFSP), sampling partners and adversaries, and aiming for Nash-style robustness prevents collapse to a single exploitable style.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c25p3">
+              <p class="q">P3. When is behaviour cloning enough, and when must you add RL? How does DAgger help?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>BC suffices when high-quality demonstrations densely cover the states the system will meet and the task is directly imitable. Add RL when no demos exist, the policy must exceed the demonstrator, or a verifiable reward exists (games, unit tests). BC compounds small errors into off-distribution states it never saw; DAgger queries the expert on states the learner actually visits and adds them to training, closing that covariate-shift gap.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch15">← Chapter 15</button>
             <button data-go="ch26">Graphs & robotics →</button>

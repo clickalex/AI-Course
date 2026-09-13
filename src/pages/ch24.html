@@ -48,7 +48,7 @@
             </svg>
             <div class="diagram-title">Snapshot 24.1 — Three roles, one loop: plan, do, critique, ship.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">4</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. “Agentic AI” in product language usually emphasises:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Training k-means faster</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Persistent, tool-using, multi-step (often multi-role) autonomy</button>
@@ -73,6 +73,17 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Latency is already too high, so add hops</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A single RAG or form already solves the user job</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Complexity is a cost.</div></div>
+                        <div class="mcq" data-answer="b">
+              <p class="q">5. Compared with agents chatting pairwise at length, a shared blackboard/state store is preferred because it:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Guarantees the agents can never hallucinate</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Keeps one auditable source of truth, cutting token cost, context drift and lost information</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Removes the need for any evaluation suite</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Allows agents to skip writing structured outputs</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Shared state scales better than long pairwise dialogues; combine with schemas and logs so the workflow is inspectable.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch24')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block">
             <div class="practice" data-pid="c24p1"><p class="q">P1. Sketch an agentic workflow for “weekly competitor brief” with roles and one human gate.</p>
@@ -83,6 +94,12 @@
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>They share pretraining biases and have no grounding. Debate without tools is correlated noise. Ground with retrieval, code execution, or a human. Diversity of models helps a bit; evidence helps a lot.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c24p3">
+              <p class="q">P3. Quantify the cost/latency downside of a five-agent debate versus a single well-evaluated call, and say when the extra agents are justified.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Roughly five times the input/output tokens per round (plus orchestration), often serialised so wall-clock latency multiplies too, with compounding error and shared-bias agreement on falsehoods. Set token/step budgets, fan agents out in parallel, stop early on agreement-with-evidence, and require an eval showing the multi-agent lift beats a single model plus retrieval/tools. Justified for genuinely separable sub-tasks with verifiable outputs (independent searches, code + test, critic with checklists), not for status signalling.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch23">← AI Agents</button>

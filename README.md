@@ -15,8 +15,8 @@ Then visit the local URL shown by the server.
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
 - **School chapter** plus **74 numbered chapters** (75 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **420+ MCQs** with instant check and chapter scoring
-- **70+ practice questions** with model answers and self-marking
+- **465+ MCQs** (375 in chapters + 20 GATE + 73 final exam) with instant check and chapter scoring
+- **245+ practice questions** (225 in chapters + 24 in the interview bank) with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
 - **System design walkthroughs** (3 architectures + interview drills)
@@ -70,9 +70,9 @@ Then visit the local URL shown by the server.
 | **ch46** | **Transformers lab (tokenizers, LoRA, vLLM serving)** | **Applied** |
 | **ch67** | **DSA I: Big-O, arrays, hashing (binary search, pointers)** | **Applied** |
 | **ch68** | **DSA II: recursion, trees, graphs, DP (BFS, Dijkstra)** | **Applied** |
+| **ch73** | **DSA III: heaps, tries, union-find, intervals** | **Applied** |
 | **ch69** | **Serve & demo your model (FastAPI, Streamlit, Gradio)** | **Applied** |
 | **ch70** | **Terminal & environments survival (bash, venv, tmux)** | **Applied** |
-| **ch73** | **DSA III: heaps, tries, union-find, intervals** | **Applied** |
 | **ch74** | **Kubernetes for ML (Jobs, GPUs, quotas, autoscale)** | **Applied** |
 | **ch47** | **AGI: benchmarks, paths & safety (ARC, autonomy)** | **Frontier** |
 | **ch48** | **Advanced RAG (agentic, graph, multimodal)** | **Frontier** |

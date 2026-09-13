@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -159,6 +159,9 @@
           <h2>Vision, speech &amp; multimodal</h2>
           <p class="lede">Beyond classify-the-cat: where is it, what is each pixel, what was said, and how do text and pixels share a space?</p></div>
         <div class="content">
+          <div class="figure"><img src="../images/multimodal.jpg" alt="Eye, hand and sound icons merging into one luminous orb" /></div>
+          <p class="caption">Figure 21.1 — Different encoders, one shared meaning space.</p>
+
           <table><thead><tr><th>Task</th><th>Output</th><th>Classic models</th></tr></thead><tbody>
             <tr><td>Detection</td><td>Boxes + classes</td><td>YOLO, Faster R-CNN, DETR</td></tr>
             <tr><td>Segmentation</td><td>Per-pixel class / instance</td><td>U-Net, Mask R-CNN, SAM</td></tr>
@@ -169,6 +172,13 @@
             <tr><td>Multimodal</td><td>Shared embedding / any-to-any</td><td>CLIP, Flamingo, GPT-4o-class, Gemini-class</td></tr>
           </tbody></table>
           <p><strong>CLIP</strong> trains image and text encoders so matching pairs sit nearby — the backbone of promptable image gen and zero-shot vision. Metrics: mAP, IoU, WER, CLIP-score — plus human eval.</p>
+          <div class="example">
+            <h4>Worked example — IoU and mean average precision</h4>
+            <p>Predicted box area = 40, ground-truth box area = 40, their intersection = 30. IoU = 30 / (40 + 40 − 30) = 30/50 = <strong>0.60</strong>. At an IoU threshold of 0.5 this is a true positive; at 0.75 it counts as a miss. mAP averages precision–recall across classes and IoU thresholds (0.5:0.95), so a classifier can be very accurate yet yield poor mAP when its boxes are loose or rare classes (pedestrian, traffic cone) are missed.</p>
+          </div>
+          <h3>Speech pipelines, unrolled</h3>
+          <p><strong>ASR:</strong> waveform (16 kHz) → log-Mel filterbank frames → acoustic encoder (Conformer / Whisper-style Transformer) → text token decoder, with optional language identification and alignment for timestamps. <strong>TTS:</strong> text → normalisation and grapheme-to-phoneme → acoustic model predicting mel frames or audio tokens → vocoder / neural codec (e.g., EnCodec) → waveform. End-to-end models merge stages, but the interfaces still guide debugging: clipping or bad mic sampling breaks the mel stage; hallucinated words point at the decoder/language model.</p>
+          <p>Multimodal fusion comes in three styles: <em>early</em> (raw streams projected to one shared space, like CLIP), <em>late</em> (separate models whose outputs vote), and <em>deep/cross-attention</em> (streams attend to each other inside a Transformer, as in Flamingo/GPT-4o-class systems).</p>
           <div class="note"><h4>Short notes</h4><p>Localisation tasks need different heads and losses (box regression, Dice/IoU). Speech is a sequence problem now solved a lot like NLP. Multimodal = shared or gated Transformers over mixed tokens.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>mAP for detection; IoU for overlap.</li><li>U-Net = encoder–decoder skips.</li><li>WER for ASR.</li><li>CLIP = contrastive image–text.</li></ul></div>
                     <div class="diagram">
@@ -181,7 +191,7 @@
             </svg>
             <div class="diagram-title">Snapshot 21.1 — One model sees the photo and answers in your language.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. Semantic segmentation predicts:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. One label for the whole image only</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Next tokens</button>
@@ -200,11 +210,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. FID of images</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Automatic speech recognition quality</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Word error rate = edit distance / reference length.</div></div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">4. Intersection-over-Union (IoU) is used to:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Score overlap between a predicted box and a ground-truth box</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Measure speech word errors</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Compress a video stream</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Tune the learning rate</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">mAP averages precision at IoU thresholds; a threshold (often 0.5) decides a true-positive detection.</div>
+            </div>
+
+            <div class="mcq" data-answer="d">
+              <p class="q">5. In a modern text-to-speech pipeline, the vocoder's job is to:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Translate Hindi to English</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Detect the speaker's face</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Tokenise the input text into BPE units</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Convert a spectrogram or acoustic tokens into an audible waveform</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Classic: Griffin–Lim / WaveNet; today neural audio codecs often fuse the two stages.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch21')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c21p1"><p class="q">P1. Why is ImageNet top-1 a poor standalone metric for a self-driving stack?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>Driving needs localisation, tracking, depth, rare-class recall (child, cone), calibration, latency, and night/rain shift. A 76% ImageNet net can still miss a pedestrian. Task metrics and operational design domain matter.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c21p2">
+              <p class="q">P2. Word error rate is the headline ASR metric. Name two kinds of failure it hides.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>WER = (substitutions + deletions + insertions) / reference words, so a single dropped “not” costs one error but flips the meaning — semantic and slot errors are invisible; it also ignores punctuation/casing, speaker diarisation, disfluency handling, accent fairness and how often the downstream agent still completes the task. Add semantic/slot-value accuracy, named-entity correctness and task-success evaluation for voice products.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c21p3">
+              <p class="q">P3. Explain why CLIP allows zero-shot image classification with no classifier training.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Contrastive training aligns an image encoder and a text encoder so that matched (image, caption) pairs have high cosine similarity and unmatched pairs low. At test time embed candidate labels as prompt text (“a photo of a {label}”), embed the image, and assign the label with nearest embedding — no class-specific head or label examples needed. The same aligned space enables image search by text and vision-language models.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch11">← Chapter 11</button>
             <button data-go="ch12">Chapter 12 →</button>

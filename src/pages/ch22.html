@@ -3,6 +3,9 @@
           <h2>Fine-tuning, PEFT &amp; evals</h2>
           <p class="lede">You rarely train a foundation model. You adapt one — cheaply — and you prove it with evals, not vibes.</p></div>
         <div class="content">
+          <div class="figure"><img src="images/finetuning.jpg" alt="A neural core with small golden adapter modules plugged into it" /></div>
+          <p class="caption">Figure 22.1 — Freeze the giant model; train a cheap, swappable adapter.</p>
+
           <ol>
             <li><strong>Prompt / few-shot</strong> — no weight change.</li>
             <li><strong>SFT</strong> — supervised instruction data; full or LoRA.</li>
@@ -12,6 +15,18 @@
           </ol>
           <div class="formula">LoRA: W' = W + BA<small>B, A low-rank; W frozen. QLoRA stores W in 4-bit.</small></div>
           <p>Evals: held-out task suites, factuality with citations, toxicity, prompt-injection tests, cost/latency, and human rubrics. Overfitting a famous public benchmark is the new train/test leak.</p>
+          <h3>Choose the cheapest lever that reaches the metric</h3>
+          <table><thead><tr><th>Lever</th><th>Touches weights?</th><th>Best for</th><th>Cost / risk</th></tr></thead><tbody>
+            <tr><td>Zero/few-shot prompting</td><td>No</td><td>Prototypes, broad stable tasks</td><td>Context limits, brittle phrasing</td></tr>
+            <tr><td>RAG</td><td>No</td><td>Changing facts, citations, right-to-be-forgotten</td><td>Retrieval quality, latency, chunking bugs</td></tr>
+            <tr><td>LoRA / QLoRA</td><td>Tiny adapters only</td><td>Style, output schema, domain vocabulary</td><td>Rank/merge tuning, adapters pile up</td></tr>
+            <tr><td>Full supervised fine-tune</td><td>All weights</td><td>Large behaviour shift, abundant data</td><td>Forgetting, expensive, data quality critical</td></tr>
+            <tr><td>DPO / RLHF</td><td>Yes</td><td>Preference, tone, safety alignment</td><td>Needs consistent preference data</td></tr>
+          </tbody></table>
+          <div class="warn">
+            <h4>Eval anti-patterns that still ship</h4>
+            <p>Testing only on in-distribution happy-path prompts; reporting one aggregate score that hides broken language/topic slices; no frozen regression set as prompts drift; “LLM-as-judge” without a written rubric or calibration against humans; ignoring over-refusal and unanswerable-question handling; no tokens-per-task cost, latency or injection tests. Ship when the golden set, adversarial set, human rubric and canary metrics all agree.</p>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Choose the cheapest adapter that hits the metric. Fine-tune for style and format; retrieve for facts. Quantisation (INT8/4) is how 7B models fit on a laptop GPU.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>LoRA = low-rank update.</li><li>DPO ≈ RLHF without a separate PPO loop.</li><li>Eval set ≠ the tweet demo.</li><li>RAG vs FT: freshness vs behaviour.</li></ul></div>
                     <div class="diagram">
@@ -23,7 +38,7 @@
             </svg>
             <div class="diagram-title">Snapshot 22.1 — 0.06% of weights move, eval jumps 22 points.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. LoRA is a PEFT method because it:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Retrains every ImageNet CNN from scratch</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Trains small low-rank matrices while freezing base weights</button>
@@ -42,11 +57,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-means labels</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Minimax trees</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Direct Preference Optimization.</div></div>
+                        <div class="mcq" data-answer="b">
+              <p class="q">4. Catastrophic forgetting refers to:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The optimizer forgetting to zero gradients</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A fine-tuned model losing its original general capabilities on tasks outside the new data</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Deleting the training dataset by accident</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The tokenizer dropping unknown words</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Small high-quality SFT, LoRA, regularisation and replay mixtures limit it.</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">5. A 'golden' evaluation set should be:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Published in the training prompts</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Changed every day to keep models guessing</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Frozen, never trained on, and representative of real traffic, including hard slices</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Built only from the model's own outputs</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Benchmark overfitting (test-set leakage) makes public numbers diverge from product quality.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch22')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c22p1"><p class="q">P1. You have 400 high-quality support transcripts. Full FT or LoRA? Why?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>LoRA/QLoRA: small data, want to keep general skills, cheap to iterate. Full FT on 400 examples will overfit and catastrophic-forget. Add a style eval and a factual RAG layer for product names.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c22p2">
+              <p class="q">P2. Give one scenario where RAG is the right choice and one where fine-tuning is, and say why.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p><strong>RAG</strong>: a policy assistant whose knowledge changes weekly and needs citations and deletions — retrieval over the live corpus gives freshness and provenance without retraining. <strong>Fine-tuning (LoRA)</strong>: a stable task defined by behaviour, tone or format (always emitting a particular JSON schema, mimicking a brand voice, a fixed extraction task) — adapters bake in style cheaply. Production often combines both: retrieve for facts, adapt for behaviour.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c22p3">
+              <p class="q">P3. Your model beats the offline eval after fine-tuning, but users complain. Name three likely eval gaps.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) The offline set is too easy or in-distribution, while real traffic contains noise, long inputs and new intents; (2) no adversarial/prompt-injection or refusal edge-case suite and no per-language/per-slice analysis; (3) success was measured on answer similarity rather than end-to-end task completion, with latency/cost and human-rubric scores ignored. Add a frozen golden set, traffic-shadowed hard cases, human review and canary metrics.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch14">← Chapter 14</button>
             <button data-go="ch23">AI Agents →</button>

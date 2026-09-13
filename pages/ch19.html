@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -159,6 +159,9 @@
           <h2>Bayesian ML &amp; causal AI</h2>
           <p class="lede">Probability is not enough: causality asks what happens if we <em>intervene</em>.</p></div>
         <div class="content">
+          <div class="figure"><img src="../images/bayesian.jpg" alt="A small directed graph of glowing probability influences" /></div>
+          <p class="caption">Figure 19.1 — Arrows encode assumptions; do() cuts the confounding ones.</p>
+
           <h3>Graphical models</h3>
           <p>A <strong>Bayesian network</strong> is a DAG of conditional probabilities. d-separation tells you which independencies the graph encodes. HMMs are the chain case for sequences; Kalman filters are the linear-Gaussian analogue.</p>
           <p><strong>Variational inference</strong> and <strong>MCMC</strong> approximate posteriors when exact inference is intractable (PhD core).</p>
@@ -166,6 +169,21 @@
           <ol><li>Association — P(y|x) seeing.</li><li>Intervention — P(y|do(x)) doing.</li><li>Counterfactuals — “would y have happened if x had been different?”</li></ol>
           <p>Confounders create fake correlations. Randomised trials identify causal effects; observational data needs assumptions (back-door, front-door, IV).</p>
           <div class="warn"><h4>ML trap</h4><p>A model that predicts hospital death from “is on ventilator” should not be used to deny ventilators. That is association, not the effect of the treatment.</p></div>
+          <div class="example">
+            <h4>Worked example — Bayes on a rare-disease test</h4>
+            <p>Disease prevalence P(D) = 0.01, sensitivity P(+|D) = 0.95, false-positive rate P(+|¬D) = 0.05. After a positive test:</p>
+            <p>P(D|+) = (0.95·0.01) / (0.95·0.01 + 0.05·0.99) ≈ <strong>0.16</strong>. Only ~16% of positive screens are truly sick, because the disease is rare and false positives come from a huge healthy population.</p>
+            <p>The same lesson governs ML: a “99% accurate” fraud classifier on traffic that is 0.1% fraud may flag mostly innocent customers. Always check precision against the base rate and calibrate probabilities (Platt scaling, isotonic regression) before quoting confidence.</p>
+          </div>
+          <h3>Probabilistic method picker</h3>
+          <table><thead><tr><th>Situation</th><th>Standard tool</th></tr></thead><tbody>
+            <tr><td>Small discrete Bayes net, exact answers</td><td>Enumeration, variable elimination</td></tr>
+            <tr><td>Large/loopy network</td><td>Belief propagation, variational inference (mean field)</td></tr>
+            <tr><td>Need samples from an awkward posterior</td><td>MCMC: Metropolis–Hastings, Gibbs</td></tr>
+            <tr><td>Hidden discrete state over a sequence</td><td>HMM + forward–backward / Viterbi</td></tr>
+            <tr><td>Continuous linear-Gaussian dynamics</td><td>Kalman filter; particle filters when nonlinear</td></tr>
+            <tr><td>A decision that changes the world</td><td>Causal DAG, do-calculus or potential outcomes, RCT</td></tr>
+          </tbody></table>
           <div class="note"><h4>Short notes</h4><p>Bayes nets = structured probability. Causality ≠ correlation. do-calculus is the algebra of intervention. Use causal thinking whenever a decision changes the world the model was trained on.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>DAG + CPTs = Bayes net.</li><li>HMM: discrete latent chain.</li><li>do(x) ≠ condition on x.</li><li>RCT is the gold intervention.</li></ul></div>
                     <div class="diagram">
@@ -181,7 +199,7 @@
             </svg>
             <div class="diagram-title">Snapshot 19.1 — One surprising streak moves biased from 10% to 53%.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. P(y | do(x)) differs from P(y|x) because:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. They are always equal</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Conditioning is seeing; do() is intervening, which cuts confounding arrows</button>
@@ -200,11 +218,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Drowning causes ice cream</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Bayes nets cannot have confounders</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Standard teaching example of confounding.</div></div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">4. Bayes' theorem says the posterior is proportional to:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Prior × likelihood</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Likelihood minus prior</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Prior alone</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The softmax of the features</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">P(h|e) ∝ P(e|h)P(h); the normaliser sums over hypotheses.</div>
+            </div>
+
+            <div class="mcq" data-answer="d">
+              <p class="q">5. MCMC methods such as Metropolis–Hastings are used to:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Compress image pixels</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Sort a linked list in linear time</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Prove theorems in first-order logic</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Sample from complex, high-dimensional posteriors where exact inference is intractable</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Correlated samples approximate the posterior expectation; variational inference optimises instead.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch19')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c19p1"><p class="q">P1. A startup trains “study hours → marks” and recommends cutting sports. What causal check is missing?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>Ability, health, and school quality confound both hours and marks. Intervening on hours (forcing more study by cutting sports) may hurt marks if sports → health → marks. Need a DAG, possible instruments, or an experiment — not just a regression coefficient.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c19p2">
+              <p class="q">P2. In one paragraph, explain d-separation and why it is useful for inference in a Bayes net.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>A path between variables is blocked (given evidence) if it passes through an observed non-collider (chain or common-cause node) or an unobserved collider (common-effect node). If every path between two nodes is blocked they are d-separated, i.e. conditionally independent given the evidence. The property lets the inference engine factor the joint distribution, prune irrelevant variables and query large graphs efficiently — and tells you which variables you actually need to measure.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c19p3">
+              <p class="q">P3. “Does offering a 10% discount cause repeat purchases?” Design a causal study using (a) an experiment and (b) only historical data.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(a) Randomise customers into treatment/control (RCT) and compare repeat-purchase rates with a confidence interval — randomisation balances unobserved confounders. (b) Draw a DAG (seasonality, new-customer flag, category), block back-door paths by matching or inverse-propensity weighting on pre-treatment variables, use an instrument if available; never condition on post-treatment variables like coupon redemption. Report the estimand honestly: average treatment effect on the eligible population.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch9">← Chapter 9</button>
             <button data-go="ch20">Recsys & KG →</button>

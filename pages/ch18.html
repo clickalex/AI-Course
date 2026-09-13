@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -159,6 +159,9 @@
           <h2>Logic, knowledge &amp; planning</h2>
           <p class="lede">Symbolic AI stores facts and rules, then infers. Brittle at scale — still unmatched when you need guarantees.</p></div>
         <div class="content">
+          <div class="figure"><img src="../images/logic-planning.jpg" alt="Glowing logic blocks stacked as a staircase to a golden flag" /></div>
+          <p class="caption">Figure 18.1 — Planning is search over states described by formal logic.</p>
+
           <h3>Knowledge representation</h3>
           <ul>
             <li><strong>Propositional logic</strong> — symbols true/false; SAT solvers; resolution.</li>
@@ -172,6 +175,18 @@
           <h3>CSP</h3>
           <p>Variables, domains, constraints. Backtracking + forward checking + heuristics (MRV). Map colouring, scheduling, Sudoku.</p>
           <div class="insight"><h4>Neuro-symbolic</h4><p>Nets propose; logic checks. Example: an LLM writes a SQL query; the database schema is the constraint system. PhD topic: differentiable theorem proving, NS-CL, Scallop.</p></div>
+          <h3>English → first-order logic cheat sheet</h3>
+          <table><thead><tr><th>English sentence</th><th>FOL</th></tr></thead><tbody>
+            <tr><td>All humans are mortal</td><td>∀x Human(x) → Mortal(x)</td></tr>
+            <tr><td>Some students like maths</td><td>∃x Student(x) ∧ Likes(x, maths)</td></tr>
+            <tr><td>No robot sleeps</td><td>∀x Robot(x) → ¬Sleeps(x)</td></tr>
+            <tr><td>Every employee has exactly one manager</td><td>∀x Employee(x) → ∃!y Manages(y, x)</td></tr>
+          </tbody></table>
+          <p><strong>Exam trap:</strong> pair ∀ with implication and ∃ with conjunction. “Some students like maths” as <code>∃x Student(x) → Likes(x,maths)</code> is vacuously true in a world with no students (anything implies anything for non-students).</p>
+          <div class="insight">
+            <h4>Why SAT/SMT solvers quietly run industry</h4>
+            <p>Chip verification, route scheduling, rostering and configuration validation compile constraints into SAT/SMT instances; modern CDCL solvers handle millions of clauses and give unsatisfiable cores that explain failures. When an LLM generates a config or query, a solver or schema checker verifying feasibility is neuro-symbolic engineering — language proposes, logic disposes.</p>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Logic gives sound conclusions from written knowledge. Planning is search with structured actions. CSPs are the practical core of scheduling. Combine with learning when knowledge is incomplete.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>KB + inference = expert system.</li><li>FOL &gt; propositional in expressivity, harder computationally.</li><li>STRIPS action = pre / add / delete.</li><li>CSP: assign without violating constraints.</li></ul></div>
                     <div class="diagram">
@@ -184,7 +199,7 @@
             </svg>
             <div class="diagram-title">Snapshot 18.1 — Logic programming: assert facts, query truths, respect penguins.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. The classic failure of expert systems was:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. They could not run on CPUs</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Logic is uncomputable always</button>
@@ -203,11 +218,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Linear regression</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A constraint satisfaction problem</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Adjacent regions ≠ same colour.</div></div>
+                        <div class="mcq" data-answer="b">
+              <p class="q">4. First-order logic adds what over propositional logic?</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Truth tables</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Objects, predicates, functions and quantifiers (∀, ∃)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Gradient descent</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Convolution kernels</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Propositions are single booleans; FOL compactly expresses 'every student owns some laptop'.</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">5. Forward checking in a CSP works by:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Randomly restarting the search whenever it fails</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Proving the problem is unsolvable with SAT</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Removing values that violate constraints from neighbouring domains before choosing the next variable</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Converting every variable to floating point</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">It prunes domains early; arc consistency (AC-3) prunes further.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch18')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c18p1"><p class="q">P1. When would you still pick a rule engine over an LLM for loan eligibility?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>When regulators require explainable, auditable, deterministic decisions (age ≥ 18, DTI cap). Encode those as rules; maybe use ML only for a risk score that a human or rule can override. Don’t let a stochastic token model be the law.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c18p2">
+              <p class="q">P2. Write “every student owns some laptop” in first-order logic and explain why propositional logic handles it poorly.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>∀x Student(x) → ∃y (Laptop(y) ∧ Owns(x, y)). Propositional logic only has fixed true/false symbols, so it would need a separate ground proposition for every (student, laptop) pair and cannot express “for every” or “there exists” over an open, growing domain — the number of formulas explodes and new individuals need new axioms.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c18p3">
+              <p class="q">P3. Define a STRIPS action Go(a, r₁, r₂): give its precondition and add/delete effects. What problem does this style solve?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Precondition: At(a, r₁) ∧ Connected(r₁, r₂). Delete: At(a, r₁). Add: At(a, r₂). Only changed fluents are listed, which sidesteps the frame problem (everything not in add/delete stays true, without writing axioms for each). A planner chains such operators to turn the initial-state predicates into the goal predicates.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch17">← Search & games</button>
             <button data-go="ch7">Chapter 7 →</button>

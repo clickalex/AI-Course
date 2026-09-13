@@ -63,7 +63,7 @@
             <div class="diagram-title">Snapshot 11.1 — 403k knobs, mostly in one layer. Summaries reveal hogs.</div>
           </div>
 <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b">
               <p class="q">1. Weight sharing in a CNN means:</p>
               <div class="opts">
@@ -108,6 +108,17 @@
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">Gates let error and memory travel further in time.</div>
             </div>
+                        <div class="mcq" data-answer="c">
+              <p class="q">5. Batch normalisation's main practical benefit is:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It mathematically guarantees zero training error</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It removes the need for convolution layers</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It normalises layer activations per batch (with learnable scale/shift), stabilising and speeding optimisation</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It replaces the optimiser with a lookup table</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">It reduces internal covariate shift / smooths the loss landscape, allowing higher learning rates; add mild regularisation.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch11')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -124,6 +135,12 @@
               <p class="q">P2. A detector boxes cars well by day and fails at night. Name two likely causes and two mitigations.</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>Causes: train data is daytime; appearance shift (headlights, low SNR); different camera ISP. Mitigations: night images in train/val; colour jitter / brightness augment; domain-adaptive fine-tune; infrared or better exposure; monitor per-condition metrics, not a single mAP.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c11p3">
+              <p class="q">P3. When would an LSTM/GRU beat a 1-D CNN for sequences, and when would you still choose the convolutional model?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Pick recurrent models when dependencies are long, strictly ordered and data is small (e.g., short clinical event streams, small labelled text) where the sequential inductive bias helps. 1-D CNNs/temporal convnets are faster (fully parallel across time), cheaper, and strong when patterns are local within a sufficient receptive field (keyword spotting, sensor windows). With large datasets and compute, Transformers generally supersede both by attending at arbitrary distance in parallel.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>

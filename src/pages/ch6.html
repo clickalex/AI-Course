@@ -75,7 +75,7 @@
             <div class="diagram-title">Snapshot 6.1 — Describe before you model: ranges, nulls, surprises.</div>
           </div>
 <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b">
               <p class="q">1. Fitting StandardScaler on train+test together is:</p>
               <div class="opts">
@@ -120,6 +120,17 @@
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">Patients missing a lab test may be healthier (or poorer). The gap is a signal.</div>
             </div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">5. For a readmission-risk model, including lab results recorded only after discharge is an example of:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Future/target leakage — information unavailable at prediction time</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Good feature engineering</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Necessary normalisation</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Unsupervised learning</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">At the moment the model must decide, post-discharge values do not exist; using them makes offline scores unrealistically good.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch6')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -136,6 +147,12 @@
               <p class="q">P2. Design a split for 10,000 chest X-rays from 4,000 patients across 3 hospitals, aiming to generalise to a new hospital.</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>Do not split by image. Keep all images of a patient together. For “new hospital” generalisation, hold out an entire hospital as test (leave-one-hospital-out). Random image splits massively overestimate clinical performance because the model can memorise machines and patient IDs.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c6p3">
+              <p class="q">P3. One feature ranges 0–5,000,000 (rupees of lifetime spend) while others are 0–1. What do you do, and which models care most?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Log-transform the heavily skewed money column, then robust/standard scale numeric features using statistics from the training split only, so distance- and gradient-based models (k-NN, SVM, logistic/NN, PCA) are not dominated by one column's units. Tree models are largely scale-insensitive but still benefit from the log transform. Document the transform so production applies the identical mapping.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>

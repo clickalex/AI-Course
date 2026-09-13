@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -159,6 +159,9 @@
           <h2>Graphs, time series, AutoML, evolutionary &amp; robotics</h2>
           <p class="lede">The rest of the undergraduate/industry zoo — enough to recognise, choose, and not fake expertise.</p></div>
         <div class="content">
+          <div class="figure"><img src="../images/automl.jpg" alt="A golden magnifying glass over a grid of candidate model blocks" /></div>
+          <p class="caption">Figure 26.1 — Search over models and hyperparameters the way we search over parameters.</p>
+
           <h3>Graph neural networks</h3>
           <p>Message passing: each node aggregates neighbours. Use for molecules, knowledge graphs, fraud rings. Over-smoothing if too deep.</p>
           <h3>Time series</h3>
@@ -169,6 +172,17 @@
           <p>Population of candidates, mutate/crossover, select by fitness. No gradients needed. Genetic algorithms, PSO. Good for weird discrete search spaces; sample-hungry.</p>
           <h3>Robotics &amp; embodied AI</h3>
           <p>Sense → estimate state → plan/control → actuate. Sim-to-real gap. SLAM, model-predictive control, imitation + RL. Embodied agents add cameras and arms to the LLM-agent story — same loop, harder physics.</p>
+          <h3>Structure-of-data → model picker</h3>
+          <table><thead><tr><th>Data / task</th><th>First baseline</th><th>Heavy option</th></tr></thead><tbody>
+            <tr><td>Tabular rows</td><td>Logistic regression, XGBoost/LightGBM</td><td>FT-Transformer, TabNet (rarely wins)</td></tr>
+            <tr><td>Images</td><td>Pretrained CNN fine-tune</td><td>Vision Transformer</td></tr>
+            <tr><td>Text</td><td>TF–IDF + linear, or small Transformer</td><td>LLM with RAG/LoRA</td></tr>
+            <tr><td>Graphs, molecules, fraud rings</td><td>Graph features, Node2vec</td><td>GNN message passing</td></tr>
+            <tr><td>Short time series</td><td>Seasonal naive, ETS/ARIMA/Prophet</td><td>Temporal Fusion Transformer, PatchTST</td></tr>
+            <tr><td>Discrete search, no gradients</td><td>Rules and exhaustive/heuristic search</td><td>Genetic algorithms, particle swarm</td></tr>
+            <tr><td>Perception plus physical control</td><td>Imitation learning + MPC</td><td>RL with a world model, sim-to-real</td></tr>
+          </tbody></table>
+          <p><strong>The AutoML loop</strong> formalises model selection: define the search space (features, algorithms, hyperparameters), choose the optimiser (random search, Bayesian optimisation, evolutionary, or NAS like DARTS), set a compute budget and the metric, prune bad trials early, and promote the winner from held-out validation with a reproducible, locked pipeline — before any production A/B test.</p>
           <div class="note"><h4>Short notes</h4><p>Match structure of data (graph, sequence, 3-D body) to the model class. Always try a simple baseline. Robotics is systems engineering plus ML, not just a net.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>GNN = message passing.</li><li>Time series: chronological split.</li><li>GA: mutate a population.</li><li>Sim-to-real is the robotics tax.</li></ul></div>
                     <div class="diagram">
@@ -186,7 +200,7 @@
             </svg>
             <div class="diagram-title">Snapshot 26.1 — Twenty trials overnight, one winner by morning.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="a"><p class="q">1. Message passing is the core of:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Graph neural networks</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Linear regression only</button>
@@ -205,11 +219,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Train/test leakage</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. BLEU scores</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Physics, sensors, and delays differ.</div></div>
+                        <div class="mcq" data-answer="b">
+              <p class="q">4. Over-smoothing in a deep graph neural network means repeated neighbour averaging causes:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Nodes to become twice as accurate per layer</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. All node embeddings to converge and lose their distinct identities</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Edge weights to turn negative</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The graph to lose vertices physically</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Residual/initial connections, normalization and shallow depth keep node identity.</div>
+            </div>
+
+            <div class="mcq" data-answer="a">
+              <p class="q">5. For time series, rows must be split chronologically because:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Random shuffling leaks future information into training (look-ahead bias)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Chronological order makes gradients smaller</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-means requires sorted data</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Old data is always wrong</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Also build lag/rolling features using only values available at forecast time and backtest on rolling windows.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch26')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c26p1"><p class="q">P1. Retail weekly sales, 3 years, holiday spikes. First two models you try?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>Seasonal naive / Holt-Winters or Prophet-style baseline, then a tree model on lags + calendar features. Only then a Transformer. Split by time, evaluate MAPE/sMAPE on the last months, including Diwali/Christmas separately.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c26p2">
+              <p class="q">P2. When is AutoML a waste of money and time?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>On small clean tabular datasets where well-tuned gradient boosting (XGBoost/LightGBM) with strong defaults already wins — exhaustive architecture/hparameter search burns compute and wall-clock, overfits the validation budget, and complicates deployment. Establish simple baselines and a target uplift first; spend AutoML/NAS budget where the search space is genuinely large and reuse is expected.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c26p3">
+              <p class="q">P3. Choose a model for detecting fraud rings in a payment network and justify the representation.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>A graph neural network (GraphSAGE/GAT-style message passing): fraud is relational — rings share devices, bank accounts and beneficiary patterns that per-transaction features miss. Build node features (KYC, velocity), edge features (shared hash, transfer amount/time), and make time-respecting graph snapshots as of each prediction moment to avoid future leakage; combine with anomaly scores and human review, and watch over-smoothing with depth.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch25">← Advanced RL</button>
             <button data-go="ch27">Learning theory →</button>

@@ -9,7 +9,7 @@ const PAGES = [
   "ch19","ch20",
   "ch10","ch11","ch21",
   "ch12","ch13","ch14","ch22",
-  "ch23","ch24","ch42","ch44","ch43","ch46","ch67","ch68","ch69","ch70","ch73","ch74","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55","ch56","ch57","ch58","ch59","ch60","ch61","ch62","ch63","ch64","ch65","ch66",
+  "ch23","ch24","ch42","ch44","ch43","ch46","ch67","ch68","ch73","ch69","ch70","ch74","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55","ch56","ch57","ch58","ch59","ch60","ch61","ch62","ch63","ch64","ch65","ch66",
   "ch15","ch25","ch26",
   "ch27","ch28","ch29","ch16",
   "notes","glossary","cheats","playground","interview","design","gate","mock","exam","results"

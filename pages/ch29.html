@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -159,6 +159,9 @@
           <h2>Systems, hardware &amp; research methods</h2>
           <p class="lede">Ideas that don’t fit in silicon or in a paper’s experiment section don’t count.</p></div>
         <div class="content">
+          <div class="figure"><img src="../images/systems-hardware.jpg" alt="A GPU chip with parallel golden light beams across circuit planes" /></div>
+          <p class="caption">Figure 29.1 — Every idea eventually meets memory bandwidth, latency and joules.</p>
+
           <h3>Hardware &amp; efficiency</h3>
           <ul>
             <li>CPU vs GPU vs TPU vs NPU: throughput of matmuls.</li>
@@ -175,6 +178,20 @@
             <li>Write the limitation section as if a reviewer you respect will read it.</li>
           </ol>
           <p>Venues: NeurIPS, ICML, ICLR, CVPR, ACL, TMLR, journals. Preprints on arXiv. Reproducibility crises are real — trust plots you can rerun.</p>
+          <h3>The efficiency toolkit</h3>
+          <table><thead><tr><th>Technique</th><th>What changes</th><th>Headline effect</th></tr></thead><tbody>
+            <tr><td>Quantisation (INT8/INT4, GPTQ/AWQ)</td><td>Weight/activation bit width</td><td>2–4× less memory; faster, cheaper decode</td></tr>
+            <tr><td>Pruning / sparsity</td><td>Remove weights, heads, layers</td><td>Smaller models; speedup needs hardware support</td></tr>
+            <tr><td>Distillation</td><td>Train a small model on the large model's outputs</td><td>Serve cheaply while keeping most quality</td></tr>
+            <tr><td>KV-cache + paged/continuous batching</td><td>Serving engine</td><td>Large throughput gains for autoregressive LMs</td></tr>
+            <tr><td>FlashAttention / IO-aware kernels</td><td>Fused, tiled GPU kernels</td><td>Avoids HBM traffic of materialising attention</td></tr>
+            <tr><td>Mixture-of-Experts</td><td>Route tokens to sparse experts</td><td>More parameters at near-dense FLOP cost</td></tr>
+            <tr><td>Parallelism (data/tensor/pipeline)</td><td>Shard across GPUs</td><td>Trains models larger than one device</td></tr>
+          </tbody></table>
+          <div class="insight">
+            <h4>Reading a systems paper critically</h4>
+            <p>Roofline it: arithmetic intensity is FLOPs per byte moved — is the kernel compute-bound or memory-bandwidth-bound? Report MFU (model FLOPs utilisation), batch size, sequence length and hardware; otherwise speedups do not transfer. For compression methods, demand the quality cost — perplexity delta, accuracy delta, MMLU/downstream regression — because a 4-bit model that quietly loses reasoning is not a saving.</p>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Systems convert algorithms into tokens/sec and joules. Research converts questions into controlled evidence. Both are part of “PhD-level AI,” not optional DLC.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Matmul + bandwidth.</li><li>MoE: sparse experts.</li><li>Ablations &gt; extra adjectives.</li><li>Report compute.</li></ul></div>
                     <div class="diagram">
@@ -192,7 +209,7 @@
             </svg>
             <div class="diagram-title">Snapshot 29.1 — The H100 is fastest; the A10 wins this workload's wallet.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Mixture-of-Experts (MoE) mainly:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Trains k-means on experts’ birthdays</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Routes tokens to a subset of specialised FFNs to grow parameters without full dense compute</button>
@@ -211,11 +228,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Disk colour</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. VC dimension only</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Autoregressive decode is memory-heavy.</div></div>
+                        <div class="mcq" data-answer="b">
+              <p class="q">4. FlashAttention mainly speeds Transformer training by:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Using larger floating-point numbers</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. IO-aware tiling and kernel fusion that avoid repeatedly materialising and reading the full attention matrix</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Removing the softmax</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Skipping every other layer</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Attention was memory-bandwidth bound; tiling cuts HBM reads/writes (FlashAttention-2/3 refine this).</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">5. Pipeline parallelism trains a large model by:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Putting every layer on one CPU</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Splitting each matrix column randomly per step</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Placing consecutive layers on different devices and splitting each batch into micro-batches to keep the pipeline busy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Running only on weekends</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Combined with tensor and data parallelism (3D parallelism) for frontier-scale training.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch29')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c29p1"><p class="q">P1. List four things a methods paper must report for you to trust a +1.2% claim.</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>Baseline reproduced with the same data/split; multiple seeds or confidence; compute (GPU-hours); ablations; hyperparameters; and a negative result or limitation. If any of those is missing, treat the number as marketing.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c29p2">
+              <p class="q">P2. You must serve a 7B model to ~1000 concurrent users. List the back-of-envelope numbers to compute.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Memory budget first: quantised weights (e.g. 4-bit ≈ 0.5–1 byte/param) plus per-request KV-cache (layers × 2 × K,V × heads × dim × seq × bytes) times concurrency, plus activations. Then throughput: benchmark tokens/s per GPU at target batch with continuous batching, compare against required tokens/s and the latency SLO (TTFT and inter-token latency); replicate for headroom, choose quantisation/paged attention, and remember small-batch decode is memory-bandwidth bound, not FLOP bound.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c29p3">
+              <p class="q">P3. What does “reproduce the baseline before inventing” protect a research project from?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Unfair comparisons from hidden tricks (data cleaning, augmentation, epochs), train/test leakage, metric drift and plain bugs — plus the common result that the baseline, properly tuned, already matches the claimed novelty. Reproducing it first lets you attribute gains to your change through one-variable ablations, estimate variance across seeds, and report compute honestly; it turns a +1.2% headline into trustworthy evidence.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch28">← XAI & alignment</button>
             <button data-go="ch16">Ethics & career →</button>
