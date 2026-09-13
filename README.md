@@ -13,15 +13,15 @@ Then visit the local URL shown by the server.
 ## What’s inside
 
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
-- **School chapter** plus **50 numbered chapters** (51 teaching units with school)
+- **School chapter** plus **55 numbered chapters** (56 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **280+ MCQs** with instant check and chapter scoring
+- **310+ MCQs** with instant check and chapter scoring
 - **70+ practice questions** with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
 - **System design walkthroughs** (3 architectures + interview drills)
 - **GATE / UG bank** (20 exam-style MCQs) + **mock interview mode** (timed, self-scored)
-- **Final exam (49 questions: 30 core AI + 9 data skills + 6 engineering & production + 4 frontier)** with percentage, grade name, and result breakdown
+- **Final exam (54 questions: 30 core AI + 9 data + 6 eng & production + 9 frontier)** with percentage, grade name, and result breakdown
 - Progress is saved in the browser (`localStorage`)
 
 ## Chapter map
@@ -70,11 +70,16 @@ Then visit the local URL shown by the server.
 | **ch48** | **Advanced RAG (agentic, graph, multimodal)** | **Frontier** |
 | **ch49** | **Reasoning models & test-time compute (RLVR)** | **Frontier** |
 | **ch50** | **Small models & edge AI (quant, cascade)** | **Frontier** |
+| **ch51** | **Vision-language models (CLIP, LLaVA, grounding)** | **Frontier** |
+| **ch52** | **Voice agents & speech (ASR, TTS, barge-in)** | **Frontier** |
+| **ch53** | **Video generation & world simulators (C2PA)** | **Frontier** |
+| **ch54** | **Federated learning & privacy (FedAvg, DP)** | **Frontier** |
+| **ch55** | **Quantum ML primer (VQC, hype filter)** | **Frontier** |
 | ch15, ch25 | RL; advanced RL / MARL / world models | Decisions |
 | ch26 | GNNs, time series, AutoML, evolutionary, robotics | Survey |
 | ch27–29 | Learning theory; XAI / alignment / privacy; systems & research methods | PhD |
 | ch16 | Ethics, MLOps & career | Practice |
-| notes / exam / results | Revision sheet, glossary, 49-Q exam, grades | Test |
+| notes / exam / results | Revision sheet, glossary, 54-Q exam, grades | Test |
 
 ## How scoring works
 
