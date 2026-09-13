@@ -42,16 +42,14 @@
           <div class="warn"><h4>Collapse watch</h4><p>Training generation N+1 purely on generation N’s outputs narrows the distribution: rare words, rare cases, and minority patterns die first. If your diversity metrics (distinct n-grams, tail-case accuracy) drift down while average loss looks fine, stop the flywheel and reseed with real data.</p></div>
           <div class="note"><h4>Short notes</h4><p>Flywheel: human seeds → big-model generation → verification ladder (deterministic, judges, audits) → small-model training → eval on held-out real data. Distillation buys cheap inference. Dangers: collapse, error amplification, style-bias, leakage. Respect teacher licences, disclose synthetic share, track provenance.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Seeds anchor, verify everything.</li><li>Execution beats judge vibes.</li><li>Real data in every mix.</li><li>Dedup against evals.</li><li>Log provenance + licences.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 138" role="img" aria-label="flywheel"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">flywheel</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 138" width="640" height="138"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">flywheel</text>
               <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">flywheel --gen 20x --verify strict</tspan></text>
               <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">kept 34% · tail-acc 0.81 ✓</tspan></text>
               <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">diversity stable ✓ </tspan><tspan fill="#94a3b8">no collapse this generation</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 64.1 — data flywheel: keep a third, verify strict, no collapse.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 64.1 — data flywheel: keep a third, verify strict, no collapse.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. Knowledge distillation trains a small model on:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Pure random noise</button>

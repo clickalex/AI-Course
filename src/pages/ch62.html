@@ -43,16 +43,14 @@
           <div class="warn"><h4>Red-team ethics</h4><p>Scope in writing, staging data only, no real-customer impact, no persistent backdoors “for later testing”, disclose to vendors before publishing. The goal is a safer agent, not a trophy screenshot.</p></div>
           <div class="note"><h4>Short notes</h4><p>Four surfaces: user, tool output, tools, memory — attack each, assume combos. Sprint: scope → matrix (30–60 scenarios) → trace-logged execution → breach/detection scores → fix + re-test. Ship sandbox (allowlists, twins, kill switches) + immutable traces + drift alarms + incident runbook.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>4 doors: user/tools/out/memory.</li><li>Matrix: surface × goal.</li><li>Traces are the deliverable.</li><li>Sandbox + twins + kill switch.</li><li>Every incident → new test.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 138" role="img" aria-label="trace review"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">trace review</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 138" width="640" height="138"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">trace review</text>
               <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">review traces/agent-4417.log</tspan></text>
               <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">tool:read_email ✓ </tspan><tspan fill="#e2e8f0">· </tspan><tspan fill="#f87171">tool:refund $50k ✗ BLOCKED</tspan></text>
               <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">contained ✓ </tspan><tspan fill="#94a3b8">injection attempt logged + quarantined</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 62.1 — trace review: read allowed, refund blocked, contained.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 62.1 — trace review: read allowed, refund blocked, contained.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Memory poisoning attacks an agent by:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deleting the GPU</button>

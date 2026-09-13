@@ -192,9 +192,8 @@
           <div class="warn"><h4>Science pitfalls</h4><p>Data leakage across splits (homologous proteins in train+test!) · overclaiming vs weak baselines · p-hacking with seeds · ignoring negative results · dual-use blindness (protein design cuts both ways — screen + govern).</p></div>
           <div class="note"><h4>Short notes</h4><p>Pattern: expensive truth → surrogate → massive search → real validation. Wins need data + geometry + verifiers. Bar: prospective tests, strong baselines, uncertainty, wet-lab close. Watch leakage (homology!), baselines, and dual-use.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Surrogate cheap, truth dear.</li><li>Search millions, test dozens.</li><li>Prospective beats retrospective.</li><li>Homology leaks; split strictly.</li><li>No validation = numerology.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 168" role="img" aria-label="surrogate vs sim"><rect x="10" y="10" width="620" height="148" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">surrogate vs sim</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 168" width="640" height="168"><rect x="10" y="10" width="620" height="148" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">surrogate vs sim</text>
               <text x="34" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">model&#160;&#160;s/run&#160;&#160;err</text>
               <line x1="34" y1="78" x2="606" y2="78" stroke="#64748b"/>
               <text x="34" y="100" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">sim&#160;&#160;&#160;&#160;3600&#160;&#160;&#160;&#160;0%</text>
@@ -202,9 +201,8 @@
               <text x="34" y="124" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">surr&#160;&#160;&#160;0.4&#160;&#160;&#160;&#160;&#160;&#160;2% ★</text>
               <text x="34" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">9000x faster ✓ </tspan><tspan fill="#94a3b8">honest error bars attached</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 57.1 — surrogate: 9000x faster at 2% error.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 57.1 — surrogate: 9000x faster at 2% error.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. AlphaFold succeeded largely because of:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Bigger chat prompts</button>

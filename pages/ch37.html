@@ -257,18 +257,16 @@ To: … · From: … · Date: … · Source + refresh: …
           <div class="insight"><h4>Time boxes</h4><p><strong>One day:</strong> frame (30′) → SQL (1h) → clean (1h) → EDA (2h) → memo (2h). <strong>One week:</strong> add the dashboard, the CI analysis, and the feature-table spec. If framing takes longer than cleaning, you framed well.</p></div>
           <div class="note"><h4>Short notes</h4><p>Frame a decision-contract first (question/metric/decision/done). Excel-peek, SQL-extract, script-clean, EDA-slice (Simpson!), test with CIs and controls, tell in one page + dashboard, hand off a point-in-time feature table. Raw read-only; everything rerunnable; caveats written, not hidden.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Rates, not counts.</li><li>Slice before you conclude (COD vs prepaid).</li><li>Controls + CIs beat before/after alone.</li><li>One page, three charts, one recommendation.</li><li>Hand off tables, not screenshots.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 182" role="img" aria-label="capstone — tree"><rect x="10" y="10" width="620" height="162" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">capstone — tree</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 182" width="640" height="182"><rect x="10" y="10" width="620" height="162" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">capstone — tree</text>
               <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">tree refund-spike -L 2</tspan></text>
               <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">├── data/raw/orders.jsonl</tspan></text>
               <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">├── notebooks/eda.ipynb</tspan></text>
               <text x="34" y="136" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">├── memo.md  </tspan><tspan fill="#e2e8f0">← the deliverable ✓</tspan></text>
               <text x="34" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">└── dashboard.pbix</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 37.1 — capstone tree: raw data, notebook, memo, dashboard.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 37.1 — capstone tree: raw data, notebook, memo, dashboard.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. The first deliverable of a good analysis is:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Forty charts</button>

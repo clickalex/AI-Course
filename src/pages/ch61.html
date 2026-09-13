@@ -40,9 +40,8 @@
           <div class="warn"><h4>Eval pitfalls</h4><p>Leaderboard-chasing on contaminated benchmarks · vision-optional items inflating “multimodal” scores · yes-bias on POPE-style probes · testing on clean scans, shipping on crumpled photos · no human agreement metrics.</p></div>
           <div class="note"><h4>Short notes</h4><p>Zoo: MMMU (reasoning), MathVista/ChartQA (figures), DocVQA (docs), POPE/AMBER (hallucination), RefCOCO (grounding). Run L1–L4 with weight on your-data golden + human evals. IoU≥0.5 for boxes; hallucination rate sliced; blind rubrics with κ agreement; slice by quality/type.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Public = comparable, not predictive.</li><li>Probe hallucination + grounding.</li><li>Golden set = your reality.</li><li>Rubrics + blind + κ.</li><li>Slice by size/quality/type.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 192" role="img" aria-label="VLM report card"><rect x="10" y="10" width="620" height="172" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">VLM report card</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 192" width="640" height="192"><rect x="10" y="10" width="620" height="172" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">VLM report card</text>
               <text x="34" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">bench&#160;&#160;score</text>
               <line x1="34" y1="78" x2="606" y2="78" stroke="#64748b"/>
               <text x="34" y="100" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">MMMU&#160;&#160;&#160;&#160;58%</text>
@@ -50,9 +49,8 @@
               <text x="34" y="148" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">IoU&#160;&#160;&#160;&#160;&#160;&#160;0.62</text>
               <text x="34" y="174" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">κ=0.81 ✓ </tspan><tspan fill="#e2e8f0">raters agree — ship it</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 61.1 — VLM report card with rater agreement kappa 0.81.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 61.1 — VLM report card with rater agreement kappa 0.81.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. POPE-style probes primarily measure:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Typing speed</button>

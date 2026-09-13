@@ -10,15 +10,15 @@ GN, AM, RD, PR, SK = "#4ade80", "#fbbf24", "#f87171", "#5eead4", "#7dd3fc"
 
 
 def W(title, h=176):
-    return (f'<svg viewBox="0 0 640 {h + 20}" role="img" aria-label="{title}">'
-            f'<rect x="10" y="10" width="620" height="{h}" rx="10" fill="{BG}" '
+    # shapes only — the <svg> wrapper comes from fig() (same split as _snapshots3.py)
+    return (f'<rect x="10" y="10" width="620" height="{h}" rx="10" fill="{BG}" '
             f'stroke="{ST}" stroke-width="1.5"/>'
             f'<rect x="10" y="10" width="620" height="34" rx="10" fill="{PN}"/>'
             f'<rect x="10" y="30" width="620" height="14" fill="{PN}"/>'
             f'<circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" '
             f'r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/>'
             f'<text x="320" y="30" text-anchor="middle" {MONO} font-size="13" '
-            f'fill="#cbd5e1">{title}</text></svg>').replace("</svg>", "")
+            f'fill="#cbd5e1">{title}</text>')
 
 
 def TL(y, spans):

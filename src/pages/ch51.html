@@ -34,15 +34,13 @@
           <div class="warn"><h4>VLM failure modes</h4><p>Hallucinated objects that aren’t there (always verify against detections for safety uses) · tiny-text blindness (crop + zoom pipeline) · counting errors · prompt-injected images (pixels as jailbreaks — treat images as untrusted input).</p></div>
           <div class="note"><h4>Short notes</h4><p>CLIP = contrastive image–text space, zero-shot everything coarse. LLaVA-style = ViT → projector → LLM, 2-stage trained. Wins: grounding/boxes, OCR/docs, UI understanding. Verify objects for safety uses; crop-zoom for tiny text; images are untrusted input too.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Contrastive pairs build shared space.</li><li>Projector turns patches to tokens.</li><li>Align, then instruction-tune.</li><li>Grounding = words → boxes.</li><li>Verify; zoom; distrust pixels.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 158" role="img" aria-label="grounded VQA"><rect x="10" y="10" width="620" height="138" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">grounded VQA</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 158" width="640" height="158"><rect x="10" y="10" width="620" height="138" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">grounded VQA</text>
               <text x="34" y="74" font-family="JetBrains Mono, monospace" font-size="12"><tspan fill="#7dd3fc">[YOU]</tspan><tspan fill="#e2e8f0"> [shelf photo] how many red boxes?</tspan></text>
               <text x="34" y="104" font-family="JetBrains Mono, monospace" font-size="12"><tspan fill="#4ade80">[AI]</tspan><tspan fill="#e2e8f0"> 3 red boxes ✓ [0.12,0.40,…] grounded</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 51.1 — grounded VQA: count plus bounding box.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 51.1 — grounded VQA: count plus bounding box.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. CLIP learns by:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Classifying 1000 fixed labels only</button>

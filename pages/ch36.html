@@ -239,9 +239,8 @@ Revenue = SUMX ( Orders, Orders[qty] * Orders[price] )</code></pre>
           <div class="example"><h4>15-minute first dashboard</h4><p>Get Data → the <code>sales_clean.xlsx</code> from Ch 32 → Power Query: set types, add <code>ym</code> column → Model: mark Calendar table → Measures: <code>Total Sales</code>, <code>Orders</code>, <code>Avg Order</code> → Page: 3 cards + line (sales by ym) + bar (sales by region) + Region slicer → Publish → set daily 7am refresh. Done beats perfect.</p></div>
           <div class="note"><h4>Short notes</h4><p>Power BI = Power Query (clean once) + star-schema model + DAX measures + visuals + Service (publish/refresh/RLS). Facts in the middle, dimensions around, one-to-many single-direction. Measures compute per visual context; CALCULATE modifies filters; DIVIDE not /. One page, one job; footer shows source + refresh time + metric definitions.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Star schema: fact + dimensions + Calendar table.</li><li>Measures &gt; calculated columns for KPIs.</li><li><code>CALCULATE</code> = same measure, new filters.</li><li>Slicers + drill-through &gt; 40 static visuals.</li><li>Publish as App; gateway for on-prem; RLS per region.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 192" role="img" aria-label="store dashboard — July"><rect x="10" y="10" width="620" height="172" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">store dashboard — July</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 192" width="640" height="192"><rect x="10" y="10" width="620" height="172" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">store dashboard — July</text>
               <text x="34" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">kpi&#160;&#160;&#160;&#160;&#160;&#160;&#160;value</text>
               <line x1="34" y1="78" x2="606" y2="78" stroke="#64748b"/>
               <text x="34" y="100" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">revenue&#160;&#160;&#160;₹8.1M ▲12%</text>
@@ -249,9 +248,8 @@ Revenue = SUMX ( Orders, Orders[qty] * Orders[price] )</code></pre>
               <text x="34" y="148" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">RLS&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;seller-scoped ✓</text>
               <text x="34" y="174" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">one definition of revenue, sliced by role</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 36.1 — one revenue definition, RLS-scoped, refresh stamped.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 36.1 — one revenue definition, RLS-scoped, refresh stamped.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. A star schema puts:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Every column in one giant table with no keys</button>

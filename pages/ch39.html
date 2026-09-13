@@ -215,9 +215,8 @@ models: [{name: fct_orders,
           <div class="warn"><h4>Classic pipeline failures</h4><p>Silent schema drift breaking downstream joins · timezone-naive timestamps duplicating a day · backfills that double-count · a “temporary” CSV becoming the production feed for 3 years.</p></div>
           <div class="note"><h4>Short notes</h4><p>Batch for reports, streaming for seconds. ELT + lakehouse is the modern default; Parquet beats CSV for analytics. Spark = lazy partitions; shuffles cost. Airflow schedules DAGs; dbt versions SQL with tests. Gate every pipeline on freshness, volume, schema, keys, and values.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>ELT keeps raw; transform in-warehouse.</li><li>Parquet = columnar + compressed.</li><li>Lazy transforms, eager actions.</li><li>DAG: tasks + schedule + retries.</li><li>dbt tests: unique, not_null, relationships.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 224" role="img" aria-label="nightly_elt — 04:12"><rect x="10" y="10" width="620" height="204" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">nightly_elt — 04:12</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 224" width="640" height="224"><rect x="10" y="10" width="620" height="204" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">nightly_elt — 04:12</text>
               <rect x="30" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="96" y="94" text-anchor="middle" font-size="26">📥</text><text x="96" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">extract</text>
               <text x="169" y="108" text-anchor="middle" font-size="16" fill="#5eead4">→</text>
               <rect x="175" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="241" y="94" text-anchor="middle" font-size="26">🔧</text><text x="241" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">dbt</text>
@@ -227,9 +226,8 @@ models: [{name: fct_orders,
               <rect x="465" y="58" width="133" height="84" rx="8" fill="#1e293b" stroke="#64748b"/><text x="531" y="94" text-anchor="middle" font-size="26">🚀</text><text x="531" y="126" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">serve</text>
               <text x="34" y="168" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">all green ✓ </tspan><tspan fill="#e2e8f0">raw → modeled → tested → served</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 39.1 — nightly ELT: extract, model, test, serve — all green.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 39.1 — nightly ELT: extract, model, test, serve — all green.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Parquet beats CSV for analytics mainly because it is:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Human-readable in Notepad</button>
