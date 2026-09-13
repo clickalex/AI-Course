@@ -93,6 +93,10 @@
       <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
       <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
 
       <div class="toc-group">Frontier · GenAI</div>
       <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
@@ -136,7 +140,7 @@
       <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
       <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
       <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
-      <button class="toc-item active" data-go="exam"><span class="toc-num">E</span> Final exam (65 Q)</button>
+      <button class="toc-item active" data-go="exam"><span class="toc-num">E</span> Final exam (69 Q)</button>
       <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
 
       <div class="sidebar-foot">
@@ -149,13 +153,13 @@
 <article class="page active" id="exam">
         <div class="chapter-head">
           <div class="kicker">Assessment</div>
-          <h2>Final exam · 65 questions</h2>
+          <h2>Final exam · 69 questions</h2>
           <p class="lede">Mixed MCQs from the whole book — core AI, data skills (Python → Git), agents, applied production (RAG, cloud, MLOps), and frontier GenAI. Answer all, then submit for a percentage, grade name, and chapter-quiz breakdown.</p>
         </div>
         <div class="content">
           <div class="warn">
             <h4>Scoring</h4>
-            <p>Each question is 1 point (65 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–65 frontier). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
+            <p>Each question is 1 point (69 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–65 frontier + Q66–69 applied coding). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
           </div>
 
           <div class="mcq" data-answer="b">
@@ -885,6 +889,51 @@
             </div>
             <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
             <div class="explain">Quarantine evals before the first run.</div>
+          </div>
+
+          <div class="mcq" data-answer="b">
+            <p class="q">66. Binary search needs sorted input and runs in:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. O(n²)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. O(log n) by halving the range each step</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. O(n!)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. O(1) always</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Halving wins.</div>
+          </div>
+          <div class="mcq" data-answer="d">
+            <p class="q">67. Shortest path in an unweighted graph is found with:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. DFS</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Quicksort</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Binary search</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. BFS with a queue + visited set</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">BFS explores in distance order.</div>
+          </div>
+          <div class="mcq" data-answer="a">
+            <p class="q">68. In a FastAPI app, the model should be loaded:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Once at startup, shared by all requests</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Inside every request</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. In the browser</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Never — models load themselves</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Per-request loading wastes seconds.</div>
+          </div>
+          <div class="mcq" data-answer="c">
+            <p class="q">69. One virtualenv per project exists because:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Venvs speed up code</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Python bills per project</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Projects need conflicting versions — isolation keeps them reproducible</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Disks are too empty</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Isolate or perish.</div>
           </div>
           <p style="margin-top:22px">You can check questions one-by-one for study, or submit the whole exam for an official grade.</p>
           <button class="btn gold" onclick="gradeExam()">Submit final exam &amp; see results</button>

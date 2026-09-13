@@ -13,15 +13,15 @@ Then visit the local URL shown by the server.
 ## What’s inside
 
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
-- **School chapter** plus **66 numbered chapters** (67 teaching units with school)
+- **School chapter** plus **70 numbered chapters** (71 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **380+ MCQs** with instant check and chapter scoring
+- **400+ MCQs** with instant check and chapter scoring
 - **70+ practice questions** with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
 - **System design walkthroughs** (3 architectures + interview drills)
 - **GATE / UG bank** (20 exam-style MCQs) + **mock interview mode** (timed, self-scored)
-- **Final exam (65 questions: 30 core AI + 9 data + 6 eng & production + 20 frontier)** with percentage, grade name, and result breakdown
+- **Final exam (69 questions: 30 core AI + 9 data + 10 eng & production + 20 frontier)** with percentage, grade name, and result breakdown
 - Progress is saved in the browser (`localStorage`)
 
 ## Chapter map
@@ -46,7 +46,7 @@ Then visit the local URL shown by the server.
 | **ch40** | **APIs & web scraping (REST, pagination, ethics)** | **Data** |
 | **ch41** | **Git & collaboration (branches, PRs, DVC)** | **Data** |
 | **ch45** | **Time series & forecasting (ARIMA, Prophet, backtests)** | **Data** |
-| glossary | Hindi quick-glossary for data, applied & frontier (120 terms) | Revise |
+| glossary | Hindi quick-glossary for data, applied & frontier (128 terms) | Revise |
 | cheats | Cheat-sheet cards, one per data chapter (printable) | Revise |
 | playground | Datasets playground: 13 checked challenges | Practice |
 | interview | Interview Q&A bank: 24 questions + model answers | Careers |
@@ -66,6 +66,10 @@ Then visit the local URL shown by the server.
 | **ch44** | **Cloud, Docker & GPUs** | **Applied** |
 | **ch43** | **MLOps in production (drift, canary, retrain)** | **Applied** |
 | **ch46** | **Transformers lab (tokenizers, LoRA, vLLM serving)** | **Applied** |
+| **ch67** | **DSA I: Big-O, arrays, hashing (binary search, pointers)** | **Applied** |
+| **ch68** | **DSA II: recursion, trees, graphs, DP (BFS, Dijkstra)** | **Applied** |
+| **ch69** | **Serve & demo your model (FastAPI, Streamlit, Gradio)** | **Applied** |
+| **ch70** | **Terminal & environments survival (bash, venv, tmux)** | **Applied** |
 | **ch47** | **AGI: benchmarks, paths & safety (ARC, autonomy)** | **Frontier** |
 | **ch48** | **Advanced RAG (agentic, graph, multimodal)** | **Frontier** |
 | **ch49** | **Reasoning models & test-time compute (RLVR)** | **Frontier** |
@@ -90,7 +94,7 @@ Then visit the local URL shown by the server.
 | ch26 | GNNs, time series, AutoML, evolutionary, robotics | Survey |
 | ch27–29 | Learning theory; XAI / alignment / privacy; systems & research methods | PhD |
 | ch16 | Ethics, MLOps & career | Practice |
-| notes / exam / results | Revision sheet, glossary, 65-Q exam, grades | Test |
+| notes / exam / results | Revision sheet, glossary, 69-Q exam, grades | Test |
 
 ## How scoring works
 

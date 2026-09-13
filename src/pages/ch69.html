@@ -1,0 +1,121 @@
+<article class="page" id="ch69">
+        <div class="chapter-head"><div class="kicker">Chapter 69 · Applied · A7</div>
+          <h2>Serve &amp; demo your model</h2>
+          <p class="lede">A model on your laptop helps one person. Wrap it in an API and a demo UI and it helps the world. Build a FastAPI endpoint with validation, test it with curl, slap on a Streamlit/Gradio UI, and ship it — the full “model to URL” path in one chapter.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">FastAPI</span><span class="tag">REST</span><span class="tag">Streamlit</span><span class="tag">Gradio</span></div>
+          <div class="figure"><img src="images/model-serving.jpg" alt="Robot serving a model cube through an API gateway to phones and browsers" /></div>
+          <p class="caption">Figure 69.1 — Notebook → API → demo UI → public URL. Each arrow is ~20 lines; this chapter is the arrows.</p>
+          <h3>1. FastAPI in 30 lines (your model, now a URL)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 96" width="640" height="96">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="10" y="23" width="130" height="50" rx="8" fill="#0c1b2e"/><text x="75" y="43" fill="#fff">CLIENT</text><text x="75" y="59" fill="#5eead4">curl / app / UI</text>
+                <rect x="170" y="23" width="130" height="50" rx="8" fill="#0f766e"/><text x="235" y="43" fill="#fff">FastAPI</text><text x="235" y="59" fill="#fff">validate → route</text>
+                <rect x="330" y="23" width="130" height="50" rx="8" fill="#0ea5e9"/><text x="395" y="43" fill="#fff">MODEL</text><text x="395" y="59" fill="#fff">loaded once</text>
+                <rect x="490" y="23" width="140" height="50" rx="8" fill="#166534"/><text x="560" y="43" fill="#fff">JSON</text><text x="560" y="59" fill="#fff">prediction + meta</text>
+                <g fill="#0c1b2e" font-size="14"><text x="155" y="53">→</text><text x="315" y="53">→</text><text x="475" y="53">→</text></g>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 69.1 — Request → validation → preloaded model → JSON. Load the model once at startup, never per request.</div>
+          </div>
+          <pre><code># app.py — pip install fastapi uvicorn pydantic
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+model = load_model_once("sentiment.pt")   # startup, NOT per request
+
+class Review(BaseModel):
+    text: str                              # validated automatically
+
+@app.post("/predict")
+def predict(r: Review):
+    label = model.predict(r.text)          # your sklearn/torch model
+    return {"label": label}
+
+# run: uvicorn app:app --reload
+# docs: http://127.0.0.1:8000/docs (free Swagger UI!)</code></pre>
+          <pre><code># test it from another terminal
+curl -X POST http://127.0.0.1:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"text": "loved the thali, will return!"}'</code></pre>
+          <h3>2. Demo UIs (Streamlit vs Gradio)</h3>
+          <table><thead><tr><th>Need</th><th>Pick</th><th>Why</th></tr></thead><tbody>
+            <tr><td><strong>Data app / dashboard</strong></td><td>Streamlit</td><td>Widgets + charts in pure Python; reruns script per interaction</td></tr>
+            <tr><td><strong>Model playground</strong></td><td>Gradio</td><td>Built for ML I/O (text/image/audio); one-liner share links</td></tr>
+            <tr><td><strong>Free hosting</strong></td><td>HF Spaces</td><td>Push either framework; free tier + GPU upgrades</td></tr>
+            <tr><td><strong>Production traffic</strong></td><td>FastAPI + Docker</td><td>UIs demo; APIs scale (Ch 44, Ch 43)</td></tr>
+          </tbody></table>
+          <pre><code># demo.py — pip install streamlit, run: streamlit run demo.py
+import streamlit as st
+import requests
+
+st.title("Thali review sentiment")
+text = st.text_area("Paste a review")
+if st.button("Predict") and text:
+    r = requests.post("http://127.0.0.1:8000/predict",
+                      json={"text": text}).json()
+    st.success(f"Prediction: {r['label']}")</code></pre>
+          <h3>3. From laptop to link (ship checklist)</h3>
+          <ol>
+            <li><strong>Pin + freeze:</strong> <code>requirements.txt</code> with versions; test in a fresh venv (Ch 70).</li>
+            <li><strong>Cheap first:</strong> Gradio share link or HF Space for feedback; Docker + cloud VM when real users arrive (Ch 44).</li>
+            <li><strong>Guard the endpoint:</strong> input length limits, rate limiting, no stack traces to clients, API key for anything non-public.</li>
+            <li><strong>Log predictions:</strong> inputs + outputs + latency → your future eval set and drift monitor (Ch 43).</li>
+          </ol>
+          <div class="warn"><h4>Demo-driven disasters</h4><p>Loading a 7B model per request, exposing <code>/docs</code> with no auth on the public internet, and returning raw tracebacks (which leak paths and package versions) are the classic trio. Load once, bind admin routes to localhost, validate and truncate every input — the checklist above exists because each item has bitten someone.</p></div>
+          <div class="note"><h4>Short notes</h4><p>FastAPI: model loaded once, Pydantic validates, uvicorn serves, /docs free. Test with curl. Streamlit for data apps, Gradio for model playgrounds, HF Spaces for free hosting, FastAPI + Docker for production. Ship: pin deps, cheap-first hosting, guard inputs, log predictions for evals.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Load model once.</li><li>Pydantic validates free.</li><li>curl before UI.</li><li>Demo cheap, scale later.</li><li>Log every prediction.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="d"><p class="q">1. Where should <code>load_model()</code> live in a FastAPI app?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Inside each endpoint (fresh every time)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. In the curl command</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. In the HTML template</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. At startup (module load) — once, shared by all requests</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Per-request loading = seconds of waste.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">2. Pydantic models in FastAPI give you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Free GPUs</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Automatic request validation + clear 422 errors</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A database</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. CSS styling</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Types become validators.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">3. Gradio beats Streamlit when you need:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. SQL dashboards</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Excel export</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A model playground (typed ML I/O + share link)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Kubernetes</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Right demo tool for the job.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">4. FastAPI’s interactive API docs live at:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. /docs (Swagger UI, automatic)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. /homework</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. /admin/drop-database</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nowhere — write docs by hand</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Free, try-it-in-browser docs.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">5. Returning raw tracebacks to API clients is bad because they:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Look pretty</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Speed up responses</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Improve accuracy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Leak paths, package versions, and internals to attackers</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Log full errors; return generic ones.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch69')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c69p1"><p class="q">P1. Your /predict takes 9s on first call, 80ms after. Explain + fix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Cold start: model (or tokenizer/weights) loads lazily inside the endpoint on first request. Fix: load at startup (module scope or lifespan event); warm up with one dummy predict during deploy; add a /health endpoint that reports model-loaded status so the load balancer waits. Bonus: log load time as a deploy metric.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c69p2"><p class="q">P2. Someone pastes a 2MB review and your demo OOMs. Harden the endpoint (4 guards).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Pydantic max_length on text (e.g. 2000 chars) → 422 on abuse. (2) Request timeout + max body size at server level. (3) Truncate-then-infer with a logged warning, or chunk long inputs. (4) Rate limit per IP/key. Also: return generic 500s (tracebacks stay server-side) and alert on repeated 422s — could be fuzzing.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c69p3"><p class="q">P3. Plan: notebook classifier → public demo link by tonight, production-ready next month. Steps?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Tonight: freeze model file + requirements; FastAPI /predict with Pydantic limits; Gradio UI calling it (or direct); deploy to HF Space; share link, collect feedback + log predictions. Next month: Docker image pinned; cloud VM/GPU with auto-restart; auth + rate limits; /health + latency dashboards; golden eval set from logged traffic gating every redeploy (Ch 43, Ch 44).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch68">← DSA II</button>
+            <button data-go="ch70">Terminal survival →</button>
+          </div>
+        </div>
+      </article>

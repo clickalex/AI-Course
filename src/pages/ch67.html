@@ -1,0 +1,132 @@
+<article class="page" id="ch67">
+        <div class="chapter-head"><div class="kicker">Chapter 67 · Applied · A5</div>
+          <h2>DSA I — Big-O, arrays, hashing</h2>
+          <p class="lede">Every AI interview — and every slow pipeline — is secretly a data-structures question. Learn to read Big-O like a native, wield arrays, strings, and hash maps with Python code you can run today, and recognise the three patterns behind half of all coding rounds.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Big-O</span><span class="tag">Binary search</span><span class="tag">Two pointers</span><span class="tag">Hash maps</span></div>
+          <div class="figure"><img src="images/dsa-foundations.jpg" alt="Growth curves, array blocks, binary search and hash buckets" /></div>
+          <p class="caption">Figure 67.1 — n = 10⁶ turns O(n²) into a coffee break and O(n log n) into a blink. Complexity first, code second.</p>
+          <h3>1. Big-O (the only math that matters in interviews)</h3>
+          <table><thead><tr><th>Complexity</th><th>Name</th><th>n = 10⁶ feels like</th><th>Typical source</th></tr></thead><tbody>
+            <tr><td><strong>O(1)</strong></td><td>Constant</td><td>Instant</td><td>Hash lookup, index access</td></tr>
+            <tr><td><strong>O(log n)</strong></td><td>Logarithmic</td><td>~20 steps</td><td>Binary search, bisect</td></tr>
+            <tr><td><strong>O(n)</strong></td><td>Linear</td><td>One pass, fine</td><td>Single loop, Counter</td></tr>
+            <tr><td><strong>O(n log n)</strong></td><td>Linearithmic</td><td>Sortable</td><td>sorted(), mergesort</td></tr>
+            <tr><td><strong>O(n²)</strong></td><td>Quadratic</td><td>10¹² ops — dead</td><td>Nested loops over same data</td></tr>
+          </tbody></table>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="11" text-anchor="middle">
+                <line x1="50" y1="10" x2="50" y2="125" stroke="#0c1b2e" stroke-width="2"/>
+                <line x1="50" y1="125" x2="620" y2="125" stroke="#0c1b2e" stroke-width="2"/>
+                <text x="30" y="20" fill="#0c1b2e">time</text><text x="605" y="140" fill="#0c1b2e">n</text>
+                <polyline points="50,115 200,112 350,110 500,108 610,106" fill="none" stroke="#166534" stroke-width="3"/>
+                <text x="560" y="98" fill="#166534">O(1)</text>
+                <polyline points="50,115 200,100 350,92 500,86 610,82" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+                <text x="560" y="72" fill="#0ea5e9">O(log n)</text>
+                <polyline points="50,115 200,100 350,85 500,70 610,60" fill="none" stroke="#0f766e" stroke-width="3"/>
+                <text x="560" y="50" fill="#0f766e">O(n)</text>
+                <polyline points="50,115 200,95 350,70 500,40 610,15" fill="none" stroke="#b45309" stroke-width="3"/>
+                <text x="560" y="12" fill="#b45309">O(n log n)</text>
+                <polyline points="50,118 120,115 200,100 300,70 400,30 450,12" fill="none" stroke="#be123c" stroke-width="3"/>
+                <text x="470" y="14" fill="#be123c">O(n²) ☠</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 67.1 — Same input, wildly different bills. Say the complexity out loud before you write a line.</div>
+          </div>
+          <h3>2. The big three patterns (with code)</h3>
+          <p><strong>Binary search</strong> — sorted input + “find the boundary” = O(log n). Python ships it as <code>bisect</code>; know the hand-rolled version for interviews:</p>
+          <pre><code>def binary_search(a, x):
+    lo, hi = 0, len(a) - 1
+    while lo &lt;= hi:
+        mid = (lo + hi) // 2
+        if a[mid] == x:
+            return mid
+        if a[mid] &lt; x:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1</code></pre>
+          <p><strong>Two pointers</strong> — sorted array + pair/sum/window questions collapse from O(n²) to O(n):</p>
+          <pre><code>def two_sum_sorted(a, target):
+    i, j = 0, len(a) - 1
+    while i &lt; j:
+        s = a[i] + a[j]
+        if s == target:
+            return (i, j)
+        if s &lt; target:
+            i += 1
+        else:
+            j -= 1
+    return None</code></pre>
+          <p><strong>Hash maps</strong> — trade memory for O(1) lookups. Counting, dedup, and “have I seen this?” are all <code>dict</code>/<code>Counter</code>:</p>
+          <pre><code>from collections import Counter
+
+def first_unique(s):
+    freq = Counter(s)          # O(n) single pass
+    for i, ch in enumerate(s):
+        if freq[ch] == 1:
+            return i
+    return -1</code></pre>
+          <h3>3. Strings &amp; arrays drill (interview reps)</h3>
+          <ol>
+            <li><strong>Sliding window:</strong> longest substring without repeats — expand right, shrink left, hash map of last-seen indices. O(n).</li>
+            <li><strong>Prefix sums:</strong> range-sum queries in O(1) after O(n) preprocessing — the backbone of feature-window code (Ch 45).</li>
+            <li><strong>In-place discipline:</strong> reverse, rotate, partition without extra arrays — interviewers score memory, not just time.</li>
+            <li><strong>Say it aloud:</strong> “brute force is O(n²); sorting + two pointers gives O(n log n); hash map gives O(n) time, O(n) space — I’ll take the hash map.” That sentence passes rounds.</li>
+          </ol>
+          <div class="warn"><h4>Python gotchas</h4><p><code>list.pop(0)</code> and <code>insert(0, x)</code> are O(n) — use <code>collections.deque</code> for queues. String <code>+</code> in a loop is O(n²) — collect pieces and <code>"".join()</code>. <code>in</code> on a list is O(n) but O(1) on a set — convert first, then probe. Interviewers (and profilers) notice.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Big-O ladder: 1 → log n → n → n log n → n² (dead at scale). Three patterns: binary search on sorted data (bisect), two pointers for pairs/windows, hash maps for counting/seen. Python: deque for queues, join for strings, set for membership. Always state complexity before coding.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Complexity out loud, first.</li><li>Sorted + boundary = bisect.</li><li>Pairs/windows = two pointers.</li><li>Seen/count = hash map.</li><li>deque, join, set.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. Binary search on 1,000,000 sorted items takes roughly:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. 1,000,000 steps</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. 500,000 steps</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ~20 steps (log₂ 10⁶)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. 1 step always</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Halving wins: log₂(10⁶) ≈ 20.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. <code>list.pop(0)</code> in a loop is dangerous because it is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. O(n) per pop — use deque.popleft() (O(1))</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Deprecated syntax</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. O(1) but ugly</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Randomised</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Front-of-list ops shift everything.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">3. Two-sum on a SORTED array is best solved in:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. O(n²) nested loops</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. O(n) with two pointers from both ends</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. O(n!) permutations</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. O(1) by guessing</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Sorted order guides the pointers.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Membership testing (<code>x in c</code>) is O(1) when <code>c</code> is a:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. List</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Tuple</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. String</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Set or dict</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Hashing buys constant lookup.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">5. Building a long string in a loop should use:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Collect pieces, then "".join() — avoids O(n²) copying</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Repeated +=, it’s fastest</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. print() each char</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Recursion</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Strings are immutable; join once.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch67')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c67p1"><p class="q">P1. Your log-scan script takes 40 minutes on 2M rows with a nested loop. Diagnose and fix with complexity math.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Nested loop = O(n²) ≈ 4×10¹² ops — dead. Fix path: (1) if probing membership, build a set/dict once → O(n); (2) if matching pairs on sorted keys, sort + two pointers → O(n log n); (3) if range queries, prefix sums → O(n) preprocess + O(1) query. New bill: ~2M ops ≈ seconds. Always profile one shard first to confirm the hotspot.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c67p2"><p class="q">P2. Implement sliding-window longest-substring-without-repeats. State complexity and walk through “abba”.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Keep left pointer + dict of char → last index; expand right; if s[right] seen inside window, jump left past it; track max length. O(n) time, O(min(n, alphabet)) space. “abba”: right=0..1 window “ab” len 2; right=2 ‘b’ seen → left=2, window “b”; right=3 ‘a’ — last ‘a’ at 0, outside window → window “ba” len 2. Answer 2. The jump (not step) is the classic bug.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c67p3"><p class="q">P3. An interviewer asks for “all pairs summing to K” in an unsorted array. Give the 90-second spoken answer + code shape.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Say: “Brute force O(n²). Sort + two pointers is O(n log n) but loses indices and complicates dup pairs. One pass with a hash map of seen values is O(n) time, O(n) space — for each x, need K−x in seen. I’ll do the hash map.” Code: seen=set(); for x: if K−x in seen: emit; add x. Mention dup handling (count map) and follow-up: “if sorted + indices unneeded, two pointers saves the space.”</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch46">← Transformers lab</button>
+            <button data-go="ch68">DSA II →</button>
+          </div>
+        </div>
+      </article>
