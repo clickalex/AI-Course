@@ -51,6 +51,17 @@ SELECT c.customer_id, c.city, COALESCE(SUM(o.amount),0) AS total
 FROM customers c LEFT JOIN orders o USING (customer_id)
 WHERE (o.status IS NULL OR o.status &lt;&gt; 'refunded')
 GROUP BY c.customer_id, c.city;</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 232" width="640" height="232">
+<rect x="10" y="10" width="620" height="212" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">psql — shop</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">SELECT </tspan><tspan fill="#e2e8f0">c.customer_id, </tspan><tspan fill="#7dd3fc">COALESCE</tspan><tspan fill="#e2e8f0">(</tspan><tspan fill="#7dd3fc">SUM</tspan><tspan fill="#e2e8f0">(o.amount),0)</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">FROM </tspan><tspan fill="#e2e8f0">customers c </tspan><tspan fill="#5eead4">LEFT JOIN </tspan><tspan fill="#e2e8f0">orders o </tspan><tspan fill="#5eead4">USING </tspan><tspan fill="#e2e8f0">(customer_id)</tspan></text>
+              <rect x="34" y="104" width="572" height="24" fill="#1e293b"/><text x="48" y="121" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">customer_id  city     total</text>
+              <line x1="34" y1="154" x2="606" y2="154" stroke="#1e293b"/><text x="48" y="147" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">C-101       Jaipur   48200</text>
+              <line x1="34" y1="178" x2="606" y2="178" stroke="#1e293b"/><text x="48" y="171" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">C-102       Indore   41900</text>
+              <line x1="34" y1="202" x2="606" y2="202" stroke="#1e293b"/><text x="48" y="195" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">C-103       Bhopal       0</text><text x="470" y="195" font-family="JetBrains Mono, monospace" font-size="12" fill="#34d399">← kept by LEFT JOIN</text>            </svg>
+            <div class="diagram-title">Snapshot 33.1 — LEFT JOIN keeps customer C-103 with total 0 instead of dropping her. COALESCE turns the NULL into an honest zero.</div>
+          </div>
           <div class="warn"><h4>Fanout trap</h4><p>If the right table has duplicate keys, totals multiply. Check <code>SELECT key, COUNT(*) FROM right GROUP BY key HAVING COUNT(*)&gt;1</code> before you trust a SUM after a JOIN.</p></div>
           <h3>4. CTEs: name each step (don’t nest 5 subqueries)</h3>
 <pre><code>WITH clean AS (

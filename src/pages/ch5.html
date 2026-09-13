@@ -39,6 +39,18 @@ model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 pred = model.predict(X_test)
 print(accuracy_score(y_test, pred))</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 274" width="640" height="274">
+<rect x="10" y="10" width="620" height="168" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">sklearn_digits.py — editor</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="30" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">1</text><text x="64" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">from </tspan><tspan fill="#e2e8f0">sklearn.linear_model </tspan><tspan fill="#5eead4">import </tspan><tspan fill="#e2e8f0">LogisticRegression</tspan></text>
+              <text x="30" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">2</text><text x="64" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">Xtr, Xte, ytr, yte = </tspan><tspan fill="#7dd3fc">train_test_split</tspan><tspan fill="#e2e8f0">(X, y, test_size=0.2)</tspan></text>
+              <text x="30" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">3</text><text x="64" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">model = </tspan><tspan fill="#7dd3fc">LogisticRegression</tspan><tspan fill="#e2e8f0">(max_iter=1000)</tspan></text>
+              <text x="30" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">4</text><text x="64" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">model.</tspan><tspan fill="#7dd3fc">fit</tspan><tspan fill="#e2e8f0">(Xtr, ytr)  </tspan><tspan fill="#64748b"># learn</tspan></text>
+              <text x="30" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">5</text><text x="64" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">pred = model.</tspan><tspan fill="#7dd3fc">predict</tspan><tspan fill="#e2e8f0">(Xte)</tspan></text>
+<rect x="10" y="188" width="620" height="66" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="207" r="6" fill="#f87171"/><circle cx="50" cy="207" r="6" fill="#fbbf24"/><circle cx="68" cy="207" r="6" fill="#34d399"/><text x="320" y="211" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">terminal</text><line x1="10" y1="224" x2="630" y2="224" stroke="#1e293b"/>
+              <text x="34" y="232" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">Accuracy: 0.94 ✓</tspan><tspan fill="#64748b">   (stratified split, seed 42 — reproducible)</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 5.1 — The scikit-learn five-liner: split, fit, predict, score. Reproducible seed, stratified split, honest 0.94.</div>
+          </div>
 
           <h3>PyTorch in five lines of meaning</h3>
           <ul>

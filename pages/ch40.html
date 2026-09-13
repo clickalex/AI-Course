@@ -192,6 +192,17 @@ while url:
             </svg>
             <div class="diagram-title">Diagram 40.1 — The polite pull loop. Raw first, parse later — APIs change field names without asking you.</div>
           </div>
+          <div class="diagram">
+            <svg viewBox="0 0 640 216" width="640" height="216">
+<rect x="10" y="10" width="620" height="196" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">user@laptop: ~/shop — pull</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">curl 'api.shop.com/v1/orders?cursor=abc'</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">{"orders": [{"id": 881}],  </tspan><tspan fill="#fcd34d">"next_cursor": "def456"</tspan><tspan fill="#e2e8f0">}</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">200 OK</tspan><tspan fill="#e2e8f0"> → saved </tspan><tspan fill="#7dd3fc">raw/orders_p3.jsonl</tspan><tspan fill="#64748b">  (raw first!)</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">curl 'api.shop.com/v1/orders?cursor=def'</tspan></text>
+              <text x="34" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#fcd34d">429 Too Many Requests</tspan><tspan fill="#e2e8f0"> → sleep 2s, retry ✓</tspan></text>
+              <text x="34" y="170" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b"># polite: 1 rps, backoff, robots.txt respected</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 40.1 — The polite pull in action: page with cursors, save raw JSONL first, and back off gracefully when the API says 429.</div>
+          </div>
           <h3>2. Scraping: selectors, politeness, and limits</h3>
           <ul>
             <li><strong>Read first:</strong> <code>robots.txt</code>, Terms of Service, and rate guidance. No bypassing logins/paywalls. When in doubt, ask or use the official API.</li>

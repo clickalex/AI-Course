@@ -42,6 +42,41 @@
 <pre><code>=IF(AND([@Age]&gt;=18,[@KYC]="Yes"),"Eligible","Review")
 =TEXT([@Date],"yyyy-mm")          // month key for pivots
 =VALUE(SUBSTITUTE([@Amt],"₹","")) // ₹1,200 → 1200 (then Format → Number)</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 272" width="640" height="272">
+<rect x="10" y="10" width="620" height="252" rx="10" fill="#ffffff" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569">Customers.xlsx — Excel</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="78" font-family="Georgia, serif" font-style="italic" font-size="14" fill="#64748b">fx</text><rect x="58" y="60" width="548" height="28" rx="6" fill="#f8fafc" stroke="#cbd5e1"/><text x="70" y="79" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">=XLOOKUP([@ID],Customers[ID],Customers[City],"—")</text>
+              <rect x="60" y="104" width="104" height="24" fill="#dcfce7" stroke="#94a3b8"/><text x="70" y="121" font-family="JetBrains Mono, monospace" font-size="12" fill="#166534">ID</text>
+              <text x="104" y="96" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">A</text>
+              <rect x="164" y="104" width="104" height="24" fill="#dcfce7" stroke="#94a3b8"/><text x="174" y="121" font-family="JetBrains Mono, monospace" font-size="12" fill="#166534">Age</text>
+              <text x="208" y="96" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">B</text>
+              <rect x="268" y="104" width="104" height="24" fill="#dcfce7" stroke="#94a3b8"/><text x="278" y="121" font-family="JetBrains Mono, monospace" font-size="12" fill="#166534">KYC</text>
+              <text x="312" y="96" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">C</text>
+              <rect x="372" y="104" width="104" height="24" fill="#dcfce7" stroke="#94a3b8"/><text x="382" y="121" font-family="JetBrains Mono, monospace" font-size="12" fill="#166534">City</text>
+              <text x="416" y="96" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">D</text>
+              <rect x="476" y="104" width="104" height="24" fill="#dcfce7" stroke="#94a3b8"/><text x="486" y="121" font-family="JetBrains Mono, monospace" font-size="12" fill="#166534">Status</text>
+              <text x="520" y="96" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">E</text>
+              <rect x="60" y="128" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="70" y="145" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">C-101</text>
+              <rect x="164" y="128" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="174" y="145" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">24</text>
+              <rect x="268" y="128" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="278" y="145" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">Yes</text>
+              <rect x="372" y="128" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="382" y="145" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">Jaipur</text>
+              <rect x="476" y="128" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="486" y="145" font-family="JetBrains Mono, monospace" font-size="12" fill="#166534">Eligible</text>
+              <text x="42" y="145" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">2</text>
+              <rect x="60" y="152" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="70" y="169" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">C-102</text>
+              <rect x="164" y="152" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="174" y="169" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">17</text>
+              <rect x="268" y="152" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="278" y="169" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">Yes</text>
+              <rect x="372" y="152" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="382" y="169" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">Indore</text>
+              <rect x="476" y="152" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="486" y="169" font-family="JetBrains Mono, monospace" font-size="12" fill="#b45309">Review</text>
+              <text x="42" y="169" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">3</text>
+              <rect x="60" y="176" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="70" y="193" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">C-103</text>
+              <rect x="164" y="176" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="174" y="193" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">31</text>
+              <rect x="268" y="176" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="278" y="193" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">No</text>
+              <rect x="372" y="176" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="382" y="193" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e">Bhopal</text>
+              <rect x="476" y="176" width="104" height="24" fill="#ffffff" stroke="#e2e8f0"/><text x="486" y="193" font-family="JetBrains Mono, monospace" font-size="12" fill="#b45309">Review</text>
+              <text x="42" y="193" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">4</text>
+              <text x="34" y="238" font-family="JetBrains Mono, monospace" font-size="12" fill="#0c1b2e"><tspan fill="#34d399">Table: Customers ✓</tspan><tspan fill="#0c1b2e">  </tspan><tspan fill="#64748b">3 rows · Status = IF(AND(Age>=18,KYC=Yes))</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 31.1 — A real Excel Table: structured refs in the formula bar, XLOOKUP pulling cities, Status flagging Review rows for humans.</div>
+          </div>
           <h3>4. Cleaning checklist (do in this order)</h3>
           <ol>
             <li><strong>Freeze + filter:</strong> <code>View → Freeze Panes</code>, <code>Data → Filter</code>. Sort a copy, never the only copy.</li>
