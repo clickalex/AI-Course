@@ -202,6 +202,27 @@ df["roll_7"] = df["sales"].shift(1).rolling(7).mean()
           <div class="warn"><h4>Classic time-series sins</h4><p>Random train/test split (future leaks in) · fitting scalers on the full series · one-step-ahead metrics hiding multi-step decay · ignoring regime changes (COVID, pricing) that obsolete history · retraining never.</p></div>
           <div class="note"><h4>Short notes</h4><p>Decompose into trend + seasonal + residual. Difference to stationarity. Ladder: naive → ETS/ARIMA → Prophet → LightGBM on lags + regressors. Validate with rolling time splits, beat naive, report intervals, and retrain on schedule because regimes change.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>y(t) = trend + seasonal + noise.</li><li>Differencing fixes wandering means.</li><li>Lags turn it into regression.</li><li>Time splits only — never shuffle.</li><li>Beat naive; quote intervals.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 246" role="img" aria-label="demand forecast + 80% band"><rect x="10" y="10" width="620" height="226" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">demand forecast + 80% band</text>
+              <line x1="70" y1="180" x2="590" y2="180" stroke="#64748b"/><line x1="70" y1="60" x2="70" y2="180" stroke="#64748b"/>
+              <polygon points="70,140 200,133 330,127 460,118 590,103 590,70 460,94 330,113 200,126 70,136" fill="#0ea5e9" opacity="0.25"/>
+              <polyline points="70,138 200,130 330,120 460,106 590,86" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+              <circle cx="70" cy="138" r="4" fill="#0ea5e9"/>
+              <circle cx="200" cy="130" r="4" fill="#0ea5e9"/>
+              <circle cx="330" cy="120" r="4" fill="#0ea5e9"/>
+              <circle cx="460" cy="106" r="4" fill="#0ea5e9"/>
+              <circle cx="590" cy="86" r="4" fill="#0ea5e9"/>
+              <text x="70" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">M1</text>
+              <text x="200" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">M2</text>
+              <text x="330" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">M3</text>
+              <text x="460" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">M4</text>
+              <text x="590" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">M5</text>
+              <text x="34" y="220" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">holiday spike inside 80% band ✓</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 45.1 — forecast with widening band: the spike lands inside.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Differencing a series (y<sub>t</sub> − y<sub>t−1</sub>) is mainly used to:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Delete outliers</button>

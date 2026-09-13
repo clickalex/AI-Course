@@ -212,7 +212,22 @@
             </ul>
           </div>
 
-          <div class="quiz-block">
+                    <div class="diagram">
+            <svg viewBox="0 0 640 240" width="640" height="240">
+<rect x="10" y="10" width="620" height="220" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">episodes — explore, then exploit</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="34" y="58" width="572" height="26" fill="#1e293b"/>
+              <text x="34" y="76" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">ep    reward  epsilon</tspan></text>
+              <line x1="34" y1="118" x2="606" y2="118" stroke="#1e293b"/>
+              <text x="48" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">1     -42     1.00</tspan></text>
+              <line x1="34" y1="142" x2="606" y2="142" stroke="#1e293b"/>
+              <text x="48" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">50    +18     0.40</tspan></text>
+              <line x1="34" y1="166" x2="606" y2="166" stroke="#1e293b"/>
+              <text x="48" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">200   +96     0.05</tspan></text>
+              <text x="34" y="190" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">reward climbs ✓ </tspan><tspan fill="#64748b">curiosity annealed into skill</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 15.1 — From flailing (-42) to mastery (+96): epsilon does the growing.</div>
+          </div>
+<div class="quiz-block">
             <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
             <div class="mcq" data-answer="b">
               <p class="q">1. In RL, the policy is:</p>

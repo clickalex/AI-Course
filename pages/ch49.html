@@ -197,6 +197,15 @@
           <div class="warn"><h4>Reasoning pitfalls</h4><p>Overthinking simple queries (cost + latency) · unfaithful chains (confident steps, wrong answer — verify outcomes, not prose) · reward hacking the verifier (optimising the judge, not the truth) · no budget caps on agentic loops.</p></div>
           <div class="note"><h4>Short notes</h4><p>Ladder: CoT → self-consistency → tree search → verifiers → tool-checked. Accuracy scales with thinking budget (diminishing). RLVR trains reasoners on verifiable outcomes; distil traces down. Route by difficulty, budget per route, verify outcomes — chains are evidence, not proof.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Think longer &gt; grow bigger (often).</li><li>Vote, search, verify, execute.</li><li>RLVR: reward correct outcomes.</li><li>Budget thinking per route.</li><li>Verify answers, not prose.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 158" role="img" aria-label="think aloud — math"><rect x="10" y="10" width="620" height="138" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">think aloud — math</text>
+              <text x="34" y="74" font-family="JetBrains Mono, monospace" font-size="12"><tspan fill="#64748b">[THINK]</tspan><tspan fill="#e2e8f0"> 3 apples + 5 more…3+5 = 8.</tspan></text>
+              <text x="34" y="104" font-family="JetBrains Mono, monospace" font-size="12"><tspan fill="#4ade80">[AI]</tspan><tspan fill="#e2e8f0"> Answer: \boxed{8} ✓ (steps shown)</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 49.1 — auditable CoT: steps shown, boxed answer.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Self-consistency improves on plain chain-of-thought by:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Using fewer tokens</button>

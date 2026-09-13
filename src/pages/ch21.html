@@ -15,7 +15,17 @@
           <p><strong>CLIP</strong> trains image and text encoders so matching pairs sit nearby — the backbone of promptable image gen and zero-shot vision. Metrics: mAP, IoU, WER, CLIP-score — plus human eval.</p>
           <div class="note"><h4>Short notes</h4><p>Localisation tasks need different heads and losses (box regression, Dice/IoU). Speech is a sequence problem now solved a lot like NLP. Multimodal = shared or gated Transformers over mixed tokens.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>mAP for detection; IoU for overlap.</li><li>U-Net = encoder–decoder skips.</li><li>WER for ASR.</li><li>CLIP = contrastive image–text.</li></ul></div>
-          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+                    <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+<rect x="10" y="10" width="620" height="140" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">multimodal — see + read + speak</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#7dd3fc">you: </tspan><tspan fill="#e2e8f0">[photo of a dog] what's happening?</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">ai: </tspan><tspan fill="#e2e8f0">A beagle catching a frisbee (0.98). Hindi caption?</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#7dd3fc">you: </tspan><tspan fill="#e2e8f0">haan, Hindi me batao</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">ai: </tspan><tspan fill="#e2e8f0">एक बीगल फ्रिस्बी पकड़ रहा है ✓</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 21.1 — One model sees the photo and answers in your language.</div>
+          </div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. Semantic segmentation predicts:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. One label for the whole image only</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Next tokens</button>

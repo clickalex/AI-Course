@@ -197,7 +197,17 @@
             <li>Budget steps, money, and permissions.</li>
             <li>Human-in-the-loop for irreversible tools.</li>
           </ul></div>
-          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">4</span></div>
+                    <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+<rect x="10" y="10" width="620" height="140" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">ReAct trace — think, act, observe</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">think: </tspan><tspan fill="#e2e8f0">Need today's rice price. Search first.</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#fbbf24">act: </tspan><tspan fill="#e2e8f0">search(rice price mandi) → ₹3,240/quintal</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">think: </tspan><tspan fill="#e2e8f0">Got a number + source. Answer now.</tspan></text>
+              <text x="34" y="130" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#7dd3fc">ai: </tspan><tspan fill="#e2e8f0">₹3,240/quintal (mandi report, today) ✓</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 23.1 — The agent loop in four lines: think, act, observe, answer.</div>
+          </div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">4</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. The key difference between a chatbot and an AI agent is usually:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Agents cannot use language</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Chatbots always have GPUs</button>

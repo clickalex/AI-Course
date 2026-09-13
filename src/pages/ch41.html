@@ -57,6 +57,18 @@ checkpoints/
           <div class="warn"><h4>Notebook caution</h4><p>Committing raw <code>.ipynb</code> buries diffs in JSON + outputs. Strip outputs (<code>nbstripout</code>), or better: develop in <code>.py</code> modules, keep notebooks as thin reports. Reviewers can’t review what they can’t diff.</p></div>
           <div class="note"><h4>Short notes</h4><p>Status, pull --rebase, branch, add -p, commit, push, PR, log — that’s daily git. One branch per job, small PRs, never rewrite shared history. .gitignore secrets/data/models; track code in git, artifacts in DVC/S3/MLflow.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>main stays green; risk lives in branches.</li><li>Pull often → tiny conflicts.</li><li>Secrets in env, scanned pre-commit.</li><li>Data via DVC/S3, not git.</li><li>Small PRs + green CI = fast reviews.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 182" role="img" aria-label="ship it"><rect x="10" y="10" width="620" height="162" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">ship it</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">git log --graph --oneline -4</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">* 9f2c1a Add LEFT JOIN query ✓ CI green</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">* 7b3d0e Fix fanout (dedupe keys)</tspan></text>
+              <text x="34" y="136" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">git status</tspan></text>
+              <text x="34" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">clean ✓ </tspan><tspan fill="#94a3b8">— small PRs, green CI, ship it</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 41.1 — small PRs, green CI, clean tree — ship it.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. Why <code>git pull --rebase</code> instead of plain merge-pull for daily work?</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It deletes your commits</button>

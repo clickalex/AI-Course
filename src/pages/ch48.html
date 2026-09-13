@@ -45,6 +45,16 @@
           <div class="warn"><h4>Advanced failure modes</h4><p>Hop explosion (10 retrievals for a factoid — budget hops) · graph extraction errors compounding · router sending everything to the LLM · evals grading fluency instead of faithfulness · stale graph + fresh chunks disagreeing.</p></div>
           <div class="note"><h4>Short notes</h4><p>Agentic RAG loops plan → retrieve → grade → rewrite (cap hops). Route by query type; GraphRAG for relationship questions; Text-to-SQL for exact numbers; multimodal for figures. RAG still beats stuffing 1M tokens on cost/freshness/focus. Eval context precision/recall + faithfulness + relevance.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Retrieve → grade → retry, budgeted.</li><li>Router picks the right tool.</li><li>Graphs for “connect the dots”.</li><li>SQL for numbers, not quotes.</li><li>Lost-in-the-middle is real.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 138" role="img" aria-label="hybrid trace"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">hybrid trace</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">ask "refund window for shoes?"</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">dense 8 + sparse 8 → rerank → top 3</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">answer + 3 citations ✓ </tspan><tspan fill="#94a3b8">faith 0.96</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 48.1 — hybrid retrieval trace: dense + sparse, reranked, cited.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Corrective (agentic) RAG differs from basic RAG by:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Never retrieving anything</button>

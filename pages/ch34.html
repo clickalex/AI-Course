@@ -230,6 +230,21 @@ fig2.write_html("outputs/scatter.html")</code></pre>
           <div class="example"><h4>Before → after</h4><p><strong>Before:</strong> “Sales” — 3-D pie, 9 slices, legend in 8pt, no labels.<br/><strong>After:</strong> “Top 3 regions = 78% of sales” — horizontal bar sorted descending, values on bars, rest grouped as “Other”, source + date in footnote.</p></div>
           <div class="note"><h4>Short notes</h4><p>Question picks the chart: line/trend, bar/compare, hist-box/distribution, scatter/relationship. Matplotlib for control, seaborn for stats, plotly for interactive. Bars from zero, title as takeaway, one accent colour, annotate events. Story = context → conflict → resolution with one recommendation.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>One chart, one message.</li><li>Title states the finding.</li><li>Bars zero-based; lines labelled.</li><li>Colourblind-safe + direct labels.</li><li>Footnotes: source, date, n.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 256" role="img" aria-label="refunds by city — July ₹k"><rect x="10" y="10" width="620" height="236" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">refunds by city — July ₹k</text>
+              <line x1="60" y1="168" x2="590" y2="168" stroke="#64748b"/>
+              <rect x="129" y="72" width="34" height="96" rx="3" fill="#0ea5e9"/>
+              <text x="146" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Jaipur</text>
+              <rect x="302" y="85" width="34" height="83" rx="3" fill="#0ea5e9"/>
+              <text x="319" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Indore</text>
+              <rect x="475" y="64" width="34" height="104" rx="3" fill="#0ea5e9"/>
+              <text x="492" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Bhopal</text>
+              <text x="34" y="212" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">Bhopal leads ✓ </tspan><tspan fill="#e2e8f0">y-axis starts at 0 (honest!)</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 34.1 — city bars, zero baseline, no truncation tricks.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Monthly revenue trend is best shown with:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A 3-D pie</button>

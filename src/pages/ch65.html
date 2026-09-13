@@ -41,6 +41,19 @@
           <div class="warn"><h4>Translationese trap</h4><p>A model scoring 85% on English→Hindi translated MMLU can still fail a shopkeeper’s voice query. Translated benchmarks share English structure and idioms — they test translation tolerance, not language understanding. Always pair them with native-authored, native-judged tests before claiming multilingual ability.</p></div>
           <div class="note"><h4>Short notes</h4><p>Three gaps: tokenizer fertility (cost/context), data scarcity (thin noisy corpora), eval illusion (translationese). Real Indic input is romanized, code-switched, multi-script — test on that mess. Close the gap: fair tokenizers, curated per-language data, native-authored evals with agreement scores, and small adapted models over big generic ones.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Fertility = cost × context.</li><li>Test the mess users type.</li><li>Translationese overstates skill.</li><li>Native authors, native judges.</li><li>Adapt small > prompt big.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 192" role="img" aria-label="fertility = money"><rect x="10" y="10" width="620" height="172" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">fertility = money</text>
+              <text x="34" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">lang&#160;&#160;&#160;&#160;&#160;tok/wd</text>
+              <line x1="34" y1="78" x2="606" y2="78" stroke="#64748b"/>
+              <text x="34" y="100" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">EN&#160;&#160;&#160;&#160;&#160;&#160;&#160;1.3</text>
+              <text x="34" y="124" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">HI-Deva&#160;&#160;3.1</text>
+              <text x="34" y="148" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0">HI-roman&#160;4.6</text>
+              <text x="34" y="174" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">same meaning, 3.5x tokens — budget it ✓</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 65.1 — tokenizer fertility: same meaning, 3.5x the tokens.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="d"><p class="q">1. High tokenizer fertility for Hindi means:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Hindi is more fertile soil</button>

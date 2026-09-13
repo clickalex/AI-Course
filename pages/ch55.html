@@ -197,6 +197,16 @@
           <div class="warn"><h4>Red flags in QML pitches</h4><p>“Quantum will replace GPUs” (no) · benchmarks vs strawman classical baselines · ignoring error-correction overhead (millions of physical qubits per logical) · no mention of barren plateaus or loading costs.</p></div>
           <div class="note"><h4>Short notes</h4><p>Qubits = superposition + entanglement + interference; NISQ = ~100–1000 noisy qubits. Playbook: VQC hybrid loops, quantum kernels, QAOA, VQE simulation. Filter hype: which problem, which baseline, loading costs, plateaus, error-correction overhead. Literacy yes; production bets no (yet).</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>2ⁿ amplitudes, 1 measurement.</li><li>Quantum evaluates, classical opts.</li><li>Barren plateaus kill deep VQCs.</li><li>Loading costs eat speedups.</li><li>Chemistry &gt; ML (near-term).</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 138" role="img" aria-label="Bell pair"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">Bell pair</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">qc.run(shots=1000)</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">{"00": 498, "11": 502}</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">entangled ✓ </tspan><tspan fill="#94a3b8">(correlated, not agreed)</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 55.1 — Bell pair: 00/11 split, correlated not agreed.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Measuring a qubit in superposition gives:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. All amplitudes printed out</button>

@@ -177,7 +177,22 @@
           <p>Venues: NeurIPS, ICML, ICLR, CVPR, ACL, TMLR, journals. Preprints on arXiv. Reproducibility crises are real — trust plots you can rerun.</p>
           <div class="note"><h4>Short notes</h4><p>Systems convert algorithms into tokens/sec and joules. Research converts questions into controlled evidence. Both are part of “PhD-level AI,” not optional DLC.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Matmul + bandwidth.</li><li>MoE: sparse experts.</li><li>Ablations &gt; extra adjectives.</li><li>Report compute.</li></ul></div>
-          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+                    <div class="diagram">
+            <svg viewBox="0 0 640 240" width="640" height="240">
+<rect x="10" y="10" width="620" height="220" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">GPU price/perf — rent smart</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="34" y="58" width="572" height="26" fill="#1e293b"/>
+              <text x="34" y="76" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#94a3b8">gpu     tok/s  $/hr</tspan></text>
+              <line x1="34" y1="118" x2="606" y2="118" stroke="#1e293b"/>
+              <text x="48" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">T4      41     0.35</tspan></text>
+              <line x1="34" y1="142" x2="606" y2="142" stroke="#1e293b"/>
+              <text x="48" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">A10     96     0.75 ★</tspan></text>
+              <line x1="34" y1="166" x2="606" y2="166" stroke="#1e293b"/>
+              <text x="48" y="158" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">H100    410    2.10</tspan></text>
+              <text x="34" y="190" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">★ best perf/$ here ✓ </tspan><tspan fill="#64748b">right-size, then scale</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 29.1 — The H100 is fastest; the A10 wins this workload's wallet.</div>
+          </div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Mixture-of-Experts (MoE) mainly:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Trains k-means on experts’ birthdays</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Routes tokens to a subset of specialised FFNs to grow parameters without full dense compute</button>

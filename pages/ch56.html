@@ -191,6 +191,16 @@
           <div class="warn"><h4>Robot pitfalls</h4><p>Demo-video evals (3 takes, best one) · sim-only testing · ignoring latency until deployment · no e-stop story · grounding errors near humans (wrong object grasped) · open-loop execution without re-perception.</p></div>
           <div class="note"><h4>Short notes</h4><p>VLA = eyes + VLM brain + action-token policy + 10–50 Hz control. Learn from teleop demos + sim + web priors + human interventions. Eval physically (success rates across conditions), split planner/controller by latency, and layer safety (limits, force caps, e-stops, approvals).</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Actions as tokens, chunked.</li><li>Demos + sim + priors.</li><li>Eval grasps, not vibes.</li><li>Planner slow, control fast.</li><li>Layers between intent, torque.</li></ul></div>
+          <figure class="diagram">
+            <div class="diagram-art">
+              <svg viewBox="0 0 640 138" role="img" aria-label="VLA rollout"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">VLA rollout</text>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">rollout --task "fold towel"</tspan></text>
+              <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">obs → tokens → [grasp, lift, fold]</tspan></text>
+              <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">7/10 success ✓ </tspan><tspan fill="#94a3b8">sim2real gap logged</tspan></text>
+              </svg>
+            </div>
+            <figcaption>Snapshot 56.1 — VLA rollout: observe, tokenize, act — 7/10.</figcaption>
+          </figure>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. VLA models output actions by:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Shouting at the robot</button>

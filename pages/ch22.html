@@ -170,7 +170,16 @@
           <p>Evals: held-out task suites, factuality with citations, toxicity, prompt-injection tests, cost/latency, and human rubrics. Overfitting a famous public benchmark is the new train/test leak.</p>
           <div class="note"><h4>Short notes</h4><p>Choose the cheapest adapter that hits the metric. Fine-tune for style and format; retrieve for facts. Quantisation (INT8/4) is how 7B models fit on a laptop GPU.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>LoRA = low-rank update.</li><li>DPO ≈ RLHF without a separate PPO loop.</li><li>Eval set ≠ the tweet demo.</li><li>RAG vs FT: freshness vs behaviour.</li></ul></div>
-          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+                    <div class="diagram">
+            <svg viewBox="0 0 640 140" width="640" height="140">
+<rect x="10" y="10" width="620" height="120" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">LoRA — cheap adaptation</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">python train_lora.py --r 16 --epochs 3</tspan></text>
+              <text x="34" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">trainable: 4.2M / 7B </tspan><tspan fill="#64748b">(0.06% of weights)</tspan></text>
+              <text x="34" y="110" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">eval 0.61 → 0.83 ✓ </tspan><tspan fill="#64748b">one GPU, lunch break, done</tspan></text>
+            </svg>
+            <div class="diagram-title">Snapshot 22.1 — 0.06% of weights move, eval jumps 22 points.</div>
+          </div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. LoRA is a PEFT method because it:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Retrains every ImageNet CNN from scratch</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Trains small low-rank matrices while freezing base weights</button>
