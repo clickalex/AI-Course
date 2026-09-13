@@ -1,4 +1,4 @@
-/* Interview Q&A bank data — shared by interview.html (render) and mock.js (draws). */
+/* Interview Q&A bank data — shared by pages/interview.html (render) and mock.js (draws). */
 const INTERVIEW = [
  {
   "pid": "iq1",
