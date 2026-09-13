@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+"""Build the static site: src/pages/<id>.html + templates -> index.html + pages/<id>.html.
+
+Usage:  python3 tools/build.py   (run from repo root)
+Single sources of truth: PAGES + TITLES in js/app.js, sidebar in src/_sidebar.html.
+Output: index.html (cover, at root for Pages) + pages/<id>.html for every other
+page. Sub-pages get "../"-prefixed asset paths so the site works on any host
+(local file://, localhost, or a Pages project subpath). All output committed.
+"""
+import re, pathlib, sys
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+PAGESDIR = ROOT / "pages"
+fails = []
+
+app = (ROOT / "js" / "app.js").read_text()
+PAGES = [p.strip() for p in
+         re.search(r'const PAGES = \[(.*?)\];', app, re.S).group(1)
+         .replace('"', '').replace('\n', '').split(',') if p.strip()]
+TITLES = dict(re.findall(r'^  (\w+): "((?:[^"\\]|\\.)*)",?\s*$', app, re.M))
+
+head = (ROOT / "src" / "_head.html").read_text()
+sidebar_tpl = (ROOT / "src" / "_sidebar.html").read_text()
+mainopen = (ROOT / "src" / "_mainopen.html").read_text()
+foot = (ROOT / "src" / "_foot.html").read_text()
+
+# sidebar order must equal PAGES
+toc = re.findall(r'toc-item" data-go="([^"]+)"', sidebar_tpl)
+if toc != PAGES:
+    fails.append(f"sidebar order != PAGES (sidebar {len(toc)}, PAGES {len(PAGES)})")
+    for a, b in zip(toc, PAGES):
+        if a != b:
+            fails.append(f"  first diff: sidebar={a} PAGES={b}")
+            break
+
+missing_t = [p for p in PAGES if p not in TITLES]
+if missing_t:
+    fails.append(f"TITLES missing: {missing_t}")
+
+PAGESDIR.mkdir(exist_ok=True)
+built = []
+for pid in PAGES:
+    frag = ROOT / "src" / "pages" / f"{pid}.html"
+    if not frag.exists():
+        fails.append(f"missing fragment: {frag}")
+        continue
+    art = frag.read_text()
+    art = art.replace('class="page active"', 'class="page"')
+    art = art.replace('class="page"', 'class="page active"', 1)
+    sb = sidebar_tpl.replace(
+        f'<button class="toc-item" data-go="{pid}">',
+        f'<button class="toc-item active" data-go="{pid}">', 1)
+    if sb.count('toc-item active') != 1:
+        fails.append(f"sidebar active mark failed for {pid}")
+        continue
+    title = TITLES.get(pid, pid)
+    h = head.replace("<title>Zero to Hero AI Course Book</title>",
+                     f"<title>{title} · Zero to Hero AI</title>", 1)
+    h = h.replace('<meta property="og:title" content="Zero to Hero AI Course Book" />',
+                  f'<meta property="og:title" content="{title} · Zero to Hero AI" />', 1)
+    out = h + sb + "\n" + mainopen + art + "\n" + foot
+    if pid == "cover":
+        dest = ROOT / "index.html"
+    else:
+        dest = PAGESDIR / f"{pid}.html"
+        out = (out.replace('href="css/', 'href="../css/')
+                  .replace('src="js/', 'src="../js/')
+                  .replace('src="images/', 'src="../images/')
+                  .replace('href="favicon.svg"', 'href="../favicon.svg"'))
+    dest.write_text(out)
+    built.append(dest)
+
+# remove stale generated pages (e.g. after a chapter is deleted/renamed)
+for stale in PAGESDIR.glob("*.html"):
+    if stale.stem not in PAGES:
+        stale.unlink()
+
+# validate: data-go targets resolve + asset prefixes match page depth
+for dest in built:
+    t = dest.read_text()
+    for g in set(re.findall(r'data-go="([^"]+)"', t)):
+        if g not in PAGES:
+            fails.append(f"{dest.name}: dead data-go={g}")
+    if dest.parent == PAGESDIR:
+        for bad in ('href="css/', 'src="js/', 'src="images/', 'href="favicon.svg"'):
+            if bad in t:
+                fails.append(f"{dest.name}: unprefixed asset ref {bad}")
+    elif "../css/" in t or "../js/" in t or "../images/" in t:
+        fails.append(f"{dest.name}: root page has ../ asset refs")
+
+print(f"built {len(built)} files")
+if fails:
+    print("FAILURES:")
+    for f in fails:
+        print(" ", f)
+    sys.exit(1)
+print("BUILD OK")

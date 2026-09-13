@@ -110,18 +110,22 @@ Then visit the local URL shown by the server.
 ## Files
 
 ```
-index.html      Course book (all chapters)
-css/style.css   Layout and textbook theme
-js/app.js       Navigation, quizzes, exam grading
-images/         Chapter illustrations
+index.html      Cover page (built — edit src/pages/cover.html instead)
+pages/          Built chapter pages, one file per chapter (generated)
+src/pages/      Chapter sources — edit these, then rebuild
+src/_*.html     Shared templates (head, sidebar, main, footer)
+tools/build.py  Static site generator: python3 tools/build.py
+css/ js/ images/  Theme, runtime + quizzes, illustrations
 ```
 
 ## Deploy to GitHub Pages (free static hosting)
 
-No build step, no server — this is a plain static site:
+The built site is committed, so Pages needs no build step and no server — plain static hosting:
 
 1. Push this repo to GitHub (default branch `main`).
 2. Repo **Settings → Pages → Source: Deploy from a branch**, branch `main`, folder `/ (root)`.
 3. Open `https://<user>.github.io/<repo>/` after a minute.
 
 Quizzes, playground checks, listen buttons, and print all run in the browser, so nothing else needs configuring. (The `.nojekyll` file tells Pages to serve everything exactly as-is.)
+
+Contributors: edit files under `src/` (or `css/`/`js/`), then run `python3 tools/build.py` and commit the rebuilt `index.html` + `pages/`.

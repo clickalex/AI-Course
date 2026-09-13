@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Serve & demo your model · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Serve & demo your model · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item active" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch69">
+        <div class="chapter-head"><div class="kicker">Chapter 69 · Applied · A7</div>
+          <h2>Serve &amp; demo your model</h2>
+          <p class="lede">A model on your laptop helps one person. Wrap it in an API and a demo UI and it helps the world. Build a FastAPI endpoint with validation, test it with curl, slap on a Streamlit/Gradio UI, and ship it — the full “model to URL” path in one chapter.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">FastAPI</span><span class="tag">REST</span><span class="tag">Streamlit</span><span class="tag">Gradio</span></div>
+          <div class="figure"><img src="../images/model-serving.jpg" alt="Robot serving a model cube through an API gateway to phones and browsers" /></div>
+          <p class="caption">Figure 69.1 — Notebook → API → demo UI → public URL. Each arrow is ~20 lines; this chapter is the arrows.</p>
+          <h3>1. FastAPI in 30 lines (your model, now a URL)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 96" width="640" height="96">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="10" y="23" width="130" height="50" rx="8" fill="#0c1b2e"/><text x="75" y="43" fill="#fff">CLIENT</text><text x="75" y="59" fill="#5eead4">curl / app / UI</text>
+                <rect x="170" y="23" width="130" height="50" rx="8" fill="#0f766e"/><text x="235" y="43" fill="#fff">FastAPI</text><text x="235" y="59" fill="#fff">validate → route</text>
+                <rect x="330" y="23" width="130" height="50" rx="8" fill="#0ea5e9"/><text x="395" y="43" fill="#fff">MODEL</text><text x="395" y="59" fill="#fff">loaded once</text>
+                <rect x="490" y="23" width="140" height="50" rx="8" fill="#166534"/><text x="560" y="43" fill="#fff">JSON</text><text x="560" y="59" fill="#fff">prediction + meta</text>
+                <g fill="#0c1b2e" font-size="14"><text x="155" y="53">→</text><text x="315" y="53">→</text><text x="475" y="53">→</text></g>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 69.1 — Request → validation → preloaded model → JSON. Load the model once at startup, never per request.</div>
+          </div>
+          <pre><code># app.py — pip install fastapi uvicorn pydantic
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+model = load_model_once("sentiment.pt")   # startup, NOT per request
+
+class Review(BaseModel):
+    text: str                              # validated automatically
+
+@app.post("/predict")
+def predict(r: Review):
+    label = model.predict(r.text)          # your sklearn/torch model
+    return {"label": label}
+
+# run: uvicorn app:app --reload
+# docs: http://127.0.0.1:8000/docs (free Swagger UI!)</code></pre>
+          <pre><code># test it from another terminal
+curl -X POST http://127.0.0.1:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"text": "loved the thali, will return!"}'</code></pre>
+          <h3>2. Demo UIs (Streamlit vs Gradio)</h3>
+          <table><thead><tr><th>Need</th><th>Pick</th><th>Why</th></tr></thead><tbody>
+            <tr><td><strong>Data app / dashboard</strong></td><td>Streamlit</td><td>Widgets + charts in pure Python; reruns script per interaction</td></tr>
+            <tr><td><strong>Model playground</strong></td><td>Gradio</td><td>Built for ML I/O (text/image/audio); one-liner share links</td></tr>
+            <tr><td><strong>Free hosting</strong></td><td>HF Spaces</td><td>Push either framework; free tier + GPU upgrades</td></tr>
+            <tr><td><strong>Production traffic</strong></td><td>FastAPI + Docker</td><td>UIs demo; APIs scale (Ch 44, Ch 43)</td></tr>
+          </tbody></table>
+          <pre><code># demo.py — pip install streamlit, run: streamlit run demo.py
+import streamlit as st
+import requests
+
+st.title("Thali review sentiment")
+text = st.text_area("Paste a review")
+if st.button("Predict") and text:
+    r = requests.post("http://127.0.0.1:8000/predict",
+                      json={"text": text}).json()
+    st.success(f"Prediction: {r['label']}")</code></pre>
+          <h3>3. From laptop to link (ship checklist)</h3>
+          <ol>
+            <li><strong>Pin + freeze:</strong> <code>requirements.txt</code> with versions; test in a fresh venv (Ch 70).</li>
+            <li><strong>Cheap first:</strong> Gradio share link or HF Space for feedback; Docker + cloud VM when real users arrive (Ch 44).</li>
+            <li><strong>Guard the endpoint:</strong> input length limits, rate limiting, no stack traces to clients, API key for anything non-public.</li>
+            <li><strong>Log predictions:</strong> inputs + outputs + latency → your future eval set and drift monitor (Ch 43).</li>
+          </ol>
+          <div class="warn"><h4>Demo-driven disasters</h4><p>Loading a 7B model per request, exposing <code>/docs</code> with no auth on the public internet, and returning raw tracebacks (which leak paths and package versions) are the classic trio. Load once, bind admin routes to localhost, validate and truncate every input — the checklist above exists because each item has bitten someone.</p></div>
+          <div class="note"><h4>Short notes</h4><p>FastAPI: model loaded once, Pydantic validates, uvicorn serves, /docs free. Test with curl. Streamlit for data apps, Gradio for model playgrounds, HF Spaces for free hosting, FastAPI + Docker for production. Ship: pin deps, cheap-first hosting, guard inputs, log predictions for evals.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Load model once.</li><li>Pydantic validates free.</li><li>curl before UI.</li><li>Demo cheap, scale later.</li><li>Log every prediction.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="d"><p class="q">1. Where should <code>load_model()</code> live in a FastAPI app?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Inside each endpoint (fresh every time)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. In the curl command</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. In the HTML template</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. At startup (module load) — once, shared by all requests</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Per-request loading = seconds of waste.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">2. Pydantic models in FastAPI give you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Free GPUs</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Automatic request validation + clear 422 errors</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A database</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. CSS styling</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Types become validators.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">3. Gradio beats Streamlit when you need:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. SQL dashboards</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Excel export</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A model playground (typed ML I/O + share link)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Kubernetes</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Right demo tool for the job.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">4. FastAPI’s interactive API docs live at:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. /docs (Swagger UI, automatic)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. /homework</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. /admin/drop-database</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nowhere — write docs by hand</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Free, try-it-in-browser docs.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">5. Returning raw tracebacks to API clients is bad because they:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Look pretty</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Speed up responses</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Improve accuracy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Leak paths, package versions, and internals to attackers</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Log full errors; return generic ones.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch69')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c69p1"><p class="q">P1. Your /predict takes 9s on first call, 80ms after. Explain + fix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Cold start: model (or tokenizer/weights) loads lazily inside the endpoint on first request. Fix: load at startup (module scope or lifespan event); warm up with one dummy predict during deploy; add a /health endpoint that reports model-loaded status so the load balancer waits. Bonus: log load time as a deploy metric.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c69p2"><p class="q">P2. Someone pastes a 2MB review and your demo OOMs. Harden the endpoint (4 guards).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Pydantic max_length on text (e.g. 2000 chars) → 422 on abuse. (2) Request timeout + max body size at server level. (3) Truncate-then-infer with a logged warning, or chunk long inputs. (4) Rate limit per IP/key. Also: return generic 500s (tracebacks stay server-side) and alert on repeated 422s — could be fuzzing.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c69p3"><p class="q">P3. Plan: notebook classifier → public demo link by tonight, production-ready next month. Steps?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Tonight: freeze model file + requirements; FastAPI /predict with Pydantic limits; Gradio UI calling it (or direct); deploy to HF Space; share link, collect feedback + log predictions. Next month: Docker image pinned; cloud VM/GPU with auto-restart; auth + rate limits; /health + latency dashboards; golden eval set from logged traffic gating every redeploy (Ch 43, Ch 44).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch68">← DSA II</button>
+            <button data-go="ch70">Terminal survival →</button>
+          </div>
+        </div>
+      </article>
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

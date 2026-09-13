@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Python in depth · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Python in depth · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item active" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch30">
+        <div class="chapter-head"><div class="kicker">Chapter 30 · Data skills · Python</div>
+          <h2>Python in depth</h2>
+          <p class="lede">Chapter 5 showed the AI libraries. This chapter makes you fluent in the language itself — types, functions, classes, files, errors, and the habits that keep data projects from collapsing.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Beginner → Intermediate</span><span class="tag">Syntax</span><span class="tag">OOP</span><span class="tag">Files &amp; errors</span></div>
+          <div class="figure"><img src="../images/python-depth.jpg" alt="Python code, a cube-built snake, and gears around a laptop" /></div>
+          <p class="caption">Figure 30.1 — Python fluency (types, functions, classes, files, errors) is the rail every data project runs on.</p>
+          <h3>1. Setup that professionals actually use</h3>
+          <ul>
+            <li><strong>Python 3.10+</strong> — check with <code>python --version</code>. One version per project via <code>venv</code>.</li>
+            <li><strong>Virtual env:</strong> <code>python -m venv .venv</code> then activate. Install with <code>pip install -r requirements.txt</code>. Never <code>pip install</code> random packages globally.</li>
+            <li><strong>Notebooks vs scripts:</strong> Jupyter for exploration, <code>.py</code> files for anything you will rerun. A notebook that only runs top-to-bottom-by-luck is a bug factory — <em>Restart &amp; Run All</em> before you share.</li>
+            <li><strong>Editor:</strong> VS Code + Python extension, or PyCharm. Learn: run file, debugger breakpoint, rename symbol, format on save (Black/Ruff).</li>
+          </ul>
+<pre><code># requirements.txt (pin what matters)
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+matplotlib==3.8.4</code></pre>
+          <h3>2. Variables, types, and truthiness</h3>
+          <table><thead><tr><th>Type</th><th>Example</th><th>Notes for data work</th></tr></thead><tbody>
+            <tr><td><code>int / float</code></td><td><code>42, 3.14</code></td><td><code>/</code> is float division; <code>//</code> floors. Watch <code>0.1+0.2 != 0.3</code> (binary float).</td></tr>
+            <tr><td><code>str</code></td><td><code>"delhi"</code></td><td>Immutable. Use f-strings: <code>f"acc={acc:.2f}"</code>.</td></tr>
+            <tr><td><code>bool</code></td><td><code>True</code></td><td><code>and/or/not</code>. Empty containers, <code>0</code>, <code>None</code> are falsy.</td></tr>
+            <tr><td><code>list</code></td><td><code>[1,2,3]</code></td><td>Ordered, mutable. <code>append</code>, slicing <code>a[1:3]</code>.</td></tr>
+            <tr><td><code>tuple</code></td><td><code>(1,2)</code></td><td>Ordered, immutable. Good for fixed records, dict keys.</td></tr>
+            <tr><td><code>dict</code></td><td><code>{"a":1}</code></td><td>Key → value. <code>d.get(k, default)</code> avoids KeyError.</td></tr>
+            <tr><td><code>set</code></td><td><code>{1,2}</code></td><td>Unique, unordered. Fast membership, dedupe.</td></tr>
+            <tr><td><code>None</code></td><td><code>None</code></td><td>“No value”. Test with <code>is None</code>, not <code>==</code>.</td></tr>
+          </tbody></table>
+<pre><code>name, age = "Asha", 21
+scores = [88, 92, 79]
+print(f"{name} scored {sum(scores)/len(scores):.1f}")
+
+# dict counting pattern you will use forever
+counts = {}
+for s in ["spam","ham","spam"]:
+    counts[s] = counts.get(s, 0) + 1   # {'spam':2,'ham':1}</code></pre>
+          <h3>3. Control flow and comprehensions</h3>
+<pre><code>for i, city in enumerate(["Delhi","Mumbai","Goa"]):
+    if city == "Goa":
+        print(i, "holiday")
+    elif len(city) &gt; 5:
+        print(i, "long name")
+    else:
+        print(i, city)
+
+# list / dict comprehensions (prefer over manual loops)
+squares = [x*x for x in range(10) if x % 2 == 0]
+lookup  = {c.lower(): c for c in ["Delhi","Mumbai"]}</code></pre>
+          <p><strong>Rule:</strong> if the loop body is “build a list”, write a comprehension. If it is “decide + side effects”, write an explicit loop.</p>
+          <h3>4. Functions — the unit of reuse</h3>
+<pre><code>def train_test_split_safe(n, test_frac=0.2, seed=42):
+    """Return (n_train, n_test). Pure function: no prints, no globals."""
+    import random
+    random.seed(seed)
+    idx = list(range(n))
+    random.shuffle(idx)
+    k = int(n * test_frac)
+    return idx[k:], idx[:k]
+
+# *args / **kwargs for flexible wrappers
+def log_call(fn, *args, **kwargs):
+    print(f"calling {fn.__name__}")
+    return fn(*args, **kwargs)</code></pre>
+          <ul>
+            <li>One function = one job. If you describe it with “and”, split it.</li>
+            <li><strong>Type hints</strong> catch bugs in AI code: <code>def accuracy(y_true: list[int], y_pred: list[int]) -&gt; float:</code></li>
+            <li><strong>Docstring</strong> first line = what it returns, not how it loops.</li>
+            <li>Default args must be immutable (<code>None</code>, not <code>[]</code>).</li>
+          </ul>
+          <h3>5. Objects and classes (just enough OOP)</h3>
+          <p>You don’t need design-pattern bingo. You need: bundle data + behaviour, and read sklearn/PyTorch classes. A <strong>dataclass</strong> is a struct with free <code>__init__</code>/<code>__repr__</code>.</p>
+<pre><code>from dataclasses import dataclass
+
+@dataclass
+class DatasetInfo:
+    name: str
+    n_rows: int
+    n_cols: int
+    def shape(self):
+        return (self.n_rows, self.n_cols)
+
+class Standardizer:
+    def __init__(self):
+        self.mean_ = None; self.std_ = None
+    def fit(self, X):
+        self.mean_ = sum(X)/len(X)
+        var = sum((x-self.mean_)**2 for x in X)/len(X)
+        self.std_ = var**0.5 or 1.0
+        return self
+    def transform(self, X):
+        return [(x-self.mean_)/self.std_ for x in X]
+
+info = DatasetInfo("housing", 10000, 12)
+print(info, info.shape())</code></pre>
+          <h3>6. Files, paths, CSV and JSON</h3>
+<pre><code>from pathlib import Path
+import csv, json
+
+p = Path("data/raw/customers.csv")
+print(p.exists(), p.parent)
+
+# text + csv + json (the three you will meet weekly)
+Path("outputs").mkdir(exist_ok=True)
+with open("outputs/notes.txt", "w") as f:
+    f.write("split=80/20, seed=42\n")
+
+with open("data/raw/customers.csv") as f:
+    rows = list(csv.DictReader(f))       # list of dicts
+
+config = json.loads(Path("config.json").read_text()) if Path("config.json").exists() else {"lr": 0.01}</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <rect x="10" y="30" width="140" height="50" rx="10" fill="#0f766e"/><text x="80" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">raw/ (never edit)</text>
+              <rect x="170" y="30" width="140" height="50" rx="10" fill="#0c1b2e"/><text x="240" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">clean .py script</text>
+              <rect x="330" y="30" width="140" height="50" rx="10" fill="#0ea5e9"/><text x="400" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">processed/</text>
+              <rect x="490" y="30" width="140" height="50" rx="10" fill="#b45309"/><text x="560" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">outputs/</text>
+            </svg>
+            <div class="diagram-title">Diagram 30.1 — Folder discipline. Raw is read-only; scripts turn it into processed + outputs.</div>
+          </div>
+          <h3>7. Errors, logging, and debugging</h3>
+<pre><code>import logging
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+
+def safe_div(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        logging.warning("division by zero, returning None")
+        return None
+    except TypeError as e:
+        raise ValueError(f"need numbers, got {type(a)},{type(b)}") from e</code></pre>
+          <ul>
+            <li>Read tracebacks <strong>bottom-up</strong>: last line = error type, frames above = where.</li>
+            <li><code>print()</code> for a minute, <code>logging</code> for a project. Logs have levels and timestamps.</li>
+            <li>Validate early: <code>assert len(y)==len(X)</code>, or <code>if not rows: raise ValueError("empty CSV")</code>.</li>
+          </ul>
+          <h3>8. Modules, packages, and style</h3>
+          <ul>
+            <li>A <strong>module</strong> is a <code>.py</code> file; a <strong>package</strong> is a folder with <code>__init__.py</code>. Import with <code>from utils.metrics import f1</code>.</li>
+            <li>Style: <code>snake_case</code> for functions, <code>PascalCase</code> for classes, 88-char lines (Black). Run <code>ruff check .</code> before you commit.</li>
+            <li>Randomness: set seeds (<code>random</code>, <code>numpy</code>, <code>torch</code>) and log them — but remember GPU ops are not bit-perfect.</li>
+          </ul>
+          <div class="example"><h4>Worked mini-project — clean a CSV without pandas</h4>
+<pre><code>import csv
+with open("data/raw/scores.csv") as f:
+    rows = [r for r in csv.DictReader(f) if r["score"].strip() != ""]
+scores = [float(r["score"]) for r in rows]
+print(f"n={len(scores)} mean={sum(scores)/len(scores):.2f} max={max(scores)}")</code></pre>
+          <p>Three lines of “boring” Python replace 20 minutes of manual Excel fixes — and they rerun.</p></div>
+          <div class="warn"><h4>Common pitfalls</h4><p>Mutating a list while looping over it · <code>datetime</code> as string (“01/02/03” — Jan 2 or Feb 1?) · paths with <code>\</code> on Windows (use <code>pathlib</code>) · notebooks with hidden out-of-order state.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Python fluency = types + control flow + functions + classes + files + errors. Use venvs, pathlib, f-strings, dataclasses, logging, and type hints. Notebooks explore; scripts reproduce. Raw data is read-only; code builds processed data and outputs.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>venv per project; pin requirements.</li><li>Comprehensions build lists; loops do actions.</li><li><code>d.get(k,0)</code> counting pattern.</li><li>Dataclass for records; class with fit/transform for state.</li><li>Read tracebacks bottom-up; log, don’t only print.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Why use a virtual environment per project?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It makes Python run 10× faster</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It isolates package versions so projects don’t break each other</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It replaces the need for code</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It deletes raw data safely</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Different projects need different numpy/pandas versions.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. <code>{"a":1}.get("b", 0)</code> returns:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. KeyError</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. None and crashes</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 0</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. "b"</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">.get with a default avoids the exception.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A safe default argument is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. <code>def f(x=None)</code> then create inside</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. <code>def f(x=[])</code> and mutate it</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. <code>def f(x={})</code> shared dict</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No defaults ever</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Mutable defaults are shared across calls — a classic bug.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. You should read a traceback:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Top-down only</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. By deleting the last line</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. By ignoring file names</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Bottom-up: error type first, then frames</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Last line names the error; frames show the call path.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. <code>pathlib.Path("outputs").mkdir(exist_ok=True)</code> is preferred because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Trains a model</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Works across OS path separators and won’t crash if the folder exists</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Deletes the folder</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Requires Excel</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Portable paths beat hardcoded "C:\\..." strings.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch30')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c30p1"><p class="q">P1. Write a function <code>mean(xs)</code> that raises <code>ValueError</code> on an empty list and ignores <code>None</code> values.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>def mean(xs):
+    vals = [x for x in xs if x is not None]
+    if not vals:
+        raise ValueError("no values to average")
+    return sum(vals) / len(vals)</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c30p2"><p class="q">P2. Convert this loop to a comprehension: collect squares of even numbers 0–19.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p><code>[x*x for x in range(20) if x % 2 == 0]</code> — filter inside the comprehension, expression on the left.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c30p3"><p class="q">P3. Your notebook gives different results after “Run All”. Name two likely causes and the fix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Cells ran out of order — hidden state. Fix: Restart &amp; Run All, then refactor stable steps into a <code>.py</code> script. (2) Unseeded randomness or a variable overwritten in a later cell. Fix: set seeds at top, avoid reusing names like <code>df</code> for different frames.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch6">← Data &amp; features</button>
+            <button data-go="ch31">Excel &amp; Sheets →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

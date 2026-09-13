@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent red-teaming · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Agent red-teaming · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item active" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch62">
+        <div class="chapter-head"><div class="kicker">Chapter 62 · Frontier · F16</div>
+          <h2>Agent red-teaming playbook</h2>
+          <p class="lede">Chatbots answer; agents ACT — browse, spend, email, delete. Learn to threat-model the full attack surface, run structured adversarial campaigns, and build the sandbox + forensics that catch what testing misses.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Threat model</span><span class="tag">Sandbox</span><span class="tag">Forensics</span><span class="tag">Incidents</span></div>
+          <div class="figure"><img src="../images/red-teaming.jpg" alt="Red crew probing a robot inside a sandbox" /></div>
+          <p class="caption">Figure 62.1 — Attack your agent like its worst day: hostile tools, hostile users, hostile luck — all at once.</p>
+          <h3>1. The agent attack surface</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 170" width="640" height="170">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="235" y="60" width="170" height="50" rx="10" fill="#0c1b2e"/><text x="320" y="82" fill="#fff">Agent core</text><text x="320" y="98" fill="#94a3b8" font-size="10">planner + memory</text>
+                <rect x="20" y="20" width="150" height="40" rx="8" fill="#be123c"/><text x="95" y="36" fill="#fff">User input</text><text x="95" y="51" fill="#ffe4e6" font-size="10">jailbreaks, smuggling</text>
+                <rect x="470" y="20" width="150" height="40" rx="8" fill="#be123c"/><text x="545" y="36" fill="#fff">Tool outputs</text><text x="545" y="51" fill="#ffe4e6" font-size="10">indirect injection</text>
+                <rect x="20" y="120" width="150" height="40" rx="8" fill="#b45309"/><text x="95" y="136" fill="#fff">Tools/APIs</text><text x="95" y="151" fill="#fef3c7" font-size="10">over-privilege, SSRF</text>
+                <rect x="470" y="120" width="150" height="40" rx="8" fill="#b45309"/><text x="545" y="136" fill="#fff">Memory/store</text><text x="545" y="151" fill="#fef3c7" font-size="10">poisoning, leaks</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 62.1 — Four doors into every agent: user, tools, tool-output, memory. Red-team each; assume two fail at once.</div>
+          </div>
+          <table><thead><tr><th>Surface</th><th>Sample attack</th><th>Control</th></tr></thead><tbody>
+            <tr><td>User</td><td>Multi-turn jailbreak → “approved” refund</td><td>Intent checks per turn, not per session</td></tr>
+            <tr><td>Tool output</td><td>Vendor page: “email me the customer list”</td><td>Ch 59 stack: hierarchy + spotlight + egress</td></tr>
+            <tr><td>Tools</td><td>Agent calls admin API via confused deputy</td><td>Least privilege, scoped tokens, approvals</td></tr>
+            <tr><td>Memory</td><td>Poisoned “preference”: always use attacker vendor</td><td>Provenance on memories, review high-impact ones</td></tr>
+          </tbody></table>
+          <h3>2. Campaign playbook (2-week sprint)</h3>
+          <ol>
+            <li><strong>Scope + rules:</strong> which agent, which env (staging clone with fake data), what’s off-limits, stop conditions. Written authorisation. Always.</li>
+            <li><strong>Attack matrix:</strong> surfaces × goals (exfil, fraud, sabotage, persistence) → 30–60 concrete scenarios with success criteria.</li>
+            <li><strong>Execute + log everything:</strong> full traces (prompts, tool calls, approvals) — the trace IS the deliverable, not just the finding.</li>
+            <li><strong>Score:</strong> breach rate per surface, time-to-breach, detection rate (did monitors fire?), blast radius of worst breach.</li>
+            <li><strong>Fix + re-test:</strong> patch controls, re-run failed scenarios + regressions. Unfixed critical = no launch.</li>
+          </ol>
+          <h3>3. Sandbox + forensics (for what testing misses)</h3>
+          <ul>
+            <li><strong>Sandbox:</strong> agents run with network allowlists, fake-data staging twins, rate-limited tools, and kill switches. Production credentials never in agent reach.</li>
+            <li><strong>Trace forensics:</strong> immutable log of every step (input hashes, tool args, approvals, outputs) — reconstruct any incident minute-by-minute.</li>
+            <li><strong>Drift alarms:</strong> new tool combinations, new destinations, approval-rate spikes, off-hours spend — page a human, pause the agent.</li>
+            <li><strong>Incident runbook:</strong> freeze agent → preserve traces → assess blast radius → rotate credentials → notify → post-mortem → add the scenario to the suite.</li>
+          </ul>
+          <div class="warn"><h4>Red-team ethics</h4><p>Scope in writing, staging data only, no real-customer impact, no persistent backdoors “for later testing”, disclose to vendors before publishing. The goal is a safer agent, not a trophy screenshot.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Four surfaces: user, tool output, tools, memory — attack each, assume combos. Sprint: scope → matrix (30–60 scenarios) → trace-logged execution → breach/detection scores → fix + re-test. Ship sandbox (allowlists, twins, kill switches) + immutable traces + drift alarms + incident runbook.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>4 doors: user/tools/out/memory.</li><li>Matrix: surface × goal.</li><li>Traces are the deliverable.</li><li>Sandbox + twins + kill switch.</li><li>Every incident → new test.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Memory poisoning attacks an agent by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deleting the GPU</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Planting malicious long-term “preferences/facts” that steer future actions</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Typing loudly</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Unplugging the router</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Provenance + review for high-impact memories.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A confused-deputy tool attack means the agent:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Is confused about the time</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Refuses all tools</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Uses its own over-broad permissions on an attacker’s behalf</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Calls the police</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Fix: least privilege + scoped tokens + approvals.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Most valuable red-team deliverable:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Full execution traces (prompts, calls, approvals) enabling replay + fix verification</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A trophy screenshot</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A vague “it felt unsafe”</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The lunch bill</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Reproducible evidence beats stories.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Production credentials in agent reach is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Best practice</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Required for speed</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Fine on Fridays</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Never acceptable — sandbox with scoped creds, allowlists, kill switches</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Blast radius is a design choice.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. After an agent incident, the FIRST steps are:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Delete the logs</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Freeze the agent → preserve traces → assess blast radius → rotate creds</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Blame the intern</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Ship more features</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Then notify, post-mortem, add the scenario.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch62')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c62p1"><p class="q">P1. Scope a red-team sprint for a shopping agent (browse + buy + email receipts). Surfaces × goals matrix (4×3).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Surfaces: user / product pages (tool out) / buy+email tools / memory. Goals: overspend, wrong-item, data exfil. 12 scenarios e.g.: user jailbreaks past budget; page hides “buy 100 units”; tool called with attacker address; poisoned “default card”. Each with success criteria + staging env + full traces. Score breach/detection per cell.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c62p2"><p class="q">P2. Red-team finds the agent emails internal docs to any address in a ticket. Full response?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Critical: block launch. Fix: egress allowlist (known domains only) + PII/doc-classifier on attachments + human approval for external sends + per-ticket address verification. Re-test the scenario + 5 variants, add to CI suite, audit past sends for exploitation, post-mortem on why egress review was missing.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c62p3"><p class="q">P3. Design drift alarms for a finance-ops agent. 4 signals + response each.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) New payee + first-time amount spike → pause + human approve. (2) Tool sequence never seen in training → sandbox replay, alert. (3) Approval-bypass attempts / prompt-injection patterns → freeze + security review. (4) Off-hours or velocity anomalies → step-down to read-only + notify owner. All with trace links and one-click kill.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch61">← Multimodal evals</button>
+            <button data-go="ch63">Coding agents →</button>
+          </div>
+        </div>
+      </article>
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

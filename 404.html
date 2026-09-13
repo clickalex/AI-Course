@@ -6,14 +6,37 @@
   <title>Page not found · Zero to Hero AI</title>
   <meta name="description" content="That page drifted off into latent space. Head back to the Zero to Hero AI Course Book." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Inline on purpose: 404s can be served at any URL depth, where
+       relative stylesheet links would break. Keep this file standalone. */
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #faf7f2; color: #0c1b2e;
+           font-family: "Source Sans 3", system-ui, sans-serif; }
+    main { margin: 12vh auto; max-width: 640px; text-align: center; padding: 0 20px; }
+    .kicker { letter-spacing: .12em; text-transform: uppercase; font-size: 13px;
+              color: #0f766e; font-weight: 700; }
+    h2 { font-size: 32px; margin: 12px 0; }
+    .lede { font-size: 18px; color: #475569; }
+    button { background: #0c1b2e; color: #faf7f2; border: 0; border-radius: 10px;
+             padding: 12px 22px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    button:hover { background: #1e3a5f; }
+    button:focus-visible { outline: 3px solid #0f766e; outline-offset: 2px; }
+  </style>
 </head>
 <body>
-  <main class="main" style="margin:12vh auto;max-width:640px;text-align:center;padding:0 20px">
+  <main>
     <div class="kicker">404 · lost in latent space</div>
-    <h2>That page doesn&apos;t exist (yet)</h2>
+    <h2>That page doesn&rsquo;t exist (yet)</h2>
     <p class="lede">Head back to the cover and keep learning.</p>
-    <p><button class="btn navy" onclick="location.href='index.html'">← Back to the book</button></p>
+    <p><button onclick="goHome()">&larr; Back to the book</button></p>
   </main>
+  <script>
+    function goHome() {
+      // Works from any depth (/, /pages/x) and any host (local, Pages project path).
+      var p = location.pathname, i = p.lastIndexOf("/pages/");
+      var root = i >= 0 ? p.slice(0, i + 1) : p.slice(0, p.lastIndexOf("/") + 1);
+      location.href = root + "index.html";
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multimodal evals · Zero to Hero AI</title>
+  <meta name="description" content="Zero to Hero AI Course Book — free illustrated interactive course from Class 1 to PhD: data skills, ML, LLMs, agents, frontier GenAI, interview prep and scored exams." />
+  <meta name="theme-color" content="#0c1b2e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Multimodal evals · Zero to Hero AI" />
+  <meta property="og:description" content="Free illustrated interactive AI course: Class 1 to PhD, with diagrams, MCQs, practice labs and scored exams." />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+      <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
+      <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item active" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
+      <button class="toc-item" data-go="ch63"><span class="toc-num">F17</span> Coding agents</button>
+      <button class="toc-item" data-go="ch64"><span class="toc-num">F18</span> Synthetic data</button>
+      <button class="toc-item" data-go="ch65"><span class="toc-num">F19</span> Indic languages</button>
+      <button class="toc-item" data-go="ch66"><span class="toc-num">F20</span> Training data</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch61">
+        <div class="chapter-head"><div class="kicker">Chapter 61 · Frontier · F15</div>
+          <h2>Multimodal evals</h2>
+          <p class="lede">Your VLM aces demos — then misreads invoices. Learn the benchmark zoo (MMMU, MathVista, ChartQA), hallucination probes (POPE), grounding metrics, and how to build evals that predict production.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">MMMU</span><span class="tag">POPE</span><span class="tag">Grounding</span><span class="tag">Human eval</span></div>
+          <div class="figure"><img src="../images/multimodal-evals.jpg" alt="Evidence bench scoring a model on trial" /></div>
+          <p class="caption">Figure 61.1 — Multimodal evals put every sense on trial: see, read, reason, ground — with exhibits.</p>
+          <h3>1. The benchmark zoo (what each proves)</h3>
+          <table><thead><tr><th>Benchmark</th><th>Tests</th><th>Watch out</th></tr></thead><tbody>
+            <tr><td><strong>MMMU / MMMU-Pro</strong></td><td>College-level multimodal reasoning (30 subjects)</td><td>Contamination-prone; vision-optional for some items</td></tr>
+            <tr><td><strong>MathVista / ChartQA</strong></td><td>Math + charts in images</td><td>OCR shortcuts can inflate scores</td></tr>
+            <tr><td><strong>DocVQA / InfoVQA</strong></td><td>Document understanding</td><td>Resolution-sensitive; test your scan quality</td></tr>
+            <tr><td><strong>POPE / AMBER</strong></td><td>Object hallucination (yes/no + open)</td><td>Yes-bias gaming; pair with open-ended</td></tr>
+            <tr><td><strong>RefCOCO / GQA</strong></td><td>Grounding + compositional VQA</td><td>Metric–UX gap; add human spot checks</td></tr>
+          </tbody></table>
+          <h3>2. The eval stack (run all four)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 170" width="640" height="170">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="60" y="120" width="520" height="28" rx="8" fill="#0c1b2e"/><text x="320" y="139" fill="#fff">L1 · Public benchmarks (MMMU, ChartQA) — comparability</text>
+                <rect x="110" y="84" width="420" height="28" rx="8" fill="#0f766e"/><text x="320" y="103" fill="#fff">L2 · Hallucination + grounding probes (POPE, IoU)</text>
+                <rect x="160" y="48" width="320" height="28" rx="8" fill="#0ea5e9"/><text x="320" y="67" fill="#fff">L3 · Your-data golden set (your docs, your slices)</text>
+                <rect x="210" y="12" width="220" height="28" rx="8" fill="#b45309"/><text x="320" y="31" fill="#fff">L4 · Human + online evals</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 61.1 — Public scores get you hired; L3–L4 keep you employed. Weight effort top-down by production risk.</div>
+          </div>
+          <ul>
+            <li><strong>Grounding metric:</strong> IoU ≥ 0.5 between predicted and true boxes; report per object size (small objects fail first).</li>
+            <li><strong>Hallucination rate:</strong> % answers mentioning absent objects — slice by question type (counting and negation break most).</li>
+            <li><strong>Your-data golden set:</strong> 200+ real samples (your scans, your lighting, your edge cases) with expected outputs — the only eval that predicts YOUR production.</li>
+          </ul>
+          <h3>3. Human evals that aren’t theatre</h3>
+          <ul>
+            <li><strong>Rubrics over vibes:</strong> 3–5 explicit criteria (correctness, grounding, completeness) with examples per grade. Calibrate raters on 20 samples first.</li>
+            <li><strong>Blind + randomised:</strong> raters never know which model; order shuffled; measure inter-rater agreement (κ) — low κ means the rubric is broken, not the models.</li>
+            <li><strong>Slice everything:</strong> report by document type, language, image quality. Aggregates hide the invoice-table slice that’s failing.</li>
+          </ul>
+          <div class="warn"><h4>Eval pitfalls</h4><p>Leaderboard-chasing on contaminated benchmarks · vision-optional items inflating “multimodal” scores · yes-bias on POPE-style probes · testing on clean scans, shipping on crumpled photos · no human agreement metrics.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Zoo: MMMU (reasoning), MathVista/ChartQA (figures), DocVQA (docs), POPE/AMBER (hallucination), RefCOCO (grounding). Run L1–L4 with weight on your-data golden + human evals. IoU≥0.5 for boxes; hallucination rate sliced; blind rubrics with κ agreement; slice by quality/type.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Public = comparable, not predictive.</li><li>Probe hallucination + grounding.</li><li>Golden set = your reality.</li><li>Rubrics + blind + κ.</li><li>Slice by size/quality/type.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. POPE-style probes primarily measure:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Typing speed</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Object hallucination — claiming things that aren’t in the image</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GPU memory</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Font preferences</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Pair yes/no with open-ended to beat yes-bias.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Standard grounding correctness threshold:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. IoU ≥ 0.01</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Any overlap at all</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. IoU ≥ 0.5, reported per object size</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Pixel-perfect match</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Small objects fail first — slice for them.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. “Vision-optional” benchmark items are dangerous because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Text-only models can answer them, inflating “multimodal” scores</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. They’re too hard</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. They need no images at all, ever</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. They test hearing</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Ablate: score with images blanked as a control.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Low inter-rater agreement (κ) on human evals means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The models are perfect</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Hire more raters immediately</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete the eval</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The rubric is ambiguous — fix criteria + calibrate before trusting scores</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Disagreement measures the test, not the models.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. The eval most predictive of YOUR production is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A public leaderboard</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Your-data golden set: real samples, your quality, your slices</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A demo video</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Parameter count</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Test on crumpled photos if you ship crumpled photos.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch61')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c61p1"><p class="q">P1. VLM scores 78% MMMU but fails your warehouse labels. Build the bridge eval.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Collect 300 real label photos (your lighting/angles/damage) with expected reads. Slice: clean vs dirty vs torn vs low-light. Add grounding (IoU on label boxes) + hallucination probes (absent SKUs). Gate releases on THIS set; keep MMMU only for regression comparability. Report per-slice, fix worst slice first (likely crop-zoom pipeline).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c61p2"><p class="q">P2. Design a 3-criterion rubric for invoice-table extraction + calibration plan.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Criteria: (1) Cell accuracy (exact per-cell, 0/1), (2) Structure (rows/cols preserved, merged cells handled), (3) Grounding (each value traceable to a region). Grades with 2 examples each. Calibrate: 3 raters × 20 invoices, discuss disagreements, refine rubric, require κ ≥ 0.7 before launch. Blind model identity, shuffle order.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c61p3"><p class="q">P3. Prove a benchmark gain is real vision progress, not contamination/OCR luck.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Controls: (1) blank-image ablation — gain should vanish if vision matters; (2) novel held-out set (post-cutoff, private) showing the same delta; (3) perturbation tests (crop/paraphrase stability); (4) error analysis showing <em>new</em> capabilities, not memorised answers. No controls = press release, not progress.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch60">← AI economics</button>
+            <button data-go="ch62">Red-teaming →</button>
+          </div>
+        </div>
+      </article>
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="../js/interview-data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/playground.js"></script>
+  <script src="../js/mock.js"></script>
+</body>
+</html>

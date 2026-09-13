@@ -120,7 +120,11 @@ function isLesson(id) {
 }
 
 function pageFile(id) {
-  return id === "cover" ? "index.html" : id + ".html";
+  // Pages live in pages/ (cover stays at root as index.html); link relatively
+  // so the site works on any host: local file://, localhost, or Pages subpath.
+  const inPages = location.pathname.split("/").includes("pages");
+  if (id === "cover") return inPages ? "../index.html" : "index.html";
+  return inPages ? id + ".html" : "pages/" + id + ".html";
 }
 function currentPage() {
   const f = location.pathname.split("/").pop() || "index.html";
