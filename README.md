@@ -15,10 +15,12 @@ Then visit the local URL shown by the server.
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
 - **School chapter** plus **46 numbered chapters** (47 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **240+ MCQs** with instant check and chapter scoring
+- **260+ MCQs** with instant check and chapter scoring
 - **70+ practice questions** with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
+- **System design walkthroughs** (3 architectures + interview drills)
+- **GATE / UG bank** (20 exam-style MCQs) + **mock interview mode** (timed, self-scored)
 - **Final exam (45 questions: 30 core AI + 9 data skills + 6 engineering & production)** with percentage, grade name, and result breakdown
 - Progress is saved in the browser (`localStorage`)
 
@@ -48,6 +50,9 @@ Then visit the local URL shown by the server.
 | cheats | Cheat-sheet cards, one per data chapter (printable) | Revise |
 | playground | Datasets playground: 13 checked challenges | Practice |
 | interview | Interview Q&A bank: 24 questions + model answers | Careers |
+| design | ML system design: recsys, fraud, RAG at scale | Careers |
+| gate | GATE / UG bank: 20 exam-style MCQs | Exams |
+| mock | Mock interview mode: timed random draws + best score | Careers |
 | ch17–18 | Search, games, logic, planning | UG classical |
 | ch7–9 | ML fundamentals, supervised, unsupervised | UG |
 | ch19–20 | Bayesian & causal AI; recsys, IR, knowledge graphs | UG / applied |

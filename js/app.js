@@ -12,7 +12,7 @@ const PAGES = [
   "ch23","ch24","ch42","ch44","ch43","ch46",
   "ch15","ch25","ch26",
   "ch27","ch28","ch29","ch16",
-  "notes","glossary","cheats","playground","interview","exam","results"
+  "notes","glossary","cheats","playground","interview","design","gate","mock","exam","results"
 ];
 
 const TITLES = {
@@ -71,6 +71,9 @@ const TITLES = {
   cheats: "Cheat-sheet cards",
   playground: "Datasets playground",
   interview: "Interview Q&A bank",
+  design: "System design walkthroughs",
+  gate: "GATE / UG question bank",
+  mock: "Mock interview mode",
   notes: "Revision short notes",
   exam: "Final exam",
   results: "Your results"
