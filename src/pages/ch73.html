@@ -1,0 +1,149 @@
+<article class="page" id="ch73">
+        <div class="chapter-head"><div class="kicker">Chapter 73 · Applied · A9</div>
+          <h2>DSA III — heaps, tries, union-find</h2>
+          <p class="lede">Arrays and hash maps got you through the screen; these five structures get you through the onsite — top-K streams, prefix search, connected components, merging intervals, and backtracking without tears. Same deal: pattern first, runnable Python always.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Heaps</span><span class="tag">Tries</span><span class="tag">Union-find</span><span class="tag">Intervals</span></div>
+          <div class="figure"><img src="images/dsa-advanced.jpg" alt="Heap pyramid, trie prefix tree, merging clusters and timeline intervals" /></div>
+          <p class="caption">Figure 73.1 — “Top K”, “starts with”, “connected to”, “overlapping” — hear the keyword, reach for the structure.</p>
+          <h3>1. Heaps &amp; tries (order + prefixes)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <g stroke="#0c1b2e" stroke-width="2"><line x1="170" y1="30" x2="100" y2="68"/><line x1="170" y1="30" x2="240" y2="68"/><line x1="100" y1="68" x2="60" y2="100"/><line x1="100" y1="68" x2="140" y2="100"/></g>
+                <g><circle cx="170" cy="24" r="15" fill="#0c1b2e"/><text x="170" y="29" fill="#fff">3</text>
+                <circle cx="100" cy="68" r="15" fill="#0f766e"/><text x="100" y="73" fill="#fff">7</text>
+                <circle cx="240" cy="68" r="15" fill="#0f766e"/><text x="240" y="73" fill="#fff">9</text>
+                <circle cx="60" cy="102" r="15" fill="#0ea5e9"/><text x="60" y="107" fill="#fff">12</text>
+                <circle cx="140" cy="102" r="15" fill="#0ea5e9"/><text x="140" y="107" fill="#fff">15</text></g>
+                <text x="170" y="16" fill="#64748b" font-size="11">min-heap: parent ≤ children</text>
+                <g><circle cx="430" cy="24" r="13" fill="#0c1b2e"/><text x="430" y="28" fill="#fff">·</text>
+                <circle cx="380" cy="66" r="13" fill="#b45309"/><text x="380" y="70" fill="#fff">c</text>
+                <circle cx="480" cy="66" r="13" fill="#b45309"/><text x="480" y="70" fill="#fff">d</text>
+                <circle cx="350" cy="102" r="13" fill="#166534"/><text x="350" y="106" fill="#fff">a</text>
+                <circle cx="410" cy="102" r="13" fill="#166534"/><text x="410" y="106" fill="#fff">o</text></g>
+                <g stroke="#0c1b2e" stroke-width="2"><line x1="430" y1="30" x2="380" y2="58"/><line x1="430" y1="30" x2="480" y2="58"/><line x1="380" y1="72" x2="350" y2="94"/><line x1="380" y1="72" x2="410" y2="94"/></g>
+                <text x="430" y="16" fill="#64748b" font-size="11">trie: “ca-”, “co-”, “d-” share prefixes</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 73.1 — Min-heap: smallest always on top (push/pop O(log n)). Trie: shared prefixes, O(word length) lookup — autocomplete’s engine.</div>
+          </div>
+          <pre><code>import heapq
+
+def top_k(stream, k):
+    h = []
+    for x in stream:                 # O(n log k), O(k) memory
+        heapq.heappush(h, x)
+        if len(h) &gt; k:
+            heapq.heappop(h)         # evict smallest
+    return sorted(h, reverse=True)
+
+# max-heap trick: heapq is min-only, so negate
+h = [-x for x in [5, 1, 9]]
+heapq.heapify(h)
+biggest = -heapq.heappop(h)          # 9</code></pre>
+          <pre><code># trie: prefix search in O(len(word)) — dicts of dicts
+class Trie:
+    def __init__(self):
+        self.root = {}
+    def insert(self, w):
+        node = self.root
+        for ch in w:
+            node = node.setdefault(ch, {})
+        node["#"] = True             # end marker
+    def starts_with(self, prefix):
+        node = self.root
+        for ch in prefix:
+            if ch not in node:
+                return False
+            node = node[ch]
+        return True</code></pre>
+          <h3>2. Union-find &amp; intervals (connect + merge)</h3>
+          <table><thead><tr><th>Keyword you hear</th><th>Structure</th><th>Complexity</th></tr></thead><tbody>
+            <tr><td><strong>“Connected / same group / components”</strong></td><td>Union-find (disjoint set + path compression)</td><td>~O(α(n)) ≈ constant per op</td></tr>
+            <tr><td><strong>“Overlapping / merge / meeting rooms”</strong></td><td>Sort by start, sweep once</td><td>O(n log n) total</td></tr>
+            <tr><td><strong>“Top K / running median”</strong></td><td>Heap(s)</td><td>O(n log k)</td></tr>
+            <tr><td><strong>“Prefix / autocomplete / spellcheck”</strong></td><td>Trie</td><td>O(word length)</td></tr>
+          </tbody></table>
+          <pre><code># union-find: networks, clusters, Kruskal's MST, image blobs
+class DSU:
+    def __init__(self, n):
+        self.p = list(range(n))
+    def find(self, x):
+        while self.p[x] != x:        # path compression
+            self.p[x] = self.p[self.p[x]]
+            x = self.p[x]
+        return x
+    def union(self, a, b):
+        self.p[self.find(a)] = self.find(b)
+
+def merge_intervals(iv):
+    iv.sort()                        # by start
+    out = [iv[0]]
+    for s, e in iv[1:]:
+        if s &lt;= out[-1][1]:       # overlap → extend
+            out[-1][1] = max(out[-1][1], e)
+        else:
+            out.append([s, e])
+    return out</code></pre>
+          <h3>3. Backtracking (search with undo)</h3>
+          <ol>
+            <li><strong>Template:</strong> choose → explore → unchoose. Permutations, subsets, N-queens, Sudoku are all this loop with different “valid?” checks.</li>
+            <li><strong>Prune early:</strong> kill dead branches the moment constraints break — ordering choices well beats raw speed 100×.</li>
+            <li><strong>Know the cost:</strong> exponential worst case is FINE when n ≤ 20 and pruning is strong; say so out loud to show you did the math.</li>
+          </ol>
+          <div class="warn"><h4>Interview traps</h4><p>Forgetting the heap invariant after manual list surgery (use heappush/heappop, never append + hope). Trie memory blowup on huge alphabets (compress to radix form or use sorted-list + bisect for static word sets). Union-find without path compression degrading to O(n). And intervals: ALWAYS sort first — the #1 forgotten line in merge problems.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Heaps: top-K/median via heapq (negate for max); tries: prefix search in O(word). Union-find: connectivity in ~constant time with path compression; intervals: sort by start, sweep-merge. Backtracking: choose/explore/unchoose + prune early. Keywords map to structures: top-K → heap, prefix → trie, connected → DSU, overlap → sort+sweep.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Top-K = bounded heap.</li><li>Prefix = trie.</li><li>Connected = union-find.</li><li>Overlap = sort + sweep.</li><li>Backtrack = choose, undo.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="a"><p class="q">1. Top-K from a stream of n items, minimal memory:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Bounded min-heap of size K — O(n log K) time, O(K) space</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Sort everything — O(n) space</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Nested loops</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Recursion only</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Keep K winners, evict the rest.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Autocomplete (“all words starting with ‘pre’”) is a textbook case for:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Linked list</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Heap</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Trie — shared prefixes, O(prefix length) descent</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Stack</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Prefixes share structure.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">3. Union-find with path compression gives per-operation cost ≈:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. O(n²)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Inverse Ackermann — effectively constant</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. O(n log n)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. O(2ⁿ)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Flattened trees, near-free queries.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. The mandatory first step of every merge-intervals solution:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Build a trie</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Negate everything</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Use recursion</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Sort by start time, then sweep once</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Order first, merge second.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">5. Python max-heap via heapq is done by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Pushing negated values (heapq is min-only)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. heapq.maxify()</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Sorting in reverse each time</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Using a dict</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Negate in, negate out.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch73')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c73p1"><p class="q">P1. Running median of a stream. Design it and state per-item cost.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Two heaps: max-heap (negated) for the lower half, min-heap for the upper half; keep sizes within 1; median is a top (or average of tops). Per item: O(log n) push/pop + rebalance; query O(1). Mention the invariant out loud — interviewers grade the invariant, not the code.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c73p2"><p class="q">P2. 10M user pairs “A knows B” — find everyone connected to user X. Approach + complexity.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Union-find: union all pairs (~O(α(n)) each, near-linear total), then everyone with find(u) == find(X). Beats BFS-per-query when queries repeat; memory O(users). If edges arrive online and queries interleave, DSU handles both incrementally — say that, it’s the senior-level observation.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c73p3"><p class="q">P3. N-queens: sketch backtracking with pruning, and bound the practical n.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Place row by row; track used columns + two diagonal sets (r+c, r−c); skip attacked cells (prune); recurse; remove on backtrack. Cost exponential worst-case but heavily pruned — n ≤ 12–14 instant, n = 20+ needs symmetry breaking or ILP. State the bound: “fine for interview n, and here’s where it breaks.”</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch70">← Terminal survival</button>
+            <button data-go="ch74">Kubernetes →</button>
+          </div>
+        </div>
+      </article>

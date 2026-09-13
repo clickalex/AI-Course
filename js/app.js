@@ -3,13 +3,13 @@
 const PAGES = [
   "cover","how","paths","syllabus","sch1",
   "ch1","ch2","ch3","ch4","ch5","ch6",
-  "ch30","ch31","ch32","ch33","ch34","ch35","ch36","ch37","ch38","ch39","ch40","ch41","ch45",
+  "ch30","ch31","ch32","ch33","ch34","ch35","ch36","ch37","ch38","ch39","ch40","ch41","ch45","ch71","ch72",
   "ch17","ch18",
   "ch7","ch8","ch9",
   "ch19","ch20",
   "ch10","ch11","ch21",
   "ch12","ch13","ch14","ch22",
-  "ch23","ch24","ch42","ch44","ch43","ch46","ch67","ch68","ch69","ch70","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55","ch56","ch57","ch58","ch59","ch60","ch61","ch62","ch63","ch64","ch65","ch66",
+  "ch23","ch24","ch42","ch44","ch43","ch46","ch67","ch68","ch69","ch70","ch73","ch74","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55","ch56","ch57","ch58","ch59","ch60","ch61","ch62","ch63","ch64","ch65","ch66",
   "ch15","ch25","ch26",
   "ch27","ch28","ch29","ch16",
   "notes","glossary","cheats","playground","interview","design","gate","mock","exam","results"
@@ -66,11 +66,15 @@ const TITLES = {
   ch43: "MLOps in production",
   ch44: "Cloud, Docker & GPUs",
   ch45: "Time series & forecasting",
+  ch71: "Advanced SQL",
+  ch72: "AI databases",
   ch46: "Transformers lab",
   ch67: "DSA I: Big-O & hashing",
   ch68: "DSA II: trees, graphs, DP",
   ch69: "Serve & demo your model",
   ch70: "Terminal survival",
+  ch73: "DSA III: heaps, tries",
+  ch74: "Kubernetes for ML",
   ch47: "AGI: benchmarks & safety",
   ch48: "Advanced RAG",
   ch49: "Reasoning models",
@@ -251,8 +255,8 @@ function gradeExam() {
   let grade, blurb;
   if (pct >= 90) { grade = "AI Hero"; blurb = "Outstanding. You connect school-level intuition to data skills, agents, theory, and production — a full-stack picture of AI."; }
   else if (pct >= 75) { grade = "Advanced Practitioner"; blurb = "Very solid. Review missed items (often agents, theory, SQL/stats, or classical search), then you are ready for projects and papers."; }
-  else if (pct >= 60) { grade = "AI Practitioner"; blurb = "Good working knowledge. Revisit the short notes for weaker levels (esp. data skills Ch 30–41 + 45) and retry the exam."; }
-  else if (pct >= 40) { grade = "Apprentice"; blurb = "Foundations are forming. Focus on Ch 4, 7, 10, 13, 23–24 plus data skills Ch 30–41 + 45, then take the exam again."; }
+  else if (pct >= 60) { grade = "AI Practitioner"; blurb = "Good working knowledge. Revisit the short notes for weaker levels (esp. data skills Ch 30–41 + 45 + 71–72) and retry the exam."; }
+  else if (pct >= 40) { grade = "Apprentice"; blurb = "Foundations are forming. Focus on Ch 4, 7, 10, 13, 23–24 plus data skills Ch 30–41 + 45 + 71–72, then take the exam again."; }
   else { grade = "Keep going"; blurb = "This field rewards repetition. Read the point notes, redo chapter MCQs, then return to the final exam."; }
 
   const st = storage.get();

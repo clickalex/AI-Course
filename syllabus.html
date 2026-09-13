@@ -63,6 +63,8 @@
       <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
       <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
       <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+      <button class="toc-item" data-go="ch71"><span class="toc-num">D14</span> Advanced SQL</button>
+      <button class="toc-item" data-go="ch72"><span class="toc-num">D15</span> AI databases</button>
 
       <div class="toc-group">Classical AI</div>
       <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
@@ -97,6 +99,8 @@
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
       <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
       <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
       <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
@@ -140,7 +144,7 @@
       <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
       <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
       <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
-      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (69 Q)</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (73 Q)</button>
       <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
 
       <div class="sidebar-foot">
@@ -161,12 +165,14 @@
             <ul><li>Computers follow instructions; AI also uses data and goals</li><li>Maps, photo search, voice, spam, game NPCs</li><li>Input → process → output; sensors and actuators</li><li>Pattern vs understanding; don’t share secrets with bots</li></ul></details>
           <details open><summary>Class 9–12</summary>
             <ul><li>Algorithms; AI vs ML vs DL; ANI/AGI; history</li><li>Python, tables, charts; train/test; accuracy can lie</li><li>Chatbots and image generators — hallucinations</li></ul></details>
-          <details open><summary>Data skills · Python → Git (Ch 30–41, 45)</summary>
+          <details open><summary>Data skills · Python → AI DBs (Ch 30–41, 45, 71–72)</summary>
             <ul><li>Python in depth: types, functions, OOP, files, errors, venvs, debugging</li><li>Excel/Sheets: $ refs, XLOOKUP, SUMIFS, cleaning, PivotTables, honest charts, Power Query</li><li>Pandas/NumPy: loc/iloc, groupby/pivot/merge, resample, EDA checklist, vectorisation</li><li>SQL: SELECT/WHERE/GROUP BY/HAVING, JOINs, CTEs, window functions, NULLs, point-in-time features</li><li>Visualization: chart chooser, matplotlib/seaborn/plotly, dashboards, storytelling</li><li>Statistics: median vs mean, CIs, p-values, A/B tests, correlation, Simpson’s paradox, regression</li><li>Power BI: star schema, DAX measures/CALCULATE, slicers, publish/refresh/RLS</li><li>Capstone: frame → SQL → clean → EDA → test → memo/dashboard → ML handoff</li><li>BI compared: Power BI vs Tableau vs Looker vs Excel — pick by team, budget, governance</li>
 <li>Data engineering: batch vs streaming, warehouses/lakehouses, Spark, Airflow, dbt, quality gates</li>
 <li>APIs & scraping: REST, pagination, 429 backoff, robots.txt, raw JSONL archives, secrets hygiene</li>
 <li>Git & collaboration: branching, small PRs, .gitignore, DVC/S3 for data, no secrets in git</li>
-<li>Time series (Ch 45): decomposition, ARIMA/ETS/Prophet, lag features, rolling backtests, intervals</li><li>Playground: 13 checked SQL/pandas/Excel challenges on built-in datasets (offline)</li></ul></details>
+<li>Time series (Ch 45): decomposition, ARIMA/ETS/Prophet, lag features, rolling backtests, intervals</li>
+<li>Advanced SQL (Ch 71): windows, RANK/LAG, staged CTEs, EXPLAIN, indexing, dbt</li>
+<li>AI databases (Ch 72): Postgres+pgvector, Redis caching, vector DBs, tenant isolation</li><li>Playground: 13 checked SQL/pandas/Excel challenges on built-in datasets (offline)</li></ul></details>
           <details><summary>Undergraduate · Russell &amp; Norvig core</summary>
             <ul><li>Agents as PEAS; environment types</li><li>BFS, DFS, UCS, IDS; greedy, A*, admissible heuristics</li><li>Minimax, alpha-beta; CSP; propositional &amp; FOL; expert systems</li><li>Planning (STRIPS/PDDL); Bayes nets; HMMs; MDPs</li><li>Linear/logistic, trees, SVM, clustering, PCA, NNs</li>
 <li>GATE bank: 20 exam-style MCQs — maths, search, ML, DL, SQL</li></ul></details>
@@ -174,7 +180,7 @@
             <ul><li>SGD/Adam, batch norm, residuals; CNNs, detection, ViT</li><li>Transformers, BERT, GPT; VAE, GAN, diffusion</li><li>SSL, CLIP; GNNs; time series; recommenders; IR</li><li>Speech ASR/TTS; multimodal; AutoML; distillation; GA / swarm / fuzzy</li></ul></details>
           <details><summary>Industry · LLMs, agents, MLOps</summary>
             <ul><li>Prompting, tools, function calling, MCP-style servers</li><li>RAG, rerankers, citations, evals</li><li>SFT, LoRA/QLoRA, DPO/RLHF, guardrails</li><li><strong>AI Agents</strong> and <strong>Agentic AI</strong>: plan–act–observe, memory, multi-agent</li><li>Tracing, cost, prompt injection, HITL, drift</li>
-<li>Applied production (Ch 42–44, 46, 67–70): prompt patterns, RAG + evals, Docker, cloud GPUs, MLOps lifecycle, transformers lab, DSA I–II, model serving + demos, terminal survival</li>
+<li>Applied production (Ch 42–44, 46, 67–70, 73–74): prompt patterns, RAG + evals, Docker, cloud GPUs, MLOps lifecycle, transformers lab, DSA I–III, model serving + demos, terminal survival, Kubernetes for ML</li>
 <li>Transformers lab (Ch 46): tokenizers, LoRA/QLoRA, golden evals, vLLM serving, guardrails</li>
 <li>Interview Q&A bank: 24 Python/SQL/ML/LLM/MLOps/HR questions with model answers</li>
 <li>System design: video recsys, fraud detection, RAG at scale — framework + trade-offs</li>

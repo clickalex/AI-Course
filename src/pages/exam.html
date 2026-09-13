@@ -1,13 +1,13 @@
 <article class="page" id="exam">
         <div class="chapter-head">
           <div class="kicker">Assessment</div>
-          <h2>Final exam · 69 questions</h2>
+          <h2>Final exam · 73 questions</h2>
           <p class="lede">Mixed MCQs from the whole book — core AI, data skills (Python → Git), agents, applied production (RAG, cloud, MLOps), and frontier GenAI. Answer all, then submit for a percentage, grade name, and chapter-quiz breakdown.</p>
         </div>
         <div class="content">
           <div class="warn">
             <h4>Scoring</h4>
-            <p>Each question is 1 point (69 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–65 frontier + Q66–69 applied coding). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
+            <p>Each question is 1 point (73 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–65 frontier + Q66–69 applied coding + Q70–73 SQL-II, DBs, DSA-III, K8s). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
           </div>
 
           <div class="mcq" data-answer="b">
@@ -782,6 +782,51 @@
             </div>
             <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
             <div class="explain">Isolate or perish.</div>
+          </div>
+
+          <div class="mcq" data-answer="c">
+            <p class="q">70. RANK() OVER (PARTITION BY city ORDER BY revenue DESC) gives you:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deleted rows</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. One row per city</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Per-city revenue ranks with ties sharing a rank (1,1,3…)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Random numbers</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Windows rank without collapsing.</div>
+          </div>
+          <div class="mcq" data-answer="a">
+            <p class="q">71. Upgrading an embedding model forces a re-embed (backfill) because:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Old and new vectors live in different spaces — distances become garbage</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Postgres requires it</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Redis deletes them</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Vectors expire weekly</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Version + dual-read + backfill.</div>
+          </div>
+          <div class="mcq" data-answer="d">
+            <p class="q">72. “Everyone connected to user X” over 10M pairs is best served by:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Binary search</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Bubble sort</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A trie</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Union-find — near-constant per op with path compression</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Connected → DSU.</div>
+          </div>
+          <div class="mcq" data-answer="b">
+            <p class="q">73. A GPU pod stuck in Pending is diagnosed first with:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deleting the cluster</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. kubectl describe pod — the Events reveal the scheduler's reason</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Rebooting the laptop</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Applying twice</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Events explain Pending.</div>
           </div>
           <p style="margin-top:22px">You can check questions one-by-one for study, or submit the whole exam for an official grade.</p>
           <button class="btn gold" onclick="gradeExam()">Submit final exam &amp; see results</button>
