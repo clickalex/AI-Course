@@ -1,0 +1,165 @@
+<article class="page" id="ch4">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 4 · Foundations</div>
+          <h2>Mathematics for AI</h2>
+          <p class="lede">You do not need a maths degree to start — but you do need four languages: vectors, probability, calculus, and a little statistics.</p>
+        </div>
+        <div class="content">
+          <p>Every model in this book is the same object: a function with numbers inside it. Training is <em>changing those numbers to reduce error</em>. The maths below is the minimum that makes later chapters stop feeling like slogans.</p>
+
+          <h3>1. Linear algebra — the language of data</h3>
+          <p>A <strong>vector</strong> is an ordered list of numbers. One email might be a vector of word counts; one image is a long vector of pixel values (or a 3-D tensor: height × width × colour).</p>
+          <div class="formula">x = [x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>]<small>A data point with n features</small></div>
+          <p>A <strong>matrix</strong> stores many vectors (a dataset, or a layer of weights). The workhorse operation is the <strong>dot product</strong>: multiply matching entries, add them up. It measures “how aligned” two vectors are.</p>
+          <div class="formula">w · x = Σ w<sub>i</sub> x<sub>i</sub><small>Weighted sum — the core of linear models and neural layers</small></div>
+          <p>A linear layer is <code>y = Wx + b</code>: multiply by a weight matrix, add a bias. Deep nets stack nonlinear versions of this.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 560 200" width="560" height="200">
+              <rect width="560" height="200" rx="16" fill="#f8fafc"/>
+              <line x1="80" y1="170" x2="260" y2="170" stroke="#0c1b2e" stroke-width="2"/>
+              <line x1="80" y1="170" x2="80" y2="30" stroke="#0c1b2e" stroke-width="2"/>
+              <line x1="80" y1="170" x2="230" y2="70" stroke="#0f766e" stroke-width="4" marker-end="url(#arr)"/>
+              <line x1="80" y1="170" x2="200" y2="40" stroke="#b45309" stroke-width="4"/>
+              <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f766e"/></marker></defs>
+              <text x="238" y="68" font-size="13" fill="#0f766e" font-family="Source Sans 3">x</text>
+              <text x="208" y="36" font-size="13" fill="#b45309" font-family="Source Sans 3">w</text>
+              <text x="300" y="90" font-size="14" fill="#0c1b2e" font-family="Source Sans 3">cos θ = (w·x) / (|w||x|)</text>
+              <text x="300" y="112" font-size="12" fill="#57534e" font-family="Source Sans 3">Large dot product → similar direction</text>
+            </svg>
+            <div class="diagram-title">Diagram 4.1 — Vectors. Classification often draws a hyperplane whose normal is w.</div>
+          </div>
+
+          <h3>2. Probability — the language of uncertainty</h3>
+          <p>Models almost never output certainty. A classifier outputs P(spam | email). <strong>Bayes’ rule</strong> says how to invert conditionals:</p>
+          <div class="formula">P(A|B) = P(B|A) P(A) / P(B)<small>Posterior = likelihood × prior / evidence</small></div>
+          <p><strong>Independence</strong> (Naive Bayes assumes features are independent given the class) is usually false but often useful. <strong>Expectation</strong> E[x] is the average value if you repeated the random process. Training often minimises expected loss on the data distribution.</p>
+
+          <h3>3. Calculus — the language of learning</h3>
+          <p>A <strong>derivative</strong> is the slope: if I nudge a weight, how does the loss change? <strong>Gradient</strong> is the vector of all those slopes. <strong>Gradient descent</strong> walks downhill:</p>
+          <div class="formula">w ← w − η ∇L(w)<small>η (eta) is the learning rate — too big overshoots, too small crawls</small></div>
+          <p>Neural nets are nested functions, so we use the <strong>chain rule</strong> (backpropagation) to get gradients for early layers. You do not need to differentiate by hand; frameworks do it. You do need to know that a flat or exploding gradient means learning has broken.</p>
+
+          <h3>4. Statistics — the language of evaluation</h3>
+          <ul>
+            <li><strong>Mean, variance, standard deviation</strong> — centre and spread.</li>
+            <li><strong>Train / validation / test</strong> — fit on train, tune on val, report on test once.</li>
+            <li><strong>Bias vs variance</strong> — systematic error vs sensitivity to the sample (Chapter 7).</li>
+            <li><strong>Correlation ≠ causation</strong> — ice cream sales correlate with drowning; heat causes both.</li>
+          </ul>
+
+          <div class="example">
+            <h4>Mini example — one step of gradient descent</h4>
+            <p>Predict ŷ = w·x. Loss L = (ŷ − y)². If x=2, y=1, w=0.8 then ŷ=1.6, L=0.36. Gradient dL/dw = 2(ŷ−y)x = 2.4. With η=0.1, new w = 0.8 − 0.24 = 0.56. The next prediction is closer.</p>
+          </div>
+
+          <div class="warn">
+            <h4>Common mistake</h4>
+            <p>Memorising formulas without units of meaning. Always ask: is this a vector of features, a probability, a slope, or a score on held-out data?</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Data = vectors/tensors. Models = matrix multiplies + nonlinearities. Learning = gradient descent on a loss. Uncertainty = probability. Reporting = statistics on data the model did not train on. Bayes updates beliefs; the chain rule lets error flow backward through layers.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Dot product = weighted sum.</li>
+              <li>y = Wx + b is a linear layer.</li>
+              <li>P(A|B) = P(B|A)P(A)/P(B).</li>
+              <li>w ← w − η ∇L.</li>
+              <li>Never tune on the test set.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. The gradient of the loss with respect to the weights points:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Toward lower loss</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Toward higher loss (steepest ascent)</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Always toward the origin</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Randomly</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Gradient is steepest increase. Descent therefore subtracts η times the gradient.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. If two feature vectors have a large positive dot product they are:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Guaranteed to be the same class</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Orthogonal</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Pointing in a similar direction (if magnitudes are comparable)</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Probabilities</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Dot product = |w||x|cosθ. Large and positive means acute angle.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. In Bayes’ rule, P(A) is the:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Prior</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Likelihood</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Loss</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Learning rate</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Prior = belief before seeing B. Likelihood is P(B|A).</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. A learning rate that is far too large typically:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Guarantees the global minimum</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Has no effect</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Converts the model to a decision tree</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Makes training diverge or oscillate</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Steps overshoot the valley. Loss may explode to NaN.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">5. You should report final accuracy on:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The training set after 1 epoch</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A test set not used for fitting or tuning</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Only the features, not the labels</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The gradient vector</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Test data estimates real-world generalisation. Tuning on it leaks information.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch4')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c4p1">
+              <p class="q">P1. Compute the dot product of w = [1, −2, 0.5] and x = [2, 1, 4]. If the linear model is ŷ = w·x + b with b = −1, what is ŷ?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>w·x = 1·2 + (−2)·1 + 0.5·4 = 2 − 2 + 2 = <strong>2</strong>. Then ŷ = 2 + (−1) = <strong>1</strong>.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c4p2">
+              <p class="q">P2. A disease has prior P(D)=0.01. A test has P(+|D)=0.9 and P(+|no D)=0.05. If a patient tests positive, is P(D|+ ) closer to 90%, 15%, or 1%? Sketch Bayes.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+                <p>P(+) = 0.9·0.01 + 0.05·0.99 = 0.009 + 0.0495 = 0.0585.</p>
+                <p>P(D|+) = (0.9·0.01) / 0.0585 ≈ 0.154 → about <strong>15%</strong>, not 90%. Base rates matter. This is why “accurate tests” still yield many false alarms on rare diseases.</p>
+              </div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c4p3">
+              <p class="q">P3. In one sentence each, say what goes wrong if η → 0 and if η is huge.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>η ≈ 0: training barely moves; you waste compute. η huge: parameters jump; loss oscillates or becomes NaN. Practical training uses a schedule (decay, warmup) and sometimes adaptive methods (Adam).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch3">← Chapter 3</button>
+            <button data-go="ch5">Chapter 5 →</button>
+          </div>
+        </div>
+      </article>

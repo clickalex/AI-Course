@@ -103,13 +103,15 @@ function isLesson(id) {
   return id.startsWith("ch") || id.startsWith("sch");
 }
 
-function go(id) {
-  if ("speechSynthesis" in window) { try { speechSynthesis.cancel(); } catch (e) {} resetListenButtons(); }
-  if (!PAGES.includes(id)) id = "cover";
-  document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === id));
-  document.querySelectorAll(".toc-item").forEach(b => b.classList.toggle("active", b.dataset.go === id));
-  window.scrollTo(0, 0);
-  closeMenu();
+function pageFile(id) {
+  return id === "cover" ? "index.html" : id + ".html";
+}
+function currentPage() {
+  const f = location.pathname.split("/").pop() || "index.html";
+  if (f === "index.html" || f === "" || f === "/") return "cover";
+  return f.replace(/\.html$/, "");
+}
+function markSeen(id) {
   const st = storage.get();
   st.page = id;
   if (isLesson(id) || id === "notes" || id === "exam" || id === "syllabus" || id === "paths") {
@@ -117,8 +119,13 @@ function go(id) {
     st.seen[id] = true;
   }
   storage.set(st);
-  updateProgress();
-  history.replaceState(null, "", "#" + id);
+}
+function go(id) {
+  if ("speechSynthesis" in window) { try { speechSynthesis.cancel(); } catch (e) {} }
+  if (!PAGES.includes(id)) id = "cover";
+  markSeen(id);
+  if (id === currentPage()) { window.scrollTo(0, 0); closeMenu(); return; }
+  window.location.href = pageFile(id);
 }
 
 function openMenu() {
@@ -237,22 +244,29 @@ function gradeExam() {
   else { grade = "Keep going"; blurb = "This field rewards repetition. Read the point notes, redo chapter MCQs, then return to the final exam."; }
 
   const st = storage.get();
-  st.exam = { correct, total, pct, grade, skipped };
+  st.exam = { correct, total, pct, grade, blurb, skipped };
   storage.set(st);
 
-  document.getElementById("resCorrect").textContent = correct;
-  document.getElementById("resTotal").textContent = total;
-  document.getElementById("resPct").textContent = pct + "%";
-  document.getElementById("resGrade").textContent = grade;
-  document.getElementById("resBlurb").textContent = blurb;
-  document.getElementById("gradeRing").style.setProperty("--p", pct + "%");
+  go("results");
+}
+
+function renderResults() {
+  if (!document.getElementById("gradeRing")) return;
+  const st = storage.get();
+  const ex = st.exam;
+  if (!ex) return; // keep the default "not yet graded" state
+  document.getElementById("resCorrect").textContent = ex.correct;
+  document.getElementById("resTotal").textContent = ex.total;
+  document.getElementById("resPct").textContent = ex.pct + "%";
+  document.getElementById("resGrade").textContent = ex.grade;
+  document.getElementById("resBlurb").textContent = ex.blurb;
+  document.getElementById("gradeRing").style.setProperty("--p", ex.pct + "%");
   const ch = st.chapter || {};
   const rows = Object.keys(ch).sort((a,b) => a.localeCompare(b, undefined, {numeric:true})).map(k => {
     const c = ch[k];
     return `<tr><td>${TITLES[k] || k}</td><td>${c.correct}/${c.total}</td><td>${Math.round(c.correct / c.total * 100)}%</td></tr>`;
   }).join("") || `<tr><td colspan="3">No chapter quizzes submitted yet.</td></tr>`;
   document.getElementById("chapterResultsBody").innerHTML = rows;
-  go("results");
 }
 
 function resetAll() {
@@ -296,11 +310,39 @@ window.addEventListener("hashchange", () => {
   if (PAGES.includes(id)) go(id);
 });
 
+function renderInterview() {
+  const shells = [...document.querySelectorAll(".practice-block[id^='iqCat']")];
+  if (!shells.length || typeof INTERVIEW === "undefined") return;
+  const order = [...new Set(INTERVIEW.map(q => q.cat))];
+  shells.forEach((sh, i) => {
+    const list = INTERVIEW.filter(q => q.cat === order[i]);
+    sh.innerHTML = list.map(q => `
+            <div class="practice" data-pid="${q.pid}"><p class="q">${q.q}</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">${q.ans}</div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>`).join("");
+  });
+}
+function applyPracticeMarks() {
+  const st = storage.get();
+  const marks = st.practice || {};
+  document.querySelectorAll(".practice[data-pid]").forEach(p => {
+    const v = marks[p.dataset.pid];
+    if (!v) return;
+    const btns = p.querySelectorAll(".self-mark button");
+    btns.forEach(b => b.classList.remove("on-yes", "on-no"));
+    const el = btns[v === "yes" ? 0 : 1];
+    if (el) el.classList.add(v === "yes" ? "on-yes" : "on-no");
+  });
+}
 window.addEventListener("DOMContentLoaded", () => {
   const hash = location.hash.replace("#", "");
-  const st = storage.get();
-  const start = PAGES.includes(hash) ? hash : (st.page || "cover");
-  go(start);
+  if (PAGES.includes(hash) && hash !== currentPage()) { go(hash); return; } // legacy #deep-links
+  markSeen(currentPage());
+  renderInterview();
+  applyPracticeMarks();
+  renderResults();
   updateProgress();
 });
 

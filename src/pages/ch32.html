@@ -1,0 +1,155 @@
+<article class="page" id="ch32">
+        <div class="chapter-head"><div class="kicker">Chapter 32 · Data skills · Analysis</div>
+          <h2>Data analysis with Pandas &amp; NumPy</h2>
+          <p class="lede">Excel shows you the data. Pandas lets you reshape a million rows in seconds — reproducibly. This is the core skill between spreadsheets and machine learning.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">DataFrames</span><span class="tag">Cleaning</span><span class="tag">GroupBy</span><span class="tag">EDA</span></div>
+          <div class="figure"><img src="images/pandas-numpy.jpg" alt="Glowing data tables and matrix grids beside a cube panda" /></div>
+          <p class="caption">Figure 32.1 — Pandas turns a million rows into one expressive line: filter → group → reshape.</p>
+          <h3>1. NumPy in 10 lines: vectors beat loops</h3>
+<pre><code>import numpy as np
+a = np.array([1., 2., 3.])
+print(a * 2, a @ a)          # [2.4.6.] 14.0  (elementwise, dot)
+M = np.arange(12).reshape(3, 4)   # shape (3,4)
+print(M.mean(axis=0))        # column means — no Python loop
+# broadcasting: (3,4) + (4,) → each row + vector</code></pre>
+          <p><strong>Broadcasting</strong> aligns trailing shapes. If shapes mismatch, NumPy errors — that error is usually telling you your features/labels are misaligned.</p>
+          <h3>2. DataFrame mental model</h3>
+          <p>A <strong>Series</strong> is a labelled column; a <strong>DataFrame</strong> is a dict of Series sharing an index. Think <em>Excel table + index + dtypes</em>.</p>
+<pre><code>import pandas as pd
+df = pd.read_csv("data/raw/sales.csv")
+print(df.shape)
+print(df.dtypes)        # object = strings, int64/float64, datetime64, category
+df.head(3); df.info(); df.describe(include="all")</code></pre>
+          <h3>3. Select without tears: loc / iloc / masks</h3>
+<pre><code># rows, cols
+west = df.loc[df["region"] == "West", ["date","amount"]]
+top5 = df.nlargest(5, "amount")
+# boolean masks combine with &amp; | ~  (parentheses required!)
+mask = (df["year"] == 2025) &amp; df["amount"].gt(1000) &amp; df["status"].ne("refunded")
+print(df.loc[mask].shape)
+# query is readable for long filters
+print(df.query("year==2025 and amount&gt;1000 and status!='refunded'").shape)</code></pre>
+          <div class="warn"><h4>SettingWithCopy</h4><p>Never chain assignment like <code>df[df.x&gt;0]["y"]=1</code> — it may silently fail. Always <code>df.loc[mask, "y"] = 1</code>.</p></div>
+          <h3>4. Cleaning: the 80% workflow</h3>
+<pre><code># dates, strings, numbers
+df["date"] = pd.to_datetime(df["date"], errors="coerce")   # bad → NaT
+df["city"] = df["city"].str.strip().str.title()
+df["amount"] = (df["amount"].astype(str).str.replace(r"[₹,]", "", regex=True)
+                  .pipe(pd.to_numeric, errors="coerce"))
+
+# missing + dupes
+print(df.isna().sum().sort_values(ascending=False).head())
+df["amount_missing"] = df["amount"].isna().astype(int)  # the flag is a feature!
+df["amount"] = df["amount"].fillna(df["amount"].median())
+df = df.drop_duplicates(subset=["order_id"])
+
+# categories save memory + order plots
+df["region"] = df["region"].astype("category")</code></pre>
+          <h3>5. Split–Apply–Combine: groupby / pivot / merge</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <rect x="10" y="30" width="150" height="50" rx="10" fill="#0f766e"/><text x="85" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Split by key</text>
+              <rect x="175" y="30" width="150" height="50" rx="10" fill="#0c1b2e"/><text x="250" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Apply (sum/mean)</text>
+              <rect x="340" y="30" width="140" height="50" rx="10" fill="#0ea5e9"/><text x="410" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Combine</text>
+              <rect x="495" y="30" width="135" height="50" rx="10" fill="#b45309"/><text x="562" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Reset index</text>
+            </svg>
+            <div class="diagram-title">Diagram 32.1 — Every groupby/pivot is split–apply–combine. Reset the index before the next join.</div>
+          </div>
+<pre><code># groupby: one row per group
+monthly = (df.assign(ym=df["date"].dt.to_period("M").astype(str))
+             .groupby(["region","ym"], as_index=False)["amount"]
+             .agg(total="sum", orders="count", avg="mean"))
+
+# pivot: groups as a grid (like PivotTable)
+piv = df.pivot_table(index="region", columns="year", values="amount",
+                     aggfunc="sum", fill_value=0, margins=True)
+
+# merge: SQL join in pandas (validate your keys!)
+orders = pd.read_csv("orders.csv"); cust = pd.read_csv("customers.csv")
+m = orders.merge(cust, on="customer_id", how="left", validate="many_to_one")
+print(m["customer_id"].isna().sum(), "orders with no customer match")</code></pre>
+          <h3>6. Time series: resample + rolling</h3>
+<pre><code>ts = df.set_index("date").sort_index()
+monthly_sales = ts["amount"].resample("ME").sum()
+trend = monthly_sales.rolling(3, min_periods=1).mean()  # 3-month moving avg
+print(pd.concat([monthly_sales, trend], axis=1).tail())</code></pre>
+          <h3>7. EDA checklist (run every time)</h3>
+          <ol>
+            <li><strong>Shape + types:</strong> rows, cols, dtypes, <code>nunique</code> per column. Is <code>order_id</code> unique?</li>
+            <li><strong>Missing:</strong> % missing, <em>why</em> missing (never vs not-yet)? Add flags.</li>
+            <li><strong>Distributions:</strong> <code>describe</code>, histograms of amount/age, value_counts of categories. Log-scale long tails.</li>
+            <li><strong>Time:</strong> rows per day — gaps = broken pipeline, spikes = sale or bug.</li>
+            <li><strong>Relations:</strong> correlation of numerics, groupby means, scatter of price vs qty.</li>
+            <li><strong>Leakage hunt:</strong> any column known only <em>after</em> the target? Drop it.</li>
+            <li><strong>Write 5 bullets</strong> a manager can use. If you can’t, you haven’t finished EDA.</li>
+          </ol>
+          <h3>8. Fast pandas (when it feels slow)</h3>
+          <ul>
+            <li><strong>Vectorise:</strong> <code>df["total"]=df["qty"]*df["price"]</code>, not <code>apply</code> per row. <code>apply</code> is a loop in a costume.</li>
+            <li><strong>Types:</strong> <code>category</code> for low-cardinality strings, <code>int32/float32</code>, <code>parse_dates</code> once.</li>
+            <li><strong>Filter early:</strong> drop rows/cols before heavy groupbys. Use <code>usecols</code> in <code>read_csv</code>.</li>
+            <li><strong>Chunks:</strong> <code>pd.read_csv(..., chunksize=100_000)</code> for files bigger than RAM.</li>
+          </ul>
+          <div class="example"><h4>End-to-end snippet — monthly West sales</h4>
+<pre><code>(df.assign(ym=df["date"].dt.to_period("M").astype(str))
+   .query("region=='West' and status!='refunded'")
+   .groupby("ym", as_index=False)["amount"].sum()
+   .sort_values("ym").tail(6))</code></pre></div>
+          <div class="note"><h4>Short notes</h4><p>NumPy = vectorised arrays + broadcasting. Pandas = DataFrames with loc/iloc, dtypes, groupby/pivot/merge, resample. Clean in order (types → strings/dates → missing → dupes), validate joins, filter early, vectorise instead of apply. EDA ends with written findings, not just plots.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li><code>loc</code> by label, <code>iloc</code> by position.</li><li><code>loc[mask, col] = …</code> for assignment.</li><li>Missing flag is a feature.</li><li>groupby → agg → reset_index.</li><li>Merge with <code>validate</code>; check unmatched keys.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. <code>df.loc[mask, "y"] = 1</code> is preferred over <code>df[mask]["y"]=1</code> because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It is slower and safer</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Chained assignment may write to a copy and silently fail</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. loc cannot filter rows</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Masks are banned</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">SettingWithCopyWarning is pandas telling you the write may be lost.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. <code>pd.to_datetime(col, errors="coerce")</code> does:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Crashes on bad dates</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Converts dates to images</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Turns unparseable values into NaT instead of raising</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Deletes the column</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Then you can count/inspect NaT as missing data.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Fastest way to compute <code>total = qty * price</code> for 1M rows is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. <code>df["qty"] * df["price"]</code> (vectorised)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. <code>df.apply(lambda r: r.qty*r.price, axis=1)</code></button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A Python for-loop over rows</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Copy-paste into Excel</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Vectorised ops run in compiled code; apply is a loop.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. <code>orders.merge(cust, on="customer_id", how="left", validate="many_to_one")</code> checks:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. That Excel is installed</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. That all amounts are positive</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. That dates are sorted</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. That each order matches at most one customer (catches fanout)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Duplicate keys on the right explode row counts.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. A sudden gap in “rows per day” most likely signals:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A better model</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A pipeline/ingestion break worth investigating before modelling</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Higher accuracy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing — ignore time</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Time coverage is a data-quality metric.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch32')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c32p1"><p class="q">P1. Write pandas to get total non-refunded 2025 sales per region, sorted descending.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>(df.query("year==2025 and status!='refunded'")
+   .groupby("region", as_index=False)["amount"].sum()
+   .sort_values("amount", ascending=False))</code></pre></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c32p2"><p class="q">P2. After a merge, rows jump from 10k to 40k. What happened and how do you confirm?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Fanout: duplicate keys on the right (or both). Confirm with <code>cust["customer_id"].duplicated().sum()</code>, <code>validate="many_to_one"</code>, and <code>value_counts</code> on the key. Dedupe the dimension table or aggregate before joining.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c32p3"><p class="q">P3. Your <code>amount</code> column is <code>object</code> with “₹1,200” strings. Fix it in two lines.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>df["amount"] = df["amount"].astype(str).str.replace(r"[₹,]", "", regex=True)
+df["amount"] = pd.to_numeric(df["amount"], errors="coerce")</code></pre><p>Then inspect <code>isna().sum()</code> — coercion reveals the dirty values.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch31">← Excel &amp; Sheets</button>
+            <button data-go="ch33">SQL →</button>
+          </div>
+        </div>
+      </article>

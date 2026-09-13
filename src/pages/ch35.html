@@ -1,0 +1,123 @@
+<article class="page" id="ch35">
+        <div class="chapter-head"><div class="kicker">Chapter 35 · Data skills · Statistics</div>
+          <h2>Statistics for data analysis</h2>
+          <p class="lede">Averages lie politely. This chapter gives you the stats that stop bad decisions: spreads, uncertainty, tests, and honest A/B experiments.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Descriptive</span><span class="tag">Inference</span><span class="tag">A/B testing</span><span class="tag">Regression</span></div>
+          <div class="figure"><img src="images/statistics.jpg" alt="Bell-curve hologram with dice, target, and balance scale" /></div>
+          <p class="caption">Figure 35.1 — Averages mislead; distributions, intervals, and tests keep you honest.</p>
+          <h3>1. Describe first: centre + spread + shape</h3>
+          <table><thead><tr><th>Stat</th><th>Formula / idea</th><th>When</th></tr></thead><tbody>
+            <tr><td>Mean</td><td><code>Σx / n</code></td><td>Symmetric data. Sensitive to outliers.</td></tr>
+            <tr><td>Median (p50)</td><td>Middle value</td><td>Skewed money/time data. Default for salaries.</td></tr>
+            <tr><td>Mode</td><td>Most common</td><td>Categories.</td></tr>
+            <tr><td>Variance / Std (σ)</td><td>Avg squared distance from mean</td><td>Spread. Report as “mean ± sd”.</td></tr>
+            <tr><td>Percentiles (p25/p75/IQR)</td><td>Box edges</td><td>Robust spread; boxplots.</td></tr>
+          </tbody></table>
+          <div class="formula">mean = Σx / n &nbsp;&nbsp;·&nbsp;&nbsp; var = Σ(x − mean)² / n<small>Sample variance divides by n−1 (Bessel’s correction).</small></div>
+<pre><code>import pandas as pd
+print(df["amount"].agg(["count","mean","median","std","min","max"]))
+print(df["amount"].quantile([0.1,0.25,0.5,0.75,0.9]))
+# Excel: =AVERAGE(A:A), =MEDIAN(A:A), =STDEV.P(A:A), =PERCENTILE(A:A,0.9)</code></pre>
+          <h3>2. Distributions you will actually meet</h3>
+          <ul>
+            <li><strong>Normal (bell):</strong> measurement errors, test scores. Mean ≈ median. 68/95/99.7% within 1/2/3 σ.</li>
+            <li><strong>Log-normal / long tail:</strong> income, order values, video views. Plot on <strong>log scale</strong>; compare medians.</li>
+            <li><strong>Binomial:</strong> k successes in n trials (conversion rate). <strong>Poisson:</strong> events per hour (orders/hour).</li>
+          </ul>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <rect width="640" height="150" rx="12" fill="#f8fafc"/>
+              <path d="M40 120 C 120 120 140 30 220 30 C 300 30 320 120 400 120" fill="none" stroke="#0f766e" stroke-width="3"/>
+              <text x="220" y="140" text-anchor="middle" font-size="11" fill="#57534e" font-family="Source Sans 3">Normal: symmetric</text>
+              <path d="M440 120 C 470 120 475 40 490 40 C 510 40 540 100 610 110" fill="none" stroke="#b45309" stroke-width="3"/>
+              <text x="525" y="140" text-anchor="middle" font-size="11" fill="#57534e" font-family="Source Sans 3">Long tail: mean &gt; median</text>
+            </svg>
+            <div class="diagram-title">Diagram 35.1 — Symmetric vs skewed. For long tails, the mean misleads; use median + log scale.</div>
+          </div>
+          <h3>3. Sampling: your average is a random variable</h3>
+          <p>A <strong>confidence interval (CI)</strong> says: “repeat the sampling, ~95% of such intervals would contain the true mean.” It is <em>not</em> “95% chance the truth is in this one interval.” Width shrinks as <code>1/√n</code> — 4× data halves the width.</p>
+<pre><code>from scipy import stats
+m, se = df["amount"].mean(), stats.sem(df["amount"].dropna())
+print(stats.norm.interval(0.95, loc=m, scale=se))  # 95% CI for the mean</code></pre>
+          <h3>4. Hypothesis testing without superstition</h3>
+          <ol>
+            <li><strong>H0 (null):</strong> “No difference” (new page converts same as old). <strong>H1:</strong> “There is a difference.”</li>
+            <li><strong>p-value:</strong> probability of seeing data this extreme <em>if H0 were true</em>. Small p = surprising under H0.</li>
+            <li><strong>Decision:</strong> p &lt; α (often 0.05) → reject H0. α = false-positive rate you accept.</li>
+            <li><strong>Errors:</strong> Type I = false alarm; Type II = miss. <strong>Power</strong> = 1 − Type II (bigger n / bigger effect = more power).</li>
+          </ol>
+          <div class="warn"><h4>p-value is not</h4><p>Not “P(H0 is true)”, not “size of the effect”, not “importance”. A tiny effect with 10M rows gives p≈0 and still isn’t worth shipping. Always report <strong>effect size + CI</strong> beside p.</p></div>
+          <h3>5. A/B testing checklist (the honest version)</h3>
+          <ol>
+            <li><strong>Randomise</strong> users (not clicks), one metric picked <em>before</em> the test (conversion, revenue/user).</li>
+            <li><strong>Size it:</strong> use a sample-size calculator (baseline rate, minimum detectable effect, power 80%). Don’t peek daily and stop at the first green p.</li>
+            <li><strong>Run full weeks</strong> (weekday effects), check <strong>SRM</strong> (split ratio mismatch — 50/50 should be ~50/50).</li>
+            <li><strong>Report:</strong> absolute + relative lift, 95% CI, p, n per arm, and “ship / don’t ship” tied to cost.</li>
+          </ol>
+<pre><code>// Excel quick check (two rates): =T.TEST(rangeA, rangeB, 2, 2)
+// Python proportions:
+from statsmodels.stats.proportion import proportions_ztest
+print(proportions_ztest([120, 150], [2000, 2000]))  # (z, p)</code></pre>
+          <h3>6. Correlation, Simpson, and regression in one page</h3>
+          <ul>
+            <li><strong>Correlation (r ∈ [−1,1])</strong> measures <em>linear</em> association. r=0 can still hide a U-shape — always scatter-plot.</li>
+            <li><strong>Simpson’s paradox:</strong> a trend reverses inside subgroups (admitted-rate by department vs overall). Slice before you conclude.</li>
+            <li><strong>Regression:</strong> <code>y ≈ a + bx</code> minimises squared error. <strong>R²</strong> = fraction of variance explained. Check <strong>residuals</strong> (predicted − actual): they should look like noise, not a curve.</li>
+            <li><strong>Bayes in one line:</strong> posterior ∝ likelihood × prior — yesterday’s A/B is today’s prior (see Ch 19 for the full story).</li>
+          </ul>
+          <div class="formula">r = cov(x,y) / (σ<sub>x</sub> σ<sub>y</sub>) &nbsp;&nbsp;·&nbsp;&nbsp; y ≈ a + bx<small>Correlation is unitless; regression slope has units (₹ per day).</small></div>
+          <div class="note"><h4>Short notes</h4><p>Report centre + spread (median for skew, mean±sd for symmetric). Long tails need log scales. CIs shrink as 1/√n. p = surprise under H0, not truth-probability; pair it with effect + CI. A/B: randomise users, pre-pick one metric, size upfront, run full weeks, check SRM. Correlation ≠ causation; plot and slice (Simpson); regression needs residual checks.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Median for money; mean for symmetric.</li><li>Log-scale long tails.</li><li>CI width ∝ 1/√n.</li><li>p &lt; α rejects H0; report lift + CI.</li><li>Simpson: slice by subgroup.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Salaries in a company are best summarised with:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Mean only — outliers don’t matter</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Median (+ percentiles), because pay is right-skewed</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Mode of employee IDs</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No numbers, only vibes</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">One billionaire moves the mean, not the median.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A 95% CI for the mean means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. 95% of data points lie inside it</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. P(truth in this interval) = 95% exactly</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ~95% of such intervals from repeated sampling would contain the true mean</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The null is definitely false</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Frequentist CIs are about the procedure, not one interval’s probability.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. p = 0.03 means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Data this extreme would occur 3% of the time if H0 were true</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. H0 is 3% likely to be true</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The effect is large and important</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The test had 3 samples</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Surprise under H0 — still need effect size.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Peeking at an A/B test daily and stopping at first p&lt;0.05:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Is best practice</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Reduces false positives</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Has no effect</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Inflates false positives — pre-commit sample size / use sequential methods</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Multiple looks = multiple chances to get lucky.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. r = 0 between ad spend and sales proves:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. No relationship of any kind</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. No <em>linear</em> relationship — a curve (U-shape) is still possible, so plot it</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Causation</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Simpson’s paradox is impossible</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Correlation is linear-only. Scatter first.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch35')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c35p1"><p class="q">P1. Mean order value ₹900, median ₹350. What shape, and what do you report to the CEO?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Right-skewed (a few huge orders pull the mean). Report median + p90 (“typical order ₹350; top 10% above ₹X”), show a log-scale histogram, and keep the mean only as “revenue/orders” for totals — not as “typical”.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c35p2"><p class="q">P2. A/B: A 120/2000 vs B 150/2000, p=0.06. Ship B?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Not on this alone: p&gt;0.05, lift +0.6pp (+25% relative) with CI crossing 0. Options: run longer (pre-planned n), check SRM/weekday balance, weigh cost of B. Don’t claim “almost significant” = win. Report: +0.6pp, 95% CI [−0.0, +1.3], p=0.06, n=2000/arm.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c35p3"><p class="q">P3. Overall admit rate favours Group A, but every department favours Group B. Explain.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Simpson’s paradox: Group A applied more to easy departments. Aggregate rate mixes composition + rates. Slice by department (and check sample sizes) before any fairness or policy claim.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch34">← Visualization</button>
+            <button data-go="ch36">Power BI →</button>
+          </div>
+        </div>
+      </article>

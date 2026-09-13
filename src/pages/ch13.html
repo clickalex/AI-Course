@@ -1,0 +1,156 @@
+<article class="page" id="ch13">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 13 · Language</div>
+          <h2>Transformers &amp; large language models</h2>
+          <p class="lede">Self-attention lets every token look at every other token. Scale that recipe on text and you get modern LLMs.</p>
+        </div>
+        <div class="content">
+          <div class="figure">
+            <img src="images/transformer.jpg" alt="Transformer encoder and decoder stacks with attention" />
+          </div>
+          <p class="caption">Figure 13.1 — Encoder/decoder stacks; attention heads route information between tokens.</p>
+
+          <h3>Self-attention in one page</h3>
+          <p>Each token makes three vectors: <strong>Query, Key, Value</strong>. The attention weight from i to j is how well Q<sub>i</sub> matches K<sub>j</sub> (softmax of scaled dot products). The output is a weighted sum of V<sub>j</sub>. Multiple <strong>heads</strong> run this in parallel with different projections so the model can track syntax in one head and coreference in another.</p>
+          <div class="formula">Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>) V<small>Scaled dot-product attention — the Transformer’s core primitive</small></div>
+          <p>Because every pair of tokens can interact in one layer, long-range dependencies are easier than in an LSTM. Cost is O(n²) in sequence length n — the reason for long-context research (sparse, linear, sliding-window, and efficient attention variants).</p>
+
+          <h3>Encoder, decoder, encoder–decoder</h3>
+          <ul>
+            <li><strong>Encoder-only</strong> (BERT) — bidirectional; great for classification, NER, retrieval embeddings.</li>
+            <li><strong>Decoder-only</strong> (GPT family) — left-to-right next-token prediction; the LLM chat default.</li>
+            <li><strong>Encoder–decoder</strong> (original Transformer, T5) — classic translation/summarisation setup.</li>
+          </ul>
+
+          <h3>How an LLM is trained</h3>
+          <ol>
+            <li><strong>Pretrain</strong> — predict the next token on a huge corpus (self-supervised).</li>
+            <li><strong>SFT</strong> — supervised fine-tune on instruction–response pairs.</li>
+            <li><strong>Preference optimisation</strong> — RLHF (PPO) or DPO so answers match human (or AI) preferences: helpful, harmless, honest-ish.</li>
+            <li><strong>Tools / RAG</strong> — at inference, the model may call search, code interpreters, or your documents.</li>
+          </ol>
+
+          <h3>Prompting that actually matters</h3>
+          <ul>
+            <li>Be specific about task, format, constraints, and audience.</li>
+            <li><strong>Few-shot</strong>: show 2–5 examples of the I/O pattern.</li>
+            <li><strong>Chain-of-thought</strong>: ask for steps on reasoning tasks (when the product allows visible scratchpads).</li>
+            <li>Separate untrusted retrieved text from instructions (prompt injection is a real vulnerability).</li>
+          </ul>
+
+          <div class="warn">
+            <h4>Hallucinations</h4>
+            <p>Next-token models are trained to continue text fluently, not to query a database of truth. They will invent citations, APIs, and biographies. Mitigate with retrieval, tools, lower temperature on factual tasks, citations, and human review on high-stakes outputs.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Transformer = attention + feed-forward + residuals + layer norm, stacked. LLMs are decoder-only Transformers trained to predict tokens, then aligned. Context window is working memory. Scaling laws: more compute/data/params → smoother capability gains, with diminishing returns and data-quality cliffs. Prompting is interface design; it is not a substitute for evaluation.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Q, K, V — match then mix.</li>
+              <li>n² attention cost.</li>
+              <li>BERT bidirectional; GPT causal.</li>
+              <li>Pretrain → SFT → preference tuning.</li>
+              <li>Fluent ≠ true. Use RAG/tools/evals.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. In self-attention, the Value vectors are:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The learning rate schedule</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The content that gets mixed according to attention weights</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Always one-hot class labels</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Cluster centroids from k-means</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Weights come from Q·K; the weighted sum is over V.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. GPT-style models are trained primarily as:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Bidirectional masked autoencoders only</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. k-NN on characters</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Causal (left-to-right) next-token predictors</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Pure reinforcement learners with no text corpus</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">P(token_t | tokens_&lt;t). RLHF comes later, on top of this base.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. Self-attention’s naive compute/memory scales with sequence length n as:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. O(n²)</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. O(1)</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. O(log n) always</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Independent of n</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Every query attends to every key. This is the long-context tax.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. RLHF is used mainly to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Train CNNs on ImageNet from scratch</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Choose k in k-means</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Tokenise bytes</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Align model behaviour with human preference data</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">A reward model (or DPO pairwise loss) pushes the policy toward preferred answers.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">5. A good defence against factual hallucination for an internal Q&amp;A bot is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Raising temperature to 2.0</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. RAG over your docs plus “answer only from sources”</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Removing the validation set</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Using k-means on the prompt</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Grounding beats vibes. Still verify retrieval quality.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch13')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c13p1">
+              <p class="q">P1. Explain Q, K, V with a library metaphor in 4–5 sentences.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Each word writes a <em>query</em> (“what am I looking for?”), every word files a <em>key</em> (catalogue card), and holds a <em>value</em> (the useful payload). Matching queries to keys decides which books to pull. The output is a blend of those values. Several librarians (heads) search with different cataloguing schemes at once. That blend, plus a feed-forward net, is one Transformer layer.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c13p2">
+              <p class="q">P2. Write a prompt for extracting {name, date, amount} as JSON from messy receipts. Include one constraint that reduces hallucination.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+<pre><code>Extract fields from the receipt text.
+Return ONLY valid JSON with keys name, date, amount.
+If a field is not clearly present, use null (do not guess).
+Date format YYYY-MM-DD. Amount as a number in the receipt currency.
+Receipt:
+""" ... """</code></pre>
+                <p>The null-if-missing rule is the anti-hallucination constraint. Few-shot examples of nulls help more.</p>
+              </div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c13p3">
+              <p class="q">P3. Why might a 7B model with excellent retrieval beat a 70B closed-book model on company policy questions?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Policies are not in the pretraining mix (or are outdated). Retrieval supplies the actual text. A smaller model that quotes the right paragraph will beat a larger model that interpolates “typical HR language.” Capability ≠ knowledge of your corpus.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch12">← Chapter 12</button>
+            <button data-go="ch14">Chapter 14 →</button>
+          </div>
+        </div>
+      </article>

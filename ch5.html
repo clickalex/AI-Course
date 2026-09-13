@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Python for AI · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -41,7 +41,7 @@
 
       <div class="toc-group">UG foundations</div>
       <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
-      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item active" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
       <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
       <div class="toc-group">Data skills · Python → Git</div>
       <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
@@ -132,73 +132,159 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
+<article class="page active" id="ch5">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 5 · Foundations</div>
+          <h2>Python for AI</h2>
+          <p class="lede">Python won AI because the libraries are excellent and the syntax stays out of the way. You still need to know what each library is for.</p>
         </div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
+          <h3>The stack</h3>
+          <table>
+            <thead><tr><th>Library</th><th>Job</th></tr></thead>
+            <tbody>
+              <tr><td><strong>NumPy</strong></td><td>N-dimensional arrays, vectorised maths. The lingua franca.</td></tr>
+              <tr><td><strong>Pandas</strong></td><td>Tables (DataFrames): load CSV, filter, group, join.</td></tr>
+              <tr><td><strong>Matplotlib / Seaborn</strong></td><td>Plots. Always plot the data before modelling.</td></tr>
+              <tr><td><strong>scikit-learn</strong></td><td>Classical ML: split, preprocess, train, metrics. Consistent API: <code>fit</code> / <code>predict</code>.</td></tr>
+              <tr><td><strong>PyTorch or TensorFlow/Keras</strong></td><td>Deep learning: tensors, autograd, GPUs. PyTorch is the research default.</td></tr>
+              <tr><td><strong>Hugging Face Transformers</strong></td><td>Pretrained language and vision models you can fine-tune.</td></tr>
+            </tbody>
+          </table>
+
+          <h3>NumPy mental model</h3>
+          <p>A <code>ndarray</code> has a shape. A batch of 32 RGB images of 224×224 is <code>(32, 3, 224, 224)</code> or <code>(32, 224, 224, 3)</code> depending on channel layout. Avoid Python <code>for</code> loops over rows — use vectorised operations.</p>
+<pre><code>import numpy as np
+X = np.array([[1.0, 2.0],
+              [3.0, 4.0]])
+w = np.array([0.5, -1.0])
+y_hat = X @ w          # matrix-vector product
+y_hat                  # array([ -1.5,  -2.5])</code></pre>
+
+          <h3>scikit-learn pattern</h3>
+<pre><code>from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print(accuracy_score(y_test, pred))</code></pre>
+
+          <h3>PyTorch in five lines of meaning</h3>
+          <ul>
+            <li><strong>Tensor</strong> — array that can live on GPU and track gradients.</li>
+            <li><strong>nn.Module</strong> — a model; <code>forward</code> defines the computation.</li>
+            <li><strong>loss.backward()</strong> — autograd fills <code>.grad</code>.</li>
+            <li><strong>optimizer.step()</strong> — updates weights.</li>
+            <li><strong>zero_grad</strong> — clear old gradients each step (they accumulate otherwise).</li>
+          </ul>
+<pre><code># one training step (sketch)
+logits = model(xb)
+loss = criterion(logits, yb)
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()</code></pre>
+
+          <div class="insight">
+            <h4>Key insight</h4>
+            <p>Frameworks do not replace thinking. If you <code>fit</code> on leaked test features or shuffle a time series randomly, sklearn will happily give you a brilliant, meaningless score.</p>
           </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Python + NumPy + Pandas for data; sklearn for classical ML; PyTorch (or Keras) for deep nets; Transformers library for LLMs. The universal sklearn API is fit/predict/transform. PyTorch training loop: forward → loss → zero_grad → backward → step.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Vectorise with NumPy; don’t loop pixels in Python.</li>
+              <li><code>train_test_split</code> before any fitting.</li>
+              <li><code>@</code> or <code>np.dot</code> for products.</li>
+              <li>Autograd implements the chain rule for you.</li>
+              <li>Reproducibility: set seeds; they are not perfect on GPU.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="c">
+              <p class="q">1. The sklearn methods used to train and then label new rows are:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. compile and evaluate</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. backward and step</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. fit and predict</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. read_csv and head</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Almost every sklearn estimator uses fit/predict (and transform for preprocessors).</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">2. Why call optimizer.zero_grad() each iteration in PyTorch?</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Gradients accumulate; you usually want only this batch</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It shuffles the dataset</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It moves tensors to CPU</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It is required by Python’s garbage collector</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Accumulation is a feature (for huge batches) but a bug if you forget to reset.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">3. A CSV of customer rows is most naturally loaded with:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. matplotlib.plot</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. nn.Linear</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. np.conv2d</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. pandas.read_csv</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Tabular data → DataFrame. Convert to NumPy before sklearn if you like.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">4. Vectorisation means:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Drawing arrows in PowerPoint</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Operating on whole arrays at once instead of Python loops</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Converting code to C by hand</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Removing all maths</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">NumPy/PyTorch run fast compiled loops internally.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch5')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c5p1">
+              <p class="q">P1. Write pseudocode for a full sklearn pipeline: load data, split, scale features using only the training set, train logistic regression, report test accuracy.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+<pre><code>X, y = load()
+Xtr, Xte, ytr, yte = train_test_split(X, y, stratify=y)
+scaler = StandardScaler().fit(Xtr)      # fit on train only
+Xtr, Xte = scaler.transform(Xtr), scaler.transform(Xte)
+clf = LogisticRegression().fit(Xtr, ytr)
+print(accuracy_score(yte, clf.predict(Xte)))</code></pre>
+                <p>Fitting the scaler on all data would leak test means/variances.</p>
+              </div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c5p2">
+              <p class="q">P2. What is the shape of logits if a CNN takes a batch of 16 ImageNet images and has 1000 classes?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p><strong>(16, 1000)</strong> — one score per class per image. Softmax along dim 1 turns them into probabilities.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch4">← Chapter 4</button>
+            <button data-go="ch6">Chapter 6 →</button>
           </div>
         </div>
       </article>

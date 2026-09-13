@@ -1,0 +1,118 @@
+<article class="page" id="ch11">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 11 · Deep learning</div>
+          <h2>Deep learning: CNNs, RNNs &amp; vision</h2>
+          <p class="lede">Special architectures encode inductive bias: images are local and translation-tolerant; sequences are ordered.</p>
+        </div>
+        <div class="content">
+          <div class="figure">
+            <img src="images/cnn.jpg" alt="CNN processing a cat image through feature maps" />
+          </div>
+          <p class="caption">Figure 11.1 — Convolution builds a hierarchy: edges → parts → objects, while shrinking spatial size.</p>
+
+          <h3>Convolutional neural networks</h3>
+          <p>A <strong>convolution</strong> slides a small filter (3×3, 5×5) across the image. The same weights detect a pattern everywhere — weight sharing. Stacking convolutions + ReLU + pooling (or stride) grows the receptive field.</p>
+          <ul>
+            <li><strong>Early layers</strong> — edges, colour blobs.</li>
+            <li><strong>Middle</strong> — textures, parts (eyes, wheels).</li>
+            <li><strong>Late</strong> — object-level features; then a linear classifier.</li>
+          </ul>
+          <p>Modern vision: <strong>ResNet</strong> (skip connections so 50–150 layers train), then <strong>Vision Transformers (ViT)</strong> that treat image patches like tokens. Detection (YOLO, Faster R-CNN) and segmentation (U-Net, Mask R-CNN) add localisation heads.</p>
+
+          <h3>Sequence models before Transformers</h3>
+          <p><strong>RNNs</strong> feed the previous hidden state with the next token. They struggle with long memory. <strong>LSTM / GRU</strong> add gates that learn what to remember. They still process tokens mostly in order, which limits GPU parallelism. That bottleneck is why Transformers took over NLP (next chapter) — but LSTM intuition (gates, vanishing memory) is still worth having.</p>
+
+          <h3>Transfer learning</h3>
+          <p>Pretrain on a huge dataset (ImageNet, web images), then fine-tune the last layers on your 500 medical photos. You reuse generic visual features. This is the practical default — training a CNN from scratch on a small set overfits immediately.</p>
+
+          <div class="example">
+            <h4>Worked idea — data augmentation</h4>
+            <p>Flip, crop, colour jitter, mixup. The label stays the same (usually), so the model learns invariances instead of memorising background hospital stickers. Augmentation is a regulariser made of extra fake data.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>CNNs exploit local spatial structure via shared filters. Depth + pooling builds a feature hierarchy. ResNets add skip paths. RNNs/LSTMs model sequences with state but are slow and forgetful compared with Transformers. Transfer learning is how small-data vision actually works. Detection/segmentation are classification plus where.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Convolution = shared local filters.</li>
+              <li>Receptive field grows with depth/stride.</li>
+              <li>ResNet skips fix degradation/vanishing grads.</li>
+              <li>LSTM gates memory; Transformer later replaced them for NLP.</li>
+              <li>Fine-tune pretrained nets on small data.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. Weight sharing in a CNN means:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Every pixel has a unique unrelated weight</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The same filter is applied at every location</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. All layers must have identical size</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Labels are shared across classes</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">A vertical-edge filter should work in every corner of the photo.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. Residual (skip) connections primarily help by:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Removing the need for data</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Turning CNNs into k-means</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Letting gradients and identity signals flow through deep stacks</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Computing PCA inside the net</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">The block learns a residual F(x) added to x. Identity is an easy function to fall back to.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. For 300 labelled bird photos, the most sensible start is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Fine-tune a pretrained ImageNet model</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Train a 100-layer CNN from random weights</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-NN on raw 12-megapixel vectors</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Untrained LSTM</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Transfer + augmentation. From-scratch deep nets need far more images.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. LSTMs were designed to address:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Convolution on images</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Clustering of customers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The Turing Test legal definition</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Vanishing gradients / short memory in vanilla RNNs</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Gates let error and memory travel further in time.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch11')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c11p1">
+              <p class="q">P1. Why is a fully connected net a bad default on 224×224 RGB images compared with a CNN?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Flattened input is 224×224×3 ≈ 150k features. A dense layer to 1000 units is ~150 million weights already, with no notion that nearby pixels belong together or that a cat in the corner is still a cat. CNNs use tiny shared filters (dozens of parameters per filter) and built-in locality/translation structure, so they generalise with far less data.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c11p2">
+              <p class="q">P2. A detector boxes cars well by day and fails at night. Name two likely causes and two mitigations.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Causes: train data is daytime; appearance shift (headlights, low SNR); different camera ISP. Mitigations: night images in train/val; colour jitter / brightness augment; domain-adaptive fine-tune; infrared or better exposure; monitor per-condition metrics, not a single mAP.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch10">← Chapter 10</button>
+            <button data-go="ch21">Vision & speech →</button>
+          </div>
+        </div>
+      </article>

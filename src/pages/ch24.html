@@ -1,0 +1,82 @@
+<article class="page" id="ch24">
+        <div class="chapter-head"><div class="kicker">Chapter 24 · Agents</div>
+          <h2>Agentic AI systems</h2>
+          <p class="lede"><strong>Agentic AI</strong> is not one clever prompt. It is an architecture: planners, specialists, memory, tools, orchestration, and governance that persist across a workflow.</p></div>
+        <div class="content">
+          <div class="figure"><img src="images/agentic.jpg" alt="Several specialist agents collaborating around a holographic table" /></div>
+          <p class="caption">Figure 24.1 — Multi-agent: planner, researcher, coder, critic.</p>
+          <h3>Agent vs agentic (useful distinction)</h3>
+          <ul>
+            <li><strong>AI agent</strong> — one loop that can act.</li>
+            <li><strong>Agentic system</strong> — productised autonomy: roles, queues, long-running jobs, audits, multi-agent handoffs, human gates.</li>
+          </ul>
+          <h3>Reference architecture</h3>
+          <ol>
+            <li><strong>Orchestrator / planner</strong> — decompose the goal (LLM or classical planner).</li>
+            <li><strong>Specialists</strong> — research agent, SQL agent, code agent, writer.</li>
+            <li><strong>Tool layer</strong> — APIs, browsers, MCP-style tool servers, sandboxes.</li>
+            <li><strong>Memory</strong> — episodic (this run), semantic (docs), profile (user).</li>
+            <li><strong>Critic / verifier</strong> — tests, schema checks, another model, or a human.</li>
+            <li><strong>Telemetry</strong> — traces of every thought/tool for debug and eval.</li>
+          </ol>
+          <h3>Multi-agent patterns</h3>
+          <table><thead><tr><th>Pattern</th><th>When</th></tr></thead><tbody>
+            <tr><td>Supervisor + workers</td><td>Clear hierarchy, one owner of the user</td></tr>
+            <tr><td>Debate / critic</td><td>Reduce confident errors</td></tr>
+            <tr><td>Society-of-mind / swarm</td><td>Exploration; watch cost</td></tr>
+            <tr><td>Handoff to human</td><td>Ambiguity, money, safety</td></tr>
+          </tbody></table>
+          <p>Frameworks change names yearly (LangGraph, AutoGen, CrewAI, custom queues). The invariants are state machines, typed tools, and traces.</p>
+          <h3>MCP and tool servers</h3>
+          <p>The <strong>Model Context Protocol</strong> idea: tools and data sources are servers the model can call with a standard handshake, instead of one-off glue. Still apply least privilege — a “filesystem” tool is a root shell if you are careless.</p>
+          <div class="insight"><h4>When not to go agentic</h4><p>If a form, a SQL query, or a single RAG call solves it, don’t add a 12-agent crew. Agency costs latency, money, and failure modes. Start linear; add a loop when the task is genuinely multi-step.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Agentic AI = agents in a system with memory, roles, verification, and ops. Multi-agent helps when skills or checks should be separated — not as a default. Trace everything. Verify with tools (tests, schemas) not only another LLM.</p></div>
+          <div class="points"><h4>Point notes</h4><ul>
+            <li>Orchestrator + specialists + critic.</li>
+            <li>State machine &gt; unbounded chat.</li>
+            <li>MCP = standard tool/data interface.</li>
+            <li>Human gates on irreversible acts.</li>
+            <li>Evals on workflows, not single replies.</li>
+          </ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">4</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. “Agentic AI” in product language usually emphasises:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Training k-means faster</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Persistent, tool-using, multi-step (often multi-role) autonomy</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Removing all evaluation</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Replacing GPUs with abacuses</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">System, not a single completion.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A critic/verifier agent is useful because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It halves GPU price by law</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It makes A* inadmissible</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A second check (tests/schema/model) catches errors before side effects</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Critics replace tools</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Separation of propose vs check.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Least privilege for tools means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Each tool can do only what the task requires, with auth scopes</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Give the agent root on production on day one</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. One mega-tool that runs any Python</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No logging so users feel safe</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Compromise then cannot wipe the company.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. You should skip a multi-agent crew when:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The CEO likes the word agentic</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. You have no evals (so more agents hide that)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Latency is already too high, so add hops</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A single RAG or form already solves the user job</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Complexity is a cost.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch24')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block">
+            <div class="practice" data-pid="c24p1"><p class="q">P1. Sketch an agentic workflow for “weekly competitor brief” with roles and one human gate.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Planner sets sources. Researcher fetches allow-listed sites + internal notes (RAG). Writer drafts. Critic checks citations exist. Human edits before Slack/email send. Tools: http_get(allowlist), retrieve_docs, post_draft — not send_email until approve. Trace URLs. Budget 20 tool calls.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c24p2"><p class="q">P2. Why can two agents “debate” still agree on a falsehood?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>They share pretraining biases and have no grounding. Debate without tools is correlated noise. Ground with retrieval, code execution, or a human. Diversity of models helps a bit; evidence helps a lot.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch23">← AI Agents</button>
+            <button data-go="ch42">Prompt eng & RAG →</button>
+          </div>
+        </div>
+      </article>

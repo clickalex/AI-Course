@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Search, games & classical AI · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -59,7 +59,7 @@
       <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
 
       <div class="toc-group">Classical AI</div>
-      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item active" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
       <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
 
       <div class="toc-group">Machine learning</div>
@@ -132,73 +132,53 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
-        </div>
+<article class="page active" id="ch17">
+        <div class="chapter-head"><div class="kicker">Chapter 17 · Classical AI · UG</div>
+          <h2>Search, games &amp; classical AI</h2>
+          <p class="lede">Before learning from data, AI was search: try actions, keep the promising paths. This is still how planners, games, and many agents work.</p></div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
-          </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
-          </div>
+          <div class="figure"><img src="images/search-tree.jpg" alt="A search tree with a highlighted path to a goal" /></div>
+          <p class="caption">Figure 17.1 — States as nodes, actions as edges, goal as a star.</p>
+          <p>An <strong>agent</strong> in the Russell &amp; Norvig sense has PEAS: Performance measure, Environment, Actuators, Sensors. Uninformed search ignores a guess of remaining cost; informed search uses a heuristic h(n).</p>
+          <table><thead><tr><th>Algorithm</th><th>Idea</th><th>Complete / optimal?</th></tr></thead><tbody>
+            <tr><td>BFS</td><td>Shallowest first</td><td>Yes / yes if unit cost</td></tr>
+            <tr><td>DFS / DLS / IDS</td><td>Deepest first; IDS repeats with rising limit</td><td>IDS: yes / yes if unit cost</td></tr>
+            <tr><td>UCS</td><td>Expand cheapest path cost g</td><td>Yes / yes</td></tr>
+            <tr><td>Greedy best-first</td><td>Expand lowest h</td><td>No / no</td></tr>
+            <tr><td>A*</td><td>Expand lowest f = g + h</td><td>Yes / yes if h admissible (never overestimates)</td></tr>
+          </tbody></table>
+          <div class="formula">f(n) = g(n) + h(n)<small>A* ranking. Admissible + consistent heuristics keep optimality.</small></div>
+          <h3>Games</h3>
+          <p><strong>Minimax</strong> assumes an optimal opponent. <strong>Alpha-beta</strong> prunes branches that cannot affect the decision. Evaluation functions + iterative deepening + transposition tables made chess engines; AlphaGo mixed search with learned nets.</p>
+          <div class="note"><h4>Short notes</h4><p>Classical AI = formulate as a graph, search it. Heuristics encode domain knowledge. Combinatorial explosion is why we later learned functions instead of enumerating worlds — but search is back inside agents (tool loops, tree-of-thought, MCTS).</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>PEAS describes a task.</li><li>A* = UCS + heuristic.</li><li>Admissible h never overestimates.</li><li>Minimax + α-β for two-player zero-sum.</li><li>Search ≠ learning, but they combine.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. A* is optimal when h is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Always zero and we use DFS</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Admissible (and typically consistent)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Larger than the true remaining cost always</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Random</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">If h overestimates, A* can skip the true best path.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Alpha-beta pruning:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Changes the minimax value of the root</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Requires neural nets</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Skips branches that cannot affect the decision, same root value</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Is k-means</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Same answer as minimax, fewer nodes.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. BFS is optimal when:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Every action has the same positive cost</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Costs are arbitrary negatives</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The graph is infinite only</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Never</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Shallowest = cheapest only for uniform step cost.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch17')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c17p1"><p class="q">P1. Straight-line distance to the goal is a common h. Why is it admissible for road maps?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>No road can be shorter than the Euclidean straight line (in flat geometry). So h never overestimates true remaining driving distance. Hence A* with this h is optimal.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch45">← Time series</button>
+            <button data-go="ch18">Logic & planning →</button>
           </div>
         </div>
       </article>

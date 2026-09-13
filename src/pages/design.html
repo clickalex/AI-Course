@@ -1,0 +1,104 @@
+<article class="page" id="design">
+        <div class="chapter-head"><div class="kicker">Careers · System design</div>
+          <h2>ML system design walkthroughs</h2>
+          <p class="lede">Three end-to-end designs interviewers love: video recommendations, fraud detection, and RAG at scale. Learn the framework — requirements → scale → data → model → serve → monitor — then steal the diagrams for your interviews.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Recsys</span><span class="tag">Fraud</span><span class="tag">RAG scale</span><span class="tag">Trade-offs</span></div>
+          <div class="figure"><img src="images/system-design.jpg" alt="Blueprint desk with a glowing ML system diagram" /></div>
+          <p class="caption">Figure SD.1 — Every ML design is the same skeleton: understand, retrieve/generate, rank/decide, serve, monitor. Details differ; the skeleton doesn’t.</p>
+          <div class="insight"><h4>The 6-step framework (use it every time)</h4><p><strong>1.</strong> Clarify requirements + scale numbers (QPS, latency, users). <strong>2.</strong> API sketch. <strong>3.</strong> Data: sources, labels, features. <strong>4.</strong> Model: baseline → strong, train/eval. <strong>5.</strong> Serve: online/batch, cache, fallbacks. <strong>6.</strong> Monitor: drift, slices, business KPI. Say trade-offs aloud at every step.</p></div>
+
+          <h3>Design 1 · Video recommendations (YouTube-style)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="10" y="45" width="110" height="60" rx="10" fill="#0f766e"/><text x="65" y="70" fill="#fff">100M videos</text><text x="65" y="86" fill="#d1fae5" font-size="10">candidate gen</text>
+                <rect x="140" y="45" width="110" height="60" rx="10" fill="#0c1b2e"/><text x="195" y="70" fill="#fff">~1,000</text><text x="195" y="86" fill="#94a3b8" font-size="10">two-tower ANN</text>
+                <rect x="270" y="45" width="130" height="60" rx="10" fill="#0ea5e9"/><text x="335" y="70" fill="#fff">~100 ranked</text><text x="335" y="86" fill="#e0f2fe" font-size="10">deep ranker</text>
+                <rect x="420" y="45" width="100" height="60" rx="10" fill="#b45309"/><text x="470" y="70" fill="#fff">Top 20</text><text x="470" y="86" fill="#fef3c7" font-size="10">rerank: fresh,</text><text x="470" y="98" fill="#fef3c7" font-size="10">diverse, safe</text>
+                <rect x="540" y="45" width="90" height="60" rx="10" fill="#be123c"/><text x="585" y="70" fill="#fff">Log</text><text x="585" y="86" fill="#ffe4e6" font-size="10">exposure +</text><text x="585" y="98" fill="#ffe4e6" font-size="10">watch time</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram SD.1 — Funnel: cheap retrieval narrows 100M → 1k, the expensive ranker scores 1k → 100, business rules pick 20.</div>
+          </div>
+          <table><thead><tr><th>Decision</th><th>Choice</th><th>Why</th></tr></thead><tbody>
+            <tr><td>Candidate gen</td><td>Two-tower embeddings + ANN index</td><td>Sub-50 ms retrieval over 100M items; precomputed video towers</td></tr>
+            <tr><td>Ranking objective</td><td>Weighted watch-time + satisfaction</td><td>Clicks alone breed clickbait; add surveys, hides, diversity penalties</td></tr>
+            <tr><td>Cold start</td><td>Popularity + exploration slots</td><td>New users/videos need priors; ε-greedy / bandits for exploration</td></tr>
+            <tr><td>Feedback loops</td><td>Log exposure; random holdouts</td><td>Without them the model narrows taste and can’t learn what it never shows</td></tr>
+          </tbody></table>
+
+          <h3>Design 2 · Real-time fraud detection</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="10" y="45" width="100" height="60" rx="10" fill="#0f766e"/><text x="60" y="70" fill="#fff">Payment</text><text x="60" y="86" fill="#d1fae5" font-size="10">event stream</text>
+                <rect x="130" y="45" width="120" height="60" rx="10" fill="#0c1b2e"/><text x="190" y="70" fill="#fff">Features</text><text x="190" y="86" fill="#94a3b8" font-size="10">&lt;100 ms store</text>
+                <rect x="270" y="45" width="100" height="60" rx="10" fill="#0ea5e9"/><text x="320" y="70" fill="#fff">Rules</text><text x="320" y="86" fill="#e0f2fe" font-size="10">blocklist,</text><text x="320" y="98" fill="#e0f2fe" font-size="10">velocity</text>
+                <rect x="390" y="45" width="100" height="60" rx="10" fill="#b45309"/><text x="440" y="70" fill="#fff">GBM score</text><text x="440" y="86" fill="#fef3c7" font-size="10">p(fraud)</text>
+                <rect x="510" y="45" width="120" height="60" rx="10" fill="#be123c"/><text x="570" y="70" fill="#fff">Decide</text><text x="570" y="86" fill="#ffe4e6" font-size="10">allow / step-up /</text><text x="570" y="98" fill="#ffe4e6" font-size="10">block + review</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram SD.2 — Rules catch the known-bad in microseconds; the model scores the grey zone; humans review the expensive mistakes.</div>
+          </div>
+          <table><thead><tr><th>Decision</th><th>Choice</th><th>Why</th></tr></thead><tbody>
+            <tr><td>Latency</td><td>P99 &lt; 200 ms end-to-end</td><td>Checkout can’t wait; precompute velocity features in a stream store</td></tr>
+            <tr><td>Imbalance</td><td>PR-AUC, class weights, threshold by cost</td><td>0.1% fraud: accuracy is a joke; tune $ loss, not F1 alone</td></tr>
+            <tr><td>Adversarial drift</td><td>Weekly retrain + challenger model</td><td>Fraudsters adapt (concept drift); shadow-test the challenger continuously</td></tr>
+            <tr><td>Labels</td><td>Chargebacks + analyst review queue</td><td>Delayed, noisy labels; never train on your own blocks as “truth” without review</td></tr>
+          </tbody></table>
+
+          <h3>Design 3 · RAG chatbot at scale</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="10" y="20" width="120" height="55" rx="10" fill="#0f766e"/><text x="70" y="43" fill="#fff">Docs stream</text><text x="70" y="59" fill="#d1fae5" font-size="10">incremental index</text>
+                <rect x="10" y="90" width="120" height="55" rx="10" fill="#0c1b2e"/><text x="70" y="113" fill="#fff">User query</text><text x="70" y="129" fill="#94a3b8" font-size="10">guard + cache?</text>
+                <rect x="160" y="55" width="130" height="55" rx="10" fill="#0ea5e9"/><text x="225" y="78" fill="#fff">Hybrid retrieve</text><text x="225" y="94" fill="#e0f2fe" font-size="10">dense + BM25</text>
+                <rect x="320" y="55" width="110" height="55" rx="10" fill="#b45309"/><text x="375" y="78" fill="#fff">Rerank</text><text x="375" y="94" fill="#fef3c7" font-size="10">top-50 → 8</text>
+                <rect x="460" y="55" width="170" height="55" rx="10" fill="#be123c"/><text x="545" y="78" fill="#fff">Generate + cite</text><text x="545" y="94" fill="#ffe4e6" font-size="10">abstain if thin</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram SD.3 — Two pipelines: offline indexing (freshness SLA) and online retrieve → rerank → generate (latency + cost SLA).</div>
+          </div>
+          <table><thead><tr><th>Decision</th><th>Choice</th><th>Why</th></tr></thead><tbody>
+            <tr><td>Freshness</td><td>CDC/webhook re-index, minutes</td><td>Stale chunks = confident wrong answers; show “as of” dates</td></tr>
+            <tr><td>Cost</td><td>Cache embeddings + answers; small reranker, big generator only when needed</td><td>Repeated questions shouldn’t re-burn GPU; route by difficulty</td></tr>
+            <tr><td>Safety</td><td>Tenant filters, PII scrub, injection evals</td><td>One tenant’s docs must never leak into another’s answer</td></tr>
+            <tr><td>Eval</td><td>Recall@k + faithfulness + golden set in CI</td><td>Index/prompt/model changes all gate on the same suite (Ch 42–43)</td></tr>
+          </tbody></table>
+
+          <div class="practice-block"><h3>Practice: say it like an interview</h3>
+            <div class="practice" data-pid="d1"><p class="q">D1. “Design video recommendations for 10M users.” Give your 2-minute opening (requirements + scale + funnel).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>“Home feed, 10M DAU, ~100M videos, p99 &lt; 300 ms, optimise watch-time + satisfaction. Funnel: two-tower ANN candidate gen (100M→1k), deep ranker (1k→100), rerank for freshness/diversity/safety (→20). Log exposure for debias; bandits for cold start; offline PR/rank evals + online A/B on watch time and hides.” Then drill into whichever the interviewer probes.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="d2"><p class="q">D2. The recsys PM says “just optimise clicks.” Your 60-second pushback?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Clicks reward clickbait and outrage — Goodhart’s law. Counter: multi-objective (watch time, completes, likes/hides, survey satisfaction, diversity caps), long-term holdouts measuring retention, and quality classifiers as ranker features. Short-term clicks up, long-term users gone.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="d3"><p class="q">D3. Fraud model PR-AUC is flat but chargebacks doubled. Debug in order.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Label lag: recent fraud not yet charged back — eval window too fresh. (2) Slice it: new merchant category/geo/device the model never saw. (3) Threshold drift: score distribution shifted, fixed threshold now wrong. (4) Adversarial shift: same inputs, new tactics (concept drift) — check challenger + rule-hit rates. Fix slice, recalibrate, retrain.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="d4"><p class="q">D4. Fraud must decide in &lt;200 ms p99. Where does the budget go?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Feature fetch ~50 ms (precomputed stream store, Redis), rules ~5 ms, GBM inference ~20 ms, network/serialisation rest. Keep a fast path: rules-only decision if the feature store times out (fail open with step-up auth, never fail blind). Load-test at 3× peak; autoscale on queue depth.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="d5"><p class="q">D5. RAG chatbot costs $50k/month at 40 req/s. Cut it 5× without hurting quality.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Cache: exact-question + semantic cache for head queries (often 30–50% of traffic). (2) Retrieve less, rerank smart: smaller top-k, cheap reranker, big generator only for hard/confident-low cases (cascade). (3) Trim prompts: shorter chunks, fewer shots. (4) Quantised serving (vLLM + AWQ), scale-to-zero. Measure faithfulness on the golden set after each cut.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="d6"><p class="q">D6. Two tenants’ docs got mixed in one RAG answer. Post-mortem: root cause + 3 fixes.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Root cause: retrieval filtered by tenant too late (or not at all) — generator saw cross-tenant chunks. Fixes: (1) hard tenant filter at index/query time + separate namespaces; (2) eval slice with adversarial cross-tenant probes in CI; (3) output audit logging + PII scrubber, incident runbook, customer notice. Privacy is architectural, not a prompt.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+
+          <div class="note"><h4>Short notes</h4><p>Framework: requirements → scale → API → data → model → serve → monitor. Recsys = funnel (ANN → rank → rerank) + exposure logging. Fraud = rules + GBM under 200 ms + review queue + weekly retrain. RAG = fresh index + hybrid retrieve + cascade + cache + tenant isolation. Always name the trade-off and the metric that gates it.</p></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="interview">← Interview Q&A</button>
+            <button data-go="gate">GATE bank →</button>
+          </div>
+        </div>
+      </article>

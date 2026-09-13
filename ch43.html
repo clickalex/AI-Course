@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MLOps in production · Zero to Hero AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item active" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (57 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch43">
+        <div class="chapter-head"><div class="kicker">Chapter 43 · Applied &amp; production · A3</div>
+          <h2>MLOps in production</h2>
+          <p class="lede">Training a model is 10% of the job. MLOps is the other 90%: versioning, testing, deploying safely, and watching models decay in the wild — then retraining before users notice.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Lifecycle</span><span class="tag">Drift</span><span class="tag">CI/CD</span><span class="tag">Monitoring</span></div>
+          <div class="figure"><img src="images/mlops.jpg" alt="Gears and monitors keeping a model healthy" /></div>
+          <p class="caption">Figure 43.1 — Production ML is a loop, not a launch: deploy → monitor → retrain → redeploy.</p>
+          <h3>1. The lifecycle (and what to version)</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="20" y="45" width="100" height="55" rx="10" fill="#0f766e"/><text x="70" y="68" fill="#fff">Data</text><text x="70" y="84" fill="#d1fae5" font-size="10">v3.2 ✓</text>
+                <rect x="140" y="45" width="100" height="55" rx="10" fill="#0c1b2e"/><text x="190" y="68" fill="#fff">Train</text><text x="190" y="84" fill="#94a3b8" font-size="10">seed+params</text>
+                <rect x="260" y="45" width="100" height="55" rx="10" fill="#0ea5e9"/><text x="310" y="68" fill="#fff">Evaluate</text><text x="310" y="84" fill="#e0f2fe" font-size="10">gate ✓/✗</text>
+                <rect x="380" y="45" width="100" height="55" rx="10" fill="#b45309"/><text x="430" y="68" fill="#fff">Deploy</text><text x="430" y="84" fill="#fef3c7" font-size="10">canary</text>
+                <rect x="500" y="45" width="120" height="55" rx="10" fill="#be123c"/><text x="560" y="68" fill="#fff">Monitor</text><text x="560" y="84" fill="#ffe4e6" font-size="10">drift?</text>
+                <path d="M560 110 C 400 135, 200 135, 70 110" fill="none" stroke="#57534e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+                <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#57534e" stroke-width="1.5"/></marker></defs>
+                <text x="320" y="133" fill="#57534e" font-size="11">retrain trigger → back to Data</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 43.1 — Version data + code + params + environment together. If you can’t reproduce it, you can’t debug it.</div>
+          </div>
+          <h3>2. Testing ML systems (beyond accuracy)</h3>
+          <table><thead><tr><th>Test</th><th>Catches</th></tr></thead><tbody>
+            <tr><td><strong>Data validation</strong></td><td>Schema breaks, skewed features (Ch 39 gates, TFDV-style)</td></tr>
+            <tr><td><strong>Slice evals</strong></td><td>“92% overall, 61% for new users” — aggregate lies</td></tr>
+            <tr><td><strong>Behavioural tests</strong></td><td>Invariance: typo in review shouldn’t flip sentiment</td></tr>
+            <tr><td><strong>Shadow mode</strong></td><td>New model scores live traffic, old one decides — compare free of risk</td></tr>
+            <tr><td><strong>Canary + rollback</strong></td><td>5% → 50% → 100% with auto-rollback on metric dip</td></tr>
+          </tbody></table>
+          <h3>3. Drift: the silent killer</h3>
+          <ul>
+            <li><strong>Data drift:</strong> inputs shift (new phone models break your image model). Monitor feature distributions (PSI/KS).</li>
+            <li><strong>Concept drift:</strong> the <em>meaning</em> shifts (fraudsters adapt; “normal” redefines itself). Monitor calibrated accuracy on delayed labels.</li>
+            <li><strong>Feedback loops:</strong> your predictions change the world you predict (recommendations narrow taste). Log exposure + randomise holdouts.</li>
+          </ul>
+          <h3>4. The minimal MLOps stack</h3>
+          <ul>
+            <li><strong>Experiment tracking:</strong> MLflow / Weights &amp; Biases — every run: data hash, params, metrics, artifact.</li>
+            <li><strong>Registry + CI/CD:</strong> model versions staged → production with approvals; redeploy is a pipeline, not a laptop.</li>
+            <li><strong>Serving:</strong> batch (Spark), online (FastAPI/containers, Ch 44), or streaming (Flink) — with logged predictions for eval.</li>
+            <li><strong>Observability:</strong> latency, error rate, drift scores, business KPI — one dashboard, paged alerts, runbooks.</li>
+          </ul>
+          <div class="warn"><h4>Failure file</h4><p>Unlogged features (can’t reproduce) · training-serving skew (different preprocessing!) · no rollback plan · retraining on polluted labels (your own bad predictions fed back as truth).</p></div>
+          <div class="note"><h4>Short notes</h4><p>MLOps = version everything, test beyond accuracy (slices, behavioural, shadow), deploy via canary with auto-rollback, and monitor drift + business KPIs. Log predictions with features; retrain on clean labels before users notice decay.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Version data+code+params+env.</li><li>Slice evals beat aggregates.</li><li>Shadow, then canary, then 100%.</li><li>Watch data + concept drift.</li><li>Log predictions; plan rollback.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Training-serving skew means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The server room is tilted</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Preprocessing/features differ between training and production — same model, different inputs</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Training is too fast</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The GPU is biased</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Fix: one shared feature pipeline, tested both sides.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Shadow deployment is valuable because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Hides the model from users forever</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Trains twice as fast</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Scores live traffic risk-free — compare before deciding</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Deletes old models</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Real data, zero blast radius.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Concept drift vs data drift:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Data drift = inputs shift; concept drift = the relationship itself changes</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. They’re identical</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Drift only happens on boats</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Concept drift is fixed by rebooting</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Fraudsters adapting = concept drift; new devices = data drift.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Minimum for a reproducible run:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The model’s first name</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Just the accuracy number</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A screenshot of the loss curve</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Data hash + code commit + params/seed + environment</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">MLflow/W&B log all four per run.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Canary rollout 5% → 50% → 100% with auto-rollback exists to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Confuse the monitoring</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Limit blast radius — bad models hit 5%, not everyone</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Double the cloud bill</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Avoid writing tests</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Small exposure + automatic retreat.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch43')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c43p1"><p class="q">P1. Your churn model’s AUC is flat but support tickets about “wrong offers” doubled. Investigate.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>AUC on stale labels hides slice failures. Check: prediction logs vs recent outcomes (concept drift?), slice evals (new plans/regions failing?), training-serving skew (offer features computed differently live?), feedback loop (model’s offers changing behaviour). Fix the slice, add behavioural tests + delayed-label eval.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c43p2"><p class="q">P2. Design the retraining policy for a fraud model (triggers, labels, rollback).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Triggers: weekly + drift alert (PSI &gt; 0.2) + precision dip. Labels: confirmed fraud only after investigation window (avoid polluting with model’s own blocks); holdout with randomised review. Deploy: shadow 3 days → canary 5% → full; auto-rollback on chargeback-rate rise. All runs tracked in MLflow with data hashes.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c43p3"><p class="q">P3. List everything you’d log per prediction for a credit-risk API, and why each.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Request id, timestamp, model version, input features (post-preprocessing!), raw inputs hash, score + threshold decision, latency, data hash/version, downstream outcome when known (delayed label). Why: reproduce any decision for audit/appeal, measure drift/slices, retrain cleanly. Retain per policy; encrypt PII.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch44">← Cloud, Docker &amp; GPUs</button>
+            <button data-go="ch46">Transformers lab →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="js/interview-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/playground.js"></script>
+  <script src="js/mock.js"></script>
+</body>
+</html>
+ml>

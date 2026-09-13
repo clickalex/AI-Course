@@ -1,0 +1,95 @@
+<article class="page" id="ch55">
+        <div class="chapter-head"><div class="kicker">Chapter 55 · Frontier · F9</div>
+          <h2>Quantum ML primer (hype-filtered)</h2>
+          <p class="lede">Qubits, superposition, and the honest question: what can quantum computers actually do for ML today? Learn enough to read the papers — and to spot the hype.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Qubits</span><span class="tag">VQC</span><span class="tag">QAOA</span><span class="tag">NISQ</span></div>
+          <div class="figure"><img src="images/quantum-ml.jpg" alt="Superposition orbs over a quantum chip beside a classical abacus" /></div>
+          <p class="caption">Figure 55.1 — Quantum: exponential state spaces you can’t fully look at. The art is asking questions nature answers cheaply.</p>
+          <h3>1. Qubits in 5 minutes</h3>
+          <ul>
+            <li><strong>Bit vs qubit:</strong> a bit is 0 or 1; a qubit is α|0⟩ + β|1⟩ — a <em>blend</em> until measured (then it collapses to one outcome, probabilistically).</li>
+            <li><strong>Superposition:</strong> n qubits hold 2ⁿ amplitudes at once. <strong>Entanglement:</strong> qubits correlated so measuring one constrains others. <strong>Interference:</strong> amplify right answers, cancel wrong ones — the actual compute.</li>
+            <li><strong>Catch:</strong> you can’t read all 2ⁿ amplitudes (measurement collapses); noise (decoherence) corrupts fast. Today’s machines: ~100–1000 noisy qubits (NISQ era).</li>
+          </ul>
+          <h3>2. The QML playbook</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="15" y="50" width="130" height="55" rx="10" fill="#0f766e"/><text x="80" y="73" fill="#fff">Classical x</text><text x="80" y="89" fill="#d1fae5" font-size="10">encode → circuit</text>
+                <rect x="170" y="50" width="150" height="55" rx="10" fill="#0c1b2e"/><text x="245" y="73" fill="#fff">VQC(θ)</text><text x="245" y="89" fill="#94a3b8" font-size="10">gates + entangle</text>
+                <rect x="345" y="50" width="110" height="55" rx="10" fill="#0ea5e9"/><text x="400" y="73" fill="#fff">Measure</text><text x="400" y="89" fill="#e0f2fe" font-size="10">expectations</text>
+                <rect x="480" y="50" width="145" height="55" rx="10" fill="#b45309"/><text x="552" y="73" fill="#fff">Classical opt</text><text x="552" y="89" fill="#fef3c7" font-size="10">update θ, repeat</text>
+                <text x="330" y="130" fill="#57534e" font-size="11">Hybrid loop: quantum evaluates, classical optimises · watch for barren plateaus</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 55.1 — Variational quantum circuits: the NISQ workhorse. Quantum hardware runs the model; your laptop runs the optimizer.</div>
+          </div>
+          <table><thead><tr><th>Method</th><th>Idea</th><th>Status</th></tr></thead><tbody>
+            <tr><td><strong>VQC / QNN</strong></td><td>Parametrised circuit as a neural net layer</td><td>Toy demos; barren plateaus bite at scale</td></tr>
+            <tr><td><strong>Quantum kernels</strong></td><td>Feature map into Hilbert space + SVM</td><td>Niche wins on crafted datasets</td></tr>
+            <tr><td><strong>QAOA</strong></td><td>Approximate combinatorial optimisation (routes, schedules)</td><td>Promising; classical still ahead mostly</td></tr>
+            <tr><td><strong>Quantum simulation</strong></td><td>Chemistry/materials (VQE)</td><td>Strongest near-term case — physics, not ML</td></tr>
+          </tbody></table>
+          <h3>3. The hype filter (memorise this)</h3>
+          <ul>
+            <li><strong>“Exponential speedup”</strong> — for <em>which</em> problem, vs <em>which</em> classical baseline, on <em>what</em> hardware? Most ML speedups evaporate against good classical methods or data-loading costs.</li>
+            <li><strong>Barren plateaus:</strong> gradients vanish exponentially in random deep circuits — training fails silently. Structured ansätze + small widths help.</li>
+            <li><strong>Data loading:</strong> encoding classical data into qubits (QRAM assumptions) often costs more than any quantum gain. Quantum-native data (sensors, chemistry) is the fair fight.</li>
+            <li><strong>Honest take (2026):</strong> learn it for literacy + simulation-adjacent roles; don’t bet production ML roadmaps on advantage that hasn’t arrived.</li>
+          </ul>
+          <div class="warn"><h4>Red flags in QML pitches</h4><p>“Quantum will replace GPUs” (no) · benchmarks vs strawman classical baselines · ignoring error-correction overhead (millions of physical qubits per logical) · no mention of barren plateaus or loading costs.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Qubits = superposition + entanglement + interference; NISQ = ~100–1000 noisy qubits. Playbook: VQC hybrid loops, quantum kernels, QAOA, VQE simulation. Filter hype: which problem, which baseline, loading costs, plateaus, error-correction overhead. Literacy yes; production bets no (yet).</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>2ⁿ amplitudes, 1 measurement.</li><li>Quantum evaluates, classical opts.</li><li>Barren plateaus kill deep VQCs.</li><li>Loading costs eat speedups.</li><li>Chemistry &gt; ML (near-term).</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Measuring a qubit in superposition gives:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. All amplitudes printed out</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. One outcome, probabilistically — the state collapses</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Two answers for free</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. An error message</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">You can’t read the exponential cake; you taste one slice.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A VQC training loop splits work as:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Quantum does everything</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Classical does everything</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Quantum hardware evaluates the circuit; a classical optimizer updates θ</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Neither — it trains itself</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Hybrid is the whole NISQ game.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Barren plateaus in VQCs mean:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Gradients vanish exponentially — deep random circuits won’t train</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The lab is in a desert</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Qubits are too cold</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Training is always fast</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Structure + small widths are the workaround.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Biggest hidden cost in most QML speedup claims:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Office rent</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Coffee for physicists</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The textbook price</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Loading classical data into qubits (QRAM assumptions) + error correction</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Quantum-native data is the fair fight.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Strongest near-term quantum application today:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Replacing all GPUs for LLM training</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Quantum simulation for chemistry/materials (VQE-style) — physics, not ML</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Quantum social media</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Faster web browsing</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Simulate nature with nature.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch55')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c55p1"><p class="q">P1. A startup claims “quantum neural nets beat XGBoost on churn.” Your 4 due-diligence questions?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Which classical baseline, tuned how hard? (2) Include data-loading + shot counts in runtime — still faster? (3) How many qubits/features — toy or real scale? (4) Reproduce on held-out data with error bars. 99% of such claims fail (1) or (2).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c55p2"><p class="q">P2. When would you genuinely recommend a quantum approach to a client?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Quantum-native problems: molecular simulation, materials discovery, certain optimisation with structure — with a quantum-literate team and a classical benchmark to beat. Deliverable: a pilot comparing quantum vs best classical on THEIR instances, with full cost accounting. Never “quantum strategy” without a problem.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c55p3"><p class="q">P3. Explain barren plateaus to an ML engineer (analogy + mitigation).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Like vanishing gradients, exponentially worse: in wide random circuits, almost all directions look flat, so gradient descent finds nothing. Mitigate: shallow structured ansätze (problem-inspired), local cost functions, layerwise training, small qubit counts. If loss never moves on a simulator, the ansatz — not the optimizer — is guilty.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch54">← Federated learning</button>
+            <button data-go="ch56">Robotics & VLA →</button>
+          </div>
+        </div>
+      </article>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Deep Learning · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -71,7 +71,7 @@
 
       <div class="toc-group">Deep learning &amp; gen AI</div>
       <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
-      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item active" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
       <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
       <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
       <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
@@ -132,73 +132,121 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
+<article class="page active" id="ch11">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 11 · Deep learning</div>
+          <h2>Deep learning: CNNs, RNNs &amp; vision</h2>
+          <p class="lede">Special architectures encode inductive bias: images are local and translation-tolerant; sequences are ordered.</p>
         </div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
+          <div class="figure">
+            <img src="images/cnn.jpg" alt="CNN processing a cat image through feature maps" />
           </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
+          <p class="caption">Figure 11.1 — Convolution builds a hierarchy: edges → parts → objects, while shrinking spatial size.</p>
+
+          <h3>Convolutional neural networks</h3>
+          <p>A <strong>convolution</strong> slides a small filter (3×3, 5×5) across the image. The same weights detect a pattern everywhere — weight sharing. Stacking convolutions + ReLU + pooling (or stride) grows the receptive field.</p>
+          <ul>
+            <li><strong>Early layers</strong> — edges, colour blobs.</li>
+            <li><strong>Middle</strong> — textures, parts (eyes, wheels).</li>
+            <li><strong>Late</strong> — object-level features; then a linear classifier.</li>
+          </ul>
+          <p>Modern vision: <strong>ResNet</strong> (skip connections so 50–150 layers train), then <strong>Vision Transformers (ViT)</strong> that treat image patches like tokens. Detection (YOLO, Faster R-CNN) and segmentation (U-Net, Mask R-CNN) add localisation heads.</p>
+
+          <h3>Sequence models before Transformers</h3>
+          <p><strong>RNNs</strong> feed the previous hidden state with the next token. They struggle with long memory. <strong>LSTM / GRU</strong> add gates that learn what to remember. They still process tokens mostly in order, which limits GPU parallelism. That bottleneck is why Transformers took over NLP (next chapter) — but LSTM intuition (gates, vanishing memory) is still worth having.</p>
+
+          <h3>Transfer learning</h3>
+          <p>Pretrain on a huge dataset (ImageNet, web images), then fine-tune the last layers on your 500 medical photos. You reuse generic visual features. This is the practical default — training a CNN from scratch on a small set overfits immediately.</p>
+
+          <div class="example">
+            <h4>Worked idea — data augmentation</h4>
+            <p>Flip, crop, colour jitter, mixup. The label stays the same (usually), so the model learns invariances instead of memorising background hospital stickers. Augmentation is a regulariser made of extra fake data.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>CNNs exploit local spatial structure via shared filters. Depth + pooling builds a feature hierarchy. ResNets add skip paths. RNNs/LSTMs model sequences with state but are slow and forgetful compared with Transformers. Transfer learning is how small-data vision actually works. Detection/segmentation are classification plus where.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Convolution = shared local filters.</li>
+              <li>Receptive field grows with depth/stride.</li>
+              <li>ResNet skips fix degradation/vanishing grads.</li>
+              <li>LSTM gates memory; Transformer later replaced them for NLP.</li>
+              <li>Fine-tune pretrained nets on small data.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. Weight sharing in a CNN means:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Every pixel has a unique unrelated weight</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The same filter is applied at every location</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. All layers must have identical size</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Labels are shared across classes</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">A vertical-edge filter should work in every corner of the photo.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. Residual (skip) connections primarily help by:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Removing the need for data</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Turning CNNs into k-means</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Letting gradients and identity signals flow through deep stacks</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Computing PCA inside the net</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">The block learns a residual F(x) added to x. Identity is an easy function to fall back to.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. For 300 labelled bird photos, the most sensible start is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Fine-tune a pretrained ImageNet model</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Train a 100-layer CNN from random weights</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-NN on raw 12-megapixel vectors</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Untrained LSTM</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Transfer + augmentation. From-scratch deep nets need far more images.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. LSTMs were designed to address:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Convolution on images</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Clustering of customers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The Turing Test legal definition</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Vanishing gradients / short memory in vanilla RNNs</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Gates let error and memory travel further in time.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch11')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c11p1">
+              <p class="q">P1. Why is a fully connected net a bad default on 224×224 RGB images compared with a CNN?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Flattened input is 224×224×3 ≈ 150k features. A dense layer to 1000 units is ~150 million weights already, with no notion that nearby pixels belong together or that a cat in the corner is still a cat. CNNs use tiny shared filters (dozens of parameters per filter) and built-in locality/translation structure, so they generalise with far less data.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c11p2">
+              <p class="q">P2. A detector boxes cars well by day and fails at night. Name two likely causes and two mitigations.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Causes: train data is daytime; appearance shift (headlights, low SNR); different camera ISP. Mitigations: night images in train/val; colour jitter / brightness augment; domain-adaptive fine-tune; infrared or better exposure; monitor per-condition metrics, not a single mAP.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch10">← Chapter 10</button>
+            <button data-go="ch21">Vision & speech →</button>
           </div>
         </div>
       </article>

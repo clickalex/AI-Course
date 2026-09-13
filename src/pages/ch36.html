@@ -1,0 +1,141 @@
+<article class="page" id="ch36">
+        <div class="chapter-head"><div class="kicker">Chapter 36 · Data skills · BI</div>
+          <h2>Power BI &amp; interactive dashboards</h2>
+          <p class="lede">Excel answers questions. Power BI answers them every morning, automatically, for the whole company. This chapter takes you from CSV to a published dashboard people actually open.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Power BI</span><span class="tag">Data model</span><span class="tag">DAX</span><span class="tag">Dashboards</span></div>
+          <div class="figure"><img src="images/powerbi.jpg" alt="Glowing business-intelligence dashboards with connected data tables" /></div>
+          <p class="caption">Figure 36.1 — Get data → model it → measure it (DAX) → visualise → share. One refresh updates everything.</p>
+          <h3>1. Why a BI tool (and when Excel is still fine)</h3>
+          <table><thead><tr><th>Situation</th><th>Use</th></tr></thead><tbody>
+            <tr><td>One-off analysis, &lt;100k rows, one user</td><td><strong>Excel/Sheets</strong> (Ch 31) — fastest.</td></tr>
+            <tr><td>Weekly report 5 managers open, needs refresh + filters</td><td><strong>Power BI</strong> — one click refreshes all pages.</td></tr>
+            <tr><td>Exploration, stats, ML features</td><td><strong>Python/SQL</strong> (Ch 32–33).</td></tr>
+            <tr><td>Company-wide metrics, row-level security, apps</td><td><strong>Power BI Service / Tableau / Looker</strong>.</td></tr>
+          </tbody></table>
+          <p><strong>Power BI Desktop is free</strong> (Windows; Mac users run the web Service or a VM). Everything below also maps to Tableau/Looker — only the formula language name changes.</p>
+          <h3>2. The four building blocks</h3>
+          <ol>
+            <li><strong>Power Query (Get Data)</strong> — the same repeatable import+clean engine from Ch 31, now feeding a model instead of cells. Unpivot, merge files, fix types once; refresh forever.</li>
+            <li><strong>Data model</strong> — tables + relationships. Aim for a <strong>star schema</strong>: one long <em>fact</em> table (orders: who/when/how much) joined to small <em>dimension</em> tables (customers, products, calendar).</li>
+            <li><strong>DAX measures</strong> — formulas that compute <em>in the context of the visual</em> (this month, this region).</li>
+            <li><strong>Report visuals + Service</strong> — pages, slicers, publish, scheduled refresh.</li>
+          </ol>
+          <div class="diagram">
+            <svg viewBox="0 0 640 170" width="640" height="170">
+              <rect width="640" height="170" rx="12" fill="#f8fafc"/>
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="245" y="60" width="150" height="52" rx="10" fill="#0c1b2e"/><text x="320" y="82" fill="#fff">FACT: Orders</text><text x="320" y="100" fill="#94a3b8" font-size="10">1 row per order</text>
+                <rect x="30" y="20" width="130" height="44" rx="10" fill="#0f766e"/><text x="95" y="46" fill="#fff">Customers</text>
+                <rect x="30" y="106" width="130" height="44" rx="10" fill="#0f766e"/><text x="95" y="132" fill="#fff">Products</text>
+                <rect x="480" y="20" width="130" height="44" rx="10" fill="#0ea5e9"/><text x="545" y="46" fill="#fff">Calendar</text>
+                <rect x="480" y="106" width="130" height="44" rx="10" fill="#b45309"/><text x="545" y="132" fill="#fff">Region</text>
+                <line x1="160" y1="42" x2="245" y2="72" stroke="#0f766e" stroke-width="2"/>
+                <line x1="160" y1="128" x2="245" y2="98" stroke="#0f766e" stroke-width="2"/>
+                <line x1="395" y1="72" x2="480" y2="42" stroke="#0ea5e9" stroke-width="2"/>
+                <line x1="395" y1="98" x2="480" y2="128" stroke="#b45309" stroke-width="2"/>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 36.1 — Star schema. Facts in the middle, dimensions around. One-to-many, single-direction filters.</div>
+          </div>
+          <h3>3. Relationships: three rules that prevent 90% of bugs</h3>
+          <ul>
+            <li><strong>One-to-many, single direction</strong> (dimension → fact). Bi-directional filters are for experts with a written reason.</li>
+            <li>Keys must be <strong>unique on the “one” side</strong> — the same fanout trap as SQL (Ch 33) and pandas merges (Ch 32).</li>
+            <li>Build a real <strong>Calendar table</strong> (date, month, quarter, is_weekend) and join all dates to it. Never use the auto date hierarchy in production.</li>
+          </ul>
+          <h3>4. DAX: measures, not cells</h3>
+          <p>A <strong>calculated column</strong> is computed once per row (like Excel). A <strong>measure</strong> is computed per visual context — this is the superpower. Write measures for every KPI.</p>
+<pre><code>// Measures (Modeling → New measure)
+Total Sales = SUM ( Orders[net_amount] )
+
+Sales YTD = TOTALYTD ( [Total Sales], 'Calendar'[Date] )
+
+// CALCULATE = “same measure, modified filters”
+West Share =
+DIVIDE (
+    CALCULATE ( [Total Sales], Region[Region] = "West" ),
+    CALCULATE ( [Total Sales], ALL ( Region ) )
+)
+
+// Iterator: row-by-row math, then aggregate
+Revenue = SUMX ( Orders, Orders[qty] * Orders[price] )</code></pre>
+          <ul>
+            <li><strong>CALCULATE + FILTER/ALL</strong> = 80% of real DAX. Learn filter context before time intelligence.</li>
+            <li>Use <code>DIVIDE(a,b,0)</code>, never <code>a/b</code> (blanks beat errors).</li>
+            <li><code>VAR</code> for readability: <code>VAR s = [Total Sales] RETURN DIVIDE(s, 1000)</code>.</li>
+          </ul>
+          <h3>5. Visuals that get opened, not ignored</h3>
+          <ul>
+            <li><strong>Page layout:</strong> KPI cards on top (4 max, each with vs-last-period delta), trend in the middle, breakdowns below — same Z-layout as Ch 34.</li>
+            <li><strong>Slicers</strong> (Region, Year) + <strong>drill-through</strong> (right-click a region → detail page filtered to it). One filter should move every visual unless you deliberately lock interactions (<code>Format → Edit interactions</code>).</li>
+            <li><strong>Matrix</strong> for pivot-style grids, <strong>decomposition tree</strong> for “why did this drop?”, <strong>Q&amp;A visual</strong> so managers can type “sales by region last quarter”.</li>
+            <li>Tooltips: add a tooltip page (mini chart on hover) instead of cramming 6 series into one visual.</li>
+          </ul>
+          <h3>6. Publish, refresh, and trust</h3>
+          <ol>
+            <li><strong>Publish</strong> to a workspace → share as an <strong>App</strong> (stable nav, not 20 loose links).</li>
+            <li><strong>Scheduled refresh</strong> (Service → dataset → refresh). On-prem SQL needs a <strong>gateway</strong>.</li>
+            <li><strong>Row-level security (RLS):</strong> <code>[Region] = USERPRINCIPALNAME()</code>-style roles so West managers see West.</li>
+            <li><strong>Trust label:</strong> every dashboard gets source + refresh time in the footer and a one-line metric definition (“Active = logged in last 30 days”). Stale dashboards without dates are how companies argue about numbers.</li>
+          </ol>
+          <div class="warn"><h4>Classic Power BI failures</h4><p>Bi-directional relationships creating ambiguous totals · measures that ignore the Calendar table · 40 visuals on one page (nothing loads, nobody reads) · “it worked on my Desktop” because the Service has no gateway · two dashboards disagreeing because metric definitions live in someone’s head.</p></div>
+          <div class="example"><h4>15-minute first dashboard</h4><p>Get Data → the <code>sales_clean.xlsx</code> from Ch 32 → Power Query: set types, add <code>ym</code> column → Model: mark Calendar table → Measures: <code>Total Sales</code>, <code>Orders</code>, <code>Avg Order</code> → Page: 3 cards + line (sales by ym) + bar (sales by region) + Region slicer → Publish → set daily 7am refresh. Done beats perfect.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Power BI = Power Query (clean once) + star-schema model + DAX measures + visuals + Service (publish/refresh/RLS). Facts in the middle, dimensions around, one-to-many single-direction. Measures compute per visual context; CALCULATE modifies filters; DIVIDE not /. One page, one job; footer shows source + refresh time + metric definitions.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Star schema: fact + dimensions + Calendar table.</li><li>Measures &gt; calculated columns for KPIs.</li><li><code>CALCULATE</code> = same measure, new filters.</li><li>Slicers + drill-through &gt; 40 static visuals.</li><li>Publish as App; gateway for on-prem; RLS per region.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. A star schema puts:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Every column in one giant table with no keys</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. One long fact table (orders) joined to small dimension tables (customers, calendar)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. All filters bi-directional by default</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Dashboards inside the database engine</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Facts = events; dimensions = who/what/when.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A DAX measure differs from a calculated column because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Is stored once per row like Excel</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Cannot do math</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Computes in the context of each visual (filters, slicers, rows)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Only works on Mondays</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">That context-awareness is the whole point of measures.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. <code>CALCULATE([Total Sales], Region[Region]="West")</code> returns:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Total sales filtered to West, regardless of other region filters</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The number of regions</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A pivot table in Excel</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Always zero</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">CALCULATE = same aggregation, modified filter context.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Totals exploding after adding a relationship usually means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The visuals are too pretty</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. DAX is case-sensitive</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Refresh runs too often</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Duplicate keys on the “one” side (fanout) — same trap as SQL/pandas</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Check key uniqueness before trusting any SUM.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Every shared dashboard should show in its footer:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The author’s favourite colour</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Source + refresh time + metric definitions</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Forty more visuals</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Raw passwords</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Trust = freshness + lineage + definitions.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch36')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c36p1"><p class="q">P1. Write DAX for “West share of sales” that still works when a Year slicer is applied.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><pre><code>West Share =
+DIVIDE (
+    CALCULATE ( [Total Sales], Region[Region] = "West" ),
+    CALCULATE ( [Total Sales], ALL ( Region ) )
+)</code></pre><p><code>ALL(Region)</code> removes only the region filter, so Year slicers still apply. Using <code>ALL(Orders)</code> would wrongly kill the Year filter too.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c36p2"><p class="q">P2. Two dashboards disagree on “active users”. Give the 3-step fix.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Write one definition (“logged in last 30 days, excl. test accounts”) in a shared doc. (2) Implement it once as a certified measure/dataset both reports use. (3) Add source + refresh time + definition link to both footers. Disagreement is a governance bug, not a visual bug.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c36p3"><p class="q">P3. Your report works in Desktop but refresh fails in the Service. What do you check?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>On-prem/cloud source reachability: install and configure a data <strong>gateway</strong>, map credentials in the Service dataset settings, check privacy levels and scheduled-refresh history errors. Desktop uses your machine; the Service uses the gateway.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch35">← Statistics</button>
+            <button data-go="ch37">Capstone project →</button>
+          </div>
+        </div>
+      </article>

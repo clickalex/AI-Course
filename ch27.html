@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Learning theory (PhD) · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -108,7 +108,7 @@
       <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
 
       <div class="toc-group">PhD / research</div>
-      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item active" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
       <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
       <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
       <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
@@ -132,73 +132,45 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
-        </div>
+<article class="page active" id="ch27">
+        <div class="chapter-head"><div class="kicker">Chapter 27 · PhD</div>
+          <h2>Learning theory</h2>
+          <p class="lede">When can you prove a model will generalise — and why deep nets ignore the old proofs and still work?</p></div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
-          </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
-          </div>
+          <div class="figure"><img src="images/phd-research.jpg" alt="Academic research atmosphere with networks and papers" /></div>
+          <p class="caption">Figure 27.1 — Theory is the map of what cannot work, and the surprise of what does.</p>
+          <p><strong>PAC learning</strong>: with high probability, empirical risk close to true risk, given enough samples vs hypothesis class complexity. <strong>VC dimension</strong> measures how many points a class can shatter. Uniform convergence + concentration inequalities (Hoeffding) are the machinery.</p>
+          <p>Deep nets have huge VC-dimension yet generalise. Research: implicit bias of SGD, double descent, grokking, interpolation, NTK, scaling laws (loss vs compute). Nonconvex optimisation: we don’t get global minima guarantees; we get empirics + some landscape results.</p>
+          <p>Information theory: cross-entropy is KL to the data distribution; bits-back, rate-distortion for compression/generative models.</p>
+          <div class="note"><h4>Short notes</h4><p>Classical bounds: complexity ↓ or n ↑ ⇒ generalisation. Deep learning broke the “must underfit to generalise” slogan (double descent). PhD work is: explain that, or exploit it (scaling, distillation, implicit regularisation).</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>PAC: probably approximately correct.</li><li>VC: capacity of a hypothesis class.</li><li>Double descent: overparameterised models can generalise.</li><li>Scaling laws: predictable loss vs compute.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. VC dimension is a measure of:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. GPU temperature</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. BLEU</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Capacity / complexity of a hypothesis class</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Number of agents</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Shattering: all labelings of a set of points.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. Double descent refers to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Test error falling again after the interpolation peak as models grow</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Using two dropout layers</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A* expanding two nodes</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. PCA with two components only</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Modern twist on bias-variance.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">3. Scaling laws in LLMs typically relate:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Chess Elo to k in k-means</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only battery percentage</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ImageNet to BM25</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Loss to compute, data size, and parameters in a smooth power law</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Kaplan/Hoffmann-style results.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch27')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c27p1"><p class="q">P1. Why don’t huge VC bounds “prove” that GPT-class models cannot generalise?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>The bounds are worst-case over all hypotheses in a giant class. SGD + data structure + implicit bias pick a tiny subset. Vacuous bounds ≠ no generalisation. Research seeks tighter, algorithm-dependent bounds.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch26">← Graphs & robotics</button>
+            <button data-go="ch28">XAI & alignment →</button>
           </div>
         </div>
       </article>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>NLP · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -73,7 +73,7 @@
       <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
       <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
       <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
-      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item active" data-go="ch12"><span class="toc-num">20</span> NLP</button>
       <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
       <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
       <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
@@ -132,73 +132,131 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
+<article class="page active" id="ch12">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 12 · Language</div>
+          <h2>Natural language processing</h2>
+          <p class="lede">Computers see text as discrete tokens. NLP is the art of turning those tokens into meaning-shaped vectors — and back into text.</p>
         </div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
+          <h3>The classical pipeline</h3>
+          <ol>
+            <li><strong>Tokenise</strong> — words, subwords (BPE, WordPiece, SentencePiece). Subwords handle rare words: “unbelievable” → un + believe + able.</li>
+            <li><strong>Normalise</strong> — lowercasing, Unicode, sometimes stemming (less critical with subwords).</li>
+            <li><strong>Represent</strong> — bag-of-words / TF–IDF, or dense embeddings.</li>
+            <li><strong>Model</strong> — Naive Bayes / linear SVM on TF–IDF, or a neural sequence model.</li>
+          </ol>
+
+          <h3>Embeddings</h3>
+          <p>A <strong>word embedding</strong> places each token in a vector space where “king − man + woman ≈ queen” was the famous slogan of word2vec. Similar words cluster. Modern models learn <strong>contextual</strong> embeddings: “bank” near “river” is not the same vector as “bank” near “loan”.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 560 170" width="560" height="170">
+              <rect width="560" height="170" rx="12" fill="#0c1b2e"/>
+              <circle cx="120" cy="70" r="7" fill="#2dd4bf"/><text x="132" y="74" fill="#ccfbf1" font-size="12" font-family="Source Sans 3">cat</text>
+              <circle cx="150" cy="95" r="7" fill="#2dd4bf"/><text x="162" y="99" fill="#ccfbf1" font-size="12" font-family="Source Sans 3">dog</text>
+              <circle cx="400" cy="50" r="7" fill="#fbbf24"/><text x="412" y="54" fill="#fef3c7" font-size="12" font-family="Source Sans 3">king</text>
+              <circle cx="430" cy="80" r="7" fill="#fbbf24"/><text x="442" y="84" fill="#fef3c7" font-size="12" font-family="Source Sans 3">queen</text>
+              <circle cx="280" cy="130" r="7" fill="#fb7185"/><text x="292" y="134" fill="#fecdd3" font-size="12" font-family="Source Sans 3">car</text>
+            </svg>
+            <div class="diagram-title">Diagram 12.1 — Static embeddings: geometry encodes analogy and similarity (schematic).</div>
           </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
+
+          <h3>Classic tasks</h3>
+          <table>
+            <thead><tr><th>Task</th><th>Input → output</th></tr></thead>
+            <tbody>
+              <tr><td>Classification</td><td>Review → positive/negative</td></tr>
+              <tr><td>NER</td><td>Tokens → person/place/org tags</td></tr>
+              <tr><td>Machine translation</td><td>Sentence → sentence in another language</td></tr>
+              <tr><td>Summarisation / QA</td><td>Document (+ question) → text</td></tr>
+              <tr><td>Retrieval</td><td>Query → ranked passages (embeddings + ANN index)</td></tr>
+            </tbody>
+          </table>
+          <p>Seq2seq with attention (Bahdanau, Luong) was the bridge from LSTMs to Transformers: the decoder learns <em>where to look</em> in the source.</p>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Tokenisation is the first modelling choice. TF–IDF + linear models remain strong for simple classification. Embeddings turn discrete tokens into geometry. Context matters: modern NLP is almost entirely pretrained Transformers. Evaluation must match the task (BLEU is not “truth”; human eval and task metrics matter).</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Subword tokenisers fix open vocabulary.</li>
+              <li>TF–IDF = importance of a term in a document vs corpus.</li>
+              <li>word2vec/GloVe = static; BERT/GPT = contextual.</li>
+              <li>Attention = weighted look-up over other tokens.</li>
+              <li>RAG: retrieve then generate, to ground answers.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="c">
+              <p class="q">1. BPE/WordPiece tokenisation exists mainly to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Compress images</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Cluster customers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Handle rare and unknown words via subword pieces</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Remove the need for embeddings</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Open-vocabulary text without a giant word list or endless UNKs.</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">2. “Bank” having different vectors in “river bank” vs “investment bank” requires:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Contextual embeddings</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A single static word2vec row</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. k-means with k=1</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. PCA on pixels</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Static tables assign one vector per word type. Contextual models condition on neighbours.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">3. TF–IDF down-weights words that:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Never appear</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Are numbers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Appear only in one document</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Appear in almost every document (like “the”)</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Inverse document frequency is low for ubiquitous terms.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">4. Retrieval-augmented generation (RAG) is useful because:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It makes models smaller than embeddings</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It lets a generator condition on fetched, up-to-date documents</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It eliminates all hallucinations by law</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It replaces evaluation</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">RAG reduces closed-book guessing; it does not magically guarantee truth if retrieval is wrong.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch12')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c12p1">
+              <p class="q">P1. You need a “is this support ticket urgent?” classifier and have 8,000 labelled tickets. Compare TF–IDF+linear vs a small pretrained Transformer.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>TF–IDF + logistic/SVM is fast, cheap, often surprisingly strong if urgency is keyword-heavy (“cannot login”, “data loss”). A fine-tuned Transformer captures paraphrase and sarcasm better, at higher cost. Start with the linear baseline; only keep the Transformer if val metrics (and latency/cost) justify it. Watch leakage from ticket IDs and agent tags.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c12p2">
+              <p class="q">P2. Why is BLEU a weak standalone metric for chatbot quality?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>BLEU counts n-gram overlap with reference text. Many correct answers share few n-grams (“Sure, here’s how…” vs “You can fix this by…”). Chat needs helpfulness, safety, and factuality — human or LLM-as-judge rubrics, plus task success, beat BLEU.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch21">← Vision & speech</button>
+            <button data-go="ch13">Chapter 13 →</button>
           </div>
         </div>
       </article>

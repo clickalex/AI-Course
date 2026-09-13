@@ -1,0 +1,88 @@
+<article class="page" id="ch51">
+        <div class="chapter-head"><div class="kicker">Chapter 51 · Frontier · F5</div>
+          <h2>Vision-language models</h2>
+          <p class="lede">Models that see <em>and</em> read: CLIP matched images to captions, then LLaVA-style models plugged vision into LLMs. Learn how pixels become tokens, what grounding and OCR unlock, and where VLMs still hallucinate.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">CLIP</span><span class="tag">LLaVA</span><span class="tag">Grounding</span><span class="tag">OCR</span></div>
+          <div class="figure"><img src="images/vlm.jpg" alt="An eye merging photos into text with grounding lines" /></div>
+          <p class="caption">Figure 51.1 — Pixels in, tokens through, grounded answers out. The projector bridging vision and language is the whole trick.</p>
+          <h3>1. CLIP: the foundation</h3>
+          <ul>
+            <li><strong>Idea:</strong> train an image encoder + text encoder <strong>contrastively</strong> on 400M image–caption pairs: matching pairs attract, random pairs repel. Result: one shared embedding space.</li>
+            <li><strong>Superpower:</strong> zero-shot classification — “a photo of a {label}” text embeddings vs the image, no training per task. Powers search, moderation, and retrieval (Ch 48 multimodal RAG).</li>
+            <li><strong>Limit:</strong> bag-of-words-ish; struggles with counting, spatial relations (“left of”), and fine detail. Know this before trusting it.</li>
+          </ul>
+          <h3>2. LLaVA-style: vision meets LLM</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 140" width="640" height="140">
+              <g font-family="Source Sans 3" font-size="13" text-anchor="middle">
+                <rect x="20" y="40" width="130" height="55" rx="10" fill="#0f766e"/><text x="85" y="63" fill="#fff">Image</text><text x="85" y="80" fill="#d1fae5" font-size="11">ViT encoder</text>
+                <rect x="180" y="40" width="130" height="55" rx="10" fill="#0c1b2e"/><text x="245" y="63" fill="#fff">Projector</text><text x="245" y="80" fill="#94a3b8" font-size="11">MLP adapter</text>
+                <rect x="340" y="40" width="130" height="55" rx="10" fill="#0ea5e9"/><text x="405" y="63" fill="#fff">LLM</text><text x="405" y="80" fill="#e0f2fe" font-size="11">frozen / LoRA</text>
+                <rect x="500" y="40" width="120" height="55" rx="10" fill="#b45309"/><text x="560" y="63" fill="#fff">Answer</text><text x="560" y="80" fill="#fef3c7" font-size="11">+ boxes</text>
+                <text x="330" y="118" fill="#57534e" font-size="11">Train in 2 stages: align projector on captions → instruction-tune on visual Q&A</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 51.1 — Patches become “visual tokens” the LLM reads like words. Cheap to build on open weights; quality lives in the instruction data.</div>
+          </div>
+          <h3>3. What unlocks: grounding, OCR, docs</h3>
+          <ul>
+            <li><strong>Referring + grounding:</strong> “the red valve, second from left” → bounding box / mask (Grounding-DINO, SAM hybrids). Inspection, robotics, UI agents.</li>
+            <li><strong>OCR &amp; documents:</strong> VLMs read invoices, tables, handwriting — often beating classic OCR pipelines because layout + language disambiguate.</li>
+            <li><strong>Video:</strong> sample frames → same pipeline; add temporal pooling. Cost scales with frames — retrieve keyframes first.</li>
+          </ul>
+          <div class="warn"><h4>VLM failure modes</h4><p>Hallucinated objects that aren’t there (always verify against detections for safety uses) · tiny-text blindness (crop + zoom pipeline) · counting errors · prompt-injected images (pixels as jailbreaks — treat images as untrusted input).</p></div>
+          <div class="note"><h4>Short notes</h4><p>CLIP = contrastive image–text space, zero-shot everything coarse. LLaVA-style = ViT → projector → LLM, 2-stage trained. Wins: grounding/boxes, OCR/docs, UI understanding. Verify objects for safety uses; crop-zoom for tiny text; images are untrusted input too.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Contrastive pairs build shared space.</li><li>Projector turns patches to tokens.</li><li>Align, then instruction-tune.</li><li>Grounding = words → boxes.</li><li>Verify; zoom; distrust pixels.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. CLIP learns by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Classifying 1000 fixed labels only</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Contrastive learning: matching image–caption pairs attract, random pairs repel</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ignoring all text</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Training only on drawings</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">One shared space ⇒ zero-shot everything coarse.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. In LLaVA-style models the projector’s job is to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Print the image</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Delete the LLM</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Map ViT patch features into the LLM’s token space (visual tokens)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Compress text files</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The bridge that lets LLMs “read” images.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Visual grounding means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Localising a phrase to image regions (boxes/masks)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Earthing the GPU</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Burying bad checkpoints</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Lowering resolution</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Words → boxes. Core of inspection and UI agents.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. VLM misses tiny label text. Best fix:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Shout at the screen</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Downscale further</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Remove the image</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Detect-crop-zoom pipeline: find the region, enlarge, re-query</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Resolution is finite; attention follows crops.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Images in prompts must be treated as untrusted because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. They’re too colourful</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Pixel-level prompt injection / jailbreaks can hide instructions in images</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. PNGs are illegal</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Models can’t see at all</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Same privilege hierarchy as text (Ch 42).</div></div>
+            <button class="btn gold" onclick="checkChapter('ch51')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c51p1"><p class="q">P1. Design invoice extraction: photo → structured JSON (vendor, lines, totals). Pipeline + checks.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Detect document → dewarp → VLM reads to JSON with schema (few-shot) → verify: line sums = total, GST math, date sanity; low-confidence fields route to human review. Eval: field-level F1 on 200 held-out invoices incl. crumpled/handwritten. Never trust totals without arithmetic checks.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c51p2"><p class="q">P2. Factory visual inspection with a VLM: where does it beat a classifier, and what must you verify?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Beats: novel defect descriptions (“scratch near bolt”) without retraining, explanations for operators. Verify: grounding boxes against calibrated detectors, false-negative rate on a seeded defect set (missing defects costs more than false alarms), latency per part, and drift as lighting/parts change.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c51p3"><p class="q">P3. Your shopping search matches “red dress” to red cars. Debug the CLIP setup.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>CLIP is coarse + attribute-blind: colour dominates, object binds weakly. Fixes: fine-tune contrastively on catalogue pairs (hard negatives: same colour, wrong object), add attribute classifiers/detectors as filters, hybrid keyword + vector search, and eval on attribute-swap probes (“red dress” vs “red car”).</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch50">← Edge &amp; small models</button>
+            <button data-go="ch52">Voice agents →</button>
+          </div>
+        </div>
+      </article>

@@ -1,0 +1,90 @@
+<article class="page" id="ch57">
+        <div class="chapter-head"><div class="kicker">Chapter 57 · Frontier · F11</div>
+          <h2>AI for science</h2>
+          <p class="lede">AlphaFold cracked protein folding; materials, weather, and maths are next. Learn how AI accelerates discovery — and the validation bar that separates breakthroughs from press releases.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">AlphaFold</span><span class="tag">Materials</span><span class="tag">Surrogates</span><span class="tag">Validation</span></div>
+          <div class="figure"><img src="images/ai-science.jpg" alt="Protein flower blooming over microscope and galaxies" /></div>
+          <p class="caption">Figure 57.1 — AI compresses decades of search into days — but nature still grades the final exam.</p>
+          <h3>1. The wins so far</h3>
+          <table><thead><tr><th>Domain</th><th>What AI did</th><th>Why it worked</th></tr></thead><tbody>
+            <tr><td><strong>Proteins (AlphaFold)</strong></td><td>Sequence → 3D structure at experimental accuracy</td><td>Evolutionary data (MSAs) + geometry-aware nets + decades of PDB labels</td></tr>
+            <tr><td><strong>Materials (GNoME et al.)</strong></td><td>Millions of stable crystals predicted</td><td>DFT simulations as ground truth; search guided by learned energies</td></tr>
+            <tr><td><strong>Weather (GraphCast)</strong></td><td>10-day forecasts beating physics models on many scores</td><td>40 years of reanalysis data; GNNs on the globe grid</td></tr>
+            <tr><td><strong>Maths/coding</strong></td><td>Conjecture assistance, proof search, FunSearch-style discovery</td><td>Verifiers (proofs, tests) make trial-and-error rigorous</td></tr>
+          </tbody></table>
+          <h3>2. The pattern: surrogate + search + validate</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="15" y="50" width="140" height="55" rx="10" fill="#0f766e"/><text x="85" y="73" fill="#fff">Expensive truth</text><text x="85" y="89" fill="#d1fae5" font-size="10">lab / DFT / sim</text>
+                <rect x="180" y="50" width="140" height="55" rx="10" fill="#0c1b2e"/><text x="250" y="73" fill="#fff">Surrogate</text><text x="250" y="89" fill="#94a3b8" font-size="10">fast approximator</text>
+                <rect x="345" y="50" width="120" height="55" rx="10" fill="#0ea5e9"/><text x="405" y="73" fill="#fff">Search</text><text x="405" y="89" fill="#e0f2fe" font-size="10">millions of tries</text>
+                <rect x="490" y="50" width="135" height="55" rx="10" fill="#b45309"/><text x="557" y="73" fill="#fff">Validate</text><text x="557" y="89" fill="#fef3c7" font-size="10">real experiment</text>
+                <text x="330" y="130" fill="#57534e" font-size="11">AI proposes at machine speed; reality disposes — the loop is the method</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 57.1 — Surrogates make search cheap; validation keeps it science. Skip the last box and it’s numerology.</div>
+          </div>
+          <h3>3. The validation bar (apply to every claim)</h3>
+          <ul>
+            <li><strong>Prospective, not retrospective:</strong> predict the future / unseen entities — not fit the past. Time-split, novel scaffolds, blind tests (CASP-style).</li>
+            <li><strong>Beat the domain baseline:</strong> not a strawman — the best physics/stats method experts actually use, tuned fairly.</li>
+            <li><strong>Uncertainty + ablations:</strong> error bars, which component mattered, failure analysis. “It works” without “when it breaks” isn’t science.</li>
+            <li><strong>Wet-lab / real-world close:</strong> synthesise the material, test the drug, run the field trial. Simulation-to-claim needs the last mile.</li>
+          </ul>
+          <div class="warn"><h4>Science pitfalls</h4><p>Data leakage across splits (homologous proteins in train+test!) · overclaiming vs weak baselines · p-hacking with seeds · ignoring negative results · dual-use blindness (protein design cuts both ways — screen + govern).</p></div>
+          <div class="note"><h4>Short notes</h4><p>Pattern: expensive truth → surrogate → massive search → real validation. Wins need data + geometry + verifiers. Bar: prospective tests, strong baselines, uncertainty, wet-lab close. Watch leakage (homology!), baselines, and dual-use.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Surrogate cheap, truth dear.</li><li>Search millions, test dozens.</li><li>Prospective beats retrospective.</li><li>Homology leaks; split strictly.</li><li>No validation = numerology.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. AlphaFold succeeded largely because of:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Bigger chat prompts</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Evolutionary data (MSAs) + geometry-aware nets + decades of PDB structures</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ignoring physics entirely</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Luck alone</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Data + inductive bias + labels, not magic.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. A surrogate model’s job is to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Replace all scientists</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Write grant proposals</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Cheaply approximate expensive truth (lab/DFT/sim) so search can run millions of tries</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Delete experimental data</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Then validate winners for real.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Strongest validation of a materials-discovery claim:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Prospective synthesis + measurement of predicted compounds</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Fitting the training set well</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A beautiful poster</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. More parameters</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Nature grades the final exam.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Homologous proteins split across train and test cause:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Faster training</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Better fonts</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Happier reviewers</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Leakage — inflated scores that collapse on truly novel proteins</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Split by homology/time, not randomly.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. “Beats the domain baseline” means comparing against:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Random guessing</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The best physics/stats method experts actually use, tuned fairly</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A 2012 tutorial model</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing — baselines are optional</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Strawmen are the oldest trick in the book.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch57')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c57p1"><p class="q">P1. Review this claim: “Our GNN finds battery materials 10× faster (tested on 2019 data).” Your review?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Ask: time-split or random (leakage)? Baseline = best DFT workflow or a strawman? “Faster” wall-clock to <em>validated</em> material, or just more candidates? Demand: prospective predictions synthesised + measured, ablations, error bars, failure cases. Retrospective fit + weak baseline = reject.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c57p2"><p class="q">P2. Design the data split for a protein-function predictor (avoid homology leakage).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Cluster by sequence identity (e.g., &lt;30–40% between splits), split by cluster + deposition date (prospective holdout of newest structures). Report performance by novelty bands. Sanity check: near-duplicate detector across splits. Random splits here are scientific malpractice.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c57p3"><p class="q">P3. Your lab wants “AI-designed enzymes.” Sketch the full loop incl. dual-use guardrails.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Surrogate (structure/function predictor) → generative search over sequences → in-silico filters (stability, specificity) → synthesise top-K → assay → feed back. Guardrails: screen against pathogen/toxin lists, refuse select-agent-adjacent work, institutional review, staged disclosure of methods. Capability + responsibility, one protocol.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch56">← Robotics &amp; VLA</button>
+            <button data-go="ch58">Recommenders →</button>
+          </div>
+        </div>
+      </article>

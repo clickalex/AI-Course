@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Advanced RL & world models · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -104,7 +104,7 @@
 
       <div class="toc-group">Decisions & autonomy</div>
       <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
-      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item active" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
       <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
 
       <div class="toc-group">PhD / research</div>
@@ -132,73 +132,48 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
-        </div>
+<article class="page active" id="ch25">
+        <div class="chapter-head"><div class="kicker">Chapter 25 · PhD / advanced</div>
+          <h2>Advanced RL, MARL &amp; world models</h2>
+          <p class="lede">Beyond toy Q-learning: partial observability, many agents, learning a simulator, and using RL on language policies.</p></div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
-          </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
-          </div>
+          <ul>
+            <li><strong>POMDP</strong> — you don’t see s, only observations; need memory (RNN, belief state).</li>
+            <li><strong>Offline RL</strong> — learn from a log without more env interaction (conservative Q, IQL). Easy to overestimate unseen actions.</li>
+            <li><strong>Model-based / world models</strong> — learn T(s′|s,a), plan inside the dream (Dreamer, MuZero).</li>
+            <li><strong>MARL</strong> — non-stationarity: other learners change the env. CTDE (centralised training, decentralised exec), Nash, mean-field.</li>
+            <li><strong>Imitation</strong> — behaviour cloning; DAgger when you can query an expert.</li>
+            <li><strong>LLM+RL</strong> — RLHF, process rewards, RL on verifiable tasks (math, code tests).</li>
+          </ul>
+          <div class="note"><h4>Short notes</h4><p>Most “RL for products” still dies on reward design and sample cost. World models and offline logs help. Multi-agent is a different theory. For LLMs, prefer verifiable rewards over vague preference when you can.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>POMDP = hidden state.</li><li>Offline RL ≠ copy the log blindly.</li><li>MARL: opponents learn too.</li><li>World model = learned simulator.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. A POMDP differs from an MDP because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. There is no reward</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The agent sees observations, not necessarily the full Markov state</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Actions are banned</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It is supervised learning</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Partial observability.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. In MARL, non-stationarity means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The GPU clock changes</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Labels leak from test</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Other agents’ policies change, so the environment’s dynamics appear to change</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. γ is always 0</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Your data from yesterday’s opponents is stale.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A world model is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A learned predictor of future states/rewards used for planning or imagination training</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A world map in GIS only</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. BM25</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A type of dropout</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Model-based RL.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch25')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c25p1"><p class="q">P1. Why is “RL on an LLM with a learned reward model” fragile compared with “RL on unit-test pass rate”?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>Reward models can be gamed (sycophancy, verbose fluff). Unit tests are a ground-truth verifier. Prefer verifiable rewards when the domain allows; keep humans for taste and safety that tests miss.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch15">← Chapter 15</button>
+            <button data-go="ch26">Graphs & robotics →</button>
           </div>
         </div>
       </article>

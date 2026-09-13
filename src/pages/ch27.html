@@ -1,0 +1,42 @@
+<article class="page" id="ch27">
+        <div class="chapter-head"><div class="kicker">Chapter 27 · PhD</div>
+          <h2>Learning theory</h2>
+          <p class="lede">When can you prove a model will generalise — and why deep nets ignore the old proofs and still work?</p></div>
+        <div class="content">
+          <div class="figure"><img src="images/phd-research.jpg" alt="Academic research atmosphere with networks and papers" /></div>
+          <p class="caption">Figure 27.1 — Theory is the map of what cannot work, and the surprise of what does.</p>
+          <p><strong>PAC learning</strong>: with high probability, empirical risk close to true risk, given enough samples vs hypothesis class complexity. <strong>VC dimension</strong> measures how many points a class can shatter. Uniform convergence + concentration inequalities (Hoeffding) are the machinery.</p>
+          <p>Deep nets have huge VC-dimension yet generalise. Research: implicit bias of SGD, double descent, grokking, interpolation, NTK, scaling laws (loss vs compute). Nonconvex optimisation: we don’t get global minima guarantees; we get empirics + some landscape results.</p>
+          <p>Information theory: cross-entropy is KL to the data distribution; bits-back, rate-distortion for compression/generative models.</p>
+          <div class="note"><h4>Short notes</h4><p>Classical bounds: complexity ↓ or n ↑ ⇒ generalisation. Deep learning broke the “must underfit to generalise” slogan (double descent). PhD work is: explain that, or exploit it (scaling, distillation, implicit regularisation).</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>PAC: probably approximately correct.</li><li>VC: capacity of a hypothesis class.</li><li>Double descent: overparameterised models can generalise.</li><li>Scaling laws: predictable loss vs compute.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. VC dimension is a measure of:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. GPU temperature</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. BLEU</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Capacity / complexity of a hypothesis class</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Number of agents</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Shattering: all labelings of a set of points.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. Double descent refers to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Test error falling again after the interpolation peak as models grow</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Using two dropout layers</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A* expanding two nodes</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. PCA with two components only</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Modern twist on bias-variance.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">3. Scaling laws in LLMs typically relate:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Chess Elo to k in k-means</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only battery percentage</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ImageNet to BM25</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Loss to compute, data size, and parameters in a smooth power law</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Kaplan/Hoffmann-style results.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch27')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c27p1"><p class="q">P1. Why don’t huge VC bounds “prove” that GPT-class models cannot generalise?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>The bounds are worst-case over all hypotheses in a giant class. SGD + data structure + implicit bias pick a tiny subset. Vacuous bounds ≠ no generalisation. Research seeks tighter, algorithm-dependent bounds.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch26">← Graphs & robotics</button>
+            <button data-go="ch28">XAI & alignment →</button>
+          </div>
+        </div>
+      </article>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Reinforcement Learning · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -103,7 +103,7 @@
       <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
 
       <div class="toc-group">Decisions & autonomy</div>
-      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item active" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
       <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
       <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
 
@@ -132,73 +132,132 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
+<article class="page active" id="ch15">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 15 · Sequential decisions</div>
+          <h2>Reinforcement learning</h2>
+          <p class="lede">An agent acts, the world answers with a next state and a reward, and the agent improves its policy. No labelled “correct action” is required — only a goal signal.</p>
         </div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
+          <div class="figure">
+            <img src="images/reinforcement.jpg" alt="RL agent in a maze receiving rewards and penalties" />
           </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
+          <p class="caption">Figure 15.1 — Agent ↔ environment loop: state, action, reward, next state.</p>
+
+          <h3>MDP vocabulary</h3>
+          <ul>
+            <li><strong>State s</strong> — what the agent knows (or the Markov state of the world).</li>
+            <li><strong>Action a</strong> — what it can do.</li>
+            <li><strong>Reward r</strong> — scalar feedback. Design this carefully; you get what you ask for.</li>
+            <li><strong>Policy π(a|s)</strong> — the behaviour to learn.</li>
+            <li><strong>Return</strong> — discounted sum of future rewards. Discount γ ∈ [0,1) values sooner rewards more.</li>
+            <li><strong>Value V(s)</strong> / <strong>Q(s,a)</strong> — expected return from a state (and action).</li>
+          </ul>
+          <div class="formula">Q(s,a) = E[ r + γ max<sub>a'</sub> Q(s', a') ]<small>Bellman flavour (optimal Q). Q-learning learns this from samples.</small></div>
+
+          <h3>Core algorithms (map, don’t memorise every variant)</h3>
+          <table>
+            <thead><tr><th>Style</th><th>Idea</th></tr></thead>
+            <tbody>
+              <tr><td>Q-learning / DQN</td><td>Learn action values; act nearly greedily. DQN uses a neural net + replay buffer.</td></tr>
+              <tr><td>Policy gradient / PPO</td><td>Optimise π directly. PPO is the workhorse of modern continuous-control and a lot of LLM alignment history.</td></tr>
+              <tr><td>Actor–critic</td><td>A policy (actor) and a value baseline (critic) together.</td></tr>
+              <tr><td>Model-based</td><td>Learn/use a world model to plan (AlphaGo’s search + network).</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Exploration vs exploitation</strong>: ε-greedy, entropy bonuses, curiosity. Too little exploration, the agent never finds the door; too much, it never uses what it knows.</p>
+
+          <h3>Where RL shows up</h3>
+          <p>Games, robotics, bidding, recommendation (carefully), chip layout, and aligning LLMs (RLHF). Most business “ML” is still supervised — RL is for when the right action is defined by long-term consequences, not a static label.</p>
+
+          <div class="warn">
+            <h4>Reward hacking</h4>
+            <p>A cleaning robot maximising “dirt collected” may knock over a plant to create more dirt. Specify the reward, constraints, and oversight as seriously as the algorithm.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>RL = learn a policy from reward in an MDP. Q-learning estimates action values; policy gradients move π uphill on expected return. Discounting trades now vs later. Exploration is mandatory. Reward design is the real art — and the real safety problem. RLHF is RL on language-model policies with a learned reward model.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>Loop: s → a → r, s′.</li>
+              <li>π policy, V/Q values, γ discount.</li>
+              <li>DQN vs PPO: values vs direct policy.</li>
+              <li>Explore vs exploit.</li>
+              <li>Bad rewards → bad behaviour.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. In RL, the policy is:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The learning rate only</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The mapping from states to actions (possibly stochastic)</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The test-set CSV</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A type of convolution</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">π(a|s) is what you deploy.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. The discount factor γ close to 0 makes the agent:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Infinitely patient</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Ignore states</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Myopic — care mostly about immediate reward</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Equivalent to PCA</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">γ → 1 values long horizons (and can make credit assignment harder).</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. ε-greedy exploration means:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. With probability ε take a random action, otherwise greedy on Q</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Always take the best action</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Never update Q</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Set all rewards to ε</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Simple, classic, often enough in discrete action spaces.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. RLHF for LLMs typically needs:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Only k-means on prompts</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. No preference data at all</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Convolutional filters on ImageNet</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A reward signal derived from human (or AI) comparisons of answers</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Preference data → reward model or DPO pairs → policy update.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch15')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c15p1">
+              <p class="q">P1. Grid world: +1 at the goal, −1 in a trap, −0.01 per step. What behaviour does the small step cost encourage?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>It encourages shorter paths to the goal (lingering is costly) while still preferring the goal to the trap. If the step cost were 0, any path to +1 is equally good. If it were large, the agent might refuse to move. Reward shaping changes the optimal policy — design it on purpose.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c15p2">
+              <p class="q">P2. When would you not use RL and just use supervised learning instead?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>When you already have correct actions/labels and no sequential credit-assignment problem: spam vs ham, image class, next-token if you just want imitation. RL’s sample inefficiency and reward design cost are wasted if a dataset of x→y exists. Use RL when you must try actions, wait, and optimise long-run return.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch58">← Recommenders</button>
+            <button data-go="ch25">Advanced RL →</button>
           </div>
         </div>
       </article>

@@ -1,0 +1,187 @@
+<article class="page" id="ch1">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 1 · Foundations</div>
+          <h2>What is Artificial Intelligence?</h2>
+          <p class="lede">AI is the field of building machines that perform tasks we usually associate with human intelligence — perceiving, deciding, predicting, and generating.</p>
+        </div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Definition</span><span class="tag">AI vs ML vs DL</span><span class="tag">Applications</span></div>
+
+          <p>A useful working definition: <strong>Artificial Intelligence (AI)</strong> is the science and engineering of making computers do things that would require intelligence if done by people. That includes recognising speech, translating language, driving a car, diagnosing from an image, or writing code.</p>
+          <p>AI is not one algorithm. It is a family of ideas: search, logic, probability, optimisation, and — today most famously — <em>learning from data</em>.</p>
+
+          <div class="figure">
+            <img src="images/ai-ml-dl.jpg" alt="Nested relationship of AI, machine learning and deep learning" />
+          </div>
+          <p class="caption">Figure 1.1 — Deep learning sits inside machine learning, which sits inside AI. Not all AI learns from data.</p>
+
+          <h3>AI, ML, DL, and data science</h3>
+          <table>
+            <thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><strong>AI</strong></td><td>Any technique that makes a machine act intelligently, including rules and search.</td><td>Chess engine with hand-written evaluation; spam filter; robot planner.</td></tr>
+              <tr><td><strong>Machine learning (ML)</strong></td><td>AI that improves from data instead of only hard-coded rules.</td><td>Predict house prices from past sales.</td></tr>
+              <tr><td><strong>Deep learning (DL)</strong></td><td>ML using multi-layer neural networks that learn features automatically.</td><td>ImageNet classifier; GPT-style language model.</td></tr>
+              <tr><td><strong>Data science</strong></td><td>Broader craft of asking questions of data: stats, visualisation, ML, communication.</td><td>Dashboard of churn plus a model that predicts it.</td></tr>
+            </tbody>
+          </table>
+
+          <div class="diagram">
+            <svg viewBox="0 0 640 260" width="640" height="260" role="img" aria-label="Nested AI ML DL diagram">
+              <rect x="20" y="20" width="600" height="220" rx="18" fill="#0c1b2e"/>
+              <text x="40" y="48" fill="#5eead4" font-size="14" font-family="Source Sans 3">ARTIFICIAL INTELLIGENCE</text>
+              <text x="40" y="68" fill="#94a3b8" font-size="11" font-family="Source Sans 3">rules · search · planning · learning</text>
+              <rect x="50" y="88" width="540" height="132" rx="14" fill="#115e59"/>
+              <text x="70" y="116" fill="#ccfbf1" font-size="14" font-family="Source Sans 3">MACHINE LEARNING</text>
+              <text x="70" y="136" fill="#99f6e4" font-size="11" font-family="Source Sans 3">learn patterns from data</text>
+              <rect x="80" y="152" width="280" height="52" rx="12" fill="#fbbf24"/>
+              <text x="98" y="184" fill="#0c1b2e" font-size="14" font-family="Source Sans 3" font-weight="700">DEEP LEARNING</text>
+            </svg>
+            <div class="diagram-title">Diagram 1 — Nested fields. Expert systems are AI but not ML.</div>
+          </div>
+
+          <h3>Two ways machines look “smart”</h3>
+          <ol>
+            <li><strong>Knowledge-based (symbolic) AI</strong> — humans write rules: <em>if fever and cough then consider flu</em>. Transparent, brittle, expensive to maintain.</li>
+            <li><strong>Statistical / learning-based AI</strong> — show many examples; the machine fits a function that maps inputs to outputs. Flexible, data-hungry, sometimes opaque.</li>
+          </ol>
+          <p>Modern products mix both: a neural net proposes an answer; rules, tools, and human review constrain it.</p>
+
+          <h3>What AI is not</h3>
+          <ul>
+            <li>It is not automatically conscious, and today’s systems do not “understand” the way people do.</li>
+            <li>It is not magic: every model is a function with parameters, trained by optimisation.</li>
+            <li>It is not always deep learning. Spreadsheets, logistic regression and gradient-boosted trees still run a huge share of industry ML.</li>
+          </ul>
+
+          <div class="example">
+            <h4>Worked example — spam</h4>
+            <p>A rule system flags mail containing “FREE LOTTERY”. Spammers change spelling. An ML classifier trained on labelled spam/ham learns many weak clues (links, sender reputation, unusual punctuation) and generalises better — until the data drifts, which is why models need monitoring.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>AI = machines performing intelligence-like tasks. ML = AI that learns from data. DL = ML with deep neural nets. Intelligence here means competent behaviour on a task, not human minds. Most commercial “AI” today is narrow: excellent at one job, useless at the next without retraining or a new prompt/tool setup.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>AI ⊃ ML ⊃ DL.</li>
+              <li>Symbolic AI uses rules; ML uses data + a learning algorithm.</li>
+              <li>A model is a function <em>f(x) ≈ y</em> with adjustable parameters.</li>
+              <li>Data science includes ML but also stats, cleaning, and communication.</li>
+              <li>Narrow AI can still be extremely valuable (translation, vision, coding assistants).</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
+
+            <div class="mcq" data-answer="b">
+              <p class="q">1. Which statement is most accurate?</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. All AI systems are deep neural networks.</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Machine learning is a subset of AI that learns from data.</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Data science is a subset of deep learning.</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Symbolic AI cannot be called AI.</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">ML sits inside AI. Expert systems are AI without learning. Deep learning is only one style of ML.</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">2. A chess program that only uses hand-written evaluation and search is best described as:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Deep learning</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Unsupervised learning</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. AI, but not machine learning</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Data science</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Search + heuristics is classic AI. It is ML only if the evaluation or policy is learned from data (as in AlphaZero).</div>
+            </div>
+
+            <div class="mcq" data-answer="a">
+              <p class="q">3. Why did statistical ML overtake purely rule-based systems in many products?</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Rules are brittle when the world has too many exceptions.</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Rules cannot run on computers.</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ML never needs data.</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Neural nets are legally required.</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Real language, vision and fraud have endless edge cases. Learning from examples scales better than writing every rule.</div>
+            </div>
+
+            <div class="mcq" data-answer="d">
+              <p class="q">4. Deep learning is specifically:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Any AI used in production</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Statistics without computers</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Rule engines with many if-statements</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Machine learning with multi-layer neural networks</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">“Deep” refers to many layers that compose features. Random forests are ML, not DL.</div>
+            </div>
+
+            <div class="mcq" data-answer="b">
+              <p class="q">5. “Narrow AI” means:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The model has few parameters</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The system is competent on a limited set of tasks</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The system has human-level general intelligence</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The system cannot use GPUs</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">A translation model can be huge and still be narrow: it does not automatically run a company or invent physics.</div>
+            </div>
+
+            <button class="btn gold" onclick="checkChapter('ch1')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <p>Attempt each question, then reveal the model answer and mark yourself.</p>
+
+            <div class="practice" data-pid="c1p1">
+              <p class="q">P1. A hospital wants to flag likely pneumonia from chest X-rays. Is this AI, ML, DL, or all three? Explain.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+                <p>It is <strong>AI</strong> (a perceptual/diagnostic task). If the system is trained on labelled X-rays, it is <strong>ML</strong>. If that model is a convolutional neural net (the usual choice), it is also <strong>DL</strong>. A hand-crafted rule like “if white patch in lower lobe then pneumonia” would be AI but not ML.</p>
+                <p><em>Result key:</em> AI yes; ML if trained on data; DL if a deep net is used.</p>
+              </div>
+              <div class="self-mark">
+                <span>Self-mark:</span>
+                <button onclick="markPractice(this,'yes')">I got it</button>
+                <button onclick="markPractice(this,'no')">Missed it</button>
+              </div>
+            </div>
+
+            <div class="practice" data-pid="c1p2">
+              <p class="q">P2. Give one advantage and one disadvantage of rule-based AI versus learned models.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+                <p><strong>Rules:</strong> advantage — transparent and controllable (“never approve a loan if age &lt; 18”). Disadvantage — cannot capture messy high-dimensional patterns; maintenance nightmare.</p>
+                <p><strong>Learned models:</strong> advantage — discover patterns humans would miss. Disadvantage — need data, can silently fail on new distributions, harder to explain.</p>
+              </div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c1p3">
+              <p class="q">P3. Why is a chatbot that quotes Wikipedia still not “understanding” in the human sense?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer">
+                <p>It maps text to likely continuations (or retrieved snippets) using statistics of language. It has no grounded model of the world, no beliefs, no accountability. Fluency is not comprehension. This matters: models can be confidently wrong (hallucination) because they optimise “sounds right”, not “is true”.</p>
+              </div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+
+          <div class="nav-row">
+            <button class="ghost" data-go="sch1">← School chapter</button>
+            <button data-go="ch2">Chapter 2 →</button>
+          </div>
+        </div>
+      </article>

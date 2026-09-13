@@ -3,12 +3,12 @@
 let MOCK = null;
 
 function mockBank() {
-  return [...document.querySelectorAll("#interview .practice")].map(el => ({
-    pid: el.dataset.pid,
-    q: el.querySelector(".q").textContent.trim(),
-    ans: el.querySelector(".answer").innerHTML,
-    star: el.querySelector(".q").textContent.includes("★")
-  }));
+  const dec = document.createElement("textarea");
+  return (typeof INTERVIEW !== "undefined" ? INTERVIEW : []).map(q => {
+    dec.innerHTML = q.q;
+    const text = dec.value;
+    return { pid: q.pid, q: text, ans: q.ans, star: text.includes("★") };
+  });
 }
 
 function mockShowBest() {

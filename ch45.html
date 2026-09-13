@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Time series & forecasting · Zero to Hero AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <button class="menu-btn" onclick="openMenu()" aria-label="Open menu">☰</button>
+  <div class="backdrop" id="backdrop" onclick="closeMenu()"></div>
+
+  <div class="app">
+<aside class="sidebar" id="sidebar">
+      <div class="brand" data-go="cover">
+        <div class="brand-mark">ZH</div>
+        <div>
+          <h1>Zero to Hero<br/>AI Course</h1>
+          <p>A complete illustrated book</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Reading progress</span><span id="progressLabel">0% read</span></div>
+        <div class="progress-bar"><span id="progressBar"></span></div>
+      </div>
+
+      <div class="toc-group">Start</div>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
+      <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
+      <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
+
+      <div class="toc-group">School · Class 1–12</div>
+      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
+      <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
+      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+
+      <div class="toc-group">UG foundations</div>
+      <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
+      <button class="toc-item" data-go="ch5"><span class="toc-num">08</span> Python for AI</button>
+      <button class="toc-item" data-go="ch6"><span class="toc-num">09</span> Data &amp; features</button>
+      <div class="toc-group">Data skills · Python → Git</div>
+      <button class="toc-item" data-go="ch30"><span class="toc-num">D1</span> Python in depth</button>
+      <button class="toc-item" data-go="ch31"><span class="toc-num">D2</span> Excel &amp; Sheets</button>
+      <button class="toc-item" data-go="ch32"><span class="toc-num">D3</span> Pandas &amp; NumPy</button>
+      <button class="toc-item" data-go="ch33"><span class="toc-num">D4</span> SQL for data &amp; AI</button>
+      <button class="toc-item" data-go="ch34"><span class="toc-num">D5</span> Visualization &amp; story</button>
+      <button class="toc-item" data-go="ch35"><span class="toc-num">D6</span> Statistics for analysis</button>
+      <button class="toc-item" data-go="ch36"><span class="toc-num">D7</span> Power BI &amp; dashboards</button>
+      <button class="toc-item" data-go="ch37"><span class="toc-num">D8</span> Capstone data project</button>
+      <button class="toc-item" data-go="ch38"><span class="toc-num">D9</span> BI tools compared</button>
+      <button class="toc-item" data-go="ch39"><span class="toc-num">D10</span> Data engineering</button>
+      <button class="toc-item" data-go="ch40"><span class="toc-num">D11</span> APIs & scraping</button>
+      <button class="toc-item" data-go="ch41"><span class="toc-num">D12</span> Git & collaboration</button>
+      <button class="toc-item active" data-go="ch45"><span class="toc-num">D13</span> Time series</button>
+
+      <div class="toc-group">Classical AI</div>
+      <button class="toc-item" data-go="ch17"><span class="toc-num">10</span> Search &amp; games</button>
+      <button class="toc-item" data-go="ch18"><span class="toc-num">11</span> Logic &amp; planning</button>
+
+      <div class="toc-group">Machine learning</div>
+      <button class="toc-item" data-go="ch7"><span class="toc-num">12</span> ML fundamentals</button>
+      <button class="toc-item" data-go="ch8"><span class="toc-num">13</span> Supervised learning</button>
+      <button class="toc-item" data-go="ch9"><span class="toc-num">14</span> Unsupervised learning</button>
+      <button class="toc-item" data-go="ch19"><span class="toc-num">15</span> Bayesian &amp; causal AI</button>
+      <button class="toc-item" data-go="ch20"><span class="toc-num">16</span> Recsys, IR &amp; KG</button>
+
+      <div class="toc-group">Deep learning &amp; gen AI</div>
+      <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
+      <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
+      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
+      <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
+      <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
+      <button class="toc-item" data-go="ch22"><span class="toc-num">23</span> Fine-tuning &amp; PEFT</button>
+
+      <div class="toc-group">Agents</div>
+      <button class="toc-item" data-go="ch23"><span class="toc-num">24</span> AI Agents</button>
+      <button class="toc-item" data-go="ch24"><span class="toc-num">25</span> Agentic AI systems</button>
+
+      <div class="toc-group">Applied & production</div>
+      <button class="toc-item" data-go="ch42"><span class="toc-num">A1</span> Prompt eng, RAG & evals</button>
+      <button class="toc-item" data-go="ch44"><span class="toc-num">A2</span> Cloud, Docker & GPUs</button>
+      <button class="toc-item" data-go="ch43"><span class="toc-num">A3</span> MLOps in production</button>
+      <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
+
+      <div class="toc-group">Frontier · GenAI</div>
+      <button class="toc-item" data-go="ch47"><span class="toc-num">F1</span> AGI: benchmarks & safety</button>
+      <button class="toc-item" data-go="ch48"><span class="toc-num">F2</span> Advanced RAG</button>
+      <button class="toc-item" data-go="ch49"><span class="toc-num">F3</span> Reasoning models</button>
+      <button class="toc-item" data-go="ch50"><span class="toc-num">F4</span> Small models & edge AI</button>
+      <button class="toc-item" data-go="ch51"><span class="toc-num">F5</span> Vision-language models</button>
+      <button class="toc-item" data-go="ch52"><span class="toc-num">F6</span> Voice agents & speech</button>
+      <button class="toc-item" data-go="ch53"><span class="toc-num">F7</span> Video generation</button>
+      <button class="toc-item" data-go="ch54"><span class="toc-num">F8</span> Federated learning</button>
+      <button class="toc-item" data-go="ch55"><span class="toc-num">F9</span> Quantum ML primer</button>
+      <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
+      <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
+      <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+
+      <div class="toc-group">Decisions & autonomy</div>
+      <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
+      <button class="toc-item" data-go="ch25"><span class="toc-num">27</span> Advanced RL &amp; MARL</button>
+      <button class="toc-item" data-go="ch26"><span class="toc-num">28</span> Graphs, AutoML, robotics</button>
+
+      <div class="toc-group">PhD / research</div>
+      <button class="toc-item" data-go="ch27"><span class="toc-num">29</span> Learning theory</button>
+      <button class="toc-item" data-go="ch28"><span class="toc-num">30</span> XAI, alignment, privacy</button>
+      <button class="toc-item" data-go="ch29"><span class="toc-num">31</span> Systems &amp; research methods</button>
+      <button class="toc-item" data-go="ch16"><span class="toc-num">32</span> Ethics, MLOps &amp; career</button>
+
+      <div class="toc-group">Revise &amp; test</div>
+      <button class="toc-item" data-go="notes"><span class="toc-num">N</span> Short notes sheet</button>
+      <button class="toc-item" data-go="glossary"><span class="toc-num">G</span> Hindi glossary (data)</button>
+      <button class="toc-item" data-go="cheats"><span class="toc-num">C</span> Cheat-sheet cards</button>
+      <button class="toc-item" data-go="playground"><span class="toc-num">P</span> Playground: datasets</button>
+      <button class="toc-item" data-go="interview"><span class="toc-num">I</span> Interview Q&A bank</button>
+      <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
+      <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
+      <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
+      <button class="toc-item" data-go="exam"><span class="toc-num">E</span> Final exam (57 Q)</button>
+      <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
+
+      <div class="sidebar-foot">
+        Progress is saved in this browser.<br/>
+        <button class="btn navy" style="margin-top:10px" onclick="resetAll()">Reset progress</button>
+      </div>
+    </aside>
+<main class="main">
+        <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
+<article class="page active" id="ch45">
+        <div class="chapter-head"><div class="kicker">Chapter 45 · Data skills · Forecasting</div>
+          <h2>Time series &amp; forecasting</h2>
+          <p class="lede">Sales next month, server load tonight, demand this Diwali. Time series is data with a memory — learn decomposition, stationarity, ARIMA vs Prophet vs gradient boosting, and how to backtest without lying to yourself.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Decomposition</span><span class="tag">ARIMA</span><span class="tag">Prophet</span><span class="tag">Backtesting</span></div>
+          <div class="figure"><img src="images/time-series.jpg" alt="A time series splitting into trend, seasonality and noise with a forecast cone" /></div>
+          <p class="caption">Figure 45.1 — Every series = trend + seasonality + noise. Forecast the first two; respect the third.</p>
+          <h3>1. Decompose first, model second</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 190" width="640" height="190">
+              <g font-family="Source Sans 3" font-size="12">
+                <text x="20" y="25" fill="#334155">Original</text>
+                <polyline points="120,30 180,22 240,34 300,20 360,32 420,18 480,30 540,16 600,28" fill="none" stroke="#0c1b2e" stroke-width="3"/>
+                <text x="20" y="70" fill="#334155">Trend</text>
+                <line x1="120" y1="75" x2="600" y2="55" stroke="#0f766e" stroke-width="3"/>
+                <text x="20" y="115" fill="#334155">Seasonal</text>
+                <polyline points="120,110 160,125 200,110 240,95 280,110 320,125 360,110 400,95 440,110 480,125 520,110 560,95 600,110" fill="none" stroke="#b45309" stroke-width="3"/>
+                <text x="20" y="160" fill="#334155">Residual</text>
+                <polyline points="120,160 180,155 240,165 300,156 360,163 420,157 480,164 540,158 600,162" fill="none" stroke="#be123c" stroke-width="2"/>
+                <text x="320" y="183" fill="#57534e" font-size="11">Additive model: y(t) = trend + seasonal + residual · check residuals look like noise</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 45.1 — Decomposition tells you which tool fits: strong seasonality → seasonal methods; changing trend → models that adapt.</div>
+          </div>
+          <h3>2. Stationarity &amp; the model ladder</h3>
+          <ul>
+            <li><strong>Stationary</strong> = stable mean/variance over time. Most classical models assume it — <strong>differencing</strong> (y<sub>t</sub> − y<sub>t−1</sub>) is the standard fix; the ADF test checks.</li>
+            <li><strong>ARIMA(p,d,q):</strong> autoregression + differencing + moving average. Great baseline for short, stable series. Seasonal twin: <strong>SARIMA</strong>.</li>
+            <li><strong>Exponential smoothing / ETS:</strong> weighted past with trend + seasonality (Holt-Winters). Simple, strong.</li>
+            <li><strong>Prophet / NeuralProphet:</strong> trend + multi-seasonality + holidays as regression. Forgiving on messy business data with gaps.</li>
+            <li><strong>Gradient boosting (LightGBM) on lag features:</strong> often wins when you have regressors (price, promo, weather). Feature store thinking (Ch 39).</li>
+          </ul>
+<pre><code># pandas: lag features turn forecasting into regression
+df["lag_7"]  = df["sales"].shift(7)
+df["lag_28"] = df["sales"].shift(28)
+df["roll_7"] = df["sales"].shift(1).rolling(7).mean()
+# NEVER fill lags with future values — shift() first, then split by date</code></pre>
+          <h3>3. Backtest like a skeptic</h3>
+          <ol>
+            <li><strong>Time-based splits only.</strong> Random KFold leaks the future. Use expanding/rolling windows: train on Jan–Jun → test Jul; then Jan–Jul → test Aug…</li>
+            <li><strong>Metric matches the decision:</strong> MAE for staffing, MAPE/sMAPE for scale-free, pinball loss for quantiles (P90 stock cover).</li>
+            <li><strong>Beat the naive baseline first:</strong> “tomorrow = today” (or “same weekday last week”). If your model can’t beat naive, ship naive.</li>
+            <li><strong>Forecast intervals, not just points:</strong> “120 ± 25 (80%)” drives safety stock; a naked 120 drives arguments.</li>
+          </ol>
+          <div class="warn"><h4>Classic time-series sins</h4><p>Random train/test split (future leaks in) · fitting scalers on the full series · one-step-ahead metrics hiding multi-step decay · ignoring regime changes (COVID, pricing) that obsolete history · retraining never.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Decompose into trend + seasonal + residual. Difference to stationarity. Ladder: naive → ETS/ARIMA → Prophet → LightGBM on lags + regressors. Validate with rolling time splits, beat naive, report intervals, and retrain on schedule because regimes change.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>y(t) = trend + seasonal + noise.</li><li>Differencing fixes wandering means.</li><li>Lags turn it into regression.</li><li>Time splits only — never shuffle.</li><li>Beat naive; quote intervals.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Differencing a series (y<sub>t</sub> − y<sub>t−1</sub>) is mainly used to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Delete outliers</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Make a wandering series stationary (stable mean) for classical models</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Encrypt the data</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Add seasonality</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Stationarity is the entry ticket for ARIMA-style models.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Random KFold cross-validation on time series is wrong because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It is too slow</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Folds must be equal size</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Future observations leak into training — use rolling time splits</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. KFold only works for images</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Train on the past, test on the future — always.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Before celebrating your forecaster, you should first:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Beat the naive baseline (tomorrow = today / same weekday last week)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Delete the baseline</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Forecast 10 years ahead</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Add 50 more features</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Many “AI forecasts” lose to naive. Check first.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Lag features (lag_7, rolling means) let you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. See the future</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Skip validation</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ignore seasonality</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Turn forecasting into tabular regression for models like LightGBM</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Shift first, then split by date — never leak.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. “120 ± 25 (80% interval)” beats a point forecast of 120 because it:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Looks more scientific</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Quantifies uncertainty so decisions (safety stock, staffing) can price risk</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Is always exactly right</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Needs no data</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Decisions need ranges, not false precision.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch45')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c45p1"><p class="q">P1. Daily orders show weekly seasonality + Diwali spike + upward trend. Your modelling plan?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Decompose to confirm components. Baseline: seasonal naive (same weekday last week). Candidates: SARIMA/ETS with weekly seasonality, or Prophet with yearly + weekly seasonality + Diwali as holiday regressor, or LightGBM on lags (7/14/28), rolling stats, promo/price flags. Rolling backtest over 3 months; metric sMAPE + P90 pinball for stock. Retrain weekly.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c45p2"><p class="q">P2. Your backtest MAE is great but live forecasts are terrible. List 3 leak suspects.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Scaler/imputer fit on full history including test period. (2) Lag/rolling features computed before the date split (future values inside windows). (3) Random split instead of time split, or regressors (actual promo spend) unavailable at forecast time — must use planned/known-in-advance values only.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c45p3"><p class="q">P3. When would you pick Prophet over LightGBM, and vice versa?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Prophet: messy business series with gaps, strong multi-seasonality + holidays, few regressors, need fast explainable intervals. LightGBM: rich regressors (price, weather, events), non-linear interactions, lots of history, and you can engineer lags carefully. Often: Prophet as robust baseline, LightGBM to beat it.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch41">← Git &amp; collaboration</button>
+            <button data-go="ch17">Search &amp; games →</button>
+          </div>
+        </div>
+      </article>
+
+</main>
+  </div>
+  <button class="print-btn" onclick="window.print()" title="Print this chapter or save as PDF">🖨 Print / PDF</button>
+  <script src="js/interview-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/playground.js"></script>
+  <script src="js/mock.js"></script>
+</body>
+</html>
+ml>

@@ -1,0 +1,90 @@
+<article class="page" id="ch54">
+        <div class="chapter-head"><div class="kicker">Chapter 54 · Frontier · F8</div>
+          <h2>Federated learning &amp; privacy</h2>
+          <p class="lede">Train on everyone’s data without seeing anyone’s data. Learn FedAvg, differential privacy, and secure aggregation — the stack behind private keyboards, health models, and on-device personalisation.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">FedAvg</span><span class="tag">DP-SGD</span><span class="tag">Aggregation</span><span class="tag">Non-IID</span></div>
+          <div class="figure"><img src="images/federated.jpg" alt="Devices sending locked update envelopes to a central model" /></div>
+          <p class="caption">Figure 54.1 — Data stays home; only model updates travel — locked, noised, and averaged.</p>
+          <h3>1. FedAvg in one round</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 160" width="640" height="160">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="230" y="10" width="180" height="45" rx="10" fill="#0c1b2e"/><text x="320" y="28" fill="#fff">Server model w</text><text x="320" y="44" fill="#94a3b8" font-size="10">broadcast</text>
+                <rect x="40" y="90" width="150" height="55" rx="10" fill="#0f766e"/><text x="115" y="112" fill="#fff">Phone A</text><text x="115" y="128" fill="#d1fae5" font-size="10">train locally</text>
+                <rect x="245" y="90" width="150" height="55" rx="10" fill="#0f766e"/><text x="320" y="112" fill="#fff">Hospital B</text><text x="320" y="128" fill="#d1fae5" font-size="10">train locally</text>
+                <rect x="450" y="90" width="150" height="55" rx="10" fill="#0f766e"/><text x="525" y="112" fill="#fff">Laptop C</text><text x="525" y="128" fill="#d1fae5" font-size="10">train locally</text>
+                <text x="320" y="80" fill="#57534e" font-size="11">send Δw (clipped + noised + encrypted) → weighted average → repeat</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 54.1 — Federated averaging: local SGD on private data, then average the updates. Communication (not compute) is the bottleneck.</div>
+          </div>
+          <h3>2. The privacy stack (each layer matters)</h3>
+          <table><thead><tr><th>Layer</th><th>Stops</th></tr></thead><tbody>
+            <tr><td><strong>Data minimisation</strong></td><td>Raw data never leaves the device — the base guarantee</td></tr>
+            <tr><td><strong>Secure aggregation</strong></td><td>Server sees only the sum, never individual updates (crypto masking)</td></tr>
+            <tr><td><strong>Differential privacy</strong></td><td>Clip + noise updates so no single user is detectable (ε budget)</td></tr>
+            <tr><td><strong>On-device personalisation</strong></td><td>Global model + local fine-tune — your keyboard, your words</td></tr>
+          </tbody></table>
+          <p><strong>DP intuition:</strong> the output barely changes if any one person opts out. Smaller ε = stronger privacy = more noise = worse utility. Privacy is a budget you spend deliberately.</p>
+          <h3>3. Why it’s hard: non-IID + systems</h3>
+          <ul>
+            <li><strong>Non-IID data:</strong> your typing ≠ mine; hospital A’s patients ≠ B’s. FedAvg converges slower and can drift — fixes: more local epochs care, proximal terms (FedProx), personalisation layers.</li>
+            <li><strong>Systems:</strong> dropouts (phones go offline), stragglers, tiny upload bandwidth — sample subsets per round, compress updates, async variants.</li>
+            <li><strong>Attacks:</strong> malicious clients poisoning updates (Byzantine-robust aggregation), curious servers (need secure agg + DP, not just federation).</li>
+          </ul>
+          <div class="warn"><h4>“Federated” ≠ automatically private</h4><p>Gradients leak: reconstruction attacks can recover images/text from raw updates. Federation without DP + secure aggregation is <em>distributed training with a privacy story</em> — demand all three layers before health/finance claims.</p></div>
+          <div class="note"><h4>Short notes</h4><p>FedAvg: broadcast → local train → send Δw → weighted average. Privacy needs all three: local data + secure aggregation + DP (ε budget). Expect non-IID drift, dropouts, stragglers; defend with robust aggregation + personalisation. Gradients leak — never skip DP for sensitive domains.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Updates travel, data stays.</li><li>Server sees sums, not users.</li><li>ε = privacy budget.</li><li>Non-IID slows + skews.</li><li>Personalise the last mile.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. One FedAvg round is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Upload all raw data to the server</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Broadcast model → clients train locally → send updates → weighted average</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete all local models</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Train only on the server</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Communication, not compute, is the bottleneck.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Secure aggregation guarantees the server sees:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Every user’s raw photos</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Each client’s exact update</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Only the sum of updates — never any individual’s (crypto masking)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Passwords</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Sums without sources.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Differential privacy’s ε (epsilon) is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A privacy budget: smaller ε = stronger privacy, more noise, lower utility</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The learning rate</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The number of phones</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Always zero</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Spend it deliberately across rounds.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Non-IID client data causes:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Instant convergence</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Free extra accuracy</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Longer battery life</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Slower convergence + client drift — mitigate with FedProx/personalisation</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Your data ≠ my data ≠ the average.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Federation alone, without DP + secure aggregation:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Is perfectly private</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Still leaks via gradient reconstruction — it’s distributed training with a story</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Encrypts everything automatically</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Needs no server</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Demand all three layers for sensitive domains.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch54')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c54p1"><p class="q">P1. Three hospitals want a joint pneumonia model without sharing scans. Your design?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Cross-silo FL: same model, FedAvg over 3 clients with secure aggregation + DP (agreed ε). Handle non-IID (different scanners/populations) with site-specific batch-norm/personalisation + slice evals per hospital. Contracts: data never moves, audit update code, IRB approval, staged rollout with shadow evals.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c54p2"><p class="q">P2. Keyboard next-word: 10M phones, mostly offline, tiny bandwidth. How do rounds work?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Cross-device FL: sample ~1k charging+WiFi phones/round; small model, few local epochs; compressed + quantised updates; DP noise; async-tolerant averaging. Personalisation layer per user on top of the global model. Metrics: top-1/3 on held-out users + on-device latency + battery.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c54p3"><p class="q">P3. A vendor claims “federated = HIPAA-proof.” Your 3 due-diligence questions?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Show me DP: what ε, where’s the noise, who holds the budget? (2) Show me secure aggregation: can your server see individual updates? (3) Show me reconstruction/poisoning evals + update-code audit. No crisp answers = distributed training with a privacy story, not a privacy system.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch53">← Video generation</button>
+            <button data-go="ch55">Quantum ML →</button>
+          </div>
+        </div>
+      </article>

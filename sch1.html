@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>AI for school · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,13 +28,13 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
 
       <div class="toc-group">School · Class 1–12</div>
-      <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
+      <button class="toc-item active" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
       <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
       <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
       <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
@@ -132,73 +132,62 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
+<article class="page active" id="sch1">
+        <div class="chapter-head">
+          <div class="kicker">School · Class 1–12</div>
+          <h2>AI for school</h2>
+          <p class="lede">If you can use a phone, you already live with AI. Pictures first, jargon later.</p>
         </div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
+          <div class="tag-row"><span class="tag">Class 1–12</span><span class="tag">Everyday AI</span></div>
+          <div class="figure"><img src="images/school-ai.jpg" alt="Students learning with a classroom robot" /></div>
+          <p class="caption">Figure S.1 — AI is a tool, not a magician.</p>
+          <p>A calculator always does 2+2=4 because a person wrote the rule. <strong>AI</strong> is when we also show the machine many examples so it can guess the next useful action. It still has no feelings.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 640 110" width="640" height="110">
+              <rect x="10" y="30" width="140" height="50" rx="10" fill="#0f766e"/><text x="80" y="62" text-anchor="middle" fill="#fff" font-size="14" font-family="Source Sans 3">INPUT</text>
+              <rect x="210" y="30" width="200" height="50" rx="10" fill="#0c1b2e"/><text x="310" y="62" text-anchor="middle" fill="#fff" font-size="14" font-family="Source Sans 3">PROCESS</text>
+              <rect x="470" y="30" width="150" height="50" rx="10" fill="#b45309"/><text x="545" y="62" text-anchor="middle" fill="#fff" font-size="14" font-family="Source Sans 3">OUTPUT</text>
+            </svg>
+            <div class="diagram-title">Diagram S.1 — Every AI app is still input, process, output.</div>
           </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
+          <h3>Where you already met AI</h3>
+          <ul><li>Maps suggesting a route</li><li>Camera finding faces</li><li>Voice assistant</li><li>Video feed choosing the next clip</li><li>Homework chatbot — which can be wrong</li></ul>
+          <h3>School rules</h3>
+          <ol><li>You must still understand the answer. Copying a bot essay is cheating and often false.</li><li>Never paste passwords, Aadhaar, or private photos into a public bot.</li><li>Check people-facts in a trusted source.</li><li>Don’t generate mean images of classmates.</li></ol>
+          <div class="note"><h4>Short notes</h4><p>AI maps inputs to outputs using data and/or rules. Useful and fallible. You stay responsible. Next: Chapter 1 uses grown-up words for the same ideas.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Input → process → output.</li><li>Examples teach many modern AIs.</li><li>Fluent ≠ true.</li><li>Keep secrets off public chats.</li></ul></div>
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. A chatbot writes a perfect-looking history paragraph. You should:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Submit it — fluent means true</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Use it only if it used big words</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Check facts, rewrite, and be ready to explain</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Paste it into ten more bots</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Hallucinations look confident. Understanding is the assignment.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. Face unlock is mainly:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Narrow AI for one job</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A human mind in the chip</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Superintelligence</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Not AI because it is small</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Task is specialised. Size doesn’t matter.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">3. Do not paste into a public AI chat:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A maths puzzle</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Your Aadhaar number and home address</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The word photosynthesis</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A public Wikipedia link</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Treat chats as possibly stored. Secrets stay offline.</div></div>
+            <button class="btn gold" onclick="checkChapter('sch1')">Grade this chapter</button><div class="chapter-score"></div>
+          </div>
+          <div class="practice-block"><h3>Practice</h3>
+            <div class="practice" data-pid="s1p1"><p class="q">P1. Name three AI systems you used this week and one way each could be wrong.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Maps (wrong traffic), autocorrect (wrong word), video feed (wastes time), chatbot (fake citation), camera (misses a face). Point: useful + fallible.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
           </div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="syllabus">← Syllabus</button>
+            <button data-go="ch1">Chapter 1 →</button>
           </div>
         </div>
       </article>

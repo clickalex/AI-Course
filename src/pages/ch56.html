@@ -1,0 +1,89 @@
+<article class="page" id="ch56">
+        <div class="chapter-head"><div class="kicker">Chapter 56 · Frontier · F10</div>
+          <h2>Robotics &amp; vision-language-action</h2>
+          <p class="lede">From chatbots that talk to robots that do: how vision-language-action models turn “clean the table” into motor commands — and why the real world is the hardest eval of all.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">VLA</span><span class="tag">Imitation</span><span class="tag">Sim-to-real</span><span class="tag">Safety</span></div>
+          <div class="figure"><img src="images/robotics-vla.jpg" alt="Robot arm grounding words to blocks via a vision-language brain" /></div>
+          <p class="caption">Figure 56.1 — See, understand, act. VLA models close the loop from pixels + language to torques.</p>
+          <h3>1. The VLA loop</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="15" y="50" width="120" height="55" rx="10" fill="#0f766e"/><text x="75" y="73" fill="#fff">Eyes</text><text x="75" y="89" fill="#d1fae5" font-size="10">RGB + depth</text>
+                <rect x="160" y="50" width="130" height="55" rx="10" fill="#0c1b2e"/><text x="225" y="73" fill="#fff">VLM brain</text><text x="225" y="89" fill="#94a3b8" font-size="10">plan + ground</text>
+                <rect x="315" y="50" width="120" height="55" rx="10" fill="#0ea5e9"/><text x="375" y="73" fill="#fff">Policy</text><text x="375" y="89" fill="#e0f2fe" font-size="10">action tokens</text>
+                <rect x="460" y="50" width="165" height="55" rx="10" fill="#b45309"/><text x="542" y="73" fill="#fff">Arm / wheels</text><text x="542" y="89" fill="#fef3c7" font-size="10">10–50 Hz control</text>
+                <text x="330" y="130" fill="#57534e" font-size="11">Pipeline: perceive → ground language → predict chunked actions → execute → replan</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 56.1 — RT-style models discretise actions into tokens the transformer predicts like words. Chunked prediction + fast replanning = smooth motion.</div>
+          </div>
+          <h3>2. How policies learn</h3>
+          <table><thead><tr><th>Method</th><th>Idea</th><th>Needs</th></tr></thead><tbody>
+            <tr><td><strong>Teleop imitation</strong></td><td>Humans demo; model clones (behaviour cloning, diffusion policy)</td><td>100s–1000s of demos per task family</td></tr>
+            <tr><td><strong>Sim + RL</strong></td><td>Train in simulation, transfer (domain randomisation)</td><td>Good sim + measured sim-to-real gap</td></tr>
+            <tr><td><strong>Internet pretrain</strong></td><td>VLM priors from web-scale vision-language (Ch 51)</td><td>Fine-tune on robot data (Open X-Embodiment)</td></tr>
+            <tr><td><strong>Human-in-loop</strong></td><td>Interventions as labels; autonomy grows over time</td><td>Supervision UX + fallback policies</td></tr>
+          </tbody></table>
+          <h3>3. Why robots are humbling</h3>
+          <ul>
+            <li><strong>Eval is physical:</strong> success = grasped the cup 47/50 trials across lighting, clutter, poses. Report distributions, not best takes.</li>
+            <li><strong>Latency kills:</strong> 500 ms VLM calls don’t control 50 Hz arms — distil to fast policies, run big models as planners, small ones as controllers (cascade, Ch 50).</li>
+            <li><strong>Safety is layered:</strong> workspace limits, force caps, e-stops, human approval for novel actions — never one model between intent and torque.</li>
+          </ul>
+          <div class="warn"><h4>Robot pitfalls</h4><p>Demo-video evals (3 takes, best one) · sim-only testing · ignoring latency until deployment · no e-stop story · grounding errors near humans (wrong object grasped) · open-loop execution without re-perception.</p></div>
+          <div class="note"><h4>Short notes</h4><p>VLA = eyes + VLM brain + action-token policy + 10–50 Hz control. Learn from teleop demos + sim + web priors + human interventions. Eval physically (success rates across conditions), split planner/controller by latency, and layer safety (limits, force caps, e-stops, approvals).</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Actions as tokens, chunked.</li><li>Demos + sim + priors.</li><li>Eval grasps, not vibes.</li><li>Planner slow, control fast.</li><li>Layers between intent, torque.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. VLA models output actions by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Shouting at the robot</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Discretising motions into tokens predicted like words, in chunks</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Random joint movements</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Ignoring vision entirely</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">RT-style: language-model machinery, motor vocabulary.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Honest robot eval reports:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The single best take</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Simulation scores only</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Success rates across trials, lighting, clutter, and object poses</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The robot’s opinion</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Distributions, not demos.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A 500 ms VLM can’t directly control a 50 Hz arm, so you:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Split slow planner (VLM) + fast controller (distilled policy) in a cascade</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Slow the arm to 2 Hz always</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Remove all sensors</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Hope latency fixes itself</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Think slow, move fast.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Minimum safety layers for a manipulation robot near people:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. None — models are safe</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A louder beep</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Faster motions</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Workspace limits + force caps + e-stop + approval for novel actions</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Never one model between intent and torque.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Domain randomisation in sim training aims to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Make sim prettier</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Vary textures/physics/lighting so the real world feels like “just another variation”</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Delete the simulator</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Slow down training</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Still measure the sim-to-real gap — don’t assume it.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch56')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c56p1"><p class="q">P1. Spec “tidy the warehouse tote” for a VLA pilot: inputs, outputs, eval, safety.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Inputs: RGB-D + “place items in bins by label”. Outputs: chunked pick-place actions at 20 Hz. Eval: 100 totes × item types × lighting; success = correct bin, no drops/damage; report per-item rates. Safety: fenced cell, force caps, e-stop, human approves first 50 runs; log video + interventions as new training data.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c56p2"><p class="q">P2. Sim success 95%, real success 40%. Debug in order.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Perception gap: real textures/lighting outside sim distribution → widen randomisation + real fine-tune data. (2) Physics gap: friction/mass wrong → calibrate + add noise. (3) Latency gap: sim acts instantly, real has delays → latency-aware training. (4) Task gap: sim objects easier → match real distribution. Fix top contributor first, re-measure.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c56p3"><p class="q">P3. The arm grasps the wrong (similar-looking) object twice a day. Fix pipeline?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Grounding failure. Add: verify step (crop + confirm “is this the red valve?” above threshold, else ask), distinctive markers/tags for critical objects, hard-negative fine-tuning on confusable pairs, and a pre-grasp pause with projected highlight for human veto on high-stakes picks.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch55">← Quantum ML</button>
+            <button data-go="ch57">AI for science →</button>
+          </div>
+        </div>
+      </article>

@@ -1,0 +1,94 @@
+<article class="page" id="ch53">
+        <div class="chapter-head"><div class="kicker">Chapter 53 · Frontier · F7</div>
+          <h2>Video generation &amp; world simulators</h2>
+          <p class="lede">From text to moving pictures: how diffusion + transformers learned video, what “world simulator” claims really mean, and how to eval (and watermark) synthetic video responsibly.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Diffusion</span><span class="tag">Sora-style</span><span class="tag">Eval</span><span class="tag">Watermarks</span></div>
+          <div class="figure"><img src="images/video-gen.jpg" alt="Film frames resolving from noise into ocean waves" /></div>
+          <p class="caption">Figure 53.1 — Video = images + time + physics-ish priors. Coherence across frames is the whole battle.</p>
+          <h3>1. How text becomes video</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="15" y="50" width="110" height="55" rx="10" fill="#0f766e"/><text x="70" y="73" fill="#fff">Text prompt</text><text x="70" y="89" fill="#d1fae5" font-size="10">+ image ref?</text>
+                <rect x="150" y="50" width="130" height="55" rx="10" fill="#0c1b2e"/><text x="215" y="73" fill="#fff">Latent video</text><text x="215" y="89" fill="#94a3b8" font-size="10">space-time patches</text>
+                <rect x="305" y="50" width="130" height="55" rx="10" fill="#0ea5e9"/><text x="370" y="73" fill="#fff">Diffusion Tx</text><text x="370" y="89" fill="#e0f2fe" font-size="10">denoise steps</text>
+                <rect x="460" y="50" width="165" height="55" rx="10" fill="#b45309"/><text x="542" y="73" fill="#fff">Decode + upscale</text><text x="542" y="89" fill="#fef3c7" font-size="10">fps, interpolate</text>
+                <text x="330" y="130" fill="#57534e" font-size="11">Minutes of GPU per seconds of video · consistency &gt; resolution</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 53.1 — Patchify space-time, diffuse in latent space, decode. Longer + coherent beats sharper + flickery.</div>
+          </div>
+          <ul>
+            <li><strong>Latent diffusion + transformers:</strong> compress video to latents (VAE), denoise space-time patches conditioned on text — image diffusion (Ch 14) extended along t.</li>
+            <li><strong>Controls:</strong> image-to-video (first frame), inpainting, camera moves, pose/depth conditioning. Professional use = control, not vibes.</li>
+            <li><strong>Cost:</strong> seconds of 720p can take minutes on H100s — batch overnight, cache, and storyboard with images first.</li>
+          </ul>
+          <h3>2. “World simulators”? Calibrate the claim</h3>
+          <ul>
+            <li>Models learn <strong>visual correlations</strong> (glasses fall, water splashes) — impressive, but <strong>not physics engines</strong>: object permanence, counting, and causality still break.</li>
+            <li>Real uses today: previz, ads, game assets, synthetic training data (with domain-gap checks), robotics sim bootstraps.</li>
+            <li>Test “understanding” with counterfactual prompts (reverse gravity, impossible reflections) — failures reveal pattern-matching vs modelling.</li>
+          </ul>
+          <h3>3. Eval + responsibility</h3>
+          <table><thead><tr><th>Axis</th><th>Check</th></tr></thead><tbody>
+            <tr><td>Prompt fidelity</td><td>Objects, actions, counts, camera — did it follow direction?</td></tr>
+            <tr><td>Temporal consistency</td><td>No flicker, morphing faces, teleporting props</td></tr>
+            <tr><td>Physics plausibility</td><td>Shadows, reflections, collisions roughly right</td></tr>
+            <tr><td>Safety</td><td>Watermark/provenance (C2PA), face/voice consent, deepfake policies</td></tr>
+          </tbody></table>
+          <div class="warn"><h4>Deepfake duty</h4><p>Same model, two uses: a product demo or election disinformation. Ship watermarking + provenance metadata, refuse real-person synthesis without consent, log generations, and build detection alongside generation. Capability without provenance is a liability.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Video = latent diffusion over space-time patches + controls (image/camera/pose). Impressive correlations, not physics engines — probe with counterfactuals. Eval fidelity + consistency + plausibility + provenance. Watermark everything; consent for real faces; detection ships with generation.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Patches + denoise + decode.</li><li>Control beats vibes.</li><li>Correlations ≠ physics.</li><li>Consistency &gt; resolution.</li><li>Watermark + C2PA always.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Modern text-to-video models mostly work by:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Filming tiny actors</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Diffusion over latent space-time patches conditioned on text, then decode/upscale</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. GIF search</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Pure GANs from 2016</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Image diffusion extended along the time axis.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Strongest test that a model “understands” physics vs pattern-matching:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Higher resolution</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. More frames</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Counterfactual prompts (reverse gravity, impossible reflections) + causality probes</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Louder audio</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Novel violations expose memorised correlations.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. For professional use, what matters more than raw quality?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Control: first-frame, camera, pose/depth conditioning, editability</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Randomness</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Watermark removal</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Slower renders</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Directability is what studios pay for.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. C2PA provenance + watermarking exist to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Make videos prettier</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Compress files</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Add background music</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Mark synthetic content so viewers/platforms can verify origin</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Provenance is the seatbelt of generative media.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. Using generated video as robot-training data requires checking:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The popcorn supply</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Domain gap: does sim-trained skill transfer to real physics/sensors?</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The director’s mood</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing — sim is reality</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Sim-to-real transfer must be measured, not assumed.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch53')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c53p1"><p class="q">P1. An ad agency wants a 30 s product spot from one photo. Pipeline + cost controls?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Storyboard with image gens first (cheap iteration) → image-to-video per 5 s shot with camera control → pick best takes → upscale + grade. Cost: draft at low res/steps, final render once; cache takes; human edit for hands/logos/text (models garble all three). Deliver with C2PA metadata; disclose AI use to client.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c53p2"><p class="q">P2. Your “world simulator” demo fails when a ball rolls behind a box. Explain + fix direction.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Object permanence failure: the model renders plausible pixels, not a persistent scene state — occlusion breaks the correlation. Directions: explicit 3D/scene representations, object-centric slots, physics-informed losses, or hybrid sim (game engine geometry + diffusion rendering). Until then: don’t claim “simulator” for safety-critical planning.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c53p3"><p class="q">P3. Write the launch checklist for a public video-gen API (safety side).</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Refuse real-person/child synthesis without verified consent; face-blocklist; watermark + C2PA on every output; prompt + output classifiers (violence, CSAM → block + report); rate limits; generation logging; abuse team + takedown flow; red-team quarterly; published policy + researcher API for detection. Ship detection with generation.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch52">← Voice agents</button>
+            <button data-go="ch54">Federated learning →</button>
+          </div>
+        </div>
+      </article>

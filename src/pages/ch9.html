@@ -1,0 +1,117 @@
+<article class="page" id="ch9">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 9 · Machine learning</div>
+          <h2>Unsupervised learning</h2>
+          <p class="lede">No labels. The job is to reveal structure: groups, unusual points, or a compressed coordinate system.</p>
+        </div>
+        <div class="content">
+          <h3>Clustering</h3>
+          <p><strong>k-means</strong> picks k centres and assigns each point to the nearest centre, then updates centres to the mean of their points. Repeat. It assumes blob-like clusters of similar size and needs you to choose k (elbow plot, silhouette score — imperfect).</p>
+          <p><strong>Hierarchical clustering</strong> builds a tree of merges (dendrogram). <strong>DBSCAN</strong> finds dense regions and can mark noise; it does not need k but needs density parameters.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 480 180" width="480" height="180">
+              <rect width="480" height="180" rx="12" fill="#0c1b2e"/>
+              <g fill="#2dd4bf"><circle cx="90" cy="70" r="6"/><circle cx="110" cy="90" r="6"/><circle cx="80" cy="100" r="6"/><circle cx="120" cy="60" r="6"/><circle cx="100" cy="80" r="8" fill="#fbbf24"/></g>
+              <g fill="#fb7185"><circle cx="300" cy="60" r="6"/><circle cx="330" cy="80" r="6"/><circle cx="310" cy="100" r="6"/><circle cx="350" cy="70" r="6"/><circle cx="325" cy="75" r="8" fill="#fbbf24"/></g>
+              <g fill="#93c5fd"><circle cx="220" cy="140" r="6"/><circle cx="250" cy="150" r="6"/><circle cx="200" cy="155" r="6"/><circle cx="235" cy="145" r="8" fill="#fbbf24"/></g>
+            </svg>
+            <div class="diagram-title">Diagram 9.1 — k-means: gold stars are centroids. Colour = assigned cluster.</div>
+          </div>
+
+          <h3>Dimensionality reduction</h3>
+          <p><strong>PCA</strong> finds orthogonal directions of maximum variance. Use it to compress, visualise, or denoise linear structure. <strong>t-SNE / UMAP</strong> make pretty 2-D maps of neighbourhoods — great for slides, dangerous as quantitative features (they distort global distances).</p>
+
+          <h3>Association rules &amp; anomaly detection</h3>
+          <p>Market-basket: people who buy A also buy B (support, confidence, lift). Anomaly detection: isolation forests, reconstruction error of an autoencoder, or density models — useful for fraud and industrial sensors.</p>
+
+          <div class="warn">
+            <h4>Common mistake</h4>
+            <p>Treating clusters as “ground truth types”. Clustering always returns groups if you ask it to. Validate with domain knowledge, stability across runs, and downstream usefulness.</p>
+          </div>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Unsupervised methods summarise unlabelled data. k-means partitions into k spherical blobs. Hierarchical and density methods relax those assumptions. PCA is linear compression by variance. Visualisers (t-SNE) are not a model you should classify on blindly. Always ask whether the structure is real or an artefact of the algorithm.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>k-means: assign ↔ update centroids.</li>
+              <li>Choose k with care; try several.</li>
+              <li>PCA: principal axes of variance.</li>
+              <li>t-SNE is for visualisation.</li>
+              <li>Anomalies = rare + different, not just “far”.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="b">
+              <p class="q">1. k-means requires you to specify:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Labels for every point</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The number of clusters k</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A convolution kernel</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A reward function</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">k is a hyperparameter. Silhouette/elbow help but do not “prove” k.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. PCA is best described as:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A nonlinear classifier</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Reinforcement learning</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Linear projection onto directions of largest variance</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Random forests of depth 1</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Eigenvectors of the covariance (or SVD of the data matrix).</div>
+            </div>
+            <div class="mcq" data-answer="a">
+              <p class="q">3. Using t-SNE coordinates as features for a production classifier is risky because:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The embedding is stochastic and distorts global geometry</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. t-SNE only works on text</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It requires labels</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It is the same as logistic regression</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Pretty clusters in 2-D can be illusory. Prefer the original features or a trained encoder.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. DBSCAN differs from k-means in that it:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Always needs k</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only works in 1-D</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Is a supervised boosting algorithm</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Can label points as noise and find non-spherical clusters</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Density-based clustering is more flexible — if density is meaningful in your feature space.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch9')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c9p1">
+              <p class="q">P1. You run k-means with k=8 on customers and present 8 “personas” to marketing. What three checks would you do before they spend budget?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Stability: rerun with different seeds — do the same people stay together? (2) Interpretability: can you describe each cluster in business language with a few features? (3) Usefulness: does a holdout campaign or a simple classifier using cluster-id beat a dumb baseline? If clusters reshuffle or are unreadable, they are not personas.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c9p2">
+              <p class="q">P2. A dataset of 200 features is mostly noise. You want a 2-D scatter for exploration and a 20-D representation for a downstream model. Which tools?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Exploration: PCA for a honest linear view, plus UMAP/t-SNE for local neighbourhoods — labelled as qualitative. Downstream: PCA to 20 components (or a supervised selector, or an autoencoder if nonlinear). Do not feed t-SNE’s 2-D coords into the production model.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch8">← Chapter 8</button>
+            <button data-go="ch19">Bayesian & causal →</button>
+          </div>
+        </div>
+      </article>

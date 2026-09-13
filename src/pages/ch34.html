@@ -1,0 +1,128 @@
+<article class="page" id="ch34">
+        <div class="chapter-head"><div class="kicker">Chapter 34 · Data skills · Visualization</div>
+          <h2>Data visualization &amp; storytelling</h2>
+          <p class="lede">A chart is an argument. Learn which chart answers which question, how to make it in Python and Excel, and how to present it so people act.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Charts</span><span class="tag">Matplotlib/Seaborn</span><span class="tag">Dashboards</span><span class="tag">Story</span></div>
+          <div class="figure"><img src="images/data-viz.jpg" alt="Holographic bar, line and pie charts with a gauge" /></div>
+          <p class="caption">Figure 34.1 — One chart, one message. Visuals turn numbers into decisions.</p>
+          <h3>1. Chart chooser: question first, chart second</h3>
+          <table><thead><tr><th>Question</th><th>Chart</th><th>Python</th></tr></thead><tbody>
+            <tr><td>Trend over time</td><td><strong>Line</strong> (bars if few points)</td><td><code>plt.plot / sns.lineplot</code></td></tr>
+            <tr><td>Compare categories</td><td><strong>Bar</strong> (horizontal if long labels)</td><td><code>sns.barplot</code></td></tr>
+            <tr><td>Distribution</td><td><strong>Histogram / box / violin / KDE</strong></td><td><code>sns.histplot / boxplot</code></td></tr>
+            <tr><td>Part of whole</td><td><strong>Stacked bar</strong> (pie only for 2–3 parts)</td><td><code>plt.bar(stacked=True)</code></td></tr>
+            <tr><td>Relationship x–y</td><td><strong>Scatter</strong> (+ trend line)</td><td><code>sns.scatterplot / regplot</code></td></tr>
+            <tr><td>Map / flow</td><td><strong>Choropleth / Sankey</strong></td><td><code>plotly.express</code></td></tr>
+          </tbody></table>
+          <div class="diagram">
+            <svg viewBox="0 0 640 150" width="640" height="150">
+              <rect width="640" height="150" rx="12" fill="#0c1b2e"/>
+              <g font-family="Source Sans 3" font-size="12" text-anchor="middle">
+                <rect x="20" y="30" width="135" height="70" rx="10" fill="#0f766e"/><text x="87" y="60" fill="#fff">Trend → Line</text><text x="87" y="80" fill="#99f6e4" font-size="11">sales by month</text>
+                <rect x="170" y="30" width="135" height="70" rx="10" fill="#b45309"/><text x="237" y="60" fill="#fff">Compare → Bar</text><text x="237" y="80" fill="#fde68a" font-size="11">region totals</text>
+                <rect x="320" y="30" width="135" height="70" rx="10" fill="#0ea5e9"/><text x="387" y="60" fill="#fff">Dist → Hist/Box</text><text x="387" y="80" fill="#e0f2fe" font-size="11">amount spread</text>
+                <rect x="470" y="30" width="150" height="70" rx="10" fill="#7c3aed"/><text x="545" y="60" fill="#fff">Rel → Scatter</text><text x="545" y="80" fill="#ede9fe" font-size="11">price vs qty</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 34.1 — Four questions cover most business charts. Start here before searching for “cool chart types”.</div>
+          </div>
+          <h3>2. Python: three libraries, three jobs</h3>
+<pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+
+# matplotlib: full control, publication figures
+fig, ax = plt.subplots()
+ax.plot(monthly["ym"], monthly["revenue"])
+ax.set_title("West overtook East in Q3"); ax.set_ylabel("Revenue (₹)")
+fig.autofmt_xdate(rotation=30); plt.tight_layout()
+
+# seaborn: pretty stats in one line (runs on matplotlib)
+sns.barplot(data=region_totals, x="revenue", y="region", hue="region")
+sns.histplot(data=df, x="amount", bins=40)  # log: plt.xscale("log")
+
+# plotly: interactive for dashboards / HTML sharing
+fig2 = px.scatter(df, x="price", y="qty", color="region", hover_data=["order_id"])
+fig2.write_html("outputs/scatter.html")</code></pre>
+          <ul>
+            <li><strong>Matplotlib</strong> = engine. <strong>Seaborn</strong> = stats shortcuts. <strong>Plotly/Altair</strong> = interactivity.</li>
+            <li>One figure, one message. If you need 3 legends, you need 3 charts.</li>
+          </ul>
+          <h3>3. Excel/Sheets charts + dashboards</h3>
+          <ul>
+            <li>Select clean Table → <code>Insert → Chart</code>. Use <strong>PivotChart + Slicers</strong> for clickable dashboards (Region, Year).</li>
+            <li>Dashboard layout: <strong>KPIs on top</strong> (4 numbers), <strong>trend in middle</strong>, <strong>breakdowns below</strong>. Same date range everywhere.</li>
+            <li>Conditional formatting → <strong>Data Bars</strong> for in-cell bars without a chart.</li>
+          </ul>
+          <h3>4. Design rules that make charts trustworthy</h3>
+          <ul>
+            <li><strong>Bars from zero;</strong> lines can zoom (but say so). Label axes with units (₹, %, days).</li>
+            <li><strong>Title = takeaway:</strong> <em>“Refunds fell 40% after OTP fix”</em> beats <em>“Refunds”</em>. Annotate the event with an arrow.</li>
+            <li><strong>Colour:</strong> one accent for the story, grey for the rest. Avoid red/green-only (colourblind ~8% of men) — add labels/markers.</li>
+            <li><strong>Declutter:</strong> remove gridlines, 3-D, background images. Data-ink ratio: ink should be data.</li>
+            <li><strong>Accessibility:</strong> 12pt+ fonts, direct labels instead of tiny legends, alt-text for screen readers.</li>
+          </ul>
+          <h3>5. Storytelling: context → conflict → resolution</h3>
+          <ol>
+            <li><strong>Context:</strong> “Orders grew 20% in 2025.” (one chart)</li>
+            <li><strong>Conflict:</strong> “But West refunds are 3× East.” (second chart, highlighted)</li>
+            <li><strong>Resolution:</strong> “OTP fix cut West refunds 40% in 3 weeks — roll out to East.” (recommendation + next metric)</li>
+          </ol>
+          <p>Each slide: <strong>headline + one chart + one sentence of “so what”</strong>. Appendix holds the other 20 charts you made during EDA.</p>
+          <div class="warn"><h4>Lies to never ship</h4><p>Truncated bar axis · dual y-axes with cherry-picked scales · 3-D pie · cumulative-only when daily collapsed · “up 200%” from 1 to 3 without showing n · maps coloured by raw counts instead of rates.</p></div>
+          <div class="example"><h4>Before → after</h4><p><strong>Before:</strong> “Sales” — 3-D pie, 9 slices, legend in 8pt, no labels.<br/><strong>After:</strong> “Top 3 regions = 78% of sales” — horizontal bar sorted descending, values on bars, rest grouped as “Other”, source + date in footnote.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Question picks the chart: line/trend, bar/compare, hist-box/distribution, scatter/relationship. Matplotlib for control, seaborn for stats, plotly for interactive. Bars from zero, title as takeaway, one accent colour, annotate events. Story = context → conflict → resolution with one recommendation.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>One chart, one message.</li><li>Title states the finding.</li><li>Bars zero-based; lines labelled.</li><li>Colourblind-safe + direct labels.</li><li>Footnotes: source, date, n.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Monthly revenue trend is best shown with:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A 3-D pie</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A line chart</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A scatter without axes</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A table of raw UUIDs</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Time → position along x, value along y.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Comparing 8 regions’ totals is clearest with:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Dual-axis 3-D pie</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Unsorted pie with 8 slices</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Sorted horizontal bars with values labelled</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No chart, just hope</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Bars encode length; sorting aids comparison.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A good chart title:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. States the takeaway (“West overtook East in Q3”)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Is always “Chart 1”</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Hides the finding</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Lists every column name</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Headlines argue; axes label.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Red/green-only encoding is risky because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Colours are illegal</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Printers love it too much</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. It improves accuracy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. ~8% of men are red-green colourblind — add labels/markers</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Never encode meaning in hue alone.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. “Up 200%” from 1 to 3 orders is misleading without:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A 3-D effect</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Showing n (the tiny base)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Deleting the y-axis</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A second y-axis</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Percentages without bases lie.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch34')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c34p1"><p class="q">P1. Sketch (in words) a dashboard for “daily orders health” with 4 KPIs + 2 charts.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>KPIs: orders today, revenue today, refund %, avg delivery days — each with vs-7-day-avg delta. Charts: (1) 30-day line of orders + 7-day avg with annotations for promos/outages; (2) bar of orders by region with refund % labelled. One date filter controls all; footnote: source table + refresh time.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c34p2"><p class="q">P2. Fix this: dual-axis chart shows “refunds down, sales up” but axes are cherry-picked.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Split into two aligned charts with honest zero-based (bars) or clearly zoomed (lines, annotated) axes, same x-range, show refund <em>rate</em> not just counts, and add n. If the story survives honest axes, keep it; else rewrite the headline.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c34p3"><p class="q">P3. Write the 3-sentence story for: orders +20%, West refunds 3× East, OTP fix −40% in 3 weeks.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Context: “Orders grew 20% this year.” Conflict: “But West refund rate is 3× East, costing ₹X.” Resolution: “OTP verification cut West refunds 40% in 3 weeks — recommend rollout to East, target refund rate &lt;2% by next quarter.” One chart per sentence.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch33">← SQL</button>
+            <button data-go="ch35">Statistics →</button>
+          </div>
+        </div>
+      </article>

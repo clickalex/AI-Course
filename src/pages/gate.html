@@ -1,0 +1,137 @@
+<article class="page" id="gate">
+        <div class="chapter-head"><div class="kicker">Exams · GATE / UG</div>
+          <h2>GATE &amp; UG question bank</h2>
+          <p class="lede">20 exam-style MCQs across the CS-AI syllabus: maths, search, ML, deep learning, and data. One mark each, GATE-style — check one-by-one while studying, or grade the whole bank as a mock.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">Linear algebra</span><span class="tag">Probability</span><span class="tag">Search</span><span class="tag">ML/DL</span><span class="tag">SQL</span></div>
+          <div class="figure"><img src="images/gate-bank.jpg" alt="Exam desk with MCQ paper and clock" /></div>
+          <p class="caption">Figure G.1 — GATE rewards fundamentals under time pressure. 20 questions, one sitting, no peeking.</p>
+          <div class="quiz-block"><div class="quiz-head"><h3>Bank · 20 questions</h3><span class="badge">GATE-style</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. A test is positive in 95% of diseased and 5% of healthy people. Disease prevalence is 1%. P(disease | positive) is closest to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. 95%</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. 16%</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 50%</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. 1%</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Bayes: (0.95×0.01)/(0.95×0.01 + 0.05×0.99) ≈ 0.161. Base rates dominate.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Matrix A (m×n) has rank r. Dimension of its null space is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. r</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. m − r</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. n − r</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. m − n</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Rank–nullity: rank + nullity = n (columns).</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. If X, Y independent with Var(X)=2, Var(Y)=3, then Var(2X − Y) equals:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. 11</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. 5</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 1</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. 7</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">4·Var(X) + Var(Y) = 8 + 3 = 11. Coefficients square; minus becomes plus.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Eigenvectors of a real symmetric matrix corresponding to distinct eigenvalues are:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Parallel</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Identical</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Complex</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Orthogonal</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Spectral theorem: symmetric ⇒ orthonormal eigenbasis. PCA relies on it.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. A* with an admissible (never overestimating) heuristic is guaranteed to return:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The fastest-to-find path</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. An optimal (least-cost) path</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A path using BFS order</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. No path on grids</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Admissible h ⇒ f(n) never overestimates ⇒ first goal popped is optimal.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">6. Alpha-beta pruning, in the worst case, explores:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Fewer nodes than greedy search</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. O(b^(d/2)) nodes always</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The same nodes as plain minimax (ordering decides the savings)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Zero nodes</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Best case O(b^d/2) with perfect ordering; worst case no pruning at all.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">7. Modus ponens: from P and P → Q, infer:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Q</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. ¬Q</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. P ∧ ¬Q</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Nothing</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The oldest inference rule in logic.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">8. Increasing model complexity typically: training error ↓, test error ↓ then ↑. The rising part is:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Underfitting</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Convergence</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Regularization</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Overfitting (variance dominating)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Classic U-curve: bias falls, variance rises. (Double descent aside.)</div></div>
+            <div class="mcq" data-answer="b"><p class="q">9. L1 regularization (lasso) tends to produce weight vectors that are:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Dense with large values</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Sparse (many exact zeros)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Always positive</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Unchanged from OLS</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Diamond constraint hits corners ⇒ feature selection. L2 shrinks smoothly.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">10. A hard-margin SVM finds the hyperplane that:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Passes through the most points</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Minimizes training accuracy</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Maximizes the margin between classes (support vectors define it)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Ignores all data points</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Max margin ⇔ min ||w|| subject to yᵢ(w·xᵢ+b) ≥ 1.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">11. k-means is guaranteed to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Converge to a local optimum (never a global one in general)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Find the global optimum always</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Use labels during training</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Outperform all classifiers</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Monotone WCSS decrease ⇒ convergence; init decides which optimum (k-means++).</div></div>
+            <div class="mcq" data-answer="d"><p class="q">12. PCA’s first principal component is the direction of:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Least variance</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The class boundary</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Zero mean only</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Maximum variance (top eigenvector of covariance)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Variance-maximizing projection; standardise features first.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">13. A 2-hidden-layer MLP with only linear activations is equivalent to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A deep nonlinear model</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. A single linear layer (composition of linear maps is linear)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A decision tree</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. k-NN</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">No activation ⇒ no depth benefit. Nonlinearity is the whole game.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">14. Self-attention over n tokens costs (time/memory in n):</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. O(n)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. O(n log n)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. O(n²)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. O(1)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The n×n attention matrix. Why context windows cost money.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">15. A conv layer: 3×3 kernel, 16 in-channels, 32 out-channels, bias. Parameter count:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. 3×3×16×32 + 32 = 4640</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. 3×3×32 = 288</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. 16×32 = 512</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. 3×3×16 = 144</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">k²·C_in·C_out weights + C_out biases. Input size doesn’t matter.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">16. LSTMs mitigate the vanishing gradient mainly via:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. More layers</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Larger learning rates</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Dropout only</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The additive cell-state path gated by forget/input/output gates</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Gradients flow down the cell “highway” instead of repeated squashing.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">17. <code>ROW_NUMBER() OVER (PARTITION BY cust ORDER BY ts DESC)</code> = 1 picks, per customer:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. All rows</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The single latest row</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The earliest row</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. A random row</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">The standard dedupe/latest-record pattern. RANK would keep ties.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">18. A p-value of 0.03 means (correctly):</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. H0 is 3% likely to be true</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The effect is large</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Data this extreme would occur 3% of the time if H0 were true</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The result will replicate</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">P(data|H0), not P(H0|data). Report effect + CI alongside.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">19. After a LEFT JOIN, row count exceeds the left table’s. Cause:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Duplicate keys on the right (fanout)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Too many columns</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. NULLs in the left key</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Missing indexes</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Each left row matches k right rows ⇒ ×k fanout. Dedupe or pre-aggregate.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">20. Min-max scaling vs standardization: min-max is preferred when:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Data has extreme outliers</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. You need zero mean always</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Features are Gaussian</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. You need a bounded [0,1] range (e.g., neural-net inputs, image pixels)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Bounded inputs suit sigmoid-era nets and distance metrics; outliers break it — robust-scale then.</div></div>
+            <button class="btn gold" onclick="checkChapter('gate')">Grade this bank</button><div class="chapter-score"></div></div>
+          <div class="note"><h4>Short notes</h4><p>Bayes needs base rates · rank–nullity · A* admissible = optimal · α-β worst = minimax · bias–variance U-curve · L1 sparsifies · SVM max-margin · k-means local · PCA max-variance · linear+linear = linear · attention O(n²) · conv params k²C_inC_out + C_out · LSTM cell highway · ROW_NUMBER dedupe · p = P(data|H0) · fanout from dup keys.</p></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="design">← System design</button>
+            <button data-go="mock">Mock interview →</button>
+          </div>
+        </div>
+      </article>

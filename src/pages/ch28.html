@@ -1,0 +1,45 @@
+<article class="page" id="ch28">
+        <div class="chapter-head"><div class="kicker">Chapter 28 · PhD / safety</div>
+          <h2>XAI, alignment, adversarial ML &amp; privacy</h2>
+          <p class="lede">If it matters, you must explain it, attack it, and stop it leaking. Alignment is the long-term version of “it does what we meant.”</p></div>
+        <div class="content">
+          <h3>Explainability</h3>
+          <p>SHAP/LIME are local attributions — useful, lie-able. Saliency maps on images can look convincing and be independent of the label. <strong>Mechanistic interpretability</strong> tries to reverse-engineer circuits inside nets (PhD-hot). For products, prefer inherently simpler models or structured audits over a heatmap theatre.</p>
+          <h3>Adversarial ML</h3>
+          <p>Tiny perturbations flip classifiers (FGSM, PGD). Poisoning and backdoors hit training. Jailbreaks hit LLMs. Defence is hard; don’t claim “robust” without the attack model.</p>
+          <h3>Privacy</h3>
+          <p>Membership inference, training-data extraction from LLMs. Mitigations: data minimisation, differential privacy (DP-SGD), never train on secrets.</p>
+          <h3>Alignment</h3>
+          <p>Specification gaming, inner vs outer alignment, scalable oversight, debate, constitutional AI, evals for dangerous capabilities. This is research plus ops — not a checkbox.</p>
+          <div class="note"><h4>Short notes</h4><p>Explanations can be fake. Attacks exist. Privacy is a threat model. Alignment is making highly capable systems pursue intended goals under distribution shift and deception pressure.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>SHAP ≠ causal truth.</li><li>Adversarial examples are not just noise.</li><li>DP: add calibrated noise to gradients/queries.</li><li>Jailbreak = attack on an aligned policy.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. An adversarial example is typically:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A perfectly labelled training point</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. An input perturbed to change the model’s output, often invisibly</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A type of ReLU</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. BM25</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Security threat model for classifiers and LLMs (jailbreaks).</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Differential privacy tries to ensure:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Infinite accuracy</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. That A* is consistent</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. An attacker cannot tell much about any one training row from the output</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. GPUs use no power</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">ε-DP is a mathematical guarantee, with a utility cost.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Specification gaming is closest to:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Reward hacking — optimising the stated objective the wrong way</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Using too much dropout</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. PCA</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. BFS</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Alignment 101.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch28')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c28p1"><p class="q">P1. A bank shows a SHAP plot to a denied applicant. What must you still say?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>SHAP is a local attribution under a model of missingness, not a legal or causal “because.” Correlated features share credit arbitrarily. For adverse action, prefer monotonic simple models or constrained policy rules, plus human review — not only a waterfall chart.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch27">← Learning theory</button>
+            <button data-go="ch29">Systems & research →</button>
+          </div>
+        </div>
+      </article>

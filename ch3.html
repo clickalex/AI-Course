@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Types of AI · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -37,7 +37,7 @@
       <button class="toc-item" data-go="sch1"><span class="toc-num">S1</span> AI for school</button>
       <button class="toc-item" data-go="ch1"><span class="toc-num">04</span> What is AI?</button>
       <button class="toc-item" data-go="ch2"><span class="toc-num">05</span> History of AI</button>
-      <button class="toc-item" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
+      <button class="toc-item active" data-go="ch3"><span class="toc-num">06</span> Types of AI</button>
 
       <div class="toc-group">UG foundations</div>
       <button class="toc-item" data-go="ch4"><span class="toc-num">07</span> Mathematics for AI</button>
@@ -132,73 +132,126 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
+<article class="page active" id="ch3">
+        <div class="chapter-head">
+          <div class="kicker">Chapter 3 · Foundations</div>
+          <h2>Types of AI</h2>
+          <p class="lede">Classify systems by capability (what they could do in principle) and by how they use memory and experience.</p>
         </div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
+          <div class="figure">
+            <img src="images/ai-types.jpg" alt="Three stages of AI capability" />
           </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
+          <p class="caption">Figure 3.1 — From narrow tools, to hypothetical general intelligence, to superintelligence. Only the first exists as products today.</p>
+
+          <h3>By capability</h3>
+          <table>
+            <thead><tr><th>Type</th><th>Definition</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ANI — Artificial Narrow Intelligence</strong></td><td>Strong at a bounded task or cluster of tasks.</td><td>All current deployed AI: recommenders, detectors, LLMs (broad but still tool-like).</td></tr>
+              <tr><td><strong>AGI — Artificial General Intelligence</strong></td><td>Human-level competence across most cognitive tasks, including novel ones.</td><td>Not achieved. Definitions and tests are disputed.</td></tr>
+              <tr><td><strong>ASI — Artificial Superintelligence</strong></td><td>Exceeds humans on almost all valuable cognitive work.</td><td>Hypothetical; central to long-term safety debates.</td></tr>
+            </tbody>
+          </table>
+          <p>LLMs feel “general” because language is a universal interface. They are still narrow in a strict sense: they do not autonomously run a scientific programme, reliably act in the physical world, or hold stable long-horizon goals without scaffolding. Treat them as extremely capable pattern engines plus tools.</p>
+
+          <h3>By functionality (Russell &amp; Norvig flavour / pop taxonomy)</h3>
+          <ol>
+            <li><strong>Reactive machines</strong> — no memory of the past. IBM Deep Blue evaluated the current board.</li>
+            <li><strong>Limited memory</strong> — use recent history. Self-driving stacks and almost all ML models (trained on past data, using a context window).</li>
+            <li><strong>Theory of mind</strong> — would model others’ beliefs and intentions. Research, not a product category you can buy.</li>
+            <li><strong>Self-aware AI</strong> — would have a model of itself as an agent. Science fiction / philosophy until evidence says otherwise.</li>
+          </ol>
+
+          <h3>By learning style (preview of later chapters)</h3>
+          <ul>
+            <li><strong>Supervised</strong> — learn from input–label pairs.</li>
+            <li><strong>Unsupervised / self-supervised</strong> — learn structure (or predict hidden parts of the input).</li>
+            <li><strong>Reinforcement</strong> — learn from rewards by acting in an environment.</li>
+          </ul>
+
+          <div class="note">
+            <h4>Short notes</h4>
+            <p>Everything you use is ANI. AGI/ASI are capability levels, not brands. Most ML systems are “limited memory”: they use training data and a short context, not lifelong autobiographical memory. Do not confuse a wide skill surface (an LLM) with general autonomous intelligence.</p>
+          </div>
+          <div class="points">
+            <h4>Point notes</h4>
+            <ul>
+              <li>ANI exists · AGI/ASI do not (as of this book).</li>
+              <li>Reactive vs limited-memory vs ToM vs self-aware.</li>
+              <li>Supervised / unsupervised / RL are learning paradigms, not capability levels.</li>
+              <li>Chatbots ≠ AGI.</li>
+            </ul>
+          </div>
+
+          <div class="quiz-block">
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="mcq" data-answer="a">
+              <p class="q">1. AlphaGo, a spam filter, and a face unlock system are all examples of:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Narrow AI</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Superintelligence</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Theory-of-mind AI</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. AGI</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Each is specialised. AlphaGo cannot file your taxes.</div>
+            </div>
+            <div class="mcq" data-answer="c">
+              <p class="q">2. A model that only looks at the current input and has no state is closest to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. AGI</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Self-aware AI</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A reactive machine</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Reinforcement learning by definition</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Reactive systems map the present percept to an action with no memory.</div>
+            </div>
+            <div class="mcq" data-answer="b">
+              <p class="q">3. Self-supervised learning is usually grouped nearest to:</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Hand-written expert rules</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Unsupervised / “labels from the data itself”</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Human-in-the-loop legal review</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Superintelligence</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Predict-the-masked-token is a label created from the input. That is why LLMs can train on raw text.</div>
+            </div>
+            <div class="mcq" data-answer="d">
+              <p class="q">4. Which is the honest status of AGI?</p>
+              <div class="opts">
+                <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Shipped in all phones in 2015</button>
+                <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Identical to any large language model</button>
+                <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Banned by definition</button>
+                <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Not demonstrated; definitions still debated</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Impressive language competence is not an agreed AGI threshold.</div>
+            </div>
+            <button class="btn gold" onclick="checkChapter('ch3')">Grade this chapter</button>
+            <div class="chapter-score"></div>
+          </div>
+
+          <div class="practice-block">
+            <h3>Practice questions</h3>
+            <div class="practice" data-pid="c3p1">
+              <p class="q">P1. A journalist writes “GPT is AGI because it can code, translate, and write poems.” Write a 4-sentence rebuttal that is still fair to the model’s skill.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>The model is unusually broad for ANI because language is a general interface. Breadth of demos is not the same as reliable, autonomous competence on new goals in the real world. It still fails in systematic ways (hallucination, weak long-horizon planning, no persistent agency). AGI would require a clearer bar — e.g. matching a skilled human across most economically useful cognitive tasks with learning on the fly — which has not been met.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c3p2">
+              <p class="q">P2. Classify: (i) thermostat, (ii) spam filter trained on mail, (iii) robot that improves from reward in a warehouse.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(i) Reactive control / simple rules — barely AI, not ML. (ii) Supervised ANI, limited memory via training set. (iii) Reinforcement learning agent, still ANI if the task is warehousing only.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
           </div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch2">← Chapter 2</button>
+            <button data-go="ch4">Chapter 4 →</button>
           </div>
         </div>
       </article>

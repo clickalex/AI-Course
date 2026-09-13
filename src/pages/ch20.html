@@ -1,0 +1,45 @@
+<article class="page" id="ch20">
+        <div class="chapter-head"><div class="kicker">Chapter 20 · Applied ML</div>
+          <h2>Recommenders, search &amp; knowledge graphs</h2>
+          <p class="lede">Most of the internet’s ML is ranking: what to show next, which document answers the query, which entity is this.</p></div>
+        <div class="content">
+          <ul>
+            <li><strong>Collaborative filtering</strong> — users who liked X liked Y (matrix factorisation, implicit ALS).</li>
+            <li><strong>Content-based</strong> — item features.</li>
+            <li><strong>Two-tower / two-stage rankers</strong> — retrieve then re-rank (the industrial pattern, also RAG).</li>
+            <li><strong>IR</strong> — BM25 lexical + dense embeddings + hybrid + cross-encoder rerank.</li>
+            <li><strong>Knowledge graphs</strong> — (head, relation, tail) triples; entity linking; GraphRAG.</li>
+          </ul>
+          <p>Metrics: recall@k, nDCG, MRR, calibration of slates, diversity, and “did we amplify harm?”</p>
+          <div class="note"><h4>Short notes</h4><p>Recommenders predict preference; search predicts relevance. Both are ranking. Knowledge graphs give a symbolic spine for RAG so the generator is not the only memory.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Retrieve cheaply, rerank expensively.</li><li>BM25 still wins more often than slides admit.</li><li>Feedback loops: popular items get more popular.</li><li>nDCG for ranking quality.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Matrix factorisation in recommenders learns:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Convolution filters on pixels</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Latent vectors for users and items whose product approximates preference</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A* heuristics</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Only BM25 IDF</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">R ≈ U Vᵀ.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Hybrid search usually means:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Mixing train and test labels</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Using only PageRank</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Combining lexical (BM25) and dense embedding retrieval</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. GANs on queries</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Best of keywords + semantics.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. A knowledge-graph triple is typically:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. (entity, relation, entity)</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. (pixel, filter, stride)</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. (epoch, batch, lr)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. (TP, FP, FN)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Delhi — capital_of → India.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch20')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c20p1"><p class="q">P1. Why can a recommender that maximises clicks harm users?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>Clicks ≠ long-term value. Outrage and addiction click well. Feedback loops narrow the slate. Need delayed metrics, diversity constraints, and human values in the objective — not raw CTR.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch19">← Bayesian & causal</button>
+            <button data-go="ch10">Chapter 10 →</button>
+          </div>
+        </div>
+      </article>

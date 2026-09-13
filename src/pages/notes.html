@@ -1,0 +1,146 @@
+<article class="page" id="notes">
+        <div class="chapter-head">
+          <div class="kicker">Revision</div>
+          <h2>Short notes sheet</h2>
+          <p class="lede">The whole course in one sitting. Read this the night before the exam.</p>
+        </div>
+        <div class="content">
+          <div class="points">
+            <h4>Map</h4>
+            <ul>
+              <li>AI ⊃ ML ⊃ DL. Symbolic rules are AI without learning.</li>
+              <li>ANI exists; AGI/ASI are not products.</li>
+              <li>History: Turing 1950 → Dartmouth 1956 → winters → AlexNet 2012 → Transformer 2017 → LLM era.</li>
+              <li>School: input → process → output; fluent ≠ true; keep secrets off public bots.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Classical AI</h4>
+            <ul>
+              <li>PEAS; BFS / UCS / A* with admissible h; minimax + α-β.</li>
+              <li>Logic + STRIPS planning + CSPs. Expert-system bottleneck = knowledge acquisition.</li>
+              <li>do(x) ≠ P(y|x). Confounders fake causation.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Math &amp; data</h4>
+            <ul>
+              <li>Dot product; y = Wx + b; Bayes; w ← w − η∇L.</li>
+              <li>Train / val / test. Fit preprocessors on train only.</li>
+              <li>Leakage and random splits on time/people = fake scores.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Python &amp; Excel (Ch 30–31)</h4>
+            <ul>
+              <li>venv per project; pathlib; f-strings; dataclasses; logging; type hints.</li>
+              <li>Comprehensions build lists; <code>d.get(k,0)</code> counts; read tracebacks bottom-up.</li>
+              <li>Excel: <code>Ctrl+T</code> tables; <code>F4</code> $ refs; XLOOKUP &gt; VLOOKUP; SUMIFS.</li>
+              <li>Clean order: copy → trim → dedupe → validate → standardise; PivotTables + Slicers.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Pandas, SQL, viz &amp; stats (Ch 32–35)</h4>
+            <ul>
+              <li>Pandas: <code>loc</code> labels, <code>iloc</code> positions; groupby → agg → reset_index; merge with validate.</li>
+              <li>SQL: WHERE → GROUP BY → HAVING; LEFT JOIN keeps all left; CTEs; ROW_NUMBER dedupe.</li>
+              <li>Viz: line/trend, bar/compare, hist-box/distribution, scatter/relationship; title = takeaway.</li>
+              <li>Stats: median for skew; CI width ∝ 1/√n; p = surprise under H0 + effect + CI; no peeking A/Bs.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Power BI, BI tools &amp; capstone (Ch 36–38)</h4>
+            <ul>
+              <li>Star schema; measures per visual context; CALCULATE modifies filters.</li>
+              <li>One page, one job; footer = source + refresh + definitions.</li>
+              <li>Frame a decision-contract first; slice, control, CI; hand off tables.</li>
+              <li>PBI value / Tableau explore / Looker metrics-as-code; pilot + 3-yr TCO.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Data engineering, APIs & git (Ch 39–41, 45)</h4>
+            <ul>
+              <li>ELT + lakehouse default; Parquet columnar; Spark lazy, shuffles cost; Airflow DAGs + dbt tests.</li>
+              <li>APIs: cursor pagination, 429 → backoff; secrets in env; scrape allowed pages slowly; raw JSONL.</li>
+              <li>Git: branch per job, small PRs, green CI; .gitignore secrets/data; artifacts in DVC/S3.</li>
+              <li>Time series (Ch 45): trend+seasonal+noise; time splits only; beat naive; quote intervals.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Classical ML</h4>
+            <ul>
+              <li>Loss vs metric. Overfit = train ≪ val error.</li>
+              <li>Precision / recall / F1 / AUC; accuracy lies on imbalance.</li>
+              <li>Logistic = linear classifier. Trees + boosting for tables. k-means / PCA unsupervised.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Deep nets</h4>
+            <ul>
+              <li>Linear + activation stacked. ReLU hidden; softmax out.</li>
+              <li>Backprop + Adam/SGD. No activation ⇒ still linear.</li>
+              <li>CNN: shared local filters. ResNet skips. Transfer learning on small data.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Language &amp; gen</h4>
+            <ul>
+              <li>Subwords; TF–IDF baselines; contextual embeddings.</li>
+              <li>Attention(Q,K,V); O(n²); GPT causal; BERT bidirectional.</li>
+              <li>Pretrain → SFT → RLHF/DPO. RAG against hallucination.</li>
+              <li>GAN / VAE / diffusion / autoregressive families.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Agents</h4>
+            <ul>
+              <li>Chat = one shot; <strong>agent</strong> = goal + tools + loop + stop budget.</li>
+              <li>ReAct: thought → tool → observation (untrusted) → answer.</li>
+              <li><strong>Agentic AI</strong> = orchestrator + specialists + memory + critic + traces + human gates.</li>
+              <li>Least privilege tools; confirm irreversible acts; eval task success not fluency.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Applied production: RAG, cloud, MLOps (Ch 42–44, 46)</h4>
+            <ul>
+              <li>RAG: chunk → embed → hybrid retrieve → cite; no citation → abstain; eval recall + faithfulness.</li>
+              <li>Image = recipe, container = running copy; pin digests; right-size GPUs; budgets + auto-shutdown.</li>
+              <li>Version data+code+params; slice evals; shadow → canary → 100%; watch data + concept drift.</li>
+              <li>Transformers lab (Ch 46): template versioned; LoRA r8–64; golden+red evals; serve quantised.</li>
+              <li>Design: requirements → scale → API → data → model → serve → monitor; name the trade-off.</li>
+              <li>Interviews: 90s aloud, claim → why → example → trade-off; STAR for behavioral; redo misses.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>Frontier: GenAI + edge + privacy + quantum (Ch 47–58)</h4>
+            <ul>
+              <li>AGI = novel-task generality; ARC, SWE-bench, autonomy horizons; safety scales with capability.</li>
+              <li>Advanced RAG: loop + route + graphs + SQL-for-numbers; eval faithfulness + recall.</li>
+              <li>Reasoners: CoT → vote → search → verify; RLVR on checkable outcomes; budget per route.</li>
+              <li>Edge: INT4 SLMs on-device; cascade by confidence; re-eval after every shrink.</li>
+              <li>VLM: ViT → projector → LLM; grounding + OCR; voice: stream all, &lt;800 ms, barge-in.</li>
+              <li>Video: latent diffusion spacetime; watermark + C2PA; FL: FedAvg + secure agg + DP ε.</li>
+              <li>Quantum: VQC hybrids; plateaus + loading costs; chemistry &gt; ML near-term.</li>
+              <li>Robotics (Ch 56): VLA tokens + 20 Hz control; planner slow, controller fast; layered safety.</li>
+              <li>Science (Ch 57): surrogate → search → validate; prospective bar; recsys (Ch 58): towers + debias.</li>
+            </ul>
+          </div>
+          <div class="points">
+            <h4>RL, theory &amp; production</h4>
+            <ul>
+              <li>s,a,r,s′ ; π, Q, γ ; explore vs exploit ; reward hacking. POMDP / MARL / world models.</li>
+              <li>PAC / VC; double descent; scaling laws. SHAP ≠ causal. Adversarial examples; DP; spec gaming.</li>
+              <li>Slice metrics; privacy; drift monitors; version data+model+prompt.</li>
+              <li>LoRA = low-rank update; RAG for changing facts; GNN = message passing.</li>
+            </ul>
+          </div>
+          <div class="note">
+            <h4>Formulas to remember</h4>
+            <p>σ(z)=1/(1+e<sup>−z</sup>) · softmax(z<sub>i</sub>)=e<sup>z<sub>i</sub></sup>/Σe<sup>z<sub>j</sub></sup> · Precision=TP/(TP+FP) · Recall=TP/(TP+FN) · Attention=softmax(QK<sup>T</sup>/√d)V · Q-learning target r+γ max Q(s′,a′)</p>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch16">← Ethics & career</button>
+            <button data-go="glossary">Glossary →</button>
+          </div>
+        </div>
+      </article>

@@ -1,0 +1,97 @@
+<article class="page" id="ch44">
+        <div class="chapter-head"><div class="kicker">Chapter 44 · Applied &amp; production · A2</div>
+          <h2>Cloud, Docker &amp; GPUs</h2>
+          <p class="lede">Models leave the laptop eventually. Learn the cloud building blocks, how Docker freezes “works on my machine”, and how to rent GPUs without renting regret.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">AWS/GCP</span><span class="tag">Docker</span><span class="tag">GPUs</span><span class="tag">Costs</span></div>
+          <div class="figure"><img src="images/cloud-docker.jpg" alt="Shipping containers floating toward a cloud" /></div>
+          <p class="caption">Figure 44.1 — Containers are shipping containers for software: sealed, labelled, runs anywhere.</p>
+          <h3>1. Cloud in 5 primitives</h3>
+          <table><thead><tr><th>Primitive</th><th>What</th><th>Examples</th></tr></thead><tbody>
+            <tr><td><strong>Compute</strong></td><td>VMs / containers / functions</td><td>EC2, Cloud Run, Lambda</td></tr>
+            <tr><td><strong>Storage</strong></td><td>Blobs + disks + DBs</td><td>S3, EBS, RDS</td></tr>
+            <tr><td><strong>Network</strong></td><td>VPCs, load balancers, DNS</td><td>ALB, CloudFront</td></tr>
+            <tr><td><strong>Identity</strong></td><td>Who can touch what</td><td>IAM roles, least privilege</td></tr>
+            <tr><td><strong>Billing</strong></td><td>The meter is always running</td><td>Budgets, alerts, auto-shutdown</td></tr>
+          </tbody></table>
+          <h3>2. Docker: image vs container</h3>
+          <div class="diagram">
+            <svg viewBox="0 0 640 140" width="640" height="140">
+              <g font-family="Source Sans 3" text-anchor="middle">
+                <rect x="40" y="25" width="250" height="90" rx="12" fill="#0c1b2e"/><text x="165" y="55" fill="#fff" font-size="14">IMAGE</text><text x="165" y="76" fill="#94a3b8" font-size="11">frozen recipe:</text><text x="165" y="92" fill="#94a3b8" font-size="11">code + libs + OS layers</text>
+                <text x="330" y="80" font-size="28" fill="#57534e">→</text>
+                <rect x="370" y="25" width="230" height="90" rx="12" fill="#0f766e"/><text x="485" y="55" fill="#fff" font-size="14">CONTAINER</text><text x="485" y="76" fill="#d1fae5" font-size="11">running instance of</text><text x="485" y="92" fill="#d1fae5" font-size="11">an image (1 → many)</text>
+              </g>
+            </svg>
+            <div class="diagram-title">Diagram 44.1 — Build once (image, tagged v1.2.3), run anywhere (containers). Reproducibility = tag + digest + no “latest” in prod.</div>
+          </div>
+<pre><code># Dockerfile sketch — small, pinned, non-root
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py model_registry.py ./
+USER appuser
+CMD ["uvicorn", "app:api", "--host", "0.0.0.0"]</code></pre>
+          <h3>3. GPUs: rent smart</h3>
+          <ul>
+            <li><strong>Match card to job:</strong> T4/L4 for inference, A10/A100/H100 for training. Bigger isn’t better if utilisation is 12%.</li>
+            <li><strong>Prefer serverless/managed inference</strong> (SageMaker, Vertex, HF Inference) over self-managed clusters until scale demands it.</li>
+            <li><strong>Kill switches:</strong> idle auto-shutdown, spot/preemptible for fault-tolerant training, budget alerts at 50/80/100%.</li>
+            <li><strong>Batch + cache:</strong> batch inference, cache embeddings, distil/quantise (Ch 22 LoRA, Ch 42 evals) before scaling out.</li>
+          </ul>
+          <div class="warn"><h4>Cloud bill horror stories (all preventable)</h4><p>A forgotten A100 over a long weekend ≈ a used car. Rules: tag everything by owner/project, default-deny expensive instance types via policy, dashboards on spend-per-experiment, and a big red “stop all” runbook.</p></div>
+          <div class="note"><h4>Short notes</h4><p>Cloud = compute, storage, network, IAM, billing. Images are frozen recipes; containers are running instances — pin tags/digests, never “latest” in prod. Size GPUs to utilisation, prefer managed inference, and enforce budgets, auto-shutdown, and spend-per-experiment tracking.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>5 primitives: compute/storage/net/IAM/billing.</li><li>Image = recipe; container = running copy.</li><li>Pin versions; run non-root.</li><li>Right-size GPUs; spot for training.</li><li>Budgets + auto-shutdown always.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. Image vs container:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. They’re synonyms</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Containers build images</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Image = frozen template; container = running instance (one image → many containers)</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Images only run on laptops</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Build once, run anywhere.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">2. Why avoid <code>:latest</code> in production?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. It’s slower to type</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. It’s a moving target — deploys become unreproducible and rollbacks uncertain</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Docker forbids it</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. It only works on CPUs</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Pin tag + digest; know exactly what runs.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. First controls on a new cloud account for ML?</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. IAM least-privilege + budget alerts + auto-shutdown + spend tags</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. One shared root key in Slack</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Biggest GPU as default</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Disable all logging to save money</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Guardrails before horsepower.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. GPU utilisation stuck at 12% during training. Best move:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Buy a second GPU</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Increase the font size</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ignore it — GPUs like naps</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Fix the bottleneck (data loading, batch size, precision) or downsize the card</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Starved GPUs burn money per idle second.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">5. Managed inference endpoints beat self-managed clusters when:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Never — always self-manage</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. You enjoy 3am pages</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Traffic is bursty or the team is small — autoscale + no cluster ops</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. You need maximum YAML</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Undifferentiated heavy lifting → let the cloud do it.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch44')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c44p1"><p class="q">P1. Write the deploy checklist for shipping a FastAPI + model container to Cloud Run.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Pinned base image + digest; non-root user; health endpoint; model pulled from registry (not baked 5GB into image); secrets via manager; CPU/memory limits; min/max instances; budget alert; rollback = previous revision; smoke test + eval sample post-deploy.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c44p2"><p class="q">P2. Training needs 8×A100 for 6 hours, twice a month. On-demand vs spot vs buy?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Spot/preemptible with checkpointing (12h/month total — buying is 60× idle waste). Fallback to on-demand if preempted near deadline. Never buy unless utilisation &gt; 60% sustained — and even then, compare with reserved/committed discounts first.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c44p3"><p class="q">P3. Your inference bill tripled with flat traffic. Debug order?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Spend breakdown by service/endpoint — what exactly grew. (2) New culprits: un-cached embeddings recomputed, min-instances raised, larger model swapped in, retries storming on errors. (3) Fix: cache, batch, quantise/distil, scale-to-zero, alert on cost-per-1k-requests.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch42">← Prompt eng, RAG &amp; evals</button>
+            <button data-go="ch43">MLOps in production →</button>
+          </div>
+        </div>
+      </article>

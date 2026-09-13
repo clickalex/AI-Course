@@ -1,0 +1,106 @@
+<article class="page" id="ch40">
+        <div class="chapter-head"><div class="kicker">Chapter 40 · Data skills · Collection</div>
+          <h2>APIs, web scraping &amp; data collection</h2>
+          <p class="lede">Before analysis comes acquisition. Learn to pull data from REST APIs politely and scrape the web responsibly — with retries, rate limits, and raw archives.</p></div>
+        <div class="content">
+          <div class="tag-row"><span class="tag">REST</span><span class="tag">JSON</span><span class="tag">Scraping</span><span class="tag">Ethics</span></div>
+          <div class="figure"><img src="images/api-scraping.jpg" alt="A plug connecting into a web of data nodes" /></div>
+          <p class="caption">Figure 40.1 — Ask nicely first (API). Scrape second, slowly, and only what you’re allowed to take.</p>
+          <h3>1. REST in one page</h3>
+          <ul>
+            <li><strong>Endpoint + method:</strong> <code>GET /v1/orders?since=2025-01-01</code> reads; <code>POST</code> creates. Params in the URL, secrets in <strong>headers</strong>, never in URLs that get logged.</li>
+            <li><strong>Auth:</strong> API key header (<code>Authorization: Bearer …</code>) or OAuth flow. Keys live in env vars / secret stores — never in git (Ch 41).</li>
+            <li><strong>Status codes:</strong> 200 OK · 401/403 auth · 404 gone · <strong>429 slow down</strong> · 5xx retry later.</li>
+            <li><strong>Pagination:</strong> cursor-based (<code>next_cursor</code>) beats offset for big pulls — offsets drift as data changes.</li>
+          </ul>
+<pre><code>import os, time, requests
+
+s = requests.Session()
+s.headers["Authorization"] = f"Bearer {os.environ['SHOP_KEY']}"
+url, seen = "https://api.shop.com/v1/orders", set()
+while url:
+    r = s.get(url, params={"limit": 100}, timeout=30)
+    if r.status_code == 429:                      # rate limited → back off
+        time.sleep(int(r.headers.get("Retry-After", 5))); continue
+    r.raise_for_status()
+    data = r.json()
+    for o in data["orders"]:
+        if o["id"] not in seen: save_raw(o); seen.add(o["id"])
+    url = data.get("next_cursor") and f"https://api.shop.com/v1/orders?cursor={data['next_cursor']}"</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 120" width="640" height="120">
+              <rect x="10" y="30" width="140" height="50" rx="10" fill="#0f766e"/><text x="80" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Request</text>
+              <rect x="170" y="30" width="140" height="50" rx="10" fill="#0c1b2e"/><text x="240" y="52" text-anchor="middle" fill="#fff" font-size="12" font-family="Source Sans 3">429 / 5xx?</text><text x="240" y="68" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Source Sans 3">back off + retry</text>
+              <rect x="330" y="30" width="140" height="50" rx="10" fill="#0ea5e9"/><text x="400" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Save RAW</text>
+              <rect x="490" y="30" width="140" height="50" rx="10" fill="#b45309"/><text x="560" y="60" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3">Next page</text>
+            </svg>
+            <div class="diagram-title">Diagram 40.1 — The polite pull loop. Raw first, parse later — APIs change field names without asking you.</div>
+          </div>
+          <h3>2. Scraping: selectors, politeness, and limits</h3>
+          <ul>
+            <li><strong>Read first:</strong> <code>robots.txt</code>, Terms of Service, and rate guidance. No bypassing logins/paywalls. When in doubt, ask or use the official API.</li>
+            <li><strong>Be gentle:</strong> 1 request / 2–5 seconds, identify yourself (<code>User-Agent: uni-project contact@…</code>), cache pages, scrape off-peak.</li>
+            <li><strong>Tool ladder:</strong> <code>requests</code> + selectors → headless browser (JS-rendered pages) → managed scrapers. Each rung costs 10× the last.</li>
+            <li><strong>Selectors rot:</strong> prefer stable attributes (<code>data-testid</code>, JSON blobs in <code>&lt;script&gt;</code>) over deep CSS paths.</li>
+          </ul>
+          <h3>3. Store raw like an archivist</h3>
+          <ul>
+            <li>One <strong>JSONL</strong> line per record + <code>fetched_at</code> + source URL. Append-only, partitioned by date.</li>
+            <li><strong>Dedupe keys</strong> (URL hash, platform ID), checksums for binaries.</li>
+            <li>Personal data? Minimise, get consent where required, set retention. (Not legal advice — check your jurisdiction.)</li>
+          </ul>
+          <div class="warn"><h4>Scraping red lines</h4><p>Don’t hammer servers (that’s a mini-DDoS), don’t republish copyrighted content as your own, don’t collect passwords/children’s data, and don’t “just rotate proxies to evade a ban” — a ban is an answer.</p></div>
+          <div class="note"><h4>Short notes</h4><p>APIs: endpoints + params, secrets in headers/env, cursor pagination, 429 → backoff + retry. Scrape only allowed pages, slowly, with a contact User-Agent. Save raw JSONL with fetched_at; dedupe by stable keys. Respect robots.txt, ToS, and privacy law.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>Keys in env, never in git/URLs.</li><li>Cursors &gt; offsets for big pulls.</li><li>429 = slow down, Retry-After wins.</li><li>Raw first, parse later.</li><li>robots.txt + ToS before spiders.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
+            <div class="mcq" data-answer="b"><p class="q">1. Your pull loop gets HTTP 429. Correct response:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Spawn 50 threads to finish faster</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Back off (honour Retry-After) and retry slowly</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Rotate proxies to dodge the limit</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Hard-code the API key into the repo</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">429 is the server asking for mercy. Give it.</div></div>
+            <div class="mcq" data-answer="c"><p class="q">2. Cursor pagination beats offset for large pulls because:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Cursors are prettier</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Offsets are illegal</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Offsets drift/skip when rows insert/delete mid-pull</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Cursors need no auth</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Offset 10,000 today isn’t the same row tomorrow.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">3. Before scraping a site you should check:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. robots.txt, Terms of Service, and rate guidance</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Nothing — all web data is yours</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Only the favourite colour</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The GPU temperature</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Permission first; spiders second.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">4. Raw API responses should be stored with:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. No timestamps, to save bytes</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Passwords inline for convenience</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Only the fields you need today</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. fetched_at + source, append-only (APIs change schemas)</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Re-parseable history beats re-pulling.</div></div>
+            <div class="mcq" data-answer="b"><p class="q">5. API keys belong in:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Git commits, for teamwork</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Environment variables / secret stores, rotated if leaked</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Public URLs</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Screenshots on social media</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Leaked keys get abused within hours. Rotate immediately.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch40')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><h3>Practice questions</h3>
+            <div class="practice" data-pid="c40p1"><p class="q">P1. Design a daily pull of 200k products from a paginated API (limit 100/page, 60 req/min). How long, and what breaks?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>2000 pages ÷ 60/min ≈ 34 min minimum. Use cursor pagination, persist cursor (resume on crash), dedupe by product id, backoff on 429/5xx, save raw JSONL partitioned by date. Breaks: schema drift (new fields), deleted products (track last_seen), clock skew on <code>since</code> filters — overlap windows by 1 hour.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c40p2"><p class="q">P2. The site has no API and JS-rendered prices. Your 3-step plan?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Check robots.txt/ToS; email for data/API access first. (2) If allowed: headless browser, 1 req/3s, contact User-Agent, cache HTML, extract from embedded JSON over CSS paths. (3) Monitor: alert on selector misses (site redesigns) — never silently ship empty prices.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c40p3"><p class="q">P3. You committed an API key to a public repo. Exact steps?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Rotate/revoke the key FIRST (history never forgets), then purge from git history (filter-repo/BFG), force-push, check for abuse (billing spikes), move to env/secret manager, add pre-commit secret scanning. Apologise to your team once, automate so it can’t recur.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+          </div>
+          <div class="nav-row">
+            <button class="ghost" data-go="ch39">← Data engineering</button>
+            <button data-go="ch41">Git &amp; collaboration →</button>
+          </div>
+        </div>
+      </article>

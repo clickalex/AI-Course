@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cover · Zero to Hero AI</title>
+  <title>Vision, speech & multimodal · Zero to Hero AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="toc-group">Start</div>
-      <button class="toc-item active" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
+      <button class="toc-item" data-go="cover"><span class="toc-num">00</span> Cover &amp; map</button>
       <button class="toc-item" data-go="how"><span class="toc-num">01</span> How to use this book</button>
       <button class="toc-item" data-go="paths"><span class="toc-num">02</span> Class 1 → PhD paths</button>
       <button class="toc-item" data-go="syllabus"><span class="toc-num">03</span> Complete syllabus</button>
@@ -72,7 +72,7 @@
       <div class="toc-group">Deep learning &amp; gen AI</div>
       <button class="toc-item" data-go="ch10"><span class="toc-num">17</span> Neural networks</button>
       <button class="toc-item" data-go="ch11"><span class="toc-num">18</span> Deep learning</button>
-      <button class="toc-item" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
+      <button class="toc-item active" data-go="ch21"><span class="toc-num">19</span> Vision, speech, multimodal</button>
       <button class="toc-item" data-go="ch12"><span class="toc-num">20</span> NLP</button>
       <button class="toc-item" data-go="ch13"><span class="toc-num">21</span> Transformers &amp; LLMs</button>
       <button class="toc-item" data-go="ch14"><span class="toc-num">22</span> Generative AI</button>
@@ -132,73 +132,50 @@
     </aside>
 <main class="main">
         <div class="print-head">Zero to Hero AI Course · printed chapter — answers hidden; use the on-screen “Grade” buttons for scoring.</div>
-<article class="page active" id="cover">
-        <div class="hero">
-          <img src="images/cover.jpg" alt="Neural network brain over an open book" />
-          <div class="hero-content">
-            <div class="kicker">Illustrated course book · Class 1 → PhD</div>
-            <h2>Zero to Hero<br/>Artificial Intelligence</h2>
-            <p class="lede">The full map of AI: school intuition, undergraduate CS, data skills (Python, Excel, SQL, stats, BI), agents &amp; agentic systems, industry practice, transformers lab, interview prep, system design, GATE bank, frontier GenAI (AGI, advanced RAG, reasoning, edge, vision, voice, video, federated, quantum, robotics, science, recsys), and PhD research topics — with diagrams, notes, MCQs, and scored exams.</p>
-          </div>
-        </div>
+<article class="page active" id="ch21">
+        <div class="chapter-head"><div class="kicker">Chapter 21 · Perception</div>
+          <h2>Vision, speech &amp; multimodal</h2>
+          <p class="lede">Beyond classify-the-cat: where is it, what is each pixel, what was said, and how do text and pixels share a space?</p></div>
         <div class="content">
-          <div class="stat-grid">
-            <div class="stat"><b>59</b><span>teaching chapters</span></div>
-            <div class="stat"><b>330+</b><span>scored MCQs</span></div>
-            <div class="stat"><b>70+</b><span>practice questions</span></div>
-            <div class="stat"><b>45</b><span>final exam questions</span></div>
-          </div>
-          <p>This book assumes <strong>no prior AI knowledge</strong>. It now covers the whole stack: school-level “what is a smart machine?”, classical search and logic, <strong>data skills (detailed Python, Excel/Sheets, Pandas, SQL, visualization, statistics, Power BI, capstone, BI compared, data engineering, APIs, Git, time series)</strong>, machine learning, deep learning, LLMs, <strong>AI Agents and Agentic AI</strong>, robotics, theory, alignment, and how research is done.</p>
-          <h3>Jump in by level</h3>
-          <div class="toc-mini">
-            <button data-go="paths">Learning paths (Class → PhD)</button>
-            <button data-go="syllabus">Complete syllabus index</button>
-            <button data-go="sch1">School: AI around you</button>
-            <button data-go="ch30">Python in depth (D1)</button>
-            <button data-go="ch31">Excel &amp; Sheets (D2)</button>
-            <button data-go="ch32">Pandas &amp; NumPy (D3)</button>
-            <button data-go="ch33">SQL for data (D4)</button>
-            <button data-go="ch34">Visualization (D5)</button>
-            <button data-go="ch35">Statistics (D6)</button>
-            <button data-go="ch36">Power BI (D7)</button>
-            <button data-go="ch37">Capstone (D8)</button>
-            <button data-go="ch38">BI compared (D9)</button>
-            <button data-go="ch39">Data engineering (D10)</button>
-            <button data-go="ch40">APIs & scraping (D11)</button>
-            <button data-go="ch41">Git & collab (D12)</button>
-            <button data-go="ch45">Time series (D13)</button>
-            <button data-go="ch23">AI Agents</button>
-            <button data-go="ch24">Agentic AI systems</button>
-            <button data-go="ch42">Prompt eng & RAG (A1)</button>
-            <button data-go="ch44">Cloud & Docker (A2)</button>
-            <button data-go="ch43">MLOps (A3)</button>
-            <button data-go="ch46">Transformers lab (A4)</button>
-            <button data-go="ch47">AGI (F1)</button>
-            <button data-go="ch48">Advanced RAG (F2)</button>
-            <button data-go="ch49">Reasoning (F3)</button>
-            <button data-go="ch50">Edge AI (F4)</button>
-            <button data-go="ch51">VLMs (F5)</button>
-            <button data-go="ch52">Voice (F6)</button>
-            <button data-go="ch53">Video (F7)</button>
-            <button data-go="ch54">Federated (F8)</button>
-            <button data-go="ch55">Quantum (F9)</button>
-            <button data-go="ch56">Robotics (F10)</button>
-            <button data-go="ch57">Science (F11)</button>
-            <button data-go="ch58">Recsys (F12)</button>
-            <button data-go="ch27">PhD: learning theory</button>
-            <button data-go="notes">Short notes sheet</button>
-            <button data-go="glossary">Hindi glossary</button>
-            <button data-go="cheats">Cheat-sheet cards</button>
-            <button data-go="playground">Playground: datasets</button>
-            <button data-go="interview">Interview Q&A bank</button>
-            <button data-go="design">System design</button>
-            <button data-go="gate">GATE bank</button>
-            <button data-go="mock">Mock interview</button>
-            <button data-go="exam">Final exam (57 Q)</button>
-          </div>
+          <table><thead><tr><th>Task</th><th>Output</th><th>Classic models</th></tr></thead><tbody>
+            <tr><td>Detection</td><td>Boxes + classes</td><td>YOLO, Faster R-CNN, DETR</td></tr>
+            <tr><td>Segmentation</td><td>Per-pixel class / instance</td><td>U-Net, Mask R-CNN, SAM</td></tr>
+            <tr><td>Video</td><td>Tubes / tracks</td><td>3D CNN, transformers</td></tr>
+            <tr><td>3D / NeRF / Gaussian splats</td><td>Scene radiance</td><td>Neural rendering</td></tr>
+            <tr><td>ASR</td><td>Text from audio</td><td>Whisper-class Transformers</td></tr>
+            <tr><td>TTS</td><td>Speech from text</td><td>Spectrogram + vocoder / neural codecs</td></tr>
+            <tr><td>Multimodal</td><td>Shared embedding / any-to-any</td><td>CLIP, Flamingo, GPT-4o-class, Gemini-class</td></tr>
+          </tbody></table>
+          <p><strong>CLIP</strong> trains image and text encoders so matching pairs sit nearby — the backbone of promptable image gen and zero-shot vision. Metrics: mAP, IoU, WER, CLIP-score — plus human eval.</p>
+          <div class="note"><h4>Short notes</h4><p>Localisation tasks need different heads and losses (box regression, Dice/IoU). Speech is a sequence problem now solved a lot like NLP. Multimodal = shared or gated Transformers over mixed tokens.</p></div>
+          <div class="points"><h4>Point notes</h4><ul><li>mAP for detection; IoU for overlap.</li><li>U-Net = encoder–decoder skips.</li><li>WER for ASR.</li><li>CLIP = contrastive image–text.</li></ul></div>
+          <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+            <div class="mcq" data-answer="c"><p class="q">1. Semantic segmentation predicts:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. One label for the whole image only</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Next tokens</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. A class for every pixel</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Cluster count k</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Dense prediction.</div></div>
+            <div class="mcq" data-answer="a"><p class="q">2. CLIP is trained with:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. A contrastive loss pulling matching image–text pairs together</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Only k-means on spectrograms</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Minimax chess</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. PCA only</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">InfoNCE-style contrastive learning.</div></div>
+            <div class="mcq" data-answer="d"><p class="q">3. WER is used for:</p><div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Object detection boxes</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Cluster quality</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. FID of images</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Automatic speech recognition quality</button>
+            </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Word error rate = edit distance / reference length.</div></div>
+            <button class="btn gold" onclick="checkChapter('ch21')">Grade this chapter</button><div class="chapter-score"></div></div>
+          <div class="practice-block"><div class="practice" data-pid="c21p1"><p class="q">P1. Why is ImageNet top-1 a poor standalone metric for a self-driving stack?</p>
+            <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+            <div class="answer"><p>Driving needs localisation, tracking, depth, rare-class recall (child, cone), calibration, latency, and night/rain shift. A 76% ImageNet net can still miss a pedestrian. Task metrics and operational design domain matter.</p></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
           <div class="nav-row">
-            <span></span>
-            <button data-go="how">Start the book →</button>
+            <button class="ghost" data-go="ch11">← Chapter 11</button>
+            <button data-go="ch12">Chapter 12 →</button>
           </div>
         </div>
       </article>
