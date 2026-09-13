@@ -9,7 +9,7 @@ const PAGES = [
   "ch19","ch20",
   "ch10","ch11","ch21",
   "ch12","ch13","ch14","ch22",
-  "ch23","ch24","ch42","ch44","ch43","ch46","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55",
+  "ch23","ch24","ch42","ch44","ch43","ch46","ch47","ch48","ch49","ch50","ch51","ch52","ch53","ch54","ch55","ch56","ch57","ch58",
   "ch15","ch25","ch26",
   "ch27","ch28","ch29","ch16",
   "notes","glossary","cheats","playground","interview","design","gate","mock","exam","results"
@@ -76,6 +76,9 @@ const TITLES = {
   ch53: "Video generation",
   ch54: "Federated learning",
   ch55: "Quantum ML primer",
+  ch56: "Robotics & VLA",
+  ch57: "AI for science",
+  ch58: "Recommenders deep-dive",
   glossary: "Hindi glossary (data skills)",
   cheats: "Cheat-sheet cards",
   playground: "Datasets playground",
