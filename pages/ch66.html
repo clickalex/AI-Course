@@ -200,16 +200,14 @@
           <div class="warn"><h4>Contamination ruins science</h4><p>One leaked benchmark in training invalidates every comparison you publish. Quarantine all eval material (and paraphrases) BEFORE the first training run, re-scan on every data refresh, and treat third-party “clean” mixes as guilty until proven innocent. A leaderboard built on contamination is marketing, not measurement.</p></div>
           <div class="note"><h4>Short notes</h4><p>Refinery: crawl → extract → filter → dedup → decontaminate → mix, with provenance logged at every stage. Dedup exact + fuzzy; decontaminate evals (paraphrases too); plant canaries. Rights: licence per row, pay for data, write datasheets, stay deletion-ready. Quality is subtraction; mix weights are hyperparameters.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Extraction quality is step zero.</li><li>Fuzzy dedup saves the tail.</li><li>Quarantine evals first.</li><li>Licence per row.</li><li>Datasheets or it didn’t happen.</li></ul></div>
-          <figure class="diagram">
-            <div class="diagram-art">
-              <svg viewBox="0 0 640 138" role="img" aria-label="refinery"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">refinery</text>
+          <div class="diagram">
+            <svg viewBox="0 0 640 138" width="640" height="138"><rect x="10" y="10" width="620" height="118" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/><rect x="10" y="10" width="620" height="34" rx="10" fill="#1e293b"/><rect x="10" y="30" width="620" height="14" fill="#1e293b"/><circle cx="30" cy="27" r="5" fill="#f87171"/><circle cx="48" cy="27" r="5" fill="#fbbf24"/><circle cx="66" cy="27" r="5" fill="#4ade80"/><text x="320" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#cbd5e1">refinery</text>
               <text x="34" y="70" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#5eead4">$ </tspan><tspan fill="#e2e8f0">refine --in crawl-100GB</tspan></text>
               <text x="34" y="92" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#e2e8f0">kept 8.2% · dedup -31% · evals quarantined ✓</tspan></text>
               <text x="34" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#4ade80">licenses 100% known ✓ </tspan><tspan fill="#94a3b8">datasheet written</tspan></text>
               </svg>
-            </div>
-            <figcaption>Snapshot 66.1 — data refinery: keep 8%, dedup, license, datasheet.</figcaption>
-          </figure>
+            <div class="diagram-title">Snapshot 66.1 — data refinery: keep 8%, dedup, license, datasheet.</div>
+          </div>
           <div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions</span></div>
             <div class="mcq" data-answer="a"><p class="q">1. Why dedup against EVAL sets specifically?</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Leaked benchmarks invalidate every comparison — leaderboards become fiction</button>
