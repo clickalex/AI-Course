@@ -40,6 +40,16 @@ def predict(r: Review):
 curl -X POST http://127.0.0.1:8000/predict \
   -H "Content-Type: application/json" \
   -d '{"text": "loved the thali, will return!"}'</code></pre>
+          <div class="diagram">
+            <svg viewBox="0 0 640 252" width="640" height="252">
+<rect x="10" y="10" width="620" height="232" rx="10" fill="#0f172a" stroke="#334155"/><circle cx="32" cy="29" r="6" fill="#f87171"/><circle cx="50" cy="29" r="6" fill="#fbbf24"/><circle cx="68" cy="29" r="6" fill="#34d399"/><text x="320" y="33" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#94a3b8">127.0.0.1:8000/docs — Thali API</text><line x1="10" y1="46" x2="630" y2="46" stroke="#1e293b"/>
+              <rect x="150" y="58" width="340" height="30" rx="15" fill="#1e293b"/><text x="320" y="78" text-anchor="middle" font-family="Source Sans 3" font-size="12" fill="#94a3b8">🔒 127.0.0.1:8000/docs</text>
+              <rect x="34" y="102" width="52" height="24" rx="6" fill="#166534"/><text x="60" y="119" text-anchor="middle" font-family="Source Sans 3" font-size="12" fill="#fff">POST</text><text x="96" y="119" font-family="JetBrains Mono, monospace" font-size="13" fill="#e2e8f0">/predict</text><rect x="470" y="100" width="136" height="28" rx="8" fill="#0f766e"/><text x="538" y="119" text-anchor="middle" font-family="Source Sans 3" font-size="12" fill="#fff">Try it out ▸</text>
+              <rect x="34" y="140" width="572" height="66" rx="8" fill="#020617" stroke="#1e293b"/>
+              <text x="34" y="164" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#34d399">200 OK  </tspan><tspan fill="#e2e8f0">{ "label": "positive" }</tspan></text>
+              <text x="34" y="188" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0"><tspan fill="#64748b">Request took 84 ms · model loaded once at startup</tspan></text>            </svg>
+            <div class="diagram-title">Snapshot 69.1 — FastAPI’s free Swagger UI at /docs: every endpoint documented and clickable. Green POST, “Try it out”, instant 200 response.</div>
+          </div>
           <h3>2. Demo UIs (Streamlit vs Gradio)</h3>
           <table><thead><tr><th>Need</th><th>Pick</th><th>Why</th></tr></thead><tbody>
             <tr><td><strong>Data app / dashboard</strong></td><td>Streamlit</td><td>Widgets + charts in pure Python; reruns script per interaction</td></tr>
