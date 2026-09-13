@@ -101,6 +101,10 @@
       <button class="toc-item" data-go="ch56"><span class="toc-num">F10</span> Robotics & VLA</button>
       <button class="toc-item" data-go="ch57"><span class="toc-num">F11</span> AI for science</button>
       <button class="toc-item" data-go="ch58"><span class="toc-num">F12</span> Recommenders deep-dive</button>
+      <button class="toc-item" data-go="ch59"><span class="toc-num">F13</span> Injection defense lab</button>
+      <button class="toc-item" data-go="ch60"><span class="toc-num">F14</span> AI economics & jobs</button>
+      <button class="toc-item" data-go="ch61"><span class="toc-num">F15</span> Multimodal evals</button>
+      <button class="toc-item" data-go="ch62"><span class="toc-num">F16</span> Agent red-teaming</button>
 
       <div class="toc-group">Decisions & autonomy</div>
       <button class="toc-item" data-go="ch15"><span class="toc-num">26</span> Reinforcement learning</button>
@@ -122,7 +126,7 @@
       <button class="toc-item" data-go="design"><span class="toc-num">SD</span> System design</button>
       <button class="toc-item" data-go="gate"><span class="toc-num">UG</span> GATE bank</button>
       <button class="toc-item" data-go="mock"><span class="toc-num">M</span> Mock interview</button>
-      <button class="toc-item active" data-go="exam"><span class="toc-num">E</span> Final exam (57 Q)</button>
+      <button class="toc-item active" data-go="exam"><span class="toc-num">E</span> Final exam (61 Q)</button>
       <button class="toc-item" data-go="results"><span class="toc-num">R</span> Your results</button>
 
       <div class="sidebar-foot">
@@ -135,13 +139,13 @@
 <article class="page active" id="exam">
         <div class="chapter-head">
           <div class="kicker">Assessment</div>
-          <h2>Final exam · 57 questions</h2>
+          <h2>Final exam · 61 questions</h2>
           <p class="lede">Mixed MCQs from the whole book — core AI, data skills (Python → Git), agents, applied production (RAG, cloud, MLOps), and frontier GenAI. Answer all, then submit for a percentage, grade name, and chapter-quiz breakdown.</p>
         </div>
         <div class="content">
           <div class="warn">
             <h4>Scoring</h4>
-            <p>Each question is 1 point (57 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–57 frontier). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
+            <p>Each question is 1 point (61 total: Q1–30 core AI + Q31–39 data + Q40–45 eng & production + Q46–61 frontier). 90%+ AI Hero · 75% Advanced Practitioner · 60% Practitioner · 40% Apprentice · below 40% Keep going. Skipped questions count as wrong.</p>
           </div>
 
           <div class="mcq" data-answer="b">
@@ -781,6 +785,51 @@
             </div>
             <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
             <div class="explain">Separate “seen because top” from “liked”.</div>
+          </div>
+
+          <div class="mcq" data-answer="c">
+            <p class="q">58. The non-negotiable privilege order for agent inputs is:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Tool output outranks everything</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Longest text wins</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. system &gt; developer &gt; user &gt; tool output</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. User outranks system</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Documents never outrank instructions.</div>
+          </div>
+          <div class="mcq" data-answer="a">
+            <p class="q">59. The productivity J-curve implies AI gains accrue to those who:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Redesign workflows (through a dip) rather than garnishing old ones</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Buy the most tools fastest</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Avoid all change</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Ban AI at work</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Reorganisation first, compounding later.</div>
+          </div>
+          <div class="mcq" data-answer="d">
+            <p class="q">60. Low inter-rater agreement (κ) in a human eval of VLMs tells you to:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Ship immediately</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Delete the models</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Add more parameters</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Fix the rubric and calibrate raters before trusting any scores</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Disagreement measures the test, not the models.</div>
+          </div>
+          <div class="mcq" data-answer="b">
+            <p class="q">61. After an agent security incident, the correct first sequence is:</p>
+            <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Delete logs and hope</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Freeze the agent → preserve traces → assess blast radius → rotate credentials</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ship new features</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Blame the intern</button>
+            </div>
+            <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+            <div class="explain">Then notify, post-mortem, and add the scenario to the suite.</div>
           </div>
           <p style="margin-top:22px">You can check questions one-by-one for study, or submit the whole exam for an official grade.</p>
           <button class="btn gold" onclick="gradeExam()">Submit final exam &amp; see results</button>
