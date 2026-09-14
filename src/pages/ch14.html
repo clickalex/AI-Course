@@ -34,6 +34,39 @@
             <li>Eval is hard: FID/CLIP scores ≠ “this is what the user wanted.” Human preference still rules.</li>
           </ul>
 
+          <div class="diagram">
+            <svg viewBox="0 0 640 214" width="640" height="214" role="img" aria-label="Three image-generator families (plus token models)">
+              <defs><marker id="arr14" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg14" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="194" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Three image-generator families (plus token models)</text>
+              <rect x="40" y="52" width="160" height="32" rx="8" fill="#115e59"/>
+              <text x="120.0" y="72.0" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3, sans-serif">VAE</text>
+              <text x="120" y="108" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">latent z sampled</text>
+              <text x="120" y="124" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">decoder draws from it</text>
+              <text x="120" y="140" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">blurry but stable</text>
+              <text x="120" y="156" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">usable latent space</text>
+              <rect x="240" y="52" width="160" height="32" rx="8" fill="#b45309"/>
+              <text x="320.0" y="72.0" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3, sans-serif">GAN</text>
+              <text x="320" y="108" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">generator fakes</text>
+              <text x="320" y="124" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">discriminator judges</text>
+              <text x="320" y="140" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">sharp outputs</text>
+              <text x="320" y="156" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">risk: mode collapse</text>
+              <rect x="440" y="52" width="160" height="32" rx="8" fill="#1e293b"/>
+              <text x="520.0" y="72.0" text-anchor="middle" fill="#fff" font-size="13" font-family="Source Sans 3, sans-serif">Diffusion</text>
+              <text x="520" y="108" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">add noise forward</text>
+              <text x="520" y="124" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">learn to denoise</text>
+              <text x="520" y="140" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">reverse step by step</text>
+              <text x="520" y="156" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">controllable, slow</text>
+<path d="M200 116 h36" stroke="#fbbf24" stroke-width="1.6" marker-end="url(#arg14)"/><path d="M236 128 h-36" stroke="#fbbf24" stroke-width="1.6" marker-end="url(#arg14)"/>
+              <text x="320" y="190" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">fourth family: autoregressive LMs sample the next token (GPT-style)</text>
+              <text x="320" y="206" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">all families learn p(data); they differ in how sampling and training are structured</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 14.1 — VAE compresses, GAN duels, diffusion denoises; pick by the failure you can manage.</div>
+          </div>
           <div class="note">
             <h4>Short notes</h4>
             <p>Generative AI learns a distribution and samples from it. VAEs are probabilistic autoencoders; GANs play a game; diffusion denoises; LLMs are autoregressive token models. Conditioning (text prompts, class labels) turns a sampler into a controllable tool. Quality, safety, and IP are as central as architecture.</p>

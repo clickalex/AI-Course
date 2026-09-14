@@ -8,6 +8,29 @@
           <p><strong>PAC learning</strong>: with high probability, empirical risk close to true risk, given enough samples vs hypothesis class complexity. <strong>VC dimension</strong> measures how many points a class can shatter. Uniform convergence + concentration inequalities (Hoeffding) are the machinery.</p>
           <p>Deep nets have huge VC-dimension yet generalise. Research: implicit bias of SGD, double descent, grokking, interpolation, NTK, scaling laws (loss vs compute). Nonconvex optimisation: we don’t get global minima guarantees; we get empirics + some landscape results.</p>
           <p>Information theory: cross-entropy is KL to the data distribution; bits-back, rate-distortion for compression/generative models.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 640 208" width="640" height="208" role="img" aria-label="Double descent - why huge nets still generalise">
+              <defs><marker id="arr27" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg27" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="188" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Double descent — why huge nets still generalise</text>
+              <line x1="60" y1="182" x2="580" y2="182" stroke="#94a3b8"/>
+              <line x1="60" y1="70" x2="60" y2="182" stroke="#94a3b8"/>
+              <path d="M60 152 L120 124 L180 112 L210 140 L235 88 L270 102 L320 150 L400 168 L490 174 L580 176" fill="none" stroke="#5eead4" stroke-width="2.4"/>
+              <line x1="235" y1="70" x2="235" y2="182" stroke="#fbbf24" stroke-dasharray="5 4"/>
+              <text x="235" y="64" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-family="Source Sans 3, sans-serif">interpolation threshold</text>
+              <text x="70" y="82" text-anchor="start" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">test error</text>
+              <text x="580" y="200" text-anchor="end" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">model size / train time -></text>
+              <text x="130" y="98" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Source Sans 3, sans-serif">classical U-curve</text>
+              <text x="390" y="158" text-anchor="middle" fill="#5eead4" font-size="10.5" font-family="Source Sans 3, sans-serif">second descent:</text>
+              <text x="390" y="172" text-anchor="middle" fill="#5eead4" font-size="10.5" font-family="Source Sans 3, sans-serif">over-parameterised nets</text>
+              <text x="390" y="186" text-anchor="middle" fill="#5eead4" font-size="10.5" font-family="Source Sans 3, sans-serif">generalise again</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 27.1 — Classical theory predicts the peak at zero training error; the valley beyond was the surprise.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Classical bounds: complexity ↓ or n ↑ ⇒ generalisation. Deep learning broke the “must underfit to generalise” slogan (double descent). PhD work is: explain that, or exploit it (scaling, distillation, implicit regularisation).</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>PAC: probably approximately correct.</li><li>VC: capacity of a hypothesis class.</li><li>Double descent: overparameterised models can generalise.</li><li>Scaling laws: predictable loss vs compute.</li></ul></div>
                     <div class="diagram">

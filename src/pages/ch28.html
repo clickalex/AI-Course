@@ -26,6 +26,33 @@
             <h4>Three time-scales of safety work</h4>
             <p><strong>Now:</strong> bias, privacy, security and misuse, increasingly covered by regulation (EU AI Act risk tiers; emerging Indian AI governance frameworks). <strong>Emerging:</strong> oversight of highly autonomous agents in cybersecurity, coding and science. <strong>Long-term:</strong> aligning systems that may outperform their overseers. All three share a method — name the threat model, red-team before deployment, and keep humans able to intervene.</p>
           </div>
+          <div class="diagram">
+            <svg viewBox="0 0 640 222" width="640" height="222" role="img" aria-label="Adversarial ML and the defence-in-depth list">
+              <defs><marker id="arr28" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg28" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="202" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Adversarial ML and the defence-in-depth list</text>
+              <rect x="36" y="66" width="120" height="58" rx="8" fill="#115e59"/>
+              <text x="96.0" y="91.0" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">clean image x</text>
+              <text x="96.0" y="107.0" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">(cat)</text>
+              <rect x="210" y="66" width="130" height="58" rx="8" fill="#b45309"/>
+              <text x="275.0" y="91.0" text-anchor="middle" fill="#fff" font-size="10" font-family="Source Sans 3, sans-serif">+ ε sign(gradient)</text>
+              <text x="275.0" y="107.0" text-anchor="middle" fill="#fff" font-size="10" font-family="Source Sans 3, sans-serif">invisible noise</text>
+              <rect x="420" y="66" width="150" height="58" rx="8" fill="#7f1d1d"/>
+              <text x="495.0" y="91.0" text-anchor="middle" fill="#fecaca" font-size="10" font-family="Source Sans 3, sans-serif">x' misclassified</text>
+              <text x="495.0" y="107.0" text-anchor="middle" fill="#fecaca" font-size="10" font-family="Source Sans 3, sans-serif">as a different class</text>
+              <line x1="156" y1="95" x2="210" y2="95" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg28)"/>
+              <line x1="340" y1="95" x2="420" y2="95" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr28)"/>
+              <text x="60" y="152" text-anchor="start" fill="#e2e8f0" font-size="10.8" font-family="Source Sans 3, sans-serif">✓ adversarial training and red-team evals</text>
+              <text x="60" y="168" text-anchor="start" fill="#e2e8f0" font-size="10.8" font-family="Source Sans 3, sans-serif">✓ data provenance and backdoor canaries</text>
+              <text x="60" y="184" text-anchor="start" fill="#e2e8f0" font-size="10.8" font-family="Source Sans 3, sans-serif">✓ DP-SGD and data minimisation</text>
+              <text x="60" y="200" text-anchor="start" fill="#e2e8f0" font-size="10.8" font-family="Source Sans 3, sans-serif">✓ rate limits, human review, kill switch</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 28.1 — A one-gradient-step perturbation can flip a classifier; no single defence is complete, so layer them.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Explanations can be fake. Attacks exist. Privacy is a threat model. Alignment is making highly capable systems pursue intended goals under distribution shift and deception pressure.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>SHAP ≠ causal truth.</li><li>Adversarial examples are not just noise.</li><li>DP: add calibrated noise to gradients/queries.</li><li>Jailbreak = attack on an aligned policy.</li></ul></div>
                     <div class="diagram">

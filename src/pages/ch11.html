@@ -30,6 +30,42 @@
             <p>Flip, crop, colour jitter, mixup. The label stays the same (usually), so the model learns invariances instead of memorising background hospital stickers. Augmentation is a regulariser made of extra fake data.</p>
           </div>
 
+          <div class="diagram">
+            <svg viewBox="0 0 640 205" width="640" height="205" role="img" aria-label="How a CNN sees - features compose layer by layer">
+              <defs><marker id="arr11" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg11" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="185" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">How a CNN sees — features compose layer by layer</text>
+              <rect x="24" y="92" width="104" height="52" rx="8" fill="#1e293b"/>
+              <text x="76.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Raw pixels</text>
+              <text x="76" y="128" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">224x224x3</text>
+              <line x1="128" y1="118" x2="148" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr11)"/>
+              <rect x="148" y="92" width="104" height="52" rx="8" fill="#115e59"/>
+              <text x="200.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Conv + pool</text>
+              <text x="200" y="128" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">edges</text>
+              <line x1="252" y1="118" x2="272" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr11)"/>
+              <rect x="272" y="92" width="104" height="52" rx="8" fill="#115e59"/>
+              <text x="324.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Conv blocks</text>
+              <text x="324" y="128" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">textures</text>
+              <line x1="376" y1="118" x2="396" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr11)"/>
+              <rect x="396" y="92" width="104" height="52" rx="8" fill="#115e59"/>
+              <text x="448.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Deep features</text>
+              <text x="448" y="128" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">parts</text>
+              <line x1="500" y1="118" x2="520" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr11)"/>
+              <rect x="520" y="92" width="104" height="52" rx="8" fill="#b45309"/>
+              <text x="572.0" y="122.0" text-anchor="middle" fill="#fff" font-size="11.5" font-family="Source Sans 3, sans-serif">Classifier</text>
+              <text x="572" y="128" text-anchor="middle" fill="#fff" font-size="10.5" font-family="Source Sans 3, sans-serif">object label</text>
+              <text x="320" y="66" text-anchor="middle" fill="#94a3b8" font-size="11.5" font-family="Source Sans 3, sans-serif">receptive field grows - spatial size shrinks - channels deepen</text>
+<line x1="76" y1="158" x2="564" y2="158" stroke="#334155" stroke-dasharray="4 4"/>
+              <text x="76" y="172" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Source Sans 3, sans-serif">general</text>
+              <text x="564" y="172" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="Source Sans 3, sans-serif">specific</text>
+              <text x="320" y="192" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">one small filter slides across the whole image: translation equivariance, far fewer weights</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 11.1 — Early layers detect edges; depth assembles them into textures, parts, and finally a label.</div>
+          </div>
           <div class="note">
             <h4>Short notes</h4>
             <p>CNNs exploit local spatial structure via shared filters. Depth + pooling builds a feature hierarchy. ResNets add skip paths. RNNs/LSTMs model sequences with state but are slow and forgetful compared with Transformers. Transfer learning is how small-data vision actually works. Detection/segmentation are classification plus where.</p>

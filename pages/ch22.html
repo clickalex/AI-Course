@@ -183,6 +183,41 @@
             <h4>Eval anti-patterns that still ship</h4>
             <p>Testing only on in-distribution happy-path prompts; reporting one aggregate score that hides broken language/topic slices; no frozen regression set as prompts drift; “LLM-as-judge” without a written rubric or calibration against humans; ignoring over-refusal and unanswerable-question handling; no tokens-per-task cost, latency or injection tests. Ship when the golden set, adversarial set, human rubric and canary metrics all agree.</p>
           </div>
+          <div class="diagram">
+            <svg viewBox="0 0 640 212" width="640" height="212" role="img" aria-label="LoRA - a small trainable detour around a frozen giant">
+              <defs><marker id="arr22" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg22" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="192" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">LoRA — a small trainable detour around a frozen giant</text>
+              <rect x="40" y="92" width="120" height="52" rx="8" fill="#1e293b"/>
+              <text x="100.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Input x</text>
+              <rect x="210" y="72" width="120" height="60" rx="8" fill="#115e59"/>
+              <text x="270.0" y="106.0" text-anchor="middle" fill="#e2e8f0" font-size="12" font-family="Source Sans 3, sans-serif">W - frozen 🔒</text>
+              <rect x="210" y="152" width="120" height="24" rx="8" fill="#b45309"/>
+              <text x="270.0" y="168.0" text-anchor="middle" fill="#fff" font-size="9" font-family="Source Sans 3, sans-serif">A.B  low-rank, trainable</text>
+              <rect x="370" y="92" width="116" height="52" rx="8" fill="#1e293b"/>
+              <text x="428.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Wx + BAx</text>
+              <line x1="160" y1="118" x2="210" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr22)"/>
+              <line x1="330" y1="118" x2="370" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr22)"/>
+<path d="M270 72 L270 50 L370 50 L370 92" fill="none" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#arg22)"/>
+              <text x="596" y="42" text-anchor="end" fill="#94a3b8" font-size="9.5" font-family="Source Sans 3, sans-serif">cost &amp; effort -></text>
+              <rect x="494" y="52" width="96" height="16" rx="5" fill="#1e293b"/>
+              <text x="542.0" y="64" text-anchor="middle" fill="#e2e8f0" font-size="8.4" font-family="Source Sans 3, sans-serif">few-shot prompt</text>
+              <rect x="494" y="74" width="96" height="16" rx="5" fill="#1e293b"/>
+              <text x="542.0" y="86" text-anchor="middle" fill="#e2e8f0" font-size="8.4" font-family="Source Sans 3, sans-serif">RAG for facts</text>
+              <rect x="494" y="96" width="96" height="16" rx="5" fill="#b45309"/>
+              <text x="542.0" y="108" text-anchor="middle" fill="#fff" font-size="8.4" font-family="Source Sans 3, sans-serif">LoRA / QLoRA</text>
+              <rect x="494" y="118" width="96" height="16" rx="5" fill="#1e293b"/>
+              <text x="542.0" y="130" text-anchor="middle" fill="#e2e8f0" font-size="8.4" font-family="Source Sans 3, sans-serif">DPO / RLHF</text>
+              <rect x="494" y="140" width="96" height="16" rx="5" fill="#1e293b"/>
+              <text x="542.0" y="152" text-anchor="middle" fill="#e2e8f0" font-size="8.4" font-family="Source Sans 3, sans-serif">full fine-tune</text>
+              <text x="270" y="198" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">freeze the trillion-learned skills; train a tiny, swappable delta</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 22.1 — Often under 1% of weights move; one base model can host many cheap adapters.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Choose the cheapest adapter that hits the metric. Fine-tune for style and format; retrieve for facts. Quantisation (INT8/4) is how 7B models fit on a laptop GPU.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>LoRA = low-rank update.</li><li>DPO ≈ RLHF without a separate PPO loop.</li><li>Eval set ≠ the tweet demo.</li><li>RAG vs FT: freshness vs behaviour.</li></ul></div>
                     <div class="diagram">

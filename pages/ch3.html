@@ -192,6 +192,40 @@
             <li><strong>Reinforcement</strong> — learn from rewards by acting in an environment.</li>
           </ul>
 
+          <div class="diagram">
+            <svg viewBox="0 0 640 232" width="640" height="232" role="img" aria-label="Capability ladder - four textbook classes">
+              <defs><marker id="arr3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="212" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Capability ladder — four textbook classes</text>
+              <rect x="60" y="150" width="130" height="56" rx="8" fill="#1e293b"/>
+              <text x="125.0" y="182.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Reactive</text>
+              <text x="125" y="186" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">rules, no memory</text>
+              <text x="125" y="199" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">spam filter</text>
+              <rect x="200" y="122" width="130" height="56" rx="8" fill="#1e293b"/>
+              <text x="265.0" y="154.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Limited memory</text>
+              <text x="265" y="158" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">uses recent data</text>
+              <text x="265" y="171" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">self-driving car</text>
+              <rect x="340" y="94" width="130" height="56" rx="8" fill="#1e293b"/>
+              <text x="405.0" y="126.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Theory of mind</text>
+              <text x="405" y="130" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">models others' beliefs</text>
+              <text x="405" y="143" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">research</text>
+              <rect x="480" y="66" width="130" height="56" rx="8" fill="#0c1b2e"/>
+              <text x="545.0" y="98.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Self-aware</text>
+              <text x="545" y="102" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">hypothetical</text>
+              <text x="545" y="115" text-anchor="middle" fill="#94a3b8" font-size="9.8" font-family="Source Sans 3, sans-serif">not built yet</text>
+              <line x1="190" y1="165" x2="200" y2="148" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg3)"/>
+              <line x1="330" y1="137" x2="340" y2="120" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg3)"/>
+              <line x1="470" y1="109" x2="480" y2="92" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg3)"/>
+              <text x="125" y="56" text-anchor="middle" fill="#5eead4" font-size="10.5" font-weight="700" font-family="Source Sans 3, sans-serif">ANI - narrow, shipped everywhere</text>
+              <text x="470" y="56" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-weight="700" font-family="Source Sans 3, sans-serif">AGI / ASI - open research</text>
+<line x1="40" y1="218" x2="330" y2="218" stroke="#334155"/><line x1="340" y1="218" x2="600" y2="218" stroke="#334155" stroke-dasharray="5 4"/>
+
+            </svg>
+            <div class="diagram-title">Diagram 3.1 — Every product today sits on the first two steps; the top two are goals, not features.</div>
+          </div>
           <div class="note">
             <h4>Short notes</h4>
             <p>Everything you use is ANI. AGI/ASI are capability levels, not brands. Most ML systems are “limited memory”: they use training data and a short context, not lifelong autobiographical memory. Do not confuse a wide skill surface (an LLM) with general autonomous intelligence.</p>

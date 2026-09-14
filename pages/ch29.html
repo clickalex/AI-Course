@@ -192,6 +192,42 @@
             <h4>Reading a systems paper critically</h4>
             <p>Roofline it: arithmetic intensity is FLOPs per byte moved — is the kernel compute-bound or memory-bandwidth-bound? Report MFU (model FLOPs utilisation), batch size, sequence length and hardware; otherwise speedups do not transfer. For compression methods, demand the quality cost — perplexity delta, accuracy delta, MMLU/downstream regression — because a 4-bit model that quietly loses reasoning is not a saving.</p>
           </div>
+          <div class="diagram">
+            <svg viewBox="0 0 640 206" width="640" height="206" role="img" aria-label="From trained weights to tokens per second">
+              <defs><marker id="arr29" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg29" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="186" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">From trained weights to tokens per second</text>
+              <rect x="24" y="56" width="104" height="54" rx="8" fill="#115e59"/>
+              <text x="76.0" y="87.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">FP16 base</text>
+              <line x1="128" y1="83" x2="146" y2="83" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr29)"/>
+              <rect x="146" y="56" width="104" height="54" rx="8" fill="#115e59"/>
+              <text x="198.0" y="79.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">Quantize</text>
+              <text x="198.0" y="95.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">INT4/INT8</text>
+              <line x1="252" y1="83" x2="270" y2="83" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr29)"/>
+              <rect x="268" y="56" width="104" height="54" rx="8" fill="#1e293b"/>
+              <text x="320.0" y="79.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">Prune</text>
+              <text x="320.0" y="95.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">drop weights</text>
+              <line x1="376" y1="83" x2="394" y2="83" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr29)"/>
+              <rect x="390" y="56" width="104" height="54" rx="8" fill="#1e293b"/>
+              <text x="442.0" y="79.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">Distill</text>
+              <text x="442.0" y="95.0" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="Source Sans 3, sans-serif">small student</text>
+              <line x1="500" y1="83" x2="518" y2="83" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr29)"/>
+              <rect x="512" y="56" width="104" height="54" rx="8" fill="#b45309"/>
+              <text x="564.0" y="79.0" text-anchor="middle" fill="#fff" font-size="10" font-family="Source Sans 3, sans-serif">KV-cache +</text>
+              <text x="564.0" y="95.0" text-anchor="middle" fill="#fff" font-size="10" font-family="Source Sans 3, sans-serif">continuous batch</text>
+              <text x="320" y="132" text-anchor="middle" fill="#94a3b8" font-size="11.5" font-weight="700" font-family="Source Sans 3, sans-serif">GPU memory budget per replica</text>
+<rect x="80" y="142" width="120" height="26" fill="#b45309"/><rect x="200" y="142" width="180" height="26" fill="#115e59"/><rect x="380" y="142" width="180" height="26" fill="#334155"/>
+              <text x="140" y="159" text-anchor="middle" fill="#fff" font-size="10.5" font-family="Source Sans 3, sans-serif">weights</text>
+              <text x="290" y="159" text-anchor="middle" fill="#fff" font-size="10.5" font-family="Source Sans 3, sans-serif">KV-cache x concurrency</text>
+              <text x="470" y="159" text-anchor="middle" fill="#e2e8f0" font-size="10.5" font-family="Source Sans 3, sans-serif">activations / overhead</text>
+              <text x="320" y="192" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">decode is often memory-bandwidth bound: shrink what moves, batch the rest</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 29.1 — Quantisation, pruning and distillation shrink the model; serving tricks multiply throughput.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Systems convert algorithms into tokens/sec and joules. Research converts questions into controlled evidence. Both are part of “PhD-level AI,” not optional DLC.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Matmul + bandwidth.</li><li>MoE: sparse experts.</li><li>Ablations &gt; extra adjectives.</li><li>Report compute.</li></ul></div>
                     <div class="diagram">

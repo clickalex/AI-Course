@@ -27,6 +27,34 @@
             <tr><td>Perception plus physical control</td><td>Imitation learning + MPC</td><td>RL with a world model, sim-to-real</td></tr>
           </tbody></table>
           <p><strong>The AutoML loop</strong> formalises model selection: define the search space (features, algorithms, hyperparameters), choose the optimiser (random search, Bayesian optimisation, evolutionary, or NAS like DARTS), set a compute budget and the metric, prune bad trials early, and promote the winner from held-out validation with a reproducible, locked pipeline — before any production A/B test.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 640 216" width="640" height="216" role="img" aria-label="Graph neural networks - message passing">
+              <defs><marker id="arr26" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg26" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="196" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Graph neural networks — message passing</text>
+<line x1="190" y1="70" x2="330" y2="120" stroke="#475569" stroke-width="1.5"/><line x1="190" y1="70" x2="352" y2="128" stroke="#5eead4" stroke-width="1.4" marker-end="url(#arr26)"/>              <circle cx="190" cy="70" r="18" fill="#115e59"/>
+              <text x="190" y="74.5" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">hⱼ</text>
+<line x1="210" y1="170" x2="330" y2="120" stroke="#475569" stroke-width="1.5"/><line x1="210" y1="170" x2="349" y2="112" stroke="#5eead4" stroke-width="1.4" marker-end="url(#arr26)"/>              <circle cx="210" cy="170" r="18" fill="#115e59"/>
+              <text x="210" y="174.5" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">hⱼ</text>
+<line x1="330" y1="50" x2="330" y2="120" stroke="#475569" stroke-width="1.5"/><line x1="330" y1="50" x2="330" y2="131" stroke="#5eead4" stroke-width="1.4" marker-end="url(#arr26)"/>              <circle cx="330" cy="50" r="18" fill="#115e59"/>
+              <text x="330" y="54.5" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">hⱼ</text>
+<line x1="455" y1="70" x2="330" y2="120" stroke="#475569" stroke-width="1.5"/><line x1="455" y1="70" x2="310" y2="128" stroke="#5eead4" stroke-width="1.4" marker-end="url(#arr26)"/>              <circle cx="455" cy="70" r="18" fill="#115e59"/>
+              <text x="455" y="74.5" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">hⱼ</text>
+<line x1="455" y1="170" x2="330" y2="120" stroke="#475569" stroke-width="1.5"/><line x1="455" y1="170" x2="310" y2="112" stroke="#5eead4" stroke-width="1.4" marker-end="url(#arr26)"/>              <circle cx="455" cy="170" r="18" fill="#115e59"/>
+              <text x="455" y="174.5" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">hⱼ</text>
+              <circle cx="330" cy="120" r="28" fill="#b45309"/>
+              <text x="330" y="118.5" text-anchor="middle" fill="#fff" font-size="10" font-family="Source Sans 3, sans-serif">AGG +</text>
+              <text x="330" y="130.5" text-anchor="middle" fill="#fff" font-size="10" font-family="Source Sans 3, sans-serif">update</text>
+              <text x="92" y="66" text-anchor="start" fill="#5eead4" font-size="11" font-weight="700" font-family="Source Sans 3, sans-serif">hᵢ ← σ(W · Σⱼ m(hᵢ, hⱼ, eᵢⱼ))</text>
+              <text x="560" y="202" text-anchor="end" fill="#94a3b8" font-size="10.2" font-family="Source Sans 3, sans-serif">stacked layers = multi-hop reasoning; too deep -> over-smoothing</text>
+              <text x="80" y="202" text-anchor="start" fill="#94a3b8" font-size="10.2" font-family="Source Sans 3, sans-serif">molecules, fraud rings, knowledge graphs</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 26.1 — Every layer, each node aggregates its neighbours; depth equals hops of reasoning.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Match structure of data (graph, sequence, 3-D body) to the model class. Always try a simple baseline. Robotics is systems engineering plus ML, not just a net.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>GNN = message passing.</li><li>Time series: chronological split.</li><li>GA: mutate a population.</li><li>Sim-to-real is the robotics tax.</li></ul></div>
                     <div class="diagram">

@@ -31,6 +31,35 @@
             <h4>Why SAT/SMT solvers quietly run industry</h4>
             <p>Chip verification, route scheduling, rostering and configuration validation compile constraints into SAT/SMT instances; modern CDCL solvers handle millions of clauses and give unsatisfiable cores that explain failures. When an LLM generates a config or query, a solver or schema checker verifying feasibility is neuro-symbolic engineering — language proposes, logic disposes.</p>
           </div>
+          <div class="diagram">
+            <svg viewBox="0 0 640 212" width="640" height="212" role="img" aria-label="Anatomy of a STRIPS / PDDL action">
+              <defs><marker id="arr18" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg18" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="192" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Anatomy of a STRIPS / PDDL action</text>
+              <rect x="36" y="70" width="150" height="96" rx="8" fill="#115e59"/>
+              <text x="111.0" y="122.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif"></text>
+              <text x="111" y="92" text-anchor="middle" fill="#5eead4" font-size="12.5" font-weight="700" font-family="Source Sans 3, sans-serif">Preconditions</text>
+              <text x="111" y="116" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">At(robot, kitchen)</text>
+              <text x="111" y="134" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="Source Sans 3, sans-serif">Connected(kitchen, hall)</text>
+              <text x="111" y="152" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">all must hold first</text>
+              <rect x="246" y="84" width="148" height="68" rx="8" fill="#b45309"/>
+              <text x="320.0" y="114.0" text-anchor="middle" fill="#fff" font-size="12.5" font-family="Source Sans 3, sans-serif">Action</text>
+              <text x="320.0" y="130.0" text-anchor="middle" fill="#fff" font-size="12.5" font-family="Source Sans 3, sans-serif">Go(kitchen, hall)</text>
+              <line x1="186" y1="118" x2="246" y2="118" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr18)"/>
+              <rect x="454" y="60" width="150" height="50" rx="8" fill="#064e3b"/>
+              <text x="529.0" y="89.0" text-anchor="middle" fill="#a7f3d0" font-size="11" font-family="Source Sans 3, sans-serif">ADD: At(robot, hall)</text>
+              <rect x="454" y="126" width="150" height="50" rx="8" fill="#7f1d1d"/>
+              <text x="529.0" y="155.0" text-anchor="middle" fill="#fecaca" font-size="11" font-family="Source Sans 3, sans-serif">DELETE: At(robot, kitchen)</text>
+              <line x1="394" y1="110" x2="454" y2="86" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg18)"/>
+              <line x1="394" y1="128" x2="454" y2="150" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg18)"/>
+              <text x="320" y="198" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">listing only changed facts sidesteps the frame problem; planners chain operators to the goal</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 18.1 — Preconditions gate the action; add/delete lists state exactly what changes.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Logic gives sound conclusions from written knowledge. Planning is search with structured actions. CSPs are the practical core of scheduling. Combine with learning when knowledge is incomplete.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>KB + inference = expert system.</li><li>FOL &gt; propositional in expressivity, harder computationally.</li><li>STRIPS action = pre / add / delete.</li><li>CSP: assign without violating constraints.</li></ul></div>
                     <div class="diagram">
