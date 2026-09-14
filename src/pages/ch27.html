@@ -8,6 +8,29 @@
           <p><strong>PAC learning</strong>: with high probability, empirical risk close to true risk, given enough samples vs hypothesis class complexity. <strong>VC dimension</strong> measures how many points a class can shatter. Uniform convergence + concentration inequalities (Hoeffding) are the machinery.</p>
           <p>Deep nets have huge VC-dimension yet generalise. Research: implicit bias of SGD, double descent, grokking, interpolation, NTK, scaling laws (loss vs compute). Nonconvex optimisation: we don’t get global minima guarantees; we get empirics + some landscape results.</p>
           <p>Information theory: cross-entropy is KL to the data distribution; bits-back, rate-distortion for compression/generative models.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 640 208" width="640" height="208" role="img" aria-label="Double descent - why huge nets still generalise">
+              <defs><marker id="arr27" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg27" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="188" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Double descent — why huge nets still generalise</text>
+              <line x1="60" y1="182" x2="580" y2="182" stroke="#94a3b8"/>
+              <line x1="60" y1="70" x2="60" y2="182" stroke="#94a3b8"/>
+              <path d="M60 152 L120 124 L180 112 L210 140 L235 88 L270 102 L320 150 L400 168 L490 174 L580 176" fill="none" stroke="#5eead4" stroke-width="2.4"/>
+              <line x1="235" y1="70" x2="235" y2="182" stroke="#fbbf24" stroke-dasharray="5 4"/>
+              <text x="235" y="64" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-family="Source Sans 3, sans-serif">interpolation threshold</text>
+              <text x="70" y="82" text-anchor="start" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">test error</text>
+              <text x="580" y="200" text-anchor="end" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">model size / train time -></text>
+              <text x="130" y="98" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Source Sans 3, sans-serif">classical U-curve</text>
+              <text x="390" y="158" text-anchor="middle" fill="#5eead4" font-size="10.5" font-family="Source Sans 3, sans-serif">second descent:</text>
+              <text x="390" y="172" text-anchor="middle" fill="#5eead4" font-size="10.5" font-family="Source Sans 3, sans-serif">over-parameterised nets</text>
+              <text x="390" y="186" text-anchor="middle" fill="#5eead4" font-size="10.5" font-family="Source Sans 3, sans-serif">generalise again</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 27.1 — Classical theory predicts the peak at zero training error; the valley beyond was the surprise.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Classical bounds: complexity ↓ or n ↑ ⇒ generalisation. Deep learning broke the “must underfit to generalise” slogan (double descent). PhD work is: explain that, or exploit it (scaling, distillation, implicit regularisation).</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>PAC: probably approximately correct.</li><li>VC: capacity of a hypothesis class.</li><li>Double descent: overparameterised models can generalise.</li><li>Scaling laws: predictable loss vs compute.</li></ul></div>
                     <div class="diagram">
@@ -20,7 +43,7 @@
             </svg>
             <div class="diagram-title">Snapshot 27.1 — Theory promised ≤0.19; reality delivered 0.11. Trust, verify.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c"><p class="q">1. VC dimension is a measure of:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. GPU temperature</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. BLEU</button>
@@ -39,11 +62,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. ImageNet to BM25</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Loss to compute, data size, and parameters in a smooth power law</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Kaplan/Hoffmann-style results.</div></div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">4. The bias–variance decomposition writes expected squared error approximately as:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Bias² + variance + irreducible noise</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Learning rate × batch size</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Precision + recall + F1</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Depth × width × channels</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Bias = systematic underfit; variance = sensitivity to the training sample; noise is the data's ceiling.</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">5. Hoeffding's inequality is used in learning theory to bound:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. The GPU's clock drift</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. How many clusters k-means will find</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The probability that a sample mean deviates far from the true mean — the concentration step behind PAC bounds</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The size of the attention matrix</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">With n samples, deviations shrink exponentially in n·ε² — the bridge from empirical to true risk.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch27')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c27p1"><p class="q">P1. Why don’t huge VC bounds “prove” that GPT-class models cannot generalise?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>The bounds are worst-case over all hypotheses in a giant class. SGD + data structure + implicit bias pick a tiny subset. Vacuous bounds ≠ no generalisation. Research seeks tighter, algorithm-dependent bounds.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c27p2">
+              <p class="q">P2. Give a high-bias and a high-variance model and explain how ensembles attack each error type.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>High bias: a rigid linear model on a genuinely nonlinear problem underfits and errs systematically. High variance: an unregularised deep decision tree (or over-parameterised net on tiny data) swings wildly across training samples. Bagging (random forests) averages low-bias, high-variance learners trained on bootstrap samples to reduce variance; boosting sequentially fits residuals to drive bias down while shrinkage/depth control variance; more data and regularisation help both.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c27p3">
+              <p class="q">P3. A 100M-parameter net reaches zero training error yet only 12% test error on 5,000 examples. Classical theory predicts disaster; give two reasons it may generalise and two checks to run.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Reasons: SGD's implicit bias plus architectural inductive biases (convolutions, attention) select simple interpolating solutions, and over-parameterised models exhibit double descent — test error can fall again past the interpolation threshold; the task may also be easy/redundant. Checks: leakage-free held-out (and grouped/cross-subject) validation with multiple seeds and confidence intervals, learning curves versus data size and parameter count, strong simple baselines for comparison, and audit of augmentation/preprocessing contamination. Zero train error is not itself evidence against generalisation.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch26">← Graphs & robotics</button>
             <button data-go="ch28">XAI & alignment →</button>

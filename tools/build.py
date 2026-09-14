@@ -2,7 +2,7 @@
 """Build the static site: src/pages/<id>.html + templates -> index.html + pages/<id>.html.
 
 Usage:  python3 tools/build.py   (run from repo root)
-Single sources of truth: PAGES + TITLES in js/app.js, sidebar in src/_sidebar.html.
+Single sources of truth: PAGES + TITLES in js/app.js, sidebar in src/templates/_sidebar.html.
 Output: index.html (cover, at root for Pages) + pages/<id>.html for every other
 page. Sub-pages get "../"-prefixed asset paths so the site works on any host
 (local file://, localhost, or a Pages project subpath). All output committed.
@@ -19,10 +19,11 @@ PAGES = [p.strip() for p in
          .replace('"', '').replace('\n', '').split(',') if p.strip()]
 TITLES = dict(re.findall(r'^  (\w+): "((?:[^"\\]|\\.)*)",?\s*$', app, re.M))
 
-head = (ROOT / "src" / "_head.html").read_text()
-sidebar_tpl = (ROOT / "src" / "_sidebar.html").read_text()
-mainopen = (ROOT / "src" / "_mainopen.html").read_text()
-foot = (ROOT / "src" / "_foot.html").read_text()
+tpl = ROOT / "src" / "templates"
+head = (tpl / "_head.html").read_text()
+sidebar_tpl = (tpl / "_sidebar.html").read_text()
+mainopen = (tpl / "_mainopen.html").read_text()
+foot = (tpl / "_foot.html").read_text()
 
 # sidebar order must equal PAGES
 toc = re.findall(r'toc-item" data-go="([^"]+)"', sidebar_tpl)

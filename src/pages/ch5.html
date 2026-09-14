@@ -5,6 +5,9 @@
           <p class="lede">Python won AI because the libraries are excellent and the syntax stays out of the way. You still need to know what each library is for.</p>
         </div>
         <div class="content">
+          <div class="figure"><img src="images/python-ai.jpg" alt="A glowing ribbon coiled into abstract code brackets" /></div>
+          <p class="caption">Figure 5.1 — Python is the glue between data, the learning loop, and pretrained models.</p>
+
           <h3>The stack</h3>
           <table>
             <thead><tr><th>Library</th><th>Job</th></tr></thead>
@@ -72,6 +75,41 @@ optimizer.step()</code></pre>
             <p>Frameworks do not replace thinking. If you <code>fit</code> on leaked test features or shuffle a time series randomly, sklearn will happily give you a brilliant, meaningless score.</p>
           </div>
 
+          <div class="diagram">
+            <svg viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="Every training run is the same loop">
+              <defs><marker id="arr5" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg5" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="200" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Every training run is the same loop</text>
+              <rect x="36" y="64" width="110" height="48" rx="8" fill="#115e59"/>
+              <text x="91.0" y="84.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Labelled</text>
+              <text x="91.0" y="100.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">data</text>
+              <rect x="196" y="64" width="120" height="48" rx="8" fill="#115e59"/>
+              <text x="256.0" y="84.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Model</text>
+              <text x="256.0" y="100.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">(parameters)</text>
+              <rect x="360" y="64" width="104" height="48" rx="8" fill="#1e293b"/>
+              <text x="412.0" y="84.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Predictions</text>
+              <text x="412.0" y="100.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">ŷ = f(x)</text>
+              <rect x="500" y="64" width="104" height="48" rx="8" fill="#b45309"/>
+              <text x="552.0" y="84.0" text-anchor="middle" fill="#fff" font-size="12.5" font-family="Source Sans 3, sans-serif">Loss</text>
+              <text x="552.0" y="100.0" text-anchor="middle" fill="#fff" font-size="12.5" font-family="Source Sans 3, sans-serif">ŷ vs y</text>
+              <line x1="146" y1="88" x2="196" y2="88" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr5)"/>
+              <line x1="316" y1="88" x2="360" y2="88" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr5)"/>
+              <line x1="464" y1="88" x2="500" y2="88" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr5)"/>
+              <rect x="196" y="150" width="120" height="40" rx="8" fill="#1e293b"/>
+              <text x="256.0" y="166.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Optimizer</text>
+              <text x="256.0" y="182.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">(SGD / Adam)</text>
+<path d="M552 112 L552 170 L316 170" fill="none" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg5)"/>
+<path d="M256 150 L256 112" fill="none" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arg5)"/>
+              <text x="410" y="166" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-family="Source Sans 3, sans-serif">backpropagation: loss/weight gradients</text>
+              <text x="256" y="140" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="Source Sans 3, sans-serif">update weights</text>
+              <text x="320" y="210" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Source Sans 3, sans-serif">sklearn hides the loop: fit(X_train, y_train) then predict(X_test)</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 5.1 — Data in, predictions out, loss flows backwards, optimizer nudges weights. Repeat.</div>
+          </div>
           <div class="note">
             <h4>Short notes</h4>
             <p>Python + NumPy + Pandas for data; sklearn for classical ML; PyTorch (or Keras) for deep nets; Transformers library for LLMs. The universal sklearn API is fit/predict/transform. PyTorch training loop: forward → loss → zero_grad → backward → step.</p>
@@ -88,7 +126,7 @@ optimizer.step()</code></pre>
           </div>
 
           <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c">
               <p class="q">1. The sklearn methods used to train and then label new rows are:</p>
               <div class="opts">
@@ -133,6 +171,17 @@ optimizer.step()</code></pre>
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">NumPy/PyTorch run fast compiled loops internally.</div>
             </div>
+                        <div class="mcq" data-answer="a">
+              <p class="q">5. In PyTorch, calling loss.backward() computes:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Gradients of the loss with respect to tensors that have requires_grad enabled</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. The learning rate schedule</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The test accuracy</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. The tokenizer vocabulary</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Autograd walks the computation graph and fills .grad; optimizer.step() then applies the update.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch5')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -157,6 +206,12 @@ print(accuracy_score(yte, clf.predict(Xte)))</code></pre>
               <p class="q">P2. What is the shape of logits if a CNN takes a batch of 16 ImageNet images and has 1000 classes?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p><strong>(16, 1000)</strong> — one score per class per image. Softmax along dim 1 turns them into probabilities.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c5p3">
+              <p class="q">P3. Your GPU runs out of memory on the first training batch. List four independent things to try, in order of ease.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Halve the batch size (or use gradient accumulation to keep the effective batch). (2) Enable mixed precision (bf16/fp16) and use a smaller image resolution/sequence length. (3) Check for accidental tensor expansion or retained computation graph (forgotten .item() in loops, list of tensors with grad). (4) Free stale GPU processes/cache, then consider a smaller model or more aggressive gradient checkpointing.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>

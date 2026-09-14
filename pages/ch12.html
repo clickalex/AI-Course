@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -161,6 +161,9 @@
           <p class="lede">Computers see text as discrete tokens. NLP is the art of turning those tokens into meaning-shaped vectors — and back into text.</p>
         </div>
         <div class="content">
+          <div class="figure"><img src="../images/nlp.jpg" alt="Glowing word tokens linked by arcs into sequences" /></div>
+          <p class="caption">Figure 12.1 — Language becomes tokens, sequences, and learned meaning vectors.</p>
+
           <h3>The classical pipeline</h3>
           <ol>
             <li><strong>Tokenise</strong> — words, subwords (BPE, WordPiece, SentencePiece). Subwords handle rare words: “unbelievable” → un + believe + able.</li>
@@ -222,7 +225,7 @@
             <div class="diagram-title">Snapshot 12.1 — Words in, integers out. Everything downstream is arithmetic.</div>
           </div>
 <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c">
               <p class="q">1. BPE/WordPiece tokenisation exists mainly to:</p>
               <div class="opts">
@@ -267,6 +270,17 @@
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">RAG reduces closed-book guessing; it does not magically guarantee truth if retrieval is wrong.</div>
             </div>
+                        <div class="mcq" data-answer="d">
+              <p class="q">5. In a Transformer, self-attention lets each token:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Only attend to the previous single token</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Ignore every other token</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Be replaced by a fixed TF–IDF weight</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Gather a weighted mix of all token representations, weights from query–key compatibility</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">softmax(QKᵀ/√d)V is the contextualisation step that replaced fixed-order recurrence.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch12')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -283,6 +297,12 @@
               <p class="q">P2. Why is BLEU a weak standalone metric for chatbot quality?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>BLEU counts n-gram overlap with reference text. Many correct answers share few n-grams (“Sure, here’s how…” vs “You can fix this by…”). Chat needs helpfulness, safety, and factuality — human or LLM-as-judge rubrics, plus task success, beat BLEU.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c12p3">
+              <p class="q">P3. For the “urgent support ticket” classifier, what evidence would make you switch from TF–IDF + linear model to a fine-tuned pretrained transformer?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Thousands+ of labelled tickets, subtle cues (negation, sarcasm, multilingual/code-switched text), nonlinear context across sentences, and headroom on latency/hosting. Stay with TF–IDF+linear when data is small, labels noisy, latency budget is tight, or you need easy attribution — it is a strong, cheap baseline and may win. Run both on the same split; the confusion matrix on the minority urgent class decides.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>

@@ -3,6 +3,9 @@
           <h2>Recommenders, search &amp; knowledge graphs</h2>
           <p class="lede">Most of the internet’s ML is ranking: what to show next, which document answers the query, which entity is this.</p></div>
         <div class="content">
+          <div class="figure"><img src="images/recsys-kg.jpg" alt="A knowledge-graph constellation with one highlighted golden item" /></div>
+          <p class="caption">Figure 20.1 — Ranking over a graph of users, items and entities.</p>
+
           <ul>
             <li><strong>Collaborative filtering</strong> — users who liked X liked Y (matrix factorisation, implicit ALS).</li>
             <li><strong>Content-based</strong> — item features.</li>
@@ -11,6 +14,42 @@
             <li><strong>Knowledge graphs</strong> — (head, relation, tail) triples; entity linking; GraphRAG.</li>
           </ul>
           <p>Metrics: recall@k, nDCG, MRR, calibration of slates, diversity, and “did we amplify harm?”</p>
+          <h3>The industrial retrieve–rank stack</h3>
+          <table><thead><tr><th>Stage</th><th>Job</th><th>Typical tools</th><th>Scale / latency</th></tr></thead><tbody>
+            <tr><td>Candidate generation</td><td>Billions → hundreds</td><td>ANN over embeddings (HNSW/FAISS), BM25, implicit-ALS/two-tower</td><td>Milliseconds, sub-linear index</td></tr>
+            <tr><td>Coarse rank</td><td>Hundreds → dozens</td><td>Gradient-boosted trees or small DNNs on cheap features</td><td>Tens of milliseconds</td></tr>
+            <tr><td>Re-rank</td><td>Dozens → ordered slate</td><td>Cross-encoder Transformer, listwise LLM scoring</td><td>Few items, expensive</td></tr>
+            <tr><td>Business layer</td><td>Diversity, novelty, fairness, rules</td><td>MMR, bandits, constraints, editorial fallback</td><td>Cheap, policy-driven</td></tr>
+          </tbody></table>
+          <div class="warn">
+            <h4>Metric trap: clicks are not unbiased labels</h4>
+            <p>Users can only click what was shown, and they click top positions regardless of relevance (position and exposure bias). Offline nDCG can rise while retention falls. Use inverse-propensity weighting, bandit exploration that gathers data on lower ranks, and online interleaving A/B tests — then optimise satisfaction/retention proxies alongside raw CTR.</p>
+          </div>
+          <div class="diagram">
+            <svg viewBox="0 0 640 216" width="640" height="216" role="img" aria-label="Industrial ranking is a funnel, not one model">
+              <defs><marker id="arr20" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg20" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="196" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Industrial ranking is a funnel, not one model</text>
+              <rect x="20.0" y="50" width="600" height="30" rx="8" fill="#1e293b"/>
+              <text x="320.0" y="69.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">1,000,000 items</text>
+              <text x="320" y="96" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">BM25 + ANN embeddings</text>
+              <rect x="85.0" y="88" width="470" height="30" rx="8" fill="#115e59"/>
+              <text x="320.0" y="107.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">~500 candidates</text>
+              <text x="320" y="134" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">coarse rank</text>
+              <rect x="155.0" y="126" width="330" height="30" rx="8" fill="#115e59"/>
+              <text x="320.0" y="145.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">~50 shortlist</text>
+              <text x="320" y="172" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">cross-encoder rerank</text>
+              <rect x="230.0" y="164" width="180" height="30" rx="8" fill="#b45309"/>
+              <text x="320.0" y="183.0" text-anchor="middle" fill="#fff" font-size="11.5" font-family="Source Sans 3, sans-serif">top 5 slate</text>
+              <text x="320" y="210" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Source Sans 3, sans-serif">diversity, fairness, rules</text>
+              <text x="320" y="204" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">cheap math at the wide top, expensive intelligence on the few survivors - the RAG pattern too</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 20.1 — Retrieve millions cheaply; spend the cross-encoder budget only on the shortlist.</div>
+          </div>
           <div class="note"><h4>Short notes</h4><p>Recommenders predict preference; search predicts relevance. Both are ranking. Knowledge graphs give a symbolic spine for RAG so the generator is not the only memory.</p></div>
           <div class="points"><h4>Point notes</h4><ul><li>Retrieve cheaply, rerank expensively.</li><li>BM25 still wins more often than slides admit.</li><li>Feedback loops: popular items get more popular.</li><li>nDCG for ranking quality.</li></ul></div>
                     <div class="diagram">
@@ -28,7 +67,7 @@
             </svg>
             <div class="diagram-title">Snapshot 20.1 — Your taste as a vector, books as vectors, dot products decide.</div>
           </div>
-<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">3</span></div>
+<div class="quiz-block"><div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b"><p class="q">1. Matrix factorisation in recommenders learns:</p><div class="opts">
               <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Convolution filters on pixels</button>
               <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Latent vectors for users and items whose product approximates preference</button>
@@ -47,11 +86,48 @@
               <button class="opt" data-opt="c" onclick="selectOpt(this)">C. (epoch, batch, lr)</button>
               <button class="opt" data-opt="d" onclick="selectOpt(this)">D. (TP, FP, FN)</button>
             </div><div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div><div class="explain">Delhi — capital_of → India.</div></div>
+                        <div class="mcq" data-answer="b">
+              <p class="q">4. The cold-start problem in recommenders is:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Servers overheating on the first day of winter</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. New users or items having little or no interaction history for collaborative filtering</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. The first epoch running slowly</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. BM25 ignoring stopwords</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Mitigations: content features, onboarding surveys, popularity fallbacks, explore traffic.</div>
+            </div>
+
+            <div class="mcq" data-answer="c">
+              <p class="q">5. nDCG measures:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. How cold the servers are</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Cluster separation</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Ranking quality with graded relevance, discounting hits that appear lower in the list</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Speech recognition word errors</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">DCG sums graded relevance with a log-position discount; nDCG normalises by the ideal ordering.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch20')">Grade this chapter</button><div class="chapter-score"></div></div>
           <div class="practice-block"><div class="practice" data-pid="c20p1"><p class="q">P1. Why can a recommender that maximises clicks harm users?</p>
             <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
             <div class="answer"><p>Clicks ≠ long-term value. Outrage and addiction click well. Feedback loops narrow the slate. Need delayed metrics, diversity constraints, and human values in the objective — not raw CTR.</p></div>
-            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div></div>
+            <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div></div>
+            <div class="practice" data-pid="c20p2">
+              <p class="q">P2. Design a recommender for a grocery app that launched this week and has almost no interaction data.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Start content/popularity-based: category and cuisine tags, basket co-occurrence rules, regional best-sellers and an onboarding taste quiz; explicitly explore to collect interactions. As logs grow, add matrix factorisation/two-tower embeddings with a retrieve-then-rerank stack, mixing collaborative and content scores to keep new items covered (cold-start). Always keep a trending/editorial fallback and measure satisfaction/retention, not only clicks.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+
+            <div class="practice" data-pid="c20p3">
+              <p class="q">P3. Why is industrial retrieval split into a cheap retrieve stage and an expensive rerank stage? Give the latency intuition.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Millions of items cannot each be scored by a heavy cross-encoder against the query in tens of milliseconds. Stage 1 uses cheap BM25 and/or ANN dense-vector search to pull a few hundred candidates (sub-linear index lookup, ~ms); stage 2 applies an expensive cross-encoder or gradient-boosted ranker with full query–item interaction to that small candidate set for precision. The same retrieve–rerank pattern powers RAG systems.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+          </div>
           <div class="nav-row">
             <button class="ghost" data-go="ch19">← Bayesian & causal</button>
             <button data-go="ch10">Chapter 10 →</button>

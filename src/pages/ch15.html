@@ -41,6 +41,28 @@
             <p>A cleaning robot maximising “dirt collected” may knock over a plant to create more dirt. Specify the reward, constraints, and oversight as seriously as the algorithm.</p>
           </div>
 
+          <div class="diagram">
+            <svg viewBox="0 0 640 210" width="640" height="210" role="img" aria-label="Reinforcement learning - the perception-action loop">
+              <defs><marker id="arr15" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg15" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="190" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">Reinforcement learning — the perception-action loop</text>
+              <rect x="56" y="70" width="170" height="90" rx="8" fill="#115e59"/>
+              <text x="141.0" y="111.0" text-anchor="middle" fill="#e2e8f0" font-size="13.5" font-family="Source Sans 3, sans-serif">Agent</text>
+              <text x="141.0" y="127.0" text-anchor="middle" fill="#e2e8f0" font-size="13.5" font-family="Source Sans 3, sans-serif">policy π(a|s)</text>
+              <rect x="414" y="70" width="170" height="90" rx="8" fill="#b45309"/>
+              <text x="499.0" y="119.0" text-anchor="middle" fill="#fff" font-size="13.5" font-family="Source Sans 3, sans-serif">Environment</text>
+<path d="M226 92 L414 92" stroke="#fbbf24" stroke-width="2" marker-end="url(#arg15)"/>
+<path d="M414 138 L226 138" stroke="#5eead4" stroke-width="2" marker-end="url(#arr15)"/>
+              <text x="320" y="82" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700" font-family="Source Sans 3, sans-serif">action aₜ</text>
+              <text x="320" y="130" text-anchor="middle" fill="#5eead4" font-size="12" font-weight="700" font-family="Source Sans 3, sans-serif">state sₜ₊₁ , reward rₜ₊₁</text>
+              <text x="320" y="192" text-anchor="middle" fill="#94a3b8" font-size="11.5" font-family="Source Sans 3, sans-serif">learn the policy maximising expected discounted return  Σ γᵗ rₜ</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 15.1 — No labelled answers: the agent learns from consequences, with γ controlling patience.</div>
+          </div>
           <div class="note">
             <h4>Short notes</h4>
             <p>RL = learn a policy from reward in an MDP. Q-learning estimates action values; policy gradients move π uphill on expected return. Discounting trades now vs later. Exploration is mandatory. Reward design is the real art — and the real safety problem. RLHF is RL on language-model policies with a learned reward model.</p>
@@ -72,7 +94,7 @@
             <div class="diagram-title">Snapshot 15.1 — From flailing (-42) to mastery (+96): epsilon does the growing.</div>
           </div>
 <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="b">
               <p class="q">1. In RL, the policy is:</p>
               <div class="opts">
@@ -117,6 +139,17 @@
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">Preference data → reward model or DPO pairs → policy update.</div>
             </div>
+                        <div class="mcq" data-answer="c">
+              <p class="q">5. The exploration–exploitation trade-off says:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Explore always, rewards do not matter</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Exploit always; trying new actions is irrational</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Gathering information can cost immediate reward but improve future decisions</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Exploration only matters in supervised learning</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">ε-greedy, UCB and Thompson sampling are different answers to that trade-off.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch15')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -133,6 +166,12 @@
               <p class="q">P2. When would you not use RL and just use supervised learning instead?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>When you already have correct actions/labels and no sequential credit-assignment problem: spam vs ham, image class, next-token if you just want imitation. RL’s sample inefficiency and reward design cost are wasted if a dataset of x→y exists. Use RL when you must try actions, wait, and optimise long-run return.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c15p3">
+              <p class="q">P3. Why is a news-feed “more like this” button often modelled as a contextual bandit rather than full RL?</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>Each impression is essentially one action with quick, observable reward (click/dwell), the user context is known, and there is no long-horizon state transition worth bootstrapping — so the bandit captures the explore/exploit problem far more cheaply and safely with off-policy logged data. Full RL (or session/long-term reward modelling) is reserved for sequential decisions with delayed effects, such as multi-step games, robotics or lifetime engagement objectives.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>

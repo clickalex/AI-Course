@@ -97,9 +97,9 @@
       <button class="toc-item" data-go="ch46"><span class="toc-num">A4</span> Transformers lab</button>
       <button class="toc-item" data-go="ch67"><span class="toc-num">A5</span> DSA I: Big-O & hashing</button>
       <button class="toc-item" data-go="ch68"><span class="toc-num">A6</span> DSA II: trees, graphs, DP</button>
-      <button class="toc-item" data-go="ch69"><span class="toc-num">A7</span> Serve & demo your model</button>
-      <button class="toc-item" data-go="ch70"><span class="toc-num">A8</span> Terminal survival</button>
-      <button class="toc-item" data-go="ch73"><span class="toc-num">A9</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch73"><span class="toc-num">A7</span> DSA III: heaps, tries</button>
+      <button class="toc-item" data-go="ch69"><span class="toc-num">A8</span> Serve & demo your model</button>
+      <button class="toc-item" data-go="ch70"><span class="toc-num">A9</span> Terminal survival</button>
       <button class="toc-item" data-go="ch74"><span class="toc-num">A10</span> Kubernetes for ML</button>
 
       <div class="toc-group">Frontier · GenAI</div>
@@ -161,6 +161,9 @@
           <p class="lede">A model that only works in a notebook is a demo. A model that hurts people at scale is a failure — even if the loss went down.</p>
         </div>
         <div class="content">
+          <div class="figure"><img src="../images/ethics-ai.jpg" alt="A balanced scale holding a neural node and a shield" /></div>
+          <p class="caption">Figure 16.1 — Capability without responsibility is a liability.</p>
+
           <h3>Responsible AI, without slogans</h3>
           <ul>
             <li><strong>Bias &amp; fairness</strong> — training data reflects history. Face systems that fail on darker skin, hiring models that proxy gender via hobby words. Measure subgroup error, not just average accuracy. Fairness has multiple incompatible definitions; pick one that matches the harm.</li>
@@ -196,6 +199,41 @@
           </table>
           <p>Portfolios that hire: public repos with README, data notes, metrics, and what you would do next. Certificates without projects do not.</p>
 
+          <div class="diagram">
+            <svg viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="MLOps - keeping a model alive after launch">
+              <defs><marker id="arr16" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#5eead4"/></marker>
+                <marker id="arg16" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L7,3 L0,6 Z" fill="#fbbf24"/></marker></defs>
+              <rect x="10" y="10" width="620" height="200" rx="12" fill="#0f172a" stroke="#334155"/>
+              <text x="28" y="36" fill="#5eead4" font-size="13" font-weight="700" font-family="Source Sans 3, sans-serif">MLOps — keeping a model alive after launch</text>
+              <rect x="40" y="58" width="140" height="40" rx="8" fill="#115e59"/>
+              <text x="110.0" y="82.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Data + features</text>
+              <rect x="180" y="58" width="140" height="40" rx="8" fill="#115e59"/>
+              <text x="250.0" y="82.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Train / tune</text>
+              <rect x="320" y="58" width="140" height="40" rx="8" fill="#115e59"/>
+              <text x="390.0" y="82.0" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-family="Source Sans 3, sans-serif">Validate + slices</text>
+              <rect x="460" y="58" width="140" height="40" rx="8" fill="#b45309"/>
+              <text x="530.0" y="82.0" text-anchor="middle" fill="#fff" font-size="11.5" font-family="Source Sans 3, sans-serif">Canary deploy</text>
+              <line x1="160" y1="78" x2="180" y2="78" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr16)"/>
+              <line x1="300" y1="78" x2="320" y2="78" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr16)"/>
+              <line x1="440" y1="78" x2="460" y2="78" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr16)"/>
+              <rect x="460" y="140" width="140" height="40" rx="8" fill="#1e293b"/>
+              <text x="530.0" y="164.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Monitor / drift</text>
+              <rect x="320" y="140" width="140" height="40" rx="8" fill="#1e293b"/>
+              <text x="390.0" y="164.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Alert + root cause</text>
+              <rect x="180" y="140" width="140" height="40" rx="8" fill="#1e293b"/>
+              <text x="250.0" y="164.0" text-anchor="middle" fill="#e2e8f0" font-size="12.5" font-family="Source Sans 3, sans-serif">Retrain decision</text>
+<line x1="530" y1="98" x2="530" y2="140" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr16)"/>
+<line x1="460" y1="160" x2="340" y2="160" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr16)"/>
+<line x1="320" y1="160" x2="200" y2="160" stroke="#5eead4" stroke-width="1.8" marker-end="url(#arr16)"/>
+<path d="M180 160 L110 160 L110 78" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arg16)"/>
+              <text x="150" y="132" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Source Sans 3, sans-serif">rollback always ready</text>
+              <text x="320" y="204" text-anchor="middle" fill="#94a3b8" font-size="10.8" font-family="Source Sans 3, sans-serif">version data, code and parameters; a model is a product, not a one-off delivery</text>
+
+            </svg>
+            <div class="diagram-title">Diagram 16.1 — Deployment is one box; the loop monitor -> alert -> retrain is the actual job.</div>
+          </div>
           <div class="note">
             <h4>Short notes</h4>
             <p>Ethics is measurement + governance, not a paragraph in a slide. MLOps is CI for models: version, test, deploy, watch drift, retrain. Careers are built on shipped projects and clear writing. LLMs change the interface; they do not remove the need for data discipline or evaluation.</p>
@@ -222,7 +260,7 @@
             <div class="diagram-title">Snapshot 16.1 — Values compile to checklists. This one correctly says HOLD.</div>
           </div>
 <div class="quiz-block">
-            <div class="quiz-head"><h3>MCQs</h3><span class="badge">4 questions</span></div>
+            <div class="quiz-head"><h3>MCQs</h3><span class="badge">5 questions · scored</span></div>
             <div class="mcq" data-answer="c">
               <p class="q">1. A hiring model with 95% overall accuracy but 40% recall for one demographic is primarily a failure of:</p>
               <div class="opts">
@@ -267,6 +305,17 @@
               <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
               <div class="explain">Hiring managers look for taste and honesty about failure modes.</div>
             </div>
+                        <div class="mcq" data-answer="c">
+              <p class="q">5. A canary release of a new model means:</p>
+              <div class="opts">
+              <button class="opt" data-opt="a" onclick="selectOpt(this)">A. Training it only on Canary Island data</button>
+              <button class="opt" data-opt="b" onclick="selectOpt(this)">B. Releasing it to everyone and monitoring nothing</button>
+              <button class="opt" data-opt="c" onclick="selectOpt(this)">C. Rolling it out to a small slice of traffic and comparing metrics before scaling up</button>
+              <button class="opt" data-opt="d" onclick="selectOpt(this)">D. Replacing the old model without a rollback plan</button>
+              </div>
+              <div class="mcq-actions"><button class="btn" onclick="checkOne(this)">Check</button><span class="score-chip"></span></div>
+              <div class="explain">Canary + shadow mode + automatic rollback are core safe-deployment patterns.</div>
+            </div>
             <button class="btn gold" onclick="checkChapter('ch16')">Grade this chapter</button>
             <div class="chapter-score"></div>
           </div>
@@ -283,6 +332,12 @@
               <p class="q">P2. Your LLM support bot starts citing a policy that was retired last month. What MLOps controls should have caught this?</p>
               <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
               <div class="answer"><p>RAG index freshness (crawl/rebuild on doc change); document version IDs in citations; eval set of questions whose gold answers changed; alerting when retrieved chunk timestamps are stale; a “policy last updated” field; human review queue for legal topics. A frozen prompt plus a rotting corpus is a silent failure.</p></div>
+              <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
+            </div>
+            <div class="practice" data-pid="c16p3">
+              <p class="q">P3. Write a six-point responsible-AI launch checklist for the no-show prediction model.</p>
+              <button class="btn" onclick="revealAnswer(this)">Show model answer</button>
+              <div class="answer"><p>(1) Subgroup error/fairness analysis with a chosen fairness definition; (2) model card + data sheet documenting limitations; (3) drift monitoring for inputs and predictions with alert thresholds; (4) canary/shadow deploy with rollback; (5) human escalation, logging and an appeal path for patients; (6) privacy/consent review and access controls. Add an on-call owner and a scheduled retraining/validation cycle.</p></div>
               <div class="self-mark"><span>Self-mark:</span><button onclick="markPractice(this,'yes')">I got it</button><button onclick="markPractice(this,'no')">Missed it</button></div>
             </div>
           </div>
