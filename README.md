@@ -111,11 +111,13 @@ Then visit the local URL shown by the server.
 
 ```
 index.html      Cover page (built — edit src/pages/cover.html instead)
+404.html        Standalone not-found page (inline styles, works at any URL depth)
 pages/          Built chapter pages, one file per chapter (generated)
-src/pages/      Chapter sources — edit these, then rebuild
-src/_*.html     Shared templates (head, sidebar, main, footer)
+src/pages/      Page sources — edit these, then rebuild
+src/templates/  Shared partials (_head, _sidebar, _mainopen, _foot)
 tools/build.py  Static site generator: python3 tools/build.py
-css/ js/ images/  Theme, runtime + quizzes, illustrations
+tools/archive/  Historical one-off generation scripts (not part of the build)
+css/ js/ images/ favicon.svg  Theme, runtime + quizzes, illustrations
 ```
 
 ## Deploy to GitHub Pages (free static hosting)
