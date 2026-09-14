@@ -19,6 +19,7 @@ Then visit the local URL shown by the server.
 - **245+ practice questions** (225 in chapters + 24 in the interview bank) with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
+- **External courses & books shelf** — hand-picked third-party resources that pair with the book, starting with *Practical Python: Learn Python Basics Step by Step – Python 3* by Edouard Renard (Udemy)
 - **System design walkthroughs** (3 architectures + interview drills)
 - **GATE / UG bank** (20 exam-style MCQs) + **mock interview mode** (timed, self-scored)
 - **Final exam (73 questions: 30 core AI + 9 data + 14 engineering/production/coding + 20 frontier)** with percentage, grade name, and result breakdown
