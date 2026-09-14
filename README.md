@@ -21,7 +21,7 @@ Then visit the local URL shown by the server.
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
 - **System design walkthroughs** (3 architectures + interview drills)
 - **GATE / UG bank** (20 exam-style MCQs) + **mock interview mode** (timed, self-scored)
-- **Final exam (73 questions: 30 core AI + 11 data + 12 eng & production + 20 frontier)** with percentage, grade name, and result breakdown
+- **Final exam (73 questions: 30 core AI + 9 data + 14 engineering/production/coding + 20 frontier)** with percentage, grade name, and result breakdown
 - Progress is saved in the browser (`localStorage`)
 
 ## Chapter map
