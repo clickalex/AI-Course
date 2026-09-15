@@ -15,8 +15,8 @@ Then visit the local URL shown by the server.
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
 - **School chapter** plus **74 numbered chapters** (75 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **475+ MCQs** (385 in chapters + 20 GATE + 73 final exam) with instant check and chapter scoring
-- **245+ practice questions** (225 in chapters + 24 in the interview bank) with model answers and self-marking
+- **480+ MCQs** (390 in chapters + 20 GATE + 73 final exam) with instant check and chapter scoring
+- **250+ practice questions** (227 in chapters + 24 in the interview bank) with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
 - **External courses & books shelf** — hand-picked third-party resources that pair with the book: *Practical Python: Learn Python Basics Step by Step – Python 3* by Edouard Renard and *Machine Learning for Absolute Beginners – Level 1* by Idan Gabrieli (both Udemy)
