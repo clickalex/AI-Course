@@ -15,10 +15,11 @@ Then visit the local URL shown by the server.
 - **Learning paths** (school / data / UG / industry / PhD) and a **complete syllabus**
 - **School chapter** plus **74 numbered chapters** (75 teaching units with school)
 - **Short notes** and **point notes** in every lesson
-- **465+ MCQs** (375 in chapters + 20 GATE + 73 final exam) with instant check and chapter scoring
-- **245+ practice questions** (225 in chapters + 24 in the interview bank) with model answers and self-marking
+- **480+ MCQs** (390 in chapters + 20 GATE + 73 final exam) with instant check and chapter scoring
+- **250+ practice questions** (227 in chapters + 24 in the interview bank) with model answers and self-marking
 - **Datasets playground**: 13 checked SQL/pandas/Excel challenges on built-in tables (works offline)
 - **Cheat-sheet cards** (print 2-up) + **🔊 Listen** buttons on every short-notes box (browser text-to-speech)
+- **External courses & books shelf** — hand-picked third-party resources that pair with the book: *Practical Python: Learn Python Basics Step by Step – Python 3* by Edouard Renard and *Machine Learning for Absolute Beginners – Level 1* by Idan Gabrieli (both Udemy)
 - **System design walkthroughs** (3 architectures + interview drills)
 - **GATE / UG bank** (20 exam-style MCQs) + **mock interview mode** (timed, self-scored)
 - **Final exam (73 questions: 30 core AI + 9 data + 14 engineering/production/coding + 20 frontier)** with percentage, grade name, and result breakdown
@@ -98,6 +99,7 @@ Then visit the local URL shown by the server.
 | ch26 | GNNs, time series, AutoML, evolutionary, robotics | Survey |
 | ch27–29 | Learning theory; XAI / alignment / privacy; systems & research methods | PhD |
 | ch16 | Ethics, MLOps & career | Practice |
+| courses | External courses & books (Practical Python — Renard; ML for Absolute Beginners — Gabrieli) | Resource |
 | notes / exam / results | Revision sheet, glossary, 73-Q exam, grades | Test |
 
 ## How scoring works
